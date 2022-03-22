@@ -14,13 +14,17 @@ public class Table {
 
     public int getNumberOfStudents() {
         int i;
-    for(i = 0; i < NUMBEROFSEATS ; i++)
+        for(i = 0; i < NUMBEROFSEATS ; i++)
             if(students[i] == null) break;
         return i;
     }
 
     public PawnColor getColor() {
         return color;
+    }
+
+    public void setProfessor(boolean value) {
+        this.professor = value;
     }
 
     public boolean hasProfessor() {

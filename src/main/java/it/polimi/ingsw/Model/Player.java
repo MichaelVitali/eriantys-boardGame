@@ -44,7 +44,7 @@ public class Player {
     }
 
     public List<PawnColor> getProfessors(){
-        return this.schoolBoard.getProfessors();
+        return schoolBoard.getProfessors();
     }
 
     public void putTowers(List<Integer> posTowers) {

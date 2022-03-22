@@ -4,9 +4,10 @@ public class Assistant {
     private int cardValue;
     private int motherNatureMoves;
 
+    //manca eccezzione nel caso di valori sbagliati
     public Assistant(int cardValue, int motherNatureMoves) {
-        this.cardValue = cardValue;
-        this.motherNatureMoves = motherNatureMoves;
+        if(cardValue >= 1 && cardValue <= 10) this.cardValue = cardValue;
+        if(motherNatureMoves >= 1 && motherNatureMoves <= 5) this.motherNatureMoves = motherNatureMoves;
     }
 
     public int getCardValue() {

@@ -3,7 +3,7 @@ package it.polimi.ingsw.Model;
 public class Student {
     private PawnColor color;
 
-    Student(PawnColor color) {
+    public Student(PawnColor color) {
         this.color = color;
     }
 
