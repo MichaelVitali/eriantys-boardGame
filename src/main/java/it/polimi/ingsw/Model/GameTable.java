@@ -19,7 +19,10 @@ public class GameTable {
     }
 
     public void addStudentsOnClouds() {}
-    public void addStudentOnIsland(int player, int entranceIndex) {}
+    public void addStudentOnIsland(Student s, int islandIndex) {
+        if(islandIndex >= 0 && islandIndex < islands.size())
+            this.islands.get(islandIndex).addStudents(s);
+    }
     public void changeMotherNaturePosition(int islandIndex) {
         //////valutare come farlo e se mantenere MotherNature
     }
@@ -34,7 +37,10 @@ public class GameTable {
 
     public List<Student> getStudentsOnCloud(int cloudIndex) {
         ///// controllo if(clouds[cloudIndex] == null) throw SomeTypeOfException("This cloud doesn't have students on it");
-        return clouds[cloudIndex].getStudents();
+        if(cloudIndex >= 0 && cloudIndex < clouds.length)
+            return clouds[cloudIndex].getStudents();
+        else
+            return null;
     }
 
     ///// non mi ricordo cosa doveva fare control professor dunque l'ho lasciata così cambiando nome

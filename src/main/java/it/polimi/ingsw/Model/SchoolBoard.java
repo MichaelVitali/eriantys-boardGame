@@ -65,16 +65,26 @@ public class SchoolBoard {
         return professors;
     }
 
-    public Tower removeTower() {
-        return towers.remove(towers.size() - 1);
+    public Tower removeTower(int index) {
+        if(index >= 0 && index < towers.size()) {
+            Tower t = this.towers.get(index);
+            this.towers.remove(index);
+            return t;
+        }else{
+            return null;
+        }
     }
 
     // Ho chiamato giveStudent removeStudentFromEntrance perchè mi sembrava più esplicativo
     public Student removeStudentFromEntrance(int index) {
         // eventuale controllo if(entrance[index] == null) throw new SomeTypeOfException("You're removing a null pointer and not a real student");
-        Student studentToBeRemoved = entrance[index];
-        entrance[index] = null;
-        return studentToBeRemoved;
+        if(index >= 0 && index < entrance.length) {
+            Student studentToBeRemoved = entrance[index];
+            entrance[index] = null;
+            return studentToBeRemoved;
+        }else{
+            return null;
+        }
     }
 
     public int getNumberOfStudentsOnTable(PawnColor tableColor) {
