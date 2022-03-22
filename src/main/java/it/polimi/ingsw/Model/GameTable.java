@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GameTable {
     private int playersNumber;
+    private Player[] players;
     private List<Island> islands;
     private int numberOfClouds;
     private Cloud[] clouds;
@@ -20,6 +21,7 @@ public class GameTable {
     }
 
     public void addStudentsOnClouds() {}
+
     public void addStudentOnIsland(Student s, int islandIndex) {
         if(islandIndex >= 0 && islandIndex < islands.size())
             this.islands.get(islandIndex).addStudents(s);
