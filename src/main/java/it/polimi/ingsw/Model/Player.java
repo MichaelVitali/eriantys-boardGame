@@ -47,9 +47,13 @@ public class Player {
         return this.schoolBoard.getProfessors();
     }
 
-    public void putTower(int posTower) {
-        Tower t = this.schoolBoard.removeTower(posTower);
-        this.gameTable.putTowerOnIsland(t);
+    public void putTowers(List<Integer> posTowers) {
+
+        List<Tower> towers = new ArrayList<>();
+        for(int i=0; i<posTowers.size(); i++){
+            towers.add(schoolBoard.removeTower(posTowers.get(i)));
+        }
+        this.gameTable.putTowerOnIsland(towers);
     }
 
     public void takeStudentsFromCloud(int indexCloud) {

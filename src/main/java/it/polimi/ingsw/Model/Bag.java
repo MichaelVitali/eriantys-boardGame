@@ -25,8 +25,8 @@ public class Bag {
 
     public Student drowStudent() {
         int index = new Random().nextInt(students.size());
-        Student drownStudent = students.remove(index);
-        return drownStudent;
+        Student drawnStudent = students.remove(index);
+        return drawnStudent;
     }
 
     public static Bag getBag() {

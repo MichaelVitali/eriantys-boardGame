@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
@@ -31,8 +32,14 @@ public class GameTable {
         return islands.get(MotherNature.getPosition());
     }
 
-    public void putTowerOnIsland(Tower tower) {
-        islands.get(MotherNature.getPosition()).setTower(tower);
+    public void putTowerOnIsland(List<Tower> towers) {
+
+
+        towers = new ArrayList<>();
+        if(getMotherNatureIsland().getAggregation()!=towers.size()) {
+            //exception
+        }
+        islands.get(MotherNature.getPosition()).setTower(towers);
     }
 
     public List<Student> getStudentsOnCloud(int cloudIndex) {
@@ -58,5 +65,4 @@ public class GameTable {
         SchoolBoard s = null;
         return s;
     }
-
 }
