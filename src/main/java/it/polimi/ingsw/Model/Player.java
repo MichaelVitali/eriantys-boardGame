@@ -53,7 +53,7 @@ public class Player {
         for(int i=0; i<posTowers.size(); i++){
             towers.add(schoolBoard.removeTower(posTowers.get(i)));
         }
-        this.gameTable.putTowerOnIsland(towers);
+        this.gameTable.putTowersOnIslands(towers);
     }
 
     public void takeStudentsFromCloud(int indexCloud) {

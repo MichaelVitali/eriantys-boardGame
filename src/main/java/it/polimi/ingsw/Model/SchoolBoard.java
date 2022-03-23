@@ -6,6 +6,7 @@ import java.util.List;
 // Non ci sono le relazioni con  GameTable e Player
 
 public class SchoolBoard {
+    private GameTable gameta;
     private int numberOfStudentsOnEntrance;
     private Student entrance[];
     private final int NUMBEROFTABLES = 5;
@@ -16,8 +17,9 @@ public class SchoolBoard {
     public SchoolBoard(int numberOfStudentsOnEntrance, TowerColor shoolBoardTowerColor, int numberOfTowers) {
         this.numberOfStudentsOnEntrance = numberOfStudentsOnEntrance;
         entrance = new Student[this.numberOfStudentsOnEntrance];
+        List<Student> drawnStudents = Bag.getBag().drawStudents(numberOfStudentsOnEntrance);
         for(int i = 0; i < this.numberOfStudentsOnEntrance; i++) { // ho collegato schoolboard con Bag
-            entrance[i] = Bag.getBag().drowStudent();
+            entrance[i] = drawnStudents.get(i);
         }
 
         tables = new Table[NUMBEROFTABLES];
@@ -63,6 +65,10 @@ public class SchoolBoard {
             }
         }
         return professors;
+    }
+
+    public void setProfessor(PawnColor color, boolean value) {
+        tables[color.getIndex()].setProfessor(value);
     }
 
     public Tower removeTower(int index) {

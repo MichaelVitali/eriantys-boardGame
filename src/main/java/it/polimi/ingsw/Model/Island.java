@@ -12,15 +12,20 @@ public class Island {
     }
 
     public void setTower(List<Tower> t){
-        tower=t.remove(0);
+        tower = t.remove(0);
     }
 
-    public Tower getTower() {
-        return tower;
+    public List<Tower> getTower() {
+        List<Tower> towerOnTheIsland = new ArrayList<>();
+        towerOnTheIsland.add(tower);
+        return towerOnTheIsland;
     }
 
-    public int getAggregation(){
-        return 1;
+    public List<Tower> removeTower() {
+        List<Tower> removedTower =  new ArrayList<>();
+        removedTower.add(tower);
+        tower = null;
+        return removedTower;
     }
 
     public void addStudents(Student newStudent) {
@@ -29,5 +34,9 @@ public class Island {
 
     public List<Student> getStudents() {
         return students;
+    }
+
+    public int getAggregation(){
+        return 1;
     }
 }
