@@ -62,7 +62,6 @@ public class Player {
     }
 
     public void addAssistants(List<Assistant> l) {
-        if(this.assistants.size() == 0)
-            this.assistants.addAll(l);
+        this.assistants.addAll(l);
     }
 }

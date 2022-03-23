@@ -1,6 +1,14 @@
 package it.polimi.ingsw.Model;
 
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,9 +72,9 @@ public class GameTable {
 
         assistants = new Assistant[numberOfPlayers * 10]; /////va controllato
         ////inizializzazione degli assistant
-
-
-
+        List<Assistant> listAssistants = createAssistant();
+        for(int i = 0; i < numberOfPlayers; i++)
+            players[i].addAssistants(listAssistants);
 
         motherNaturePosition = 0;
     }
@@ -131,5 +139,23 @@ public class GameTable {
     private SchoolBoard calculateGeneralInfluence() {
         SchoolBoard s = null;
         return s;
+    }
+
+    private List<Assistant> createAssistant(){
+        JSONParser parser = new JSONParser();
+        List<Assistant> l = new ArrayList<>();
+        try {
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
+            for (Object o : a) {
+                JSONObject assistant = (JSONObject) o;
+
+                int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
+                int motherNatureMoves = Integer.parseInt((String) assistant.get("motherNatureMoves"));
+                l.add(new Assistant(cardValue, motherNatureMoves));
+            }
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return l;
     }
 }
