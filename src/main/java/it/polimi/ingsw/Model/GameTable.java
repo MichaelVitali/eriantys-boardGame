@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
-    private int numberOfPlayers;
-    private Player[] players;
+    private final int numberOfPlayers;
+    private final Player[] players; //forse possiamo toglierlo
     private List<Island> islands;
     private Cloud[] clouds;
     private SchoolBoard[] schoolBoards;
@@ -32,21 +32,22 @@ public class GameTable {
         for(Island island : islands)
             island = new Island();
 
-        int numberOfstudentsOnClouds;
+        int numberOfStudentsOnClouds;
         int numberOfStudentsOnEntrance;
         int numberOfTowers;
         if(numberOfPlayers == 3) {
-            numberOfstudentsOnClouds = 4;
+            numberOfStudentsOnClouds = 4;
             numberOfStudentsOnEntrance = 9;
             numberOfTowers = 6;
         }else {
-            numberOfstudentsOnClouds = 3;
+            numberOfStudentsOnClouds = 3;
             numberOfStudentsOnEntrance = 9;
             numberOfTowers = 8;
         }
         clouds = new Cloud[numberOfPlayers];
         for(Cloud cloud : clouds)
-            cloud = new Cloud(numberOfstudentsOnClouds);
+            cloud = new Cloud(numberOfStudentsOnClouds);
+        addStudentsOnClouds();
 
         schoolBoards = new SchoolBoard[numberOfPlayers];
         switch(numberOfPlayers) {
@@ -69,7 +70,6 @@ public class GameTable {
         for(int i = 0; i < numberOfPlayers; i++)
             players[i].addSchoolBoard(schoolBoards[i]);
 
-
         assistants = new Assistant[numberOfPlayers * 10]; /////va controllato
         ////inizializzazione degli assistant
         List<Assistant> listAssistants = createAssistant();
@@ -77,68 +77,6 @@ public class GameTable {
             players[i].addAssistants(listAssistants);
 
         motherNaturePosition = 0;
-    }
-
-    public void addStudentsOnClouds() {
-        for(int i = 0; i < numberOfPlayers; i++)
-            clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
-    }
-
-    public void addStudentOnIsland(Student s, int islandIndex) {
-        if(islandIndex >= 0 && islandIndex < islands.size())
-            this.islands.get(islandIndex).addStudents(s);
-    }
-    public void changeMotherNaturePosition(int newPosition) {
-        motherNaturePosition = newPosition;
-    }
-
-    /* The mothod put the towers on the island/islands where mother nature is. If the istand hasn't the tower
-    * then metodo set it otherwise the method check if it has to change the color of the towers
-     */
-    public List<Tower> putTowersOnIslands(List<Tower> towers) {
-        //dovrà essere precedentemente controllato che le torri siano tutte dello stesso colore
-        if(islands.get(motherNaturePosition).getAggregation() != towers.size()) { } //exception
-        if(islands.get(motherNaturePosition).getTower() == null)////////////////////////////////////////////////
-            islands.get(motherNaturePosition).setTower(towers);
-        else {
-            if(islands.get(motherNaturePosition).getTower().get(0).getColor() != towers.get(0).getColor()) { } // exception
-            if(islands.get(motherNaturePosition).getTower().get(0).getColor() != towers.get(0).getColor()) {
-                return islands.get(motherNaturePosition).removeTower();
-            }
-        }
-        return null;
-        //islands.get(motherNaturePosition).setTower(towers);
-    }
-
-    public List<Student> getStudentsOnCloud(int cloudIndex) {
-        ///// controllo if(clouds[cloudIndex] == null) throw SomeTypeOfException("This cloud doesn't have students on it");
-        if(cloudIndex >= 0 && cloudIndex < clouds.length)
-            return clouds[cloudIndex].getStudents();
-        else
-            return null;
-    }
-
-    ///// non mi ricordo cosa doveva fare control professor dunque l'ho lasciata così cambiando nome
-    public void MoveProfessorToTheRightPosition() {
-
-    }
-
-    ///////da implemntare
-    private int calculateInfluence() {
-        int[] influence = new int[numberOfPlayers];
-        List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
-        List<Tower> towersOnTheIslands = islands.get(motherNaturePosition).getTower();
-        influence[0] = 0;
-        for(int el : influence) {
-
-        }
-
-        return influence[0];
-    }
-    ////// da implementare (secondo me non sono molto significativi così divisi)
-    private SchoolBoard calculateGeneralInfluence() {
-        SchoolBoard s = null;
-        return s;
     }
 
     private List<Assistant> createAssistant(){
@@ -157,5 +95,150 @@ public class GameTable {
             e.printStackTrace();
         }
         return l;
+    }
+
+    public void addStudentsOnClouds() {
+        for(int i = 0; i < numberOfPlayers; i++)
+            clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
+    }
+
+    public void MoveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
+        int indexOfTheProfessor = -1;
+        int[] studentsOnTheTable = new int[numberOfPlayers];
+        for(int i = 0; i < numberOfPlayers; i++) {
+            studentsOnTheTable[i] = schoolBoards[i].getNumberOfStudentsOnTable(colorOfTheMovedStudent);
+            if(schoolBoards[i].getProfessors().contains(colorOfTheMovedStudent))
+                indexOfTheProfessor = i;
+        }
+        if(indexOfTheProfessor == -1) {
+            for(int i = 0; i < numberOfPlayers; i++) {
+                if(studentsOnTheTable[i] > 0)
+                    schoolBoards[i].setProfessor(colorOfTheMovedStudent, true);
+                break;
+            }
+        }else {
+            for(int i = 0; i < numberOfPlayers; i++) {
+                if(studentsOnTheTable[i] > studentsOnTheTable[indexOfTheProfessor]) {
+                    schoolBoards[i].setProfessor(colorOfTheMovedStudent, true);
+                    schoolBoards[indexOfTheProfessor].setProfessor(colorOfTheMovedStudent, false);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void addStudentOnIsland(Student s, int islandIndex) {
+        if(islandIndex >= 0 && islandIndex < islands.size())
+            this.islands.get(islandIndex).addStudents(s);
+
+    }
+
+    public void changeMotherNaturePosition(int newPosition) {
+        motherNaturePosition = newPosition;
+        putTowerOrChangeColorIfNecessary();
+    }
+
+    private void putTowerOrChangeColorIfNecessary() {
+        int[] influences = calculateInfluences(); // pay attention : influence.length isn't numberOfPlayers
+        Tower towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
+        int maxInfluence = -1, indexMaxInfluence = -1;
+        if(towerOnTheIsland != null) {
+            maxInfluence = influences[islands.get(motherNaturePosition).getTowers().get(0).getColor().getIndex()];
+            indexMaxInfluence = islands.get(motherNaturePosition).getTowers().get(0).getColor().getIndex();
+        }
+        for (int i = 0; i < influences.length; i++) {
+            if (influences[i] > maxInfluence) {
+                maxInfluence = influences[i];
+                indexMaxInfluence = i;
+            }
+        }
+        if(indexMaxInfluence < 0 || maxInfluence < 0) { } // exception
+        try {
+            if(towerOnTheIsland == null) {
+                boolean equalInfluenceToOtherPlayer = false;
+                for (int i = 0; i < influences.length; i++) {
+                    if (maxInfluence == influences[i] && indexMaxInfluence != i) {
+                        equalInfluenceToOtherPlayer = true;
+                        break;
+                    }
+                }
+                if(!equalInfluenceToOtherPlayer) {
+                    islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(1));
+                    mergeIslandsIfNecessary();
+                }
+            }else
+                if(indexMaxInfluence != towerOnTheIsland.getColor().getIndex()) {
+                    int numberOfRequiredTowers = islands.get(motherNaturePosition).getAggregation();
+                    List<Tower> previousTowers = islands.get(motherNaturePosition).removeTowers();
+                    schoolBoards[towerOnTheIsland.getColor().getIndex()].addTowers(previousTowers);
+                    islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(numberOfRequiredTowers));
+                    mergeIslandsIfNecessary();
+                }
+        }catch(InvalidNumberException e) {
+            e.printStackTrace();
+        }catch(NoMoreTowersException e) {
+            // qualcuno dovrebbe vincere
+        }
+        if(islands.get(motherNaturePosition).getTowers() == null) { } // exception
+    }
+
+    private int[] calculateInfluences() {
+        int numberOfIteration = numberOfPlayers == 4 ? 2 : numberOfPlayers;
+        int[] influence = new int[numberOfIteration];
+        List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
+        List<Tower> towersOnTheIslands = islands.get(motherNaturePosition).getTowers();
+        influence[0] = 0;
+
+        /*
+        * Controllo che tutte le torri siano dello stesso colore
+        TowerColor colorOfTheTowers = towersOnTheIslands.get(0).getColor();
+        for(Tower tower : towersOnTheIslands) {
+            if(tower.getColor() != colorOfTheTowers) { } //exception
+        }
+        */
+
+        for(int i = 0; i < numberOfIteration; i++) {
+            influence[i] = 0;
+            List<PawnColor> professors = schoolBoards[i].getProfessors();
+            if (numberOfPlayers == 4) professors.addAll(schoolBoards[i + 2].getProfessors());
+            for (PawnColor professor : professors) {
+                for (Student student : studentsOnTheIslands) {
+                    if (professor == student.getColor()) influence[i]++;
+                }
+            }
+            if (towersOnTheIslands != null) {
+                if (schoolBoards[i].getTowers().size() <= 0) { } //exception
+                if (schoolBoards[i].getTowers().get(0).getColor() == towersOnTheIslands.get(0).getColor())
+                    influence[i] += islands.get(motherNaturePosition).getAggregation();
+            }
+        }
+        return influence;
+    }
+
+    private void mergeIslandsIfNecessary() {
+        Tower towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
+        Tower towerOnTheNextIsland = islands.get(motherNaturePosition).getTowers().get(0);
+        Tower towerOnThePreviousIsland = islands.get(motherNaturePosition).getTowers().get(0);
+        if(towerOnTheIsland.getColor() == towerOnTheNextIsland.getColor()) {
+            islands.set(motherNaturePosition, new MergedIslands(islands.get(motherNaturePosition), islands.get(motherNaturePosition + 1)));
+            islands.remove(islands.get(motherNaturePosition + 1));
+        }
+        if(towerOnTheIsland.getColor() == towerOnThePreviousIsland.getColor()) {
+            islands.set(motherNaturePosition - 1, new MergedIslands(islands.get(motherNaturePosition - 1), islands.get(motherNaturePosition)));
+            islands.remove(islands.get(motherNaturePosition));
+            motherNaturePosition--;
+        }
+        for(Island island : islands){
+            if(island == null) { } // exception
+        }
+    }
+
+    public List<Student> getStudentsOnCloud(int cloudIndex) {
+        if(clouds[cloudIndex] == null) { }//exception ("This cloud doesn't have students on it")
+        List<Student> studentsOnTheCloud = null;
+        if(cloudIndex >= 0 && cloudIndex < clouds.length) {
+            studentsOnTheCloud = clouds[cloudIndex].getStudents();
+        }
+        return studentsOnTheCloud;
     }
 }

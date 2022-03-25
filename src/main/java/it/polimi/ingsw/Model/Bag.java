@@ -6,10 +6,10 @@ import java.util.Random; // Controlla quale è la libreria standard
 
 public class Bag {
     private static Bag bag;
-    private List<Student> students;
+    private final List<Student> students;
 
     private Bag() {
-        students = new ArrayList<Student>();
+        students = new ArrayList<>();
         for(int i = 0; i < 26 ; i++) {
             students.add(new Student(PawnColor.YELLOW));
             students.add(new Student(PawnColor.BLUE));

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Cloud {
     private final int numberOfStudents;
-    private List<Student> students;
+    private final List<Student> students;
 
     public Cloud(int numberOfStudents) {
         this.students = new ArrayList<>();
@@ -22,9 +22,5 @@ public class Cloud {
 
     public void addStudents(List<Student> newStudents) {
         students.addAll(newStudents);
-    }
-
-    public boolean removeStudent(Student studentToBeRemoved) {
-        return students.remove(studentToBeRemoved);
     }
 }

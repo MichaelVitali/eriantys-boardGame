@@ -22,7 +22,7 @@ public class Player {
         if(pos >= 0 && pos < assistants.size())
             this.assistants.remove(pos);
     }
-    //conviene creare un'eccezioone che gestisce le posizioni errate
+    //conviene creare un'eccezione che gestisce le posizioni errate
     public Assistant getAssistant(int pos){
         if(pos >= 0 && pos < assistants.size())
             return this.assistants.get(pos);
@@ -45,15 +45,6 @@ public class Player {
 
     public List<PawnColor> getProfessors(){
         return schoolBoard.getProfessors();
-    }
-
-    public void putTowers(List<Integer> posTowers) {
-
-        List<Tower> towers = new ArrayList<>();
-        for(int i=0; i<posTowers.size(); i++){
-            towers.add(schoolBoard.removeTower(posTowers.get(i)));
-        }
-        this.gameTable.putTowersOnIslands(towers);
     }
 
     public void takeStudentsFromCloud(int indexCloud) {

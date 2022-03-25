@@ -5,27 +5,27 @@ import java.util.List;
 
 public class Island {
     private Tower tower;
-    private List<Student> students;
+    private final List<Student> students;
 
     public Island() {
         students = new ArrayList<>();
     }
 
-    public void setTower(List<Tower> t){
-        tower = t.remove(0);
+    public void setTowers(List<Tower> t){
+        tower = t.get(0);
     }
 
-    public List<Tower> getTower() {
-        List<Tower> towerOnTheIsland = new ArrayList<>();
-        towerOnTheIsland.add(tower);
-        return towerOnTheIsland;
+    public List<Tower> getTowers() {
+        List<Tower> towersOnTheIsland = new ArrayList<>();
+        towersOnTheIsland.add(tower);
+        return towersOnTheIsland;
     }
 
-    public List<Tower> removeTower() {
-        List<Tower> removedTower =  new ArrayList<>();
-        removedTower.add(tower);
+    public List<Tower> removeTowers() {
+        List<Tower> removedTowers = new ArrayList<>();
+        removedTowers.add(tower);
         tower = null;
-        return removedTower;
+        return removedTowers;
     }
 
     public void addStudents(Student newStudent) {

@@ -1,9 +1,9 @@
 package it.polimi.ingsw.Model;
 
 public class Table {
-    private PawnColor color;
+    private final PawnColor color;
     private final int NUMBEROFSEATS = 10; /////////
-    private Student[] students;
+    private final Student[] students;
     private boolean professor;
 
     public Table(PawnColor color) {

@@ -3,40 +3,39 @@ package it.polimi.ingsw.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Non ci sono le relazioni con  GameTable e Player
-
 public class SchoolBoard {
-    private GameTable gameta;
-    private int numberOfStudentsOnEntrance;
-    private Student entrance[];
-    private final int NUMBEROFTABLES = 5;
-    private Table tables[];
-    private int numberOfTowers;
-    private List<Tower> towers;
+    private final int numberOfStudentsOnEntrance;
+    private final Student[] entrance;
+    private final int numberOfTables = 5;
+    private final Table[] tables;
+    private final int numberOfTowers;
+    private final TowerColor towersColor;
+    private final List<Tower> towers;
 
-    public SchoolBoard(int numberOfStudentsOnEntrance, TowerColor shoolBoardTowerColor, int numberOfTowers) {
+    public SchoolBoard(int numberOfStudentsOnEntrance, TowerColor schoolBoardTowerColor, int numberOfTowers) {
         this.numberOfStudentsOnEntrance = numberOfStudentsOnEntrance;
         entrance = new Student[this.numberOfStudentsOnEntrance];
         List<Student> drawnStudents = Bag.getBag().drawStudents(numberOfStudentsOnEntrance);
-        for(int i = 0; i < this.numberOfStudentsOnEntrance; i++) { // ho collegato schoolboard con Bag
+        for(int i = 0; i < this.numberOfStudentsOnEntrance; i++) { // ho collegato school board con Bag
             entrance[i] = drawnStudents.get(i);
         }
 
-        tables = new Table[NUMBEROFTABLES];
+        tables = new Table[numberOfTables];
         for(PawnColor tableColor : PawnColor.values())
             tables[tableColor.getIndex()] = new Table(tableColor);
 
         this.numberOfTowers = numberOfTowers;
+        towersColor = schoolBoardTowerColor;
         towers = new ArrayList<>();
         for(int i = 0; i < this.numberOfTowers; i++) {
-            towers.add(new Tower(shoolBoardTowerColor));
+            towers.add(new Tower(schoolBoardTowerColor));
         }
     }
 
     public void addStudentOnTable(int index) {
         // if(index >= 0 && index < numberOfStudentsOnEntrance)
         tables[entrance[index].getColor().getIndex()].addStudent(entrance[index]);
-        entrance[index] = null; // valutere se l'utilizzo del null va bene
+        entrance[index] = null; // valutare se l'utilizzo del null va bene
     }
 
     public void addStudentsOnEntrance(List<Student> newStudents) {
@@ -71,17 +70,25 @@ public class SchoolBoard {
         tables[color.getIndex()].setProfessor(value);
     }
 
-    public Tower removeTower(int index) {
-        if(index >= 0 && index < towers.size()) {
-            Tower t = this.towers.get(index);
-            this.towers.remove(index);
-            return t;
-        }else{
-            return null;
-        }
+    public List<Tower> getTowers() {
+        return towers;
     }
 
-    // Ho chiamato giveStudent removeStudentFromEntrance perchè mi sembrava più esplicativo
+    public List<Tower> removeTowers(int numberOfTowers) throws InvalidNumberException, NoMoreTowersException{
+        if(numberOfTowers < 0) throw new InvalidNumberException("Numero non valido");
+        if(numberOfTowers > towers.size()) throw new NoMoreTowersException(towersColor);
+        List<Tower> removedTowers = new ArrayList<>();
+        for(int i = 0; i < numberOfTowers; i++)
+            removedTowers.add(towers.get(0));
+            towers.remove(towers.get(0));
+        return removedTowers;
+    }
+
+    public void addTowers(List<Tower> towerToAdd) {
+        towers.addAll(towerToAdd);
+    }
+
+    // Ho chiamato giveStudent removeStudentFromEntrance perché mi sembrava più esplicativo
     public Student removeStudentFromEntrance(int index) {
         // eventuale controllo if(entrance[index] == null) throw new SomeTypeOfException("You're removing a null pointer and not a real student");
         if(index >= 0 && index < entrance.length) {
