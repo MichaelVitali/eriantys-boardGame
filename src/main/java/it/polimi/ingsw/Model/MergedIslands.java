@@ -8,6 +8,7 @@ public class MergedIslands extends Island{
     private Island secondIstand;
 
     public MergedIslands(Island firstIstand, Island secondIstand) {
+        super(firstIstand.getIndex());
         this.firstIstand = firstIstand;
         this.secondIstand = secondIstand;
     }

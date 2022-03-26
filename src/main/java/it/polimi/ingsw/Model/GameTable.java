@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GameTable {
     private final int numberOfPlayers;
-    private final Player[] players; //forse possiamo toglierlo
+    private final Player[] players;
     private List<Island> islands;
     private Cloud[] clouds;
     private SchoolBoard[] schoolBoards;
@@ -29,8 +29,9 @@ public class GameTable {
             this.players[i] = players[i];
 
         List<Island> islands = new ArrayList<>();
-        for(Island island : islands)
-            island = new Island();
+        for(int i = 0; i < 12; i++) {
+            islands.add(new Island(i));
+        }
 
         int numberOfStudentsOnClouds;
         int numberOfStudentsOnEntrance;
@@ -102,7 +103,7 @@ public class GameTable {
             clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
     }
 
-    public void MoveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
+    public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
         int indexOfTheProfessor = -1;
         int[] studentsOnTheTable = new int[numberOfPlayers];
         for(int i = 0; i < numberOfPlayers; i++) {

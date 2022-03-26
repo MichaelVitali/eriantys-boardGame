@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Island {
+    private int index;
     private Tower tower;
     private final List<Student> students;
 
-    public Island() {
+    public Island(int index) {
+        this.index = index;
         students = new ArrayList<>();
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public void setTowers(List<Tower> t){
