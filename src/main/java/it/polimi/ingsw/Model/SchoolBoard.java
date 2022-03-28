@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SchoolBoard {
-    private final int numberOfStudentsOnEntrance;
-    private final Student[] entrance;
-    private final int numberOfTables = 5;
-    private final Table[] tables;
-    private final int numberOfTowers;
-    private final TowerColor towersColor;
-    private final List<Tower> towers;
+    protected final int numberOfStudentsOnEntrance;
+    protected final Student[] entrance;
+    protected final int numberOfTables = 5;
+    protected final Table[] tables;
+    protected final int numberOfTowers;
+    protected final TowerColor towersColor;
+    protected final List<Tower> towers;
 
     public SchoolBoard(int numberOfStudentsOnEntrance, TowerColor schoolBoardTowerColor, int numberOfTowers) {
         this.numberOfStudentsOnEntrance = numberOfStudentsOnEntrance;

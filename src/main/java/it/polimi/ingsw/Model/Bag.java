@@ -32,4 +32,8 @@ public class Bag {
         if(bag == null) bag = new Bag();
         return bag;
     }
+
+    public void addStudents(List<Student> newStudents){
+        this.students.addAll(newStudents);
+    }
 }

@@ -3,15 +3,18 @@ package it.polimi.ingsw.Model;
 import java.util.*;
 
 public class Player {
-    private SchoolBoard schoolBoard;
-    private final GameTable gameTable;
-    private final String nickName;
-    private List<Assistant> assistants;
+    protected SchoolBoard schoolBoard;
+    protected GameTable gameTable;
+    protected final String nickName;
+    protected List<Assistant> assistants;
 
-    public Player(String nickName, GameTable gameTable){
+    public Player(String nickName){
         this.nickName = nickName;
-        this.gameTable = gameTable;
         this.assistants = new ArrayList<Assistant>();
+    }
+
+    public void addGameTable(GameTable gameTable){
+        this.gameTable = gameTable;
     }
 
     public void addSchoolBoard(SchoolBoard s){
@@ -22,7 +25,7 @@ public class Player {
         if(pos >= 0 && pos < assistants.size())
             this.assistants.remove(pos);
     }
-    //conviene creare un'eccezione che gestisce le posizioni errate
+    //conviene creare un'eccezioone che gestisce le posizioni errate
     public Assistant getAssistant(int pos){
         if(pos >= 0 && pos < assistants.size())
             return this.assistants.get(pos);
@@ -47,6 +50,17 @@ public class Player {
         return schoolBoard.getProfessors();
     }
 
+    //non penso serva più
+    /*
+    public void putTowers(List<Integer> posTowers) {
+
+        List<Tower> towers = new ArrayList<>();
+        for(int i=0; i<posTowers.size(); i++){
+            towers.add(schoolBoard.removeTower(posTowers.get(i)));
+        }
+        this.gameTable.putTowersOnIslands(towers);
+    }
+    */
     public void takeStudentsFromCloud(int indexCloud) {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
         this.schoolBoard.addStudentsOnEntrance(s);

@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
-    private final int numberOfPlayers;
-    private final Player[] players;
-    private List<Island> islands;
-    private Cloud[] clouds;
-    private SchoolBoard[] schoolBoards;
-    private Assistant[] assistants; /////////non mi ricordo come li utilizzavamo quindi non ci saranno nei metodi
-    private int motherNaturePosition;
+    protected final int numberOfPlayers;
+    protected final Player[] players;
+    protected List<Island> islands;
+    protected Cloud[] clouds;
+    protected SchoolBoard[] schoolBoards;
+    protected Assistant[] assistants; /////////non mi ricordo come li utilizzavamo quindi non ci saranno nei metodi
+    protected int motherNaturePosition;
 
     public GameTable(int numberOfPlayers, Player[] players) {
         // if(numberOfPlayers > 4 || numberOfPlayers <= 1;) throw new Exception();
@@ -84,7 +84,7 @@ public class GameTable {
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("it\\polimi\\ingsw\\Model\\Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
 
@@ -242,4 +242,9 @@ public class GameTable {
         }
         return studentsOnTheCloud;
     }
+
+    public int getMotherNaturePosition(){
+        return this.motherNaturePosition;
+    }
+
 }

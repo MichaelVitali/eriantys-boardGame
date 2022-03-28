@@ -21,11 +21,9 @@ public class CharacterWithStudent extends Character{
 
     public List<Student> getStudents(List<Integer> indexStudent){
         List<Student> returnStudents = new ArrayList<>();
-        for(int i = 0; i < this.students.length; i++){
-            if(i == indexStudent.remove(0)) {
-                returnStudents.add(this.students[i]);
-                this.students[i] = null;
-            }
+        for(Integer i: indexStudent){
+            returnStudents.add(this.students[i]);
+            this.students[i] = null;
         }
         return returnStudents;
     }
