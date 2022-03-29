@@ -3,8 +3,8 @@ package it.polimi.ingsw.Model;
 import java.util.*;
 
 public class Player {
-    protected SchoolBoard schoolBoard;
-    protected GameTable gameTable;
+    private SchoolBoard schoolBoard;
+    private GameTable gameTable;
     protected final String nickName;
     protected List<Assistant> assistants;
 

@@ -24,7 +24,9 @@ public class PlayerAdvanced extends Player{
             int cost = this.gameTable.getCostCharacter(indexCard);
             //se ho abbastanza coin per la carta eseguo l'effetto
             if(cost >= this.schoolBoard.getNumberOfCoins()) {
-                this.schoolBoard.removeCoins(cost);                 //diminuisco il numero di coins
+                this.schoolBoard.removeCoins(cost);
+                this.gameTable.addCoins(cost);
+                if(!this.gameTable.getCharacter(indexCard).getFirstUse()) this.gameTable.getCharacter(indexCard).setFirstUse();
 
                 switch (ID) {
                     case 1:
@@ -50,6 +52,7 @@ public class PlayerAdvanced extends Player{
                     case 8:
                         break;
                     case 10:
+
                         //RICONTROLLARE
                         if(indexTable.size() <= 2 && indexTable.size() > 0 && studentsIndexEntrance.size() <= 2){
                             List<Student> newStudentsEntrance = new ArrayList<>();

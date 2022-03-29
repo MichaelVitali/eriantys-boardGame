@@ -22,8 +22,8 @@ public class SchoolboardAdvanced extends SchoolBoard{
         if(pos % 3 == 0) this.coins++;
     }
 
-    public void removeCoins(int numberOfCoin){
-        if((this.coins - numberOfCoin) >= 0) this.coins -= numberOfCoin;
+    public void removeCoins(int numberOfCoins){
+        if((this.coins - numberOfCoins) >= 0) this.coins -= numberOfCoins;
     }
 
     public int getNumberOfCoins(){

@@ -13,14 +13,15 @@ import java.util.Random;
 
 public class GameTableAdvanced extends GameTable{
     private Character[] characters;
-
+    private int coins;
 
     public GameTableAdvanced(int numberOfPlayers, Player[] players) {
         super(numberOfPlayers, players);
         this.createCharacters();
+        this.coins = 20;
     }
 
-    public void createCharacters(){
+    private void createCharacters(){
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {
@@ -77,4 +78,17 @@ public class GameTableAdvanced extends GameTable{
         ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
+    public Character getCharacter(int index){
+        return this.characters[index];
+    }
+
+    public void addCoins(int coins){
+        if(coins >= 0) this.coins += coins;
+    }
+    public int getCoins(){
+        return this.coins;
+    }
+    public void removeCoin(){
+        if(this.coins > 0) this.coins--;
+    }
 }
