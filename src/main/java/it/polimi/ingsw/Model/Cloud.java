@@ -17,7 +17,16 @@ public class Cloud {
     }
 
     public List<Student> getStudents() {
-        return students;
+        List<Student> returnedStudents = new ArrayList<>(students);
+        returnedStudents.addAll(students);
+        return returnedStudents;
+    }
+
+    public List<Student> removeStudents() {
+        List<Student> removedStudents = new ArrayList<>(students);
+        removedStudents.addAll(students);
+        students.removeAll(removedStudents);
+        return removedStudents;
     }
 
     public void addStudents(List<Student> newStudents) {

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Model;
 
 public enum PawnColor {
-    YELLOW(1), BLUE(2), GREEN(3), RED(4), PINK(5);
+    YELLOW(0), BLUE(1), GREEN(2), RED(3), PINK(4);
     private final int index;
 
     PawnColor(int index) { this.index = index; }
