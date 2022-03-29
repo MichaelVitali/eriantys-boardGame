@@ -18,13 +18,16 @@ public class PlayerAdvanced extends Player{
         this.schoolBoard = schoolBoard;
     }
 
-    public void effectActivation(int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) throws InvalidNumberException, EmptyBagException{
+    public void effectActivation(int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) throws EmptyBagException{
         try{
             int ID = this.gameTable.getIDCharacter(indexCard);
             int cost = this.gameTable.getCostCharacter(indexCard);
+
             //se ho abbastanza coin per la carta eseguo l'effetto
             if(cost >= this.schoolBoard.getNumberOfCoins()) {
-                this.schoolBoard.removeCoins(cost);                 //diminuisco il numero di coins
+                this.schoolBoard.removeCoins(cost);
+                this.gameTable.addCoins(cost);
+                if(!this.gameTable.getCharacter(indexCard).getFirstUse()) this.gameTable.getCharacter(indexCard).setFirstUse();
 
                 switch (ID) {
                     case 1:
@@ -50,6 +53,7 @@ public class PlayerAdvanced extends Player{
                     case 8:
                         break;
                     case 10:
+
                         //RICONTROLLARE
                         if(indexTable.size() <= 2 && indexTable.size() > 0 && studentsIndexEntrance.size() <= 2){
                             List<Student> newStudentsEntrance = new ArrayList<>();
@@ -81,6 +85,10 @@ public class PlayerAdvanced extends Player{
                         if(studentsIndex.size() == 1){
                             List<Student> newStudent = new ArrayList<>(this.gameTable.getStudentFromCard(indexCard, studentsIndex));
                             this.schoolBoard.addStudentOnTableFromCard(newStudent.remove(0));
+                            if(this.schoolBoard.getAddCoin() && this.gameTable.getCoins() > 0){
+                                this.gameTable.removeCoin();
+                                this.schoolBoard.addCoin();
+                            }
                             this.gameTable.addStudentsOnCard(indexCard, Bag.getBag().drawStudents(1));
                         }
                         break;

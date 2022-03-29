@@ -3,8 +3,8 @@ package it.polimi.ingsw.Model;
 import java.util.*;
 
 public class Player {
-    protected SchoolBoard schoolBoard;
-    protected GameTable gameTable;
+    private SchoolBoard schoolBoard;
+    private GameTable gameTable;
     protected final String nickName;
     protected List<Assistant> assistants;
 
@@ -41,26 +41,11 @@ public class Player {
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
-
+    //potrebbe non servire se mettiamo il game
     public void moveMotherNature(int pos){
         this.gameTable.changeMotherNaturePosition(pos);
     }
 
-    public List<PawnColor> getProfessors(){
-        return schoolBoard.getProfessors();
-    }
-
-    //non penso serva più
-    /*
-    public void putTowers(List<Integer> posTowers) {
-
-        List<Tower> towers = new ArrayList<>();
-        for(int i=0; i<posTowers.size(); i++){
-            towers.add(schoolBoard.removeTower(posTowers.get(i)));
-        }
-        this.gameTable.putTowersOnIslands(towers);
-    }
-    */
     public void takeStudentsFromCloud(int indexCloud) {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
         this.schoolBoard.addStudentsOnEntrance(s);

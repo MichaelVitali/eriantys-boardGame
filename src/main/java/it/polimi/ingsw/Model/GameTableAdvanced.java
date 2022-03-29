@@ -13,12 +13,15 @@ import java.util.Random;
 
 public class GameTableAdvanced extends GameTable{
     private Character[] characters;
+    private SchoolboardAdvanced schoolBoards[];
+    private int coins;
 
 
     public GameTableAdvanced(int numberOfPlayers, Player[] players) {
         super(numberOfPlayers, players);
         try {
             this.createCharacters();
+            this.coins = 20;
         }catch(EmptyBagException e) {
             e.printStackTrace();
         }
@@ -81,4 +84,37 @@ public class GameTableAdvanced extends GameTable{
         ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
+    public Character getCharacter(int indexCard){
+        return this.characters[indexCard];
+    }
+
+    //da sistemare schollboard advance
+    @Override
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolboardIndex){
+        this.schoolBoards[schoolboardIndex].addStudentOnTable(indexStudent);
+        if(this.schoolBoards[schoolboardIndex].getAddCoin() && this.coins > 0){
+            this.schoolBoards[schoolboardIndex].addCoin();
+            this.coins--;
+        }else{
+            this.schoolBoards[schoolboardIndex].setAddCoinFalse();
+        }
+    }
+
+    public void addCoins(int coins){
+        if(coins >= 0) this.coins += coins;
+    }
+
+    public void addSchoolBoards(SchoolboardAdvanced[] schoolBoards){
+        if(schoolBoards != null)
+            this.schoolBoards = schoolBoards;
+    }
+
+    public int getCoins(){
+        return this.coins;
+    }
+
+    public void removeCoin(){
+        if(this.coins > 0)
+            this.coins--;
+    }
 }
