@@ -18,7 +18,7 @@ public class PlayerAdvanced extends Player{
         this.schoolBoard = schoolBoard;
     }
 
-    public void effectActivation(int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) throws InvalidNumberException{
+    public void effectActivation(int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) throws InvalidNumberException, EmptyBagException{
         try{
             int ID = this.gameTable.getIDCharacter(indexCard);
             int cost = this.gameTable.getCostCharacter(indexCard);

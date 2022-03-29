@@ -13,16 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
-    private final int numberOfPlayers;
-    private final Player[] players;
-    private List<Island> islands;
-    private final Cloud[] clouds;
-    private SchoolBoard[] schoolBoards;
-    private final Assistant[] assistants;
-    private int motherNaturePosition;
-    private boolean victory;
-    private boolean draw;
-    private TowerColor winner;
+    protected final int numberOfPlayers;
+    protected final Player[] players;
+    protected List<Island> islands;
+    protected final Cloud[] clouds;
+    protected SchoolBoard[] schoolBoards;
+    protected final Assistant[] assistants;
+    protected int motherNaturePosition;
+    protected boolean victory;
+    protected boolean draw;
+    protected TowerColor winner;
 
     public GameTable(int numberOfPlayers, Player[] players) {
         this.numberOfPlayers = numberOfPlayers;
@@ -87,6 +87,10 @@ public class GameTable {
         victory = false;
         draw = false;
         winner = null;
+    }
+
+    public int getMotherNaturePosition() {
+        return motherNaturePosition;
     }
 
     private List<Assistant> createAssistant(){
@@ -287,6 +291,7 @@ public class GameTable {
         }
         return teamColor;
     }
+
     private TowerColor teamWithMoreProfessors() {
         TowerColor teamColor = null;
         int maximumNumberOfProfessors = -1;

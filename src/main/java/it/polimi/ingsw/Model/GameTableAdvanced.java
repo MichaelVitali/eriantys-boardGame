@@ -17,10 +17,14 @@ public class GameTableAdvanced extends GameTable{
 
     public GameTableAdvanced(int numberOfPlayers, Player[] players) {
         super(numberOfPlayers, players);
-        this.createCharacters();
+        try {
+            this.createCharacters();
+        }catch(EmptyBagException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void createCharacters(){
+    public void createCharacters() throws EmptyBagException{
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {
@@ -66,7 +70,7 @@ public class GameTableAdvanced extends GameTable{
         else return this.characters[indexCard].getCost();
     }
 
-    public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions){
+    public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions) throws EmptyBagException{
         List<Student> returnStudents = new ArrayList<>();
         returnStudents.addAll(((CharacterWithStudent)characters[indexCard]).getStudents(studentsPositions));
         ((CharacterWithStudent)characters[indexCard]).addStudents(Bag.getBag().drawStudents(studentsPositions.size()));
