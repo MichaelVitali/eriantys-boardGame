@@ -13,15 +13,21 @@ import java.util.Random;
 
 public class GameTableAdvanced extends GameTable{
     private Character[] characters;
+    private SchoolboardAdvanced schoolBoards[];
     private int coins;
+
 
     public GameTableAdvanced(int numberOfPlayers, Player[] players) {
         super(numberOfPlayers, players);
-        this.createCharacters();
-        this.coins = 20;
+        try {
+            this.createCharacters();
+            this.coins = 20;
+        }catch(EmptyBagException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void createCharacters(){
+    public void createCharacters() throws EmptyBagException{
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {
@@ -67,7 +73,7 @@ public class GameTableAdvanced extends GameTable{
         else return this.characters[indexCard].getCost();
     }
 
-    public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions){
+    public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions) throws EmptyBagException{
         List<Student> returnStudents = new ArrayList<>();
         returnStudents.addAll(((CharacterWithStudent)characters[indexCard]).getStudents(studentsPositions));
         ((CharacterWithStudent)characters[indexCard]).addStudents(Bag.getBag().drawStudents(studentsPositions.size()));
@@ -78,17 +84,37 @@ public class GameTableAdvanced extends GameTable{
         ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
-    public Character getCharacter(int index){
-        return this.characters[index];
+    public Character getCharacter(int indexCard){
+        return this.characters[indexCard];
+    }
+
+    //da sistemare schollboard advance
+    @Override
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolboardIndex){
+        this.schoolBoards[schoolboardIndex].addStudentOnTable(indexStudent);
+        if(this.schoolBoards[schoolboardIndex].getAddCoin() && this.coins > 0){
+            this.schoolBoards[schoolboardIndex].addCoin();
+            this.coins--;
+        }else{
+            this.schoolBoards[schoolboardIndex].setAddCoinFalse();
+        }
     }
 
     public void addCoins(int coins){
         if(coins >= 0) this.coins += coins;
     }
+
+    public void addSchoolBoards(SchoolboardAdvanced[] schoolBoards){
+        if(schoolBoards != null)
+            this.schoolBoards = schoolBoards;
+    }
+
     public int getCoins(){
         return this.coins;
     }
+
     public void removeCoin(){
-        if(this.coins > 0) this.coins--;
+        if(this.coins > 0)
+            this.coins--;
     }
 }

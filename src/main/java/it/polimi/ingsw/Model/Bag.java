@@ -19,8 +19,9 @@ public class Bag {
         }
     }
 
-    public List<Student> drawStudents(int numberOfStudents) {
+    public List<Student> drawStudents(int numberOfStudents) throws EmptyBagException {
         List<Student> drawnStudents = new ArrayList<>();
+        if(numberOfStudents > students.size()) throw new EmptyBagException();
         for(int i = 0; i < numberOfStudents; i++) {
             int index = new Random().nextInt(students.size());
             drawnStudents.add(students.remove(index));
