@@ -16,13 +16,15 @@ public class GameTable {
     private final int numberOfPlayers;
     private final Player[] players;
     private List<Island> islands;
-    private Cloud[] clouds;
+    private final Cloud[] clouds;
     private SchoolBoard[] schoolBoards;
-    private Assistant[] assistants; /////////non mi ricordo come li utilizzavamo quindi non ci saranno nei metodi
+    private final Assistant[] assistants;
     private int motherNaturePosition;
+    private boolean victory;
+    private boolean draw;
+    private TowerColor winner;
 
     public GameTable(int numberOfPlayers, Player[] players) {
-        // if(numberOfPlayers > 4 || numberOfPlayers <= 1;) throw new Exception();
         this.numberOfPlayers = numberOfPlayers;
         this.players = new Player[numberOfPlayers];
         for(int i = 0; i < numberOfPlayers; i++)
@@ -48,7 +50,11 @@ public class GameTable {
         clouds = new Cloud[numberOfPlayers];
         for(Cloud cloud : clouds)
             cloud = new Cloud(numberOfStudentsOnClouds);
-        addStudentsOnClouds();
+        try {
+            addStudentsOnClouds();
+        }catch(EmptyBagException e) {
+            e.printStackTrace();
+        }
 
         schoolBoards = new SchoolBoard[numberOfPlayers];
         switch(numberOfPlayers) {
@@ -78,6 +84,9 @@ public class GameTable {
             players[i].addAssistants(listAssistants);
 
         motherNaturePosition = 0;
+        victory = false;
+        draw = false;
+        winner = null;
     }
 
     private List<Assistant> createAssistant(){
@@ -98,9 +107,9 @@ public class GameTable {
         return l;
     }
 
-    public void addStudentsOnClouds() {
-        for(int i = 0; i < numberOfPlayers; i++)
-            clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
+    public void addStudentsOnClouds() throws EmptyBagException{
+            for (int i = 0; i < numberOfPlayers; i++)
+                clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
     }
 
     public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
@@ -165,6 +174,7 @@ public class GameTable {
                 }
                 if(!equalInfluenceToOtherPlayer) {
                     islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(1));
+                    if(islands.get(motherNaturePosition).getTowers().isEmpty()) throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
                     mergeIslandsIfNecessary();
                 }
             }else
@@ -173,12 +183,30 @@ public class GameTable {
                     List<Tower> previousTowers = islands.get(motherNaturePosition).removeTowers();
                     schoolBoards[towerOnTheIsland.getColor().getIndex()].addTowers(previousTowers);
                     islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(numberOfRequiredTowers));
+                    if(islands.get(motherNaturePosition).getTowers().isEmpty()) throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
+                    if(islands.size() <= 3) throw new ThreeOrLessIslandException();
                     mergeIslandsIfNecessary();
                 }
         }catch(InvalidNumberException e) {
             e.printStackTrace();
         }catch(NoMoreTowersException e) {
-            // qualcuno dovrebbe vincere
+            victory = true;
+            winner = e.getEmptySchoolboardColor();
+        }catch(ThreeOrLessIslandException e) {
+            victory = true;
+            TowerColor possibleWinner = teamWithLessTowersOnSchoolboars();
+            if(possibleWinner == null) {
+                possibleWinner = teamWithMoreProfessors();
+                if (possibleWinner == null) {
+                    draw = true;
+                }else {
+                    victory = true;
+                    winner = possibleWinner;
+                }
+            }else {
+                victory = true;
+                winner = possibleWinner;
+            }
         }
         if(islands.get(motherNaturePosition).getTowers() == null) { } // exception
     }
@@ -236,10 +264,50 @@ public class GameTable {
 
     public List<Student> getStudentsOnCloud(int cloudIndex) {
         if(clouds[cloudIndex] == null) { }//exception ("This cloud doesn't have students on it")
-        List<Student> studentsOnTheCloud = null;
+        List<Student> studentsOnTheCloud = new ArrayList<>();
         if(cloudIndex >= 0 && cloudIndex < clouds.length) {
-            studentsOnTheCloud = clouds[cloudIndex].getStudents();
+            studentsOnTheCloud.addAll(clouds[cloudIndex].getStudents());
         }
         return studentsOnTheCloud;
+    }
+
+    private TowerColor teamWithLessTowersOnSchoolboars() {
+        TowerColor teamColor = null;
+        int minimumNumberOfTowerOnSchoolboards = 9;
+        int numberOfIterations = 2;
+        if(numberOfPlayers == 3) numberOfIterations = numberOfPlayers;
+        for (int i = 0; i < numberOfIterations; i++) {
+            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size()){
+                teamColor = null;
+                break;
+            }else if(minimumNumberOfTowerOnSchoolboards > schoolBoards[i].getTowers().size()) {
+                minimumNumberOfTowerOnSchoolboards = schoolBoards[i].getTowers().size();
+                teamColor = schoolBoards[i].getTowersColor();
+            }
+        }
+        return teamColor;
+    }
+    private TowerColor teamWithMoreProfessors() {
+        TowerColor teamColor = null;
+        int maximumNumberOfProfessors = -1;
+        int[] numberOfProfessors = new int[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++)
+            numberOfProfessors[i] = schoolBoards[i].getProfessors().size();
+        if(numberOfPlayers == 4) {
+            int[] numberOfProfessorsForFourPlayers = new int[2];
+            numberOfProfessorsForFourPlayers[0] = numberOfProfessors[0] + numberOfProfessors[2];
+            numberOfProfessorsForFourPlayers[1] = numberOfProfessors[1] + numberOfProfessors[3];
+            numberOfProfessors = numberOfProfessorsForFourPlayers;
+        }
+        for (int i = 0; i < numberOfProfessors.length; i++) {
+            if (maximumNumberOfProfessors == numberOfProfessors[i]) {
+                teamColor = null;
+                break;
+            }else if (maximumNumberOfProfessors < numberOfProfessors[i]) {
+                maximumNumberOfProfessors = numberOfPlayers;
+                teamColor = schoolBoards[i].getTowersColor();
+            }
+        }
+        return teamColor;
     }
 }

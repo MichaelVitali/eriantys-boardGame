@@ -8,4 +8,7 @@ public class NoMoreTowersException extends Exception {
         this.emptySchoolboardColor = emptySchoolboardColor;
     }
 
+    public TowerColor getEmptySchoolboardColor() {
+        return emptySchoolboardColor;
+    }
 }
