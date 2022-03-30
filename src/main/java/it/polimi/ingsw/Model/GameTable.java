@@ -13,13 +13,13 @@ public class GameTable {
     protected boolean draw;
     protected TowerColor winner;
 
-    public GameTable(int numberOfPlayers) {
+    public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards) {
         this.numberOfPlayers = numberOfPlayers;
 
         createIslands();
         createClouds(numberOfPlayers);
 
-        schoolBoards = null;
+        this.schoolBoards = schoolBoards;
 
         motherNaturePosition = 0;
         victory = false;
@@ -250,5 +250,14 @@ public class GameTable {
             }
         }
         return teamColor;
+    }
+
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
+        this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
+    }
+
+    public void addSchoolBoards(SchoolBoard[] schoolBoards) {
+        if(schoolBoards != null)
+            this.schoolBoards = schoolBoards;
     }
 }
