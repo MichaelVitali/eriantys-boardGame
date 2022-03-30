@@ -41,10 +41,6 @@ public class Player {
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
-    //potrebbe non servire se mettiamo il game
-    public void moveMotherNature(int pos){
-        this.gameTable.changeMotherNaturePosition(pos);
-    }
 
     public void takeStudentsFromCloud(int indexCloud) {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterWithStudent extends Character{
-    private Student[] students;
+    private final Student[] students;
 
     public CharacterWithStudent(int id, int cost, int numberOfStudent) {
         super(id, cost);

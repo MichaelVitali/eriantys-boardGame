@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Island {
-    private int index;
+    private final int index;
     private Tower tower;
     private final List<Student> students;
 

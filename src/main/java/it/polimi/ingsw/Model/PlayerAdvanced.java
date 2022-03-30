@@ -24,7 +24,7 @@ public class PlayerAdvanced extends Player{
             int cost = this.gameTable.getCostCharacter(indexCard);
 
             //se ho abbastanza coin per la carta eseguo l'effetto
-            if(cost >= this.schoolBoard.getNumberOfCoins()) {
+            if(cost <= this.schoolBoard.getNumberOfCoins()) {
                 this.schoolBoard.removeCoins(cost);
                 this.gameTable.addCoins(cost);
                 if(!this.gameTable.getCharacter(indexCard).getFirstUse()) this.gameTable.getCharacter(indexCard).setFirstUse();

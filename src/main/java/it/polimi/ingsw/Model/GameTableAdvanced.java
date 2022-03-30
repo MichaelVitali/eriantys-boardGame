@@ -88,7 +88,6 @@ public class GameTableAdvanced extends GameTable{
         return this.characters[indexCard];
     }
 
-    //da sistemare schollboard advance
     @Override
     public void addStudentOnTableFromEntrance(int indexStudent, int schoolboardIndex){
         this.schoolBoards[schoolboardIndex].addStudentOnTable(indexStudent);

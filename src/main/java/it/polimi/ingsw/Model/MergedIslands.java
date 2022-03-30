@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MergedIslands extends Island{
-    private Island firstIstand;
-    private Island secondIstand;
+    private final Island firstIstand;
+    private final Island secondIstand;
 
     public MergedIslands(Island firstIstand, Island secondIstand) {
         super(firstIstand.getIndex());
