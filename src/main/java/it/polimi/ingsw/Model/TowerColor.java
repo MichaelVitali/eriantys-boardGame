@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Model;
 
 public enum TowerColor {
-    WHITE(1), BLACK(2), GREY(3);
+    WHITE(0), BLACK(1), GREY(2);
     private final int index;
 
     TowerColor(int index) {

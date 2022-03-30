@@ -17,8 +17,8 @@ public class GameTableAdvanced extends GameTable{
     private int coins;
 
 
-    public GameTableAdvanced(int numberOfPlayers, Player[] players) {
-        super(numberOfPlayers, players);
+    public GameTableAdvanced(int numberOfPlayers, SchoolBoard[] schoolBoards) {
+        super(numberOfPlayers, schoolBoards);
         try {
             this.createCharacters();
             this.coins = 20;

@@ -2,7 +2,7 @@ package it.polimi.ingsw.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random; // Controlla quale è la libreria standard
+import java.util.Random;
 
 public class Bag {
     private static Bag bag;

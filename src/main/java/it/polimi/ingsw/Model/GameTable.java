@@ -1,86 +1,25 @@
 package it.polimi.ingsw.Model;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
     protected final int numberOfPlayers;
-    protected final Player[] players;
     protected List<Island> islands;
-    protected final Cloud[] clouds;
+    protected Cloud[] clouds;
     protected SchoolBoard[] schoolBoards;
-    protected final Assistant[] assistants;
     protected int motherNaturePosition;
     protected boolean victory;
     protected boolean draw;
     protected TowerColor winner;
 
-    public GameTable(int numberOfPlayers, Player[] players) {
+    public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards) {
         this.numberOfPlayers = numberOfPlayers;
-        this.players = new Player[numberOfPlayers];
-        for(int i = 0; i < numberOfPlayers; i++)
-            this.players[i] = players[i];
 
-        List<Island> islands = new ArrayList<>();
-        for(int i = 0; i < 12; i++) {
-            islands.add(new Island(i));
-        }
+        createIslands();
+        createClouds(numberOfPlayers);
 
-        int numberOfStudentsOnClouds;
-        int numberOfStudentsOnEntrance;
-        int numberOfTowers;
-        if(numberOfPlayers == 3) {
-            numberOfStudentsOnClouds = 4;
-            numberOfStudentsOnEntrance = 9;
-            numberOfTowers = 6;
-        }else {
-            numberOfStudentsOnClouds = 3;
-            numberOfStudentsOnEntrance = 9;
-            numberOfTowers = 8;
-        }
-        clouds = new Cloud[numberOfPlayers];
-        for(Cloud cloud : clouds)
-            cloud = new Cloud(numberOfStudentsOnClouds);
-        try {
-            addStudentsOnClouds();
-        }catch(EmptyBagException e) {
-            e.printStackTrace();
-        }
-
-        schoolBoards = new SchoolBoard[numberOfPlayers];
-        switch(numberOfPlayers) {
-            case 2:
-                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                break;
-            case 3:
-                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.GREY, numberOfTowers);
-                break;
-            case 4:
-                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, 0);
-                schoolBoards[4] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
-                break;
-        }
-        for(int i = 0; i < numberOfPlayers; i++)
-            players[i].addSchoolBoard(schoolBoards[i]);
-
-        assistants = new Assistant[numberOfPlayers * 10]; /////va controllato
-        ////inizializzazione degli assistant
-        List<Assistant> listAssistants = createAssistant();
-        for(int i = 0; i < numberOfPlayers; i++)
-            players[i].addAssistants(listAssistants);
+        this.schoolBoards = schoolBoards;
 
         motherNaturePosition = 0;
         victory = false;
@@ -88,26 +27,24 @@ public class GameTable {
         winner = null;
     }
 
-    public int getMotherNaturePosition() {
-        return motherNaturePosition;
+    private void createIslands() {
+        List<Island> islands = new ArrayList<>();
+        for(int i = 0; i < 12; i++) {
+            islands.add(new Island(i));
+        }
     }
 
-    private List<Assistant> createAssistant(){
-        JSONParser parser = new JSONParser();
-        List<Assistant> l = new ArrayList<>();
-        try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
-            for (Object o : a) {
-                JSONObject assistant = (JSONObject) o;
+    private void createClouds(int numberOfPlayers) {
+        int numberOfStudentsOnClouds = 3;
+        if(numberOfPlayers == 3)
+            numberOfStudentsOnClouds = 4;
+        clouds = new Cloud[numberOfPlayers];
+        for(Cloud cloud : clouds)
+            cloud = new Cloud(numberOfStudentsOnClouds);
+    }
 
-                int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
-                int motherNatureMoves = Integer.parseInt((String) assistant.get("motherNatureMoves"));
-                l.add(new Assistant(cardValue, motherNatureMoves));
-            }
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
-        }
-        return l;
+    public int getMotherNaturePosition() {
+        return motherNaturePosition;
     }
 
     public void addStudentsOnClouds() throws EmptyBagException{
@@ -196,6 +133,7 @@ public class GameTable {
             victory = true;
             winner = e.getEmptySchoolboardColor();
         }catch(ThreeOrLessIslandException e) {
+            victory = true;
             TowerColor possibleWinner = teamWithLessTowersOnSchoolboars();
             if(possibleWinner == null) {
                 possibleWinner = teamWithMoreProfessors();
@@ -268,7 +206,7 @@ public class GameTable {
         if(clouds[cloudIndex] == null) { }//exception ("This cloud doesn't have students on it")
         List<Student> studentsOnTheCloud = new ArrayList<>();
         if(cloudIndex >= 0 && cloudIndex < clouds.length) {
-            studentsOnTheCloud.addAll(clouds[cloudIndex].getStudents());
+            studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
         }
         return studentsOnTheCloud;
     }
@@ -314,11 +252,11 @@ public class GameTable {
         return teamColor;
     }
 
-    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex){
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
     }
 
-    public void addSchoolBoards(SchoolBoard[] schoolBoards){
+    public void addSchoolBoards(SchoolBoard[] schoolBoards) {
         if(schoolBoards != null)
             this.schoolBoards = schoolBoards;
     }
