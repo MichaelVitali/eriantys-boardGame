@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Random;
 
 public class GameTableAdvanced extends GameTable{
-    private Character[] characters;
-    private SchoolboardAdvanced schoolBoards[];
+    protected Character[] characters;
+    protected SchoolboardAdvanced schoolBoards[];
     private int coins;
 
-
+    public GameTableAdvanced(){}
     public GameTableAdvanced(int numberOfPlayers, SchoolBoard[] schoolBoards) {
         super(numberOfPlayers, schoolBoards);
         try {
@@ -27,7 +27,7 @@ public class GameTableAdvanced extends GameTable{
         }
     }
 
-    public void createCharacters() throws EmptyBagException{
+    private void createCharacters() throws EmptyBagException{
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {

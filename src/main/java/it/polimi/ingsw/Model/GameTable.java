@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
-    protected final int numberOfPlayers;
+    protected  int numberOfPlayers;
     protected List<Island> islands;
     protected Cloud[] clouds;
-    protected SchoolBoard[] schoolBoards;
+    private SchoolBoard[] schoolBoards;
     protected int motherNaturePosition;
     protected boolean victory;
     protected boolean draw;
     protected TowerColor winner;
+
+    public GameTable(){}
 
     public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards) {
         this.numberOfPlayers = numberOfPlayers;
@@ -27,14 +29,14 @@ public class GameTable {
         winner = null;
     }
 
-    private void createIslands() {
+    protected void createIslands() {
         List<Island> islands = new ArrayList<>();
         for(int i = 0; i < 12; i++) {
             islands.add(new Island(i));
         }
     }
 
-    private void createClouds(int numberOfPlayers) {
+    protected void createClouds(int numberOfPlayers) {
         int numberOfStudentsOnClouds = 3;
         if(numberOfPlayers == 3)
             numberOfStudentsOnClouds = 4;
@@ -88,7 +90,7 @@ public class GameTable {
         putTowerOrChangeColorIfNecessary();
     }
 
-    private void putTowerOrChangeColorIfNecessary() {
+    protected void putTowerOrChangeColorIfNecessary() {
         int[] influences = calculateInfluences(); // pay attention : influence.length isn't numberOfPlayers
         Tower towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
         int maxInfluence = -1, indexMaxInfluence = -1;
@@ -151,7 +153,7 @@ public class GameTable {
         if(islands.get(motherNaturePosition).getTowers() == null) { } // exception
     }
 
-    private int[] calculateInfluences() {
+    public int[] calculateInfluences() {
         int numberOfIteration = numberOfPlayers == 4 ? 2 : numberOfPlayers;
         int[] influence = new int[numberOfIteration];
         List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
@@ -184,7 +186,7 @@ public class GameTable {
         return influence;
     }
 
-    private void mergeIslandsIfNecessary() {
+    protected void mergeIslandsIfNecessary() {
         Tower towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
         Tower towerOnTheNextIsland = islands.get(motherNaturePosition).getTowers().get(0);
         Tower towerOnThePreviousIsland = islands.get(motherNaturePosition).getTowers().get(0);
@@ -211,7 +213,7 @@ public class GameTable {
         return studentsOnTheCloud;
     }
 
-    private TowerColor teamWithLessTowersOnSchoolboars() {
+    protected TowerColor teamWithLessTowersOnSchoolboars() {
         TowerColor teamColor = null;
         int minimumNumberOfTowerOnSchoolboards = 9;
         int numberOfIterations = 2;
@@ -228,7 +230,7 @@ public class GameTable {
         return teamColor;
     }
 
-    private TowerColor teamWithMoreProfessors() {
+    protected TowerColor teamWithMoreProfessors() {
         TowerColor teamColor = null;
         int maximumNumberOfProfessors = -1;
         int[] numberOfProfessors = new int[numberOfPlayers];
