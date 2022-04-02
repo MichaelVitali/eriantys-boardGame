@@ -11,16 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+
     private GameTable gameTable;
-    private int numberOfPlayers;
+    private final int numberOfPlayers;
     private Player[] players;
     private Assistant[] assistants;
     private GameMode mode;
     private int playerOnTurn;
+    private Round round;
 
     Game(int numberOfPlayers, GameMode mode) {
         this.mode = mode;
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public int getNumberOfPlayers(){
+        return numberOfPlayers;
     }
 
     private void createGameTable() {
@@ -76,7 +82,6 @@ public class Game {
             JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
-
                 int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
                 int motherNatureMoves = Integer.parseInt((String) assistant.get("motherNatureMoves"));
                 l.add(new Assistant(cardValue, motherNatureMoves));
@@ -87,12 +92,37 @@ public class Game {
         return l;
     }
 
-    private void createPlayer() {
-
+    private void createPlayer(String nickname, int id) {
+        Player p = new Player(nickname, id);
+        if(id>=0 && id<numberOfPlayers)
+            players[id]=p;
     }
 
+    public Player getPlayer(int id){
+        //ECCEZIONE SU ID>=0 O ID<numberOfPlayers
+        return this.players[id];
+    }
 
+    private boolean checkEndgame(){
+        //TODO
+        return false;
+    }
 
+    public void endGame(){
+        //TODO
+    }
 
+    public Round startRound(){
+        this.round=new Round(this);
+        return round;
+    }
+
+    public Round getRound(){
+        return this.round;
+    }
+
+    public void endRound(){
+        //TODO
+    }
 
 }

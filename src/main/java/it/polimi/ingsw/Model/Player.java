@@ -6,10 +6,12 @@ public class Player {
     private SchoolBoard schoolBoard;
     private GameTable gameTable;
     protected final String nickName;
+    protected final int id;
     protected List<Assistant> assistants;
 
-    public Player(String nickName){
+    public Player(String nickName, int id){
         this.nickName = nickName;
+        this.id=id;
         this.assistants = new ArrayList<Assistant>();
     }
 
@@ -21,9 +23,12 @@ public class Player {
         this.schoolBoard = s;
     }
 
-    public void playAssistant(int pos){
+    public Assistant playAssistant(int pos){ // MT: ho modificato il ritorno del metodo da void ad Assistant: mi serve in PianificationPhase
+
         if(pos >= 0 && pos < assistants.size())
-            this.assistants.remove(pos);
+            return this.assistants.remove(pos);
+        else
+            //TODO out of bound exception
     }
     //conviene creare un'eccezioone che gestisce le posizioni errate
     public Assistant getAssistant(int pos){
@@ -42,12 +47,22 @@ public class Player {
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
+    public void putTowers(List<Integer> posTowers) {
+
+        List<Tower> towers = new ArrayList<>();
+        for(int i=0; i<posTowers.size(); i++){
+            towers.add(schoolBoard.removeTower(posTowers.get(i)));
+        }
+        this.gameTable.putTowerOnIsland(towers);
+    }
+
     public void takeStudentsFromCloud(int indexCloud) {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
         this.schoolBoard.addStudentsOnEntrance(s);
     }
 
     public void addAssistants(List<Assistant> l) {
-        this.assistants.addAll(l);
+        if(this.assistants.size() == 0)
+            this.assistants.addAll(l);
     }
 }
