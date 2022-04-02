@@ -1,12 +1,10 @@
 package it.polimi.ingsw.Model;
 
-import com.sun.tools.javac.code.Attribute;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterWithStudent extends Character{
-    private Student[] students;
+    private final Student[] students;
 
     public CharacterWithStudent(int id, int cost, int numberOfStudent) {
         super(id, cost);
@@ -21,10 +19,15 @@ public class CharacterWithStudent extends Character{
 
     public List<Student> getStudents(List<Integer> indexStudent){
         List<Student> returnStudents = new ArrayList<>();
-        for(Integer i: indexStudent){
-            returnStudents.add(this.students[i]);
-            this.students[i] = null;
+
+        if(indexStudent.size() > 0) {
+            for (Integer i : indexStudent) {
+                returnStudents.add(this.students[i]);
+                this.students[i] = null;
+            }
+            return returnStudents;
+        }else{
+            return null;
         }
-        return returnStudents;
     }
 }

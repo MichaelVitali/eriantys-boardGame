@@ -17,15 +17,12 @@ public class Cloud {
     }
 
     public List<Student> getStudents() {
-        List<Student> returnedStudents = new ArrayList<>(students);
-        returnedStudents.addAll(students);
-        return returnedStudents;
+        return new ArrayList<>(students);
     }
 
     public List<Student> removeStudents() {
         List<Student> removedStudents = new ArrayList<>(students);
-        removedStudents.addAll(students);
-        students.removeAll(removedStudents);
+        students.clear();
         return removedStudents;
     }
 

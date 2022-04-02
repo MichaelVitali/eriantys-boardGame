@@ -37,4 +37,5 @@ public class Bag {
     public void addStudents(List<Student> newStudents){
         this.students.addAll(newStudents);
     }
+
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Island {
-    private int index;
+    private final int index;
     private Tower tower;
     private final List<Student> students;
 
@@ -21,7 +21,9 @@ public class Island {
         tower = t.get(0);
     }
 
+    //modificato return null se la torre non è presente
     public List<Tower> getTowers() {
+        if(tower == null) return null;
         List<Tower> towersOnTheIsland = new ArrayList<>();
         towersOnTheIsland.add(tower);
         return towersOnTheIsland;
