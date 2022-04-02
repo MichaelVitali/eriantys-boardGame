@@ -41,19 +41,20 @@ public class Table {
     }
 
     //restituisce la posizione dell'ultimo studente aggiunto per l'aggiunta del coin
-    public int getLastStudentPosition(){
+    /*public int getLastStudentPosition(){
         for(int i = 0; i < students.length; i++){
             if(this.students[i] == null) return --i;
         }
         return 0;
-    }
+    }*/
 
-    public Student removeStudentTable(){
+    public Student removeStudentFromTable() throws EmptyTableException {
         Student s = null;
+        if(getNumberOfStudents() <= 0) throw new EmptyTableException();
         for(int i = 0; i < NUMBEROFSEATS; i++){
             if(this.students[i] == null){
                 s = this.students[--i];
-                this.students[++i] = null;
+                this.students[++i] = null; // non dovrebbe esserci i ?
                 break;
             }
         }

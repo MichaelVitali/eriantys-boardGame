@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model;
+/*package it.polimi.ingsw.Model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,7 +14,7 @@ import java.util.Random;
 public class GameTableAdvanced extends GameTable{
     protected Character[] characters;
     protected SchoolboardAdvanced schoolBoards[];
-    private int coins;
+    private int coins; /// sono in game
 
     public GameTableAdvanced(){}
     public GameTableAdvanced(int numberOfPlayers, SchoolBoard[] schoolBoards) {
@@ -63,13 +63,13 @@ public class GameTableAdvanced extends GameTable{
         }
     }
 
-    public int getIDCharacter(int indexCard) throws InvalidNumberException{
-        if(indexCard < 0 || indexCard > 3) throw new InvalidNumberException("Error character index gameTable");
+    public int getIDCharacter(int indexCard) throws InvalidIndexException {
+        if(indexCard < 0 || indexCard > 3) throw new InvalidIndexException("Error character index gameTable");
         else return this.characters[indexCard].getID();
     }
 
-    public int getCostCharacter(int indexCard) throws InvalidNumberException{
-        if(indexCard < 0 || indexCard > 3) throw new InvalidNumberException("Error character index gameTable");
+    public int getCostCharacter(int indexCard) throws InvalidIndexException {
+        if(indexCard < 0 || indexCard > 3) throw new InvalidIndexException("Error character index gameTable");
         else return this.characters[indexCard].getCost();
     }
 
@@ -117,3 +117,5 @@ public class GameTableAdvanced extends GameTable{
             this.coins--;
     }
 }
+
+*/

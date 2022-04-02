@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model;
+/*package it.polimi.ingsw.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class PlayerAdvanced extends Player{
             this.schoolBoard = schoolBoard;
     }
 
-    public void effectActivation(int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) throws EmptyBagException{
+    /*public void effectActivation(int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) throws EmptyBagException{
         try{
             int ID = this.gameTable.getIDCharacter(indexCard);
             int cost = this.gameTable.getCostCharacter(indexCard);
@@ -55,7 +55,7 @@ public class PlayerAdvanced extends Player{
                             for(Integer i: studentsIndexEntrance) newStudentsCard.add(this.schoolBoard.removeStudentFromEntrance(i));
                             this.gameTable.addStudentsOnCard(indexCard, newStudentsCard);
                             this.schoolBoard.addStudentsOnEntrance(newStudentsEntrance);
-                        }else throw new InvalidNumberException("Error effect 7");
+                        }else throw new InvalidIndexException("Error effect 7");
                         break;
                     case 8:
                         //INDICE ERRATO IN INPUT AL METODO. Capire se mettere un parametro o spostare tutto su game
@@ -110,7 +110,7 @@ public class PlayerAdvanced extends Player{
                         for(PawnColor c: PawnColor.values()){
                             if(c.toString().equals(color)) tableIndex = c.getIndex();
                         }
-                        if(tableIndex == -1) throw new InvalidNumberException("Error color effect");
+                        if(tableIndex == -1) throw new InvalidIndexException("Error color effect");
                         else{
                             List<Student> newStudentsBag = new ArrayList<>();
                             for(int i = 0; i < 3; i++){
@@ -121,11 +121,9 @@ public class PlayerAdvanced extends Player{
                         break;
                 }
             }
-        }catch(InvalidNumberException e){
+        }catch(InvalidIndexException e){
             e.printStackTrace();
         }
-
-
     }
 
-}
+}*/

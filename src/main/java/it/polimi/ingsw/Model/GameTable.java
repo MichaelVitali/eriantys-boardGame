@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTable {
-    protected  int numberOfPlayers;
-    protected List<Island> islands;
-    protected Cloud[] clouds;
+    private int numberOfPlayers;
+    private List<Island> islands;
+    private Cloud[] clouds;
     private SchoolBoard[] schoolBoards;
-    protected int motherNaturePosition;
-    protected boolean victory;
-    protected boolean draw;
-    protected TowerColor winner;
+    private int motherNaturePosition;
+    private boolean victory;
+    private boolean draw;
+    private TowerColor winner;
 
     public GameTable(){}
 
@@ -29,20 +29,35 @@ public class GameTable {
         winner = null;
     }
 
-    protected void createIslands() {
+    private void createIslands() {
         List<Island> islands = new ArrayList<>();
         for(int i = 0; i < 12; i++) {
             islands.add(new Island(i));
         }
     }
 
-    protected void createClouds(int numberOfPlayers) {
+    private void createClouds(int numberOfPlayers) {
         int numberOfStudentsOnClouds = 3;
         if(numberOfPlayers == 3)
             numberOfStudentsOnClouds = 4;
         clouds = new Cloud[numberOfPlayers];
         for(Cloud cloud : clouds)
             cloud = new Cloud(numberOfStudentsOnClouds);
+    }
+
+    /*messo solo perchè serve nei decorator*/
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    /*messo solo perchè serve nei decorator*/
+    public List<Island> getIslands() {
+        return islands;
+    }
+
+    /*messo solo perchè serve nei decorator*/
+    public SchoolBoard[] getSchoolBoards() {
+        return schoolBoards;
     }
 
     public int getMotherNaturePosition() {
@@ -85,9 +100,8 @@ public class GameTable {
 
     }
 
-    public void changeMotherNaturePosition(int newPosition) {
-        motherNaturePosition = newPosition;
-        putTowerOrChangeColorIfNecessary();
+    public void changeMotherNaturePosition(int numberOfMoves) {
+        motherNaturePosition += numberOfMoves;
     }
 
     protected void putTowerOrChangeColorIfNecessary() {
@@ -129,7 +143,7 @@ public class GameTable {
                     if(islands.size() <= 3) throw new ThreeOrLessIslandException();
                     mergeIslandsIfNecessary();
                 }
-        }catch(InvalidNumberException e) {
+        }catch(InvalidIndexException e) {
             e.printStackTrace();
         }catch(NoMoreTowersException e) {
             victory = true;
@@ -261,5 +275,9 @@ public class GameTable {
     public void addSchoolBoards(SchoolBoard[] schoolBoards) {
         if(schoolBoards != null)
             this.schoolBoards = schoolBoards;
+    }
+
+    public GameTable getGameTableInstance(){
+        return this;
     }
 }

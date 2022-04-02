@@ -2,34 +2,34 @@ package it.polimi.ingsw.Model;
 
 import java.util.List;
 
-public class DecoratedGameTableAdvancedMoreInfluece extends GameTableAdvanced{
-    private GameTableAdvanced gameTable;
+public class DecoratedGameTableMoreInfluece extends GameTable {
+    private GameTable gameTable;
     private int playerIndex;
 
-    public DecoratedGameTableAdvancedMoreInfluece(GameTableAdvanced gameTable, int  playerIndex){
+    public DecoratedGameTableMoreInfluece(GameTable gameTable, int  playerIndex) {
         super();
         this.gameTable = gameTable;
         this.playerIndex = playerIndex;
     }
     @Override
-    public int getMotherNaturePosition(){
+    public int getMotherNaturePosition() {
         return this.gameTable.getMotherNaturePosition();
     }
 
     @Override
-    public int[] calculateInfluences(){
+    public int[] calculateInfluences() {
         int[] influences = this.gameTable.calculateInfluences();
         influences[playerIndex] += 2;
         return influences;
     }
 
     @Override
-    public void addStudentsOnClouds() throws EmptyBagException{
+    public void addStudentsOnClouds() throws EmptyBagException {
         this.gameTable.addStudentsOnClouds();
     }
 
     @Override
-    public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent){
+    public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
         this.gameTable.moveProfessorToTheRightPosition(colorOfTheMovedStudent);
     }
 
@@ -69,10 +69,10 @@ public class DecoratedGameTableAdvancedMoreInfluece extends GameTableAdvanced{
     }
 
     @Override
-    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex){
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
         this.gameTable.addStudentOnTableFromEntrance(indexStudent, schoolBoardIndex);
     }
-
+/*
     @Override
     public void addCoins(int coins){
         this.gameTable.addCoins(coins);
@@ -87,8 +87,9 @@ public class DecoratedGameTableAdvancedMoreInfluece extends GameTableAdvanced{
     public void removeCoin(){
         this.gameTable.removeCoin();
     }
-
-    public GameTableAdvanced getGameTableAdvancedInstance(){
+*/
+    @Override
+    public GameTable getGameTableInstance(){
         return this.gameTable;
     }
 }

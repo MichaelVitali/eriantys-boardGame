@@ -2,10 +2,10 @@ package it.polimi.ingsw.Model;
 
 import java.util.List;
 
-public class DecoratedGameTableAdvancedNoTowerInfluence extends GameTableAdvanced{
-    private GameTableAdvanced gameTable;
+public class DecoratedGameTableNoTowerInfluence extends GameTable {
+    private GameTable gameTable;
 
-    public DecoratedGameTableAdvancedNoTowerInfluence(GameTableAdvanced gameTable){
+    public DecoratedGameTableNoTowerInfluence(GameTable gameTable) {
         super();
         this.gameTable = gameTable;
     }
@@ -16,17 +16,17 @@ public class DecoratedGameTableAdvancedNoTowerInfluence extends GameTableAdvance
     }
 
     @Override
-    public int[] calculateInfluences(){
-        int numberOfIteration = numberOfPlayers == 4 ? 2 : numberOfPlayers;
+    public int[] calculateInfluences() {
+        int numberOfIteration = gameTable.getNumberOfPlayers() == 4 ? 2 : gameTable.getNumberOfPlayers();
         int[] influence = new int[numberOfIteration];
-        List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
-        List<Tower> towersOnTheIslands = islands.get(motherNaturePosition).getTowers();
+        List<Student> studentsOnTheIslands = gameTable.getIslands().get(gameTable.getMotherNaturePosition()).getStudents();
+        List<Tower> towersOnTheIslands = getIslands().get(gameTable.getMotherNaturePosition()).getTowers();
         influence[0] = 0;
 
-        for(int i = 0; i < numberOfIteration; i++) {
+        for (int i = 0; i < numberOfIteration; i++) {
             influence[i] = 0;
-            List<PawnColor> professors = schoolBoards[i].getProfessors();
-            if (numberOfPlayers == 4) professors.addAll(schoolBoards[i + 2].getProfessors());
+            List<PawnColor> professors = gameTable.getSchoolBoards()[i].getProfessors();
+            if (gameTable.getNumberOfPlayers() == 4) professors.addAll(gameTable.getSchoolBoards()[i + 2].getProfessors());
             for (PawnColor professor : professors) {
                 for (Student student : studentsOnTheIslands) {
                     if (professor == student.getColor()) influence[i]++;
@@ -37,12 +37,12 @@ public class DecoratedGameTableAdvancedNoTowerInfluence extends GameTableAdvance
     }
 
     @Override
-    public void addStudentsOnClouds() throws EmptyBagException{
+    public void addStudentsOnClouds() throws EmptyBagException {
         this.gameTable.addStudentsOnClouds();
     }
 
     @Override
-    public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent){
+    public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
         this.gameTable.moveProfessorToTheRightPosition(colorOfTheMovedStudent);
     }
 
@@ -82,10 +82,10 @@ public class DecoratedGameTableAdvancedNoTowerInfluence extends GameTableAdvance
     }
 
     @Override
-    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex){
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
         this.gameTable.addStudentOnTableFromEntrance(indexStudent, schoolBoardIndex);
     }
-
+/*
     @Override
     public void addCoins(int coins){
         this.gameTable.addCoins(coins);
@@ -100,8 +100,8 @@ public class DecoratedGameTableAdvancedNoTowerInfluence extends GameTableAdvance
     public void removeCoin(){
         this.gameTable.removeCoin();
     }
-
-    public GameTableAdvanced getGameTableAdvancedInstance(){
-        return this.gameTable;
+*/
+    public GameTable getGameTableInstance() {
+        return gameTable;
     }
 }

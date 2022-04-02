@@ -12,7 +12,7 @@ public class CharacterWithStudent extends Character{
     }
 
     public void addStudents(List<Student> students){
-        for(int i = 0; i < this.students.length; i++){
+        for (int i = 0; i < this.students.length; i++){
             if(this.students[i] == null) this.students[i] = students.remove(0);
         }
     }
@@ -20,13 +20,13 @@ public class CharacterWithStudent extends Character{
     public List<Student> getStudents(List<Integer> indexStudent){
         List<Student> returnStudents = new ArrayList<>();
 
-        if(indexStudent.size() > 0) {
+        if (indexStudent.size() > 0) {
             for (Integer i : indexStudent) {
                 returnStudents.add(this.students[i]);
                 this.students[i] = null;
             }
             return returnStudents;
-        }else{
+        } else {
             return null;
         }
     }

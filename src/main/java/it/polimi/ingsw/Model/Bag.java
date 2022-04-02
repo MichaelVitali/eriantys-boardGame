@@ -10,7 +10,7 @@ public class Bag {
 
     private Bag() {
         students = new ArrayList<>();
-        for(int i = 0; i < 26 ; i++) {
+        for (int i = 0; i < 26 ; i++) {
             students.add(new Student(PawnColor.YELLOW));
             students.add(new Student(PawnColor.BLUE));
             students.add(new Student(PawnColor.GREEN));
@@ -21,8 +21,8 @@ public class Bag {
 
     public List<Student> drawStudents(int numberOfStudents) throws EmptyBagException {
         List<Student> drawnStudents = new ArrayList<>();
-        if(numberOfStudents > students.size()) throw new EmptyBagException();
-        for(int i = 0; i < numberOfStudents; i++) {
+        if (numberOfStudents > students.size()) throw new EmptyBagException();
+        for (int i = 0; i < numberOfStudents; i++) {
             int index = new Random().nextInt(students.size());
             drawnStudents.add(students.remove(index));
         }
@@ -30,12 +30,12 @@ public class Bag {
     }
 
     public static Bag getBag() {
-        if(bag == null) bag = new Bag();
+        if (bag == null) bag = new Bag();
         return bag;
     }
 
     public void addStudents(List<Student> newStudents){
-        this.students.addAll(newStudents);
+        students.addAll(newStudents);
     }
 
 }

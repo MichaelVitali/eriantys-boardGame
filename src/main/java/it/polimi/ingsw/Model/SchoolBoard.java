@@ -37,9 +37,13 @@ public class SchoolBoard {
     }
 
     public void addStudentOnTable(int index) {
-        // if(index >= 0 && index < numberOfStudentsOnEntrance)
+        if(index >= 0 && index < numberOfStudentsOnEntrance) {}//throw new InvalidIndexException("");
         tables[entrance[index].getColor().getIndex()].addStudent(entrance[index]);
-        entrance[index] = null; // valutare se l'utilizzo del null va bene
+        entrance[index] = null;
+    }
+
+    public void addStudentOnTable(Student s) {
+        this.tables[s.getColor().getIndex()].addStudent(s);
     }
 
     public void addStudentsOnEntrance(List<Student> newStudents) {
@@ -78,8 +82,8 @@ public class SchoolBoard {
         return towers;
     }
 
-    public List<Tower> removeTowers(int numberOfTowers) throws InvalidNumberException, NoMoreTowersException{
-        if(numberOfTowers < 0) throw new InvalidNumberException("Numero non valido");
+    public List<Tower> removeTowers(int numberOfTowers) throws InvalidIndexException, NoMoreTowersException{
+        if(numberOfTowers < 0) throw new InvalidIndexException("Numero non valido");
         if(numberOfTowers > towers.size()) throw new NoMoreTowersException(towersColor);
         List<Tower> removedTowers = new ArrayList<>();
         for(int i = 0; i < numberOfTowers; i++)
@@ -92,7 +96,6 @@ public class SchoolBoard {
         towers.addAll(towerToAdd);
     }
 
-    // Ho chiamato giveStudent removeStudentFromEntrance perché mi sembrava più esplicativo
     public Student removeStudentFromEntrance(int index) {
         // eventuale controllo if(entrance[index] == null) throw new SomeTypeOfException("You're removing a null pointer and not a real student");
         if(index >= 0 && index < entrance.length) {

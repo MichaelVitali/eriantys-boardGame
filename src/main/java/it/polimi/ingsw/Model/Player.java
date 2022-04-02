@@ -9,10 +9,10 @@ public class Player {
     protected final int id;
     protected List<Assistant> assistants;
 
-    public Player(String nickName, int id){
+    public Player(String nickName, int id) {
         this.nickName = nickName;
-        this.id=id;
-        this.assistants = new ArrayList<Assistant>();
+        this.id = id;
+        this.assistants = new ArrayList<>();
     }
 
     public void addGameTable(GameTable gameTable){
@@ -23,19 +23,15 @@ public class Player {
         this.schoolBoard = s;
     }
 
-    public Assistant playAssistant(int pos){ // MT: ho modificato il ritorno del metodo da void ad Assistant: mi serve in PianificationPhase
+    public Assistant playAssistant(int pos) { // MT: ho modificato il ritorno del metodo da void ad Assistant: mi serve in PianificationPhase
 
-        if(pos >= 0 && pos < assistants.size())
-            return this.assistants.remove(pos);
-        else
-            //TODO out of bound exception
+        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
+        return this.assistants.remove(pos);
     }
-    //conviene creare un'eccezioone che gestisce le posizioni errate
-    public Assistant getAssistant(int pos){
-        if(pos >= 0 && pos < assistants.size())
-            return this.assistants.get(pos);
-        else
-            return null;
+
+    public Assistant getAssistant(int pos) {
+        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
+        return this.assistants.get(pos);
     }
 
     public void moveStudentOnTable(int pos){
@@ -47,14 +43,14 @@ public class Player {
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
-    public void putTowers(List<Integer> posTowers) {
+    /*public void putTowers(List<Integer> posTowers) {
 
         List<Tower> towers = new ArrayList<>();
         for(int i=0; i<posTowers.size(); i++){
             towers.add(schoolBoard.removeTower(posTowers.get(i)));
         }
         this.gameTable.putTowerOnIsland(towers);
-    }
+    }*/
 
     public void takeStudentsFromCloud(int indexCloud) {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);

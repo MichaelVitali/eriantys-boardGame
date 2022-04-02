@@ -16,6 +16,10 @@ public class Round{
             currentPlayer=-1;
         }
 
+        /*public boolean checkPlayer(int player) {
+            if(player != currentPlayer) return
+        }*/
+
         private void calculateFirstPlayer(){
             currentPlayer= ThreadLocalRandom.current().nextInt(0, game.getNumberOfPlayers());
         }

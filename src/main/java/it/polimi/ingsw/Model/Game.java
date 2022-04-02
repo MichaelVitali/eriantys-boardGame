@@ -13,16 +13,21 @@ import java.util.List;
 public class Game {
 
     private GameTable gameTable;
-    private final int numberOfPlayers;
+    private int numberOfPlayers;
     private Player[] players;
     private Assistant[] assistants;
-    private GameMode mode;
-    private int playerOnTurn;
+    //private GameMode mode;
     private Round round;
 
-    Game(int numberOfPlayers, GameMode mode) {
-        this.mode = mode;
+    Game() { }
+
+    Game(int numberOfPlayers) { //, GameMode mode) {
+        // this.mode = mode;
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public GameTable getGameTable() {
+        return gameTable;
     }
 
     public int getNumberOfPlayers(){
@@ -35,39 +40,37 @@ public class Game {
         List<Assistant> listAssistants = createAssistant();
         for(int i = 0; i < numberOfPlayers; i++)
             players[i].addAssistants(listAssistants);
-        if(mode == GameMode.NORMAL) {
-            SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
-            int numberOfStudentsOnEntrance;
-            int numberOfTowers;
-            if (numberOfPlayers == 3) {
-                numberOfStudentsOnEntrance = 9;
-                numberOfTowers = 6;
-            } else {
-                numberOfStudentsOnEntrance = 9;
-                numberOfTowers = 8;
-            }
+        SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
-            switch (numberOfPlayers) {
-                case 2:
-                    schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                    schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                    break;
-                case 3:
-                    schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                    schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                    schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.GREY, numberOfTowers);
-                    break;
-                case 4:
-                    schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                    schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                    schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, 0);
-                    schoolBoards[4] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
-                    break;
-            }
-        }else {
-
+        int numberOfStudentsOnEntrance;
+        int numberOfTowers;
+        if (numberOfPlayers == 3) {
+            numberOfStudentsOnEntrance = 9;
+            numberOfTowers = 6;
+        } else {
+            numberOfStudentsOnEntrance = 9;
+            numberOfTowers = 8;
         }
+
+        switch (numberOfPlayers) {
+            case 2:
+                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
+                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
+                break;
+            case 3:
+                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
+                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
+                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.GREY, numberOfTowers);
+                break;
+            case 4:
+                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
+                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
+                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, 0);
+                schoolBoards[4] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
+                break;
+        }
+
 
         /*gameTable = new GameTable(numberOfPlayers, schoolBoards);
         for(int i = 0; i < numberOfPlayers; i++)
@@ -101,6 +104,10 @@ public class Game {
     public Player getPlayer(int id){
         //ECCEZIONE SU ID>=0 O ID<numberOfPlayers
         return this.players[id];
+    }
+
+    public void setGameTable(GameTable gameTable) {
+        this.gameTable = gameTable;
     }
 
     private boolean checkEndgame(){
