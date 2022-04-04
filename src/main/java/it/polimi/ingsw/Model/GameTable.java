@@ -1,5 +1,10 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.NoMoreTowersException;
+import it.polimi.ingsw.Model.exception.ThreeOrLessIslandException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +18,7 @@ public class GameTable {
     private boolean draw;
     private TowerColor winner;
 
-    public GameTable(){}
+    public GameTable() { }
 
     public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards) {
         this.numberOfPlayers = numberOfPlayers;
@@ -45,17 +50,17 @@ public class GameTable {
             clouds[i] = new Cloud(numberOfStudentsOnClouds);
     }
 
-    /*messo solo perchè serve nei decorator*/
+    /*messo solo perché serve nei decorator*/
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-    /*messo solo perchè serve nei decorator*/
+    /*messo solo perché serve nei decorator*/
     public List<Island> getIslands() {
         return islands;
     }
 
-    /*messo solo perchè serve nei decorator*/
+    /*messo solo perché serve nei decorator*/
     public SchoolBoard[] getSchoolBoards() {
         return schoolBoards;
     }
@@ -64,7 +69,7 @@ public class GameTable {
         return motherNaturePosition;
     }
 
-    public void addStudentsOnClouds() throws EmptyBagException{
+    public void addStudentsOnClouds() throws EmptyBagException {
             for (int i = 0; i < numberOfPlayers; i++)
                 clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
     }
@@ -100,8 +105,9 @@ public class GameTable {
 
     }
 
-    public void changeMotherNaturePosition(int numberOfMoves) {
-        motherNaturePosition += numberOfMoves;
+    public void changeMotherNaturePosition(int newPosition) throws InvalidIndexException {
+        if (newPosition >= islands.size()) throw new InvalidIndexException("Wrong new index of mother nature");
+        motherNaturePosition = newPosition;
     }
 
     protected void putTowerOrChangeColorIfNecessary() {

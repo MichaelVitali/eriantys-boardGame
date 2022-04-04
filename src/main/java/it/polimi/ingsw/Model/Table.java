@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.EmptyTableException;
+
 public class Table {
     private final PawnColor color;
     private final int NUMBEROFSEATS = 10; /////////

@@ -28,16 +28,16 @@ public class Player {
         return this.assistants.remove(pos);
     }
 
-    public Assistant getAssistant(int pos) throws OutOfBoundException{
-        if(pos < 0 || pos >= assistants.size())  throw new OutOfBoundException("Assistant index out of bound");
+    public Assistant getAssistant(int pos) {
+        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
         return this.assistants.get(pos);
     }
 
     public void moveStudentOnTable(int pos){
         this.schoolBoard.addStudentOnTable(pos);
     }
-
-    public void moveStudentOnIsland(int posStudent, int posIsland) throws InvalidIndexException{
+    // non so se serva
+    public void moveStudentOnIsland(int posStudent, int posIsland){
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
@@ -56,12 +56,8 @@ public class Player {
         this.schoolBoard.addStudentsOnEntrance(s);
     }
 
-    public Student[] getStudentsFormEntrance(){
-        return this.schoolBoard.getStudentsFromEntrance();
-    }
-
     public void addAssistants(List<Assistant> l) {
-        if(this.assistants.size() != 0) this.assistants.clear();
-        this.assistants.addAll(l);
+        if(this.assistants.size() == 0)
+            this.assistants.addAll(l);
     }
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.PawnColor;
+
 public class Student {
     private final PawnColor color;
 

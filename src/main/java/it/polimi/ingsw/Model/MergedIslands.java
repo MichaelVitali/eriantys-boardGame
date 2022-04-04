@@ -3,7 +3,7 @@ package it.polimi.ingsw.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MergedIslands extends Island{
+public class MergedIslands extends Island {
     private final Island firstIstand;
     private final Island secondIstand;
 
