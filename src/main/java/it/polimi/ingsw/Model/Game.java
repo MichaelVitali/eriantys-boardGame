@@ -37,7 +37,7 @@ public class Game {
         for (int i = 0; i < numberOfPlayers; i++)
             players[i] = new Player(nicknames[i], i, assistantsList);
 
-        round = new Round();
+        round = new Round(this);
 
     }
 

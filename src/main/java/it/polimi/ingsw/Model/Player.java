@@ -8,6 +8,7 @@ public class Player {
     protected final String nickName;
     protected final int playerId;
     protected List<Assistant> assistants;
+    private String errorMessage;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
         this.nickName = nickName;
@@ -41,6 +42,14 @@ public class Player {
     public void moveStudentOnIsland(int posStudent, int posIsland){
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     /*public void putTowers(List<Integer> posTowers) {
