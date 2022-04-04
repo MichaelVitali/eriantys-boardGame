@@ -1,4 +1,6 @@
-package it.polimi.ingsw.Model;
+package it.polimi.ingsw.Model.exception;
+
+import it.polimi.ingsw.Model.TowerColor;
 
 public class NoMoreTowersException extends Exception {
     private TowerColor emptySchoolboardColor;

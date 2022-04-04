@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.Exception.*;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,14 +15,14 @@ import java.util.Random;
 
 public class ExpertGame extends Game {
     private Game game;
-    private Character[] characters;
+    private java.lang.Character[] characters;
     private int coinsOfTheTable;
     private int[] playersCoins;
     //// private boolean[] newCoinOrNot;
 
-    ExpertGame(int numberOfPlayers) {
+    ExpertGame(int numberOfPlayers, String[] nicknames) {
         super();
-        game = new Game(numberOfPlayers);
+        game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
         for(int coins : playersCoins)
@@ -29,7 +31,7 @@ public class ExpertGame extends Game {
 
     private void createCharacters() throws EmptyBagException {
         JSONParser parser = new JSONParser();
-        List<Character> c = new ArrayList<>();
+        List<java.lang.Character> c = new ArrayList<>();
         try {
             JSONArray a = (JSONArray) parser.parse(new FileReader("it\\polimi\\ingsw\\Model\\Characters.js"));
             for (Object o : a) {
@@ -48,7 +50,7 @@ public class ExpertGame extends Game {
                     character.addStudents(Bag.getBag().drawStudents(6));
                     c.add(character);
                 } else {
-                    c.add(new Character(ID, cost));
+                    c.add(new java.lang.Character(ID, cost));
                 }
             }
         } catch (ParseException | IOException e) {
@@ -88,7 +90,7 @@ public class ExpertGame extends Game {
         ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
-    public Character getCharacter(int indexCard) {
+    public java.lang.Character getCharacter(int indexCard) {
         return this.characters[indexCard];
     }
 
@@ -118,7 +120,18 @@ public class ExpertGame extends Game {
                 case 2:
                     break;
                 case 3:
-                    gameTable.putTowerOrChangeColorIfNecessary();
+                    int oldPosition = gameTable.getMotherNaturePosition();
+                    // exception da togliere
+                    try {
+                        if (isAValidPositionForMotherNature(islandIndex)) {
+                            gameTable.changeMotherNaturePosition(islandIndex);
+                            gameTable.putTowerOrChangeColorIfNecessary();
+                        }
+                        gameTable.changeMotherNaturePosition(oldPosition);
+                    } catch (InvalidIndexException e) {
+                        System.out.println("Error in effect 3");
+                        e.printStackTrace();
+                    }
                     break;
                 case 4:
                     break;

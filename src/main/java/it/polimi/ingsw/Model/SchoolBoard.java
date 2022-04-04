@@ -1,5 +1,9 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.NoMoreTowersException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +86,7 @@ public class SchoolBoard {
         return towers;
     }
 
-    public List<Tower> removeTowers(int numberOfTowers) throws InvalidIndexException, NoMoreTowersException{
+    public List<Tower> removeTowers(int numberOfTowers) throws InvalidIndexException, NoMoreTowersException {
         if(numberOfTowers < 0) throw new InvalidIndexException("Numero non valido");
         if(numberOfTowers > towers.size()) throw new NoMoreTowersException(towersColor);
         List<Tower> removedTowers = new ArrayList<>();

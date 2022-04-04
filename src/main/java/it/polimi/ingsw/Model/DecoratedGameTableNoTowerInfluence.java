@@ -1,5 +1,8 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+
 import java.util.List;
 
 public class DecoratedGameTableNoTowerInfluence extends GameTable {
@@ -53,7 +56,11 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
 
     @Override
     public void changeMotherNaturePosition(int newPosition){
-        this.gameTable.changeMotherNaturePosition(newPosition);
+        try {
+            this.gameTable.changeMotherNaturePosition(newPosition);
+        } catch (InvalidIndexException e) {
+            System.out.println("Error in effect 6");
+        }
     }
 
     @Override
@@ -85,22 +92,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
         this.gameTable.addStudentOnTableFromEntrance(indexStudent, schoolBoardIndex);
     }
-/*
-    @Override
-    public void addCoins(int coins){
-        this.gameTable.addCoins(coins);
-    }
 
-    @Override
-    public int getCoins(){
-        return this.gameTable.getCoins();
-    }
-
-    @Override
-    public void removeCoin(){
-        this.gameTable.removeCoin();
-    }
-*/
     public GameTable getGameTableInstance() {
         return gameTable;
     }

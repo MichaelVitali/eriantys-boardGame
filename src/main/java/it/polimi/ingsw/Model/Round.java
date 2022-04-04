@@ -1,12 +1,19 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.Assistant;
+import it.polimi.ingsw.Model.Game;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Round{
+    private int currentPlayer;
+
+    Round() {
+
+    }
 
     public class PianificationPhase{
 
-        private int currentPlayer;
         private Game game;
         private int AlreadyPlayedAssistant[];
         private Assistant[] playedAssistants;
@@ -16,12 +23,8 @@ public class Round{
             currentPlayer=-1;
         }
 
-        /*public boolean checkPlayer(int player) {
-            if(player != currentPlayer) return
-        }*/
-
         private void calculateFirstPlayer(){
-            currentPlayer= ThreadLocalRandom.current().nextInt(0, game.getNumberOfPlayers());
+            currentPlayer = ThreadLocalRandom.current().nextInt(0, game.getNumberOfPlayers());
         }
 
         private void calculateNextPlayer(){
@@ -51,7 +54,6 @@ public class Round{
 
     public class ActionPhase{
 
-        private int currentPlayer;
         private int assistantValue;
         private int[] movesCounter;
         private int[] alreadyMovedMotherNature;
@@ -125,4 +127,8 @@ public class Round{
         //TODO
     }
 
+    public boolean checkPlayer(int player) {
+            if(player == currentPlayer) return true;
+            return false;
+    }
 }

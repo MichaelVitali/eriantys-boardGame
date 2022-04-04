@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,35 +13,35 @@ import java.util.List;
 
 public class Game {
 
-    private GameTable gameTable;
     private int numberOfPlayers;
+    private GameTable gameTable;
+    private List<Assistant>[] assistants;
     private Player[] players;
-    private Assistant[] assistants;
-    //private GameMode mode;
     private Round round;
 
     Game() { }
 
-    Game(int numberOfPlayers) { //, GameMode mode) {
-        // this.mode = mode;
+    Game(int numberOfPlayers, String[] nicknames) {
         this.numberOfPlayers = numberOfPlayers;
+
+        createGameTable(numberOfPlayers);
+
+        assistants = new ArrayList[numberOfPlayers];
+        List<Assistant> assistantsList = createAssistants();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assistants[i] = new ArrayList<>();
+            assistants[i].addAll(assistantsList);
+        }
+
+        players = new Player[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++)
+            players[i] = new Player(nicknames[i], i, assistantsList);
+
+        round = new Round();
+
     }
 
-    public GameTable getGameTable() {
-        return gameTable;
-    }
-
-    public int getNumberOfPlayers(){
-        return numberOfPlayers;
-    }
-
-    private void createGameTable() {
-
-        assistants = new Assistant[numberOfPlayers * 10];
-        List<Assistant> listAssistants = createAssistant();
-        for(int i = 0; i < numberOfPlayers; i++)
-            players[i].addAssistants(listAssistants);
-
+    private void createGameTable(int numberOfPlayers) {
         SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
         int numberOfStudentsOnEntrance;
@@ -49,7 +50,7 @@ public class Game {
             numberOfStudentsOnEntrance = 9;
             numberOfTowers = 6;
         } else {
-            numberOfStudentsOnEntrance = 9;
+            numberOfStudentsOnEntrance = 7;
             numberOfTowers = 8;
         }
 
@@ -70,15 +71,9 @@ public class Game {
                 schoolBoards[4] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
                 break;
         }
-
-
-        /*gameTable = new GameTable(numberOfPlayers, schoolBoards);
-        for(int i = 0; i < numberOfPlayers; i++)
-            players[i].addSchoolBoard(schoolBoards[i]);
-    */
     }
 
-    private List<Assistant> createAssistant(){
+    private List<Assistant> createAssistants(){
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
@@ -95,19 +90,30 @@ public class Game {
         return l;
     }
 
-    private void createPlayer(String nickname, int id) {
-        Player p = new Player(nickname, id);
-        if(id>=0 && id<numberOfPlayers)
-            players[id]=p;
+    public int getNumberOfPlayers(){
+        return numberOfPlayers;
     }
 
-    public Player getPlayer(int id){
-        //ECCEZIONE SU ID>=0 O ID<numberOfPlayers
-        return this.players[id];
+    public GameTable getGameTable() {
+        return gameTable;
+    }
+
+    public Player getPlayer(int playerId) {
+        try {
+            if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
+        } catch (InvalidIndexException e) {
+            System.out.println(e);
+        }
+        return this.players[playerId];
     }
 
     public void setGameTable(GameTable gameTable) {
         this.gameTable = gameTable;
+    }
+
+    public boolean isAValidPositionForMotherNature(int position) {
+        if(0 <= position && position < gameTable.getIslands().size()) return true;
+        return false;
     }
 
     private boolean checkEndgame(){
@@ -119,8 +125,9 @@ public class Game {
         //TODO
     }
 
+    // a cosa serve
     public Round startRound(){
-        this.round=new Round(this);
+        round = new Round(this);
         return round;
     }
 

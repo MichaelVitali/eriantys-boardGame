@@ -2,7 +2,7 @@ package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.Model.Bag;
 import it.polimi.ingsw.Model.CharacterWithStudent;
-import it.polimi.ingsw.Model.EmptyBagException;
+import it.polimi.ingsw.Model.exception.EmptyBagException;
 import it.polimi.ingsw.Model.Student;
 import org.junit.Test;
 
