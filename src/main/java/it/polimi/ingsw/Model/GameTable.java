@@ -30,19 +30,19 @@ public class GameTable {
     }
 
     private void createIslands() {
-        List<Island> islands = new ArrayList<>();
-        for(int i = 0; i < 12; i++) {
+        islands = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
             islands.add(new Island(i));
         }
     }
 
     private void createClouds(int numberOfPlayers) {
         int numberOfStudentsOnClouds = 3;
-        if(numberOfPlayers == 3)
+        if (numberOfPlayers == 3)
             numberOfStudentsOnClouds = 4;
         clouds = new Cloud[numberOfPlayers];
-        for(Cloud cloud : clouds)
-            cloud = new Cloud(numberOfStudentsOnClouds);
+        for (int i = 0; i < numberOfPlayers; i++)
+            clouds[i] = new Cloud(numberOfStudentsOnClouds);
     }
 
     /*messo solo perchè serve nei decorator*/

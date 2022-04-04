@@ -35,7 +35,7 @@ public class Round{
             return currentPlayer;
         }
 
-        public void playAssistant(int player, int pos){
+        public void playAssistant(int player, int pos) throws OutOfBoundException{
             if(player!=getCurrentPlayer()){
                 //non può giocare l'assistant
             }

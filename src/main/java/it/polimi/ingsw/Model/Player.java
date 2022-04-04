@@ -23,14 +23,13 @@ public class Player {
         this.schoolBoard = s;
     }
 
-    public Assistant playAssistant(int pos) { // MT: ho modificato il ritorno del metodo da void ad Assistant: mi serve in PianificationPhase
-
-        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
+    public Assistant playAssistant(int pos) throws OutOfBoundException{
+        if(pos < 0 || pos >= assistants.size()) throw new OutOfBoundException("Assistant index out of bound");
         return this.assistants.remove(pos);
     }
 
-    public Assistant getAssistant(int pos) {
-        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
+    public Assistant getAssistant(int pos) throws OutOfBoundException{
+        if(pos < 0 || pos >= assistants.size())  throw new OutOfBoundException("Assistant index out of bound");
         return this.assistants.get(pos);
     }
 
@@ -38,7 +37,7 @@ public class Player {
         this.schoolBoard.addStudentOnTable(pos);
     }
 
-    public void moveStudentOnIsland(int posStudent, int posIsland){
+    public void moveStudentOnIsland(int posStudent, int posIsland) throws InvalidIndexException{
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
@@ -57,8 +56,12 @@ public class Player {
         this.schoolBoard.addStudentsOnEntrance(s);
     }
 
+    public Student[] getStudentsFormEntrance(){
+        return this.schoolBoard.getStudentsFromEntrance();
+    }
+
     public void addAssistants(List<Assistant> l) {
-        if(this.assistants.size() == 0)
-            this.assistants.addAll(l);
+        if(this.assistants.size() != 0) this.assistants.clear();
+        this.assistants.addAll(l);
     }
 }

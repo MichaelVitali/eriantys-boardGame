@@ -17,7 +17,7 @@ public class SchoolBoard {
         entrance = new Student[this.numberOfStudentsOnEntrance];
         try {
             List<Student> drawnStudents = Bag.getBag().drawStudents(numberOfStudentsOnEntrance);
-            for (int i = 0; i < this.numberOfStudentsOnEntrance; i++) { // ho collegato school board con Bag
+            for (int i = 0; i < numberOfStudentsOnEntrance; i++) {
                 entrance[i] = drawnStudents.get(i);
             }
         }catch(EmptyBagException e) {
@@ -54,13 +54,10 @@ public class SchoolBoard {
                 freePositions++;
         }
         // if(freePositions != newStudents.size()) throw new SomeTypeOfException("Too many students to add on entrance");
-        int entranceIndex = 0, newStudentsIndex = 0;
-        while(entranceIndex < numberOfStudentsOnEntrance) {
-            if(entrance[entranceIndex] == null) {
-                entrance[entranceIndex] = newStudents.get(newStudentsIndex);
-                newStudentsIndex++;
+        for(int entranceIndex = 0; entranceIndex < entrance.length; entranceIndex++){
+            if(entrance[entranceIndex] == null){
+                entrance[entranceIndex] = newStudents.remove(0);
             }
-            entranceIndex++;
         }
     }
 
@@ -87,23 +84,21 @@ public class SchoolBoard {
         if(numberOfTowers > towers.size()) throw new NoMoreTowersException(towersColor);
         List<Tower> removedTowers = new ArrayList<>();
         for(int i = 0; i < numberOfTowers; i++)
-            removedTowers.add(towers.get(0));
-            towers.remove(towers.get(0));
+            removedTowers.add(towers.remove(0));
         return removedTowers;
     }
 
     public void addTowers(List<Tower> towerToAdd) {
-        towers.addAll(towerToAdd);
+        if (towers.size() < 8 && (towerToAdd.size() + towers.size() <= 8))  towers.addAll(towerToAdd);
     }
 
-    public Student removeStudentFromEntrance(int index) {
-        // eventuale controllo if(entrance[index] == null) throw new SomeTypeOfException("You're removing a null pointer and not a real student");
-        if(index >= 0 && index < entrance.length) {
+    public Student removeStudentFromEntrance(int index) throws InvalidIndexException{
+        if (entrance[index] == null) throw new InvalidIndexException("No student on entrance position");
+        if(index < 0 || index >= entrance.length) throw new InvalidIndexException("Index error on entrance");
+        else{
             Student studentToBeRemoved = entrance[index];
             entrance[index] = null;
             return studentToBeRemoved;
-        }else{
-            return null;
         }
     }
 
@@ -114,4 +109,11 @@ public class SchoolBoard {
     public TowerColor getTowersColor() {
         return towersColor;
     }
+
+    public Student[] getStudentsFromEntrance(){
+        Student[] returnEntrance = new Student[numberOfStudentsOnEntrance];
+        System.arraycopy(entrance, 0, returnEntrance, 0, numberOfStudentsOnEntrance);
+        return returnEntrance;
+    }
+
 }
