@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Model;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Round{
@@ -10,6 +11,13 @@ public class Round{
         private Game game;
         private int AlreadyPlayedAssistant[];
         private Assistant[] playedAssistants;
+
+        private boolean assistantNoChoice(Assistant[] outer, Assistant[] inner) {
+            if(outer.length< inner.length)
+                return false;
+
+            return Arrays.asList(outer).containsAll(Arrays.asList(inner));
+        }
 
         public PianificationPhase(Game game){
             this.game=game;
@@ -36,11 +44,22 @@ public class Round{
         }
 
         public void playAssistant(int player, int pos){
+
             if(player!=getCurrentPlayer()){
                 //non può giocare l'assistant
             }
+            
+            for(int i=0; i<game.getRound().getPlayedAssistants().length; i++){
+                if(game.getPlayer(player).getAssistant(pos).equals(game.getRound().getPlayedAssistants()[i])){
+                    if(!assistantNoChoice(game.getRound().getPlayedAssistants(), (Assistant[]) game.getPlayer(player).assistants.toArray())) {
+                        //c'è sicuramente un'altra opzione, rifai la scelta
+                    }
+                }
+            }
+
             playedAssistants[player]=game.getPlayer(player).playAssistant(pos);
             AlreadyPlayedAssistant[player]=1;
+
             calculateNextPlayer();
         }
 
@@ -82,20 +101,32 @@ public class Round{
                 }
             }
             currentPlayer=nextPlayer;
-            this.assistantValue=minValue;
+            assistantValue=minValue;
         }
 
         private void calculateNextPlayer(){
-            int minValue=this.assistantValue;
+
+            int minValue=Assistant.MAXVALUE;
             int nextPlayer=-1;
 
-            for (int i=0; i<game.getNumberOfPlayers(); i++){
-                if(game.getRound().getPlayedAssistants()[i].getCardValue()<minValue){
+            for(int i=0; i<game.getNumberOfPlayers(); i++) {
 
-                    minValue=game.getRound().getPlayedAssistants()[i].getCardValue();
-                    nextPlayer=i;
+                if (alreadyMovedMotherNature[i]==0) {
+                    if (game.getRound().getPlayedAssistants()[i].getCardValue() == assistantValue) {
+                        nextPlayer=i;
+                        minValue=assistantValue;
+                        break;
+                    }
+                    if(game.getRound().getPlayedAssistants()[i].getCardValue() > assistantValue
+                            && game.getRound().getPlayedAssistants()[i].getCardValue() < minValue){
+                        minValue=game.getRound().getPlayedAssistants()[i].getCardValue();
+                        nextPlayer=i;
+                    }
                 }
             }
+
+            currentPlayer=nextPlayer;
+            assistantValue=minValue;
         }
     }
 
