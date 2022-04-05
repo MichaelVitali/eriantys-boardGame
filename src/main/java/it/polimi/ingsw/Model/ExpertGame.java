@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Model;
 
-import it.polimi.ingsw.Model.Exception.*;
+import it.polimi.ingsw.Model.exception.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,23 +15,24 @@ import java.util.Random;
 
 public class ExpertGame extends Game {
     private Game game;
-    private java.lang.Character[] characters;
+    private Character[] characters;
     private int coinsOfTheTable;
     private int[] playersCoins;
     //// private boolean[] newCoinOrNot;
 
-    ExpertGame(int numberOfPlayers, String[] nicknames) {
+    public ExpertGame(int numberOfPlayers, String[] nicknames) throws EmptyBagException {
         super();
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
         for(int coins : playersCoins)
             coins = 1;
+        createCharacters();
     }
 
     private void createCharacters() throws EmptyBagException {
         JSONParser parser = new JSONParser();
-        List<java.lang.Character> c = new ArrayList<>();
+        List<Character> c = new ArrayList<>();
         try {
             JSONArray a = (JSONArray) parser.parse(new FileReader("it\\polimi\\ingsw\\Model\\Characters.js"));
             for (Object o : a) {
@@ -50,7 +51,7 @@ public class ExpertGame extends Game {
                     character.addStudents(Bag.getBag().drawStudents(6));
                     c.add(character);
                 } else {
-                    c.add(new java.lang.Character(ID, cost));
+                    c.add(new Character(ID, cost));
                 }
             }
         } catch (ParseException | IOException e) {
@@ -90,7 +91,7 @@ public class ExpertGame extends Game {
         ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
-    public java.lang.Character getCharacter(int indexCard) {
+    public Character getCharacter(int indexCard) {
         return this.characters[indexCard];
     }
 

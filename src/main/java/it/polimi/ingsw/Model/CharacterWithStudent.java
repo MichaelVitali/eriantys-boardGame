@@ -3,7 +3,7 @@ package it.polimi.ingsw.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterWithStudent extends java.lang.Character {
+public class CharacterWithStudent extends Character {
     private final Student[] students;
 
     public CharacterWithStudent(int id, int cost, int numberOfStudent) {

@@ -64,12 +64,12 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    protected void putTowerOrChangeColorIfNecessary(){
+    public void putTowerOrChangeColorIfNecessary(){
         this.gameTable.putTowerOrChangeColorIfNecessary();
     }
 
     @Override
-    protected void mergeIslandsIfNecessary(){
+    public void mergeIslandsIfNecessary(){
         this.gameTable.mergeIslandsIfNecessary();
     }
 
@@ -79,12 +79,12 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    protected TowerColor teamWithLessTowersOnSchoolboars(){
+    public TowerColor teamWithLessTowersOnSchoolboars(){
         return this.gameTable.teamWithLessTowersOnSchoolboars();
     }
 
     @Override
-    protected TowerColor teamWithMoreProfessors(){
+    public TowerColor teamWithMoreProfessors(){
         return this.teamWithMoreProfessors();
     }
 

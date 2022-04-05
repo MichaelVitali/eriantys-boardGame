@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.OutOfBoundException;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Round{
@@ -35,7 +37,7 @@ public class Round{
             return currentPlayer;
         }
 
-        public void playAssistant(int player, int pos) throws OutOfBoundException{
+        public void playAssistant(int player, int pos) throws OutOfBoundException {
             if(player!=getCurrentPlayer()){
                 //non può giocare l'assistant
             }

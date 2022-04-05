@@ -1,4 +1,6 @@
 package it.polimi.ingsw.Model;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.OutOfBoundException;
 
 import java.util.*;
 
@@ -6,13 +8,14 @@ public class Player {
     private SchoolBoard schoolBoard;
     private GameTable gameTable;
     protected final String nickName;
-    protected final int id;
+    protected final int playerId;
     protected List<Assistant> assistants;
 
-    public Player(String nickName, int id) {
+    public Player(String nickName, int playerId, List<Assistant> assistants) {
         this.nickName = nickName;
-        this.id = id;
+        this.playerId = playerId;
         this.assistants = new ArrayList<>();
+        this.assistants.addAll(assistants);
     }
 
     public void addGameTable(GameTable gameTable){
@@ -23,7 +26,7 @@ public class Player {
         this.schoolBoard = s;
     }
 
-    public Assistant playAssistant(int pos) throws OutOfBoundException{
+    public Assistant playAssistant(int pos) throws OutOfBoundException {
         if(pos < 0 || pos >= assistants.size()) throw new OutOfBoundException("Assistant index out of bound");
         return this.assistants.remove(pos);
     }
@@ -37,19 +40,11 @@ public class Player {
         this.schoolBoard.addStudentOnTable(pos);
     }
     // non so se serva
-    public void moveStudentOnIsland(int posStudent, int posIsland){
+    public void moveStudentOnIsland(int posStudent, int posIsland) throws InvalidIndexException {
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
-    /*public void putTowers(List<Integer> posTowers) {
-
-        List<Tower> towers = new ArrayList<>();
-        for(int i=0; i<posTowers.size(); i++){
-            towers.add(schoolBoard.removeTower(posTowers.get(i)));
-        }
-        this.gameTable.putTowerOnIsland(towers);
-    }*/
 
     public void takeStudentsFromCloud(int indexCloud) {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
@@ -59,5 +54,9 @@ public class Player {
     public void addAssistants(List<Assistant> l) {
         if(this.assistants.size() == 0)
             this.assistants.addAll(l);
+    }
+
+    public Student[] getStudentsFormEntrance(){
+        return this.schoolBoard.getStudentsFromEntrance();
     }
 }

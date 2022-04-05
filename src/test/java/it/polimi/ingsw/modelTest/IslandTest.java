@@ -1,5 +1,6 @@
 package it.polimi.ingsw.modelTest;
 
+import it.polimi.ingsw.Model.*;
 import it.polimi.ingsw.Model.exception.EmptyBagException;
 import org.junit.Test;
 

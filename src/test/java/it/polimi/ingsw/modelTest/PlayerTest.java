@@ -1,6 +1,9 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.Model.*;
+import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.OutOfBoundException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    private Player player = new Player("Mike", 1);
+    private Player player = new Player("Mike", 1, new ArrayList<Assistant>());
     private GameTable gameTable;
 
     @Test
@@ -31,7 +34,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayAssistant() throws OutOfBoundException{
+    public void testPlayAssistant() throws OutOfBoundException {
         List<Assistant> assistants = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             assistants.add(new Assistant(i, i%5));
@@ -63,7 +66,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMoveStudentOnIsland() throws InvalidIndexException {
+    public void testMoveStudentOnIsland() throws InvalidIndexException, InvalidIndexException {
         Student[] entrance = player.getStudentsFormEntrance();
         player.moveStudentOnIsland(0, 1);
         List<Island> islands = gameTable.getIslands();
