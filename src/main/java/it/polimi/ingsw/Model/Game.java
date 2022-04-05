@@ -1,6 +1,8 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.EmptyBagException;
 import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.NoMoreStudentsException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,18 +15,18 @@ import java.util.List;
 
 public class Game {
 
-    private int numberOfPlayers;
+    private final int numberOfPlayers;
     private GameTable gameTable;
     private List<Assistant>[] assistants;
     private Player[] players;
     private Round round;
 
-    Game() { }
+    Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
     Game(int numberOfPlayers, String[] nicknames) {
         this.numberOfPlayers = numberOfPlayers;
 
-        createGameTable(numberOfPlayers);
+        gameTable = createGameTable(numberOfPlayers);
 
         assistants = new ArrayList[numberOfPlayers];
         List<Assistant> assistantsList = createAssistants();
@@ -37,11 +39,11 @@ public class Game {
         for (int i = 0; i < numberOfPlayers; i++)
             players[i] = new Player(nicknames[i], i, assistantsList);
 
-        round = new Round(this);
+        round = startRound();
 
     }
 
-    private void createGameTable(int numberOfPlayers) {
+    private GameTable createGameTable(int numberOfPlayers) {
         SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
         int numberOfStudentsOnEntrance;
@@ -56,21 +58,23 @@ public class Game {
 
         switch (numberOfPlayers) {
             case 2:
-                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
+                schoolBoards[0] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
+                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
                 break;
             case 3:
-                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.GREY, numberOfTowers);
+                schoolBoards[0] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
+                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
+                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.GREY, numberOfTowers);
                 break;
             case 4:
-                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
-                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
-                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, 0);
-                schoolBoards[4] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
+                schoolBoards[0] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, numberOfTowers);
+                schoolBoards[1] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, numberOfTowers);
+                schoolBoards[2] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.WHITE, 0);
+                schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
                 break;
         }
+
+        return new GameTable(numberOfPlayers, schoolBoards);
     }
 
     private List<Assistant> createAssistants(){
@@ -116,27 +120,40 @@ public class Game {
         return false;
     }
 
-    private boolean checkEndgame(){
-        //TODO
-        return false;
-    }
-
-    public void endGame(){
-        //TODO
-    }
-
-    // a cosa serve
-    public Round startRound(){
-        round = new Round(this);
+    public Round getRound() {
         return round;
     }
 
-    public Round getRound(){
-        return this.round;
+    public Round startRound() {
+        round = new Round(this);
+        try {
+            gameTable.addStudentsOnClouds();
+        } catch (EmptyBagException e) {
+            // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
+        }
+        return round;
     }
 
-    public void endRound(){
+    public Round startRound(int[] playerOrder) {
+        round = new Round(this, playerOrder);
+        try {
+            gameTable.addStudentsOnClouds();
+        } catch (EmptyBagException e) {
+            // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
+        }
+        return round;
+    }
+
+    public void endRound() {
+        if(checkEndgame()) endGame();;
+    }
+
+    private boolean checkEndgame() {
+        if(gameTable.isVictory() || gameTable.isVictory()) return true;
+        return false;
+    }
+
+    public void endGame() {
         //TODO
     }
-
 }

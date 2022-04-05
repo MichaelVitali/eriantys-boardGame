@@ -20,6 +20,11 @@ public class Cloud {
         return new ArrayList<>(students);
     }
 
+    public boolean isEmpty() {
+        if(students.size() <= 0) return true;
+        return false;
+    }
+
     public List<Student> removeStudents() {
         List<Student> removedStudents = new ArrayList<>(students);
         students.clear();

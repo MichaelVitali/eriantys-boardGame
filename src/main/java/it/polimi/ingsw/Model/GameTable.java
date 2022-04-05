@@ -1,9 +1,6 @@
 package it.polimi.ingsw.Model;
 
-import it.polimi.ingsw.Model.exception.EmptyBagException;
-import it.polimi.ingsw.Model.exception.InvalidIndexException;
-import it.polimi.ingsw.Model.exception.NoMoreTowersException;
-import it.polimi.ingsw.Model.exception.ThreeOrLessIslandException;
+import it.polimi.ingsw.Model.exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +64,18 @@ public class GameTable {
 
     public int getMotherNaturePosition() {
         return motherNaturePosition;
+    }
+
+    public int getNumberOfIslands() {
+        return islands.size();
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public boolean isDraw() {
+        return draw;
     }
 
     public void addStudentsOnClouds() throws EmptyBagException {
@@ -224,8 +233,8 @@ public class GameTable {
         }
     }
 
-    public List<Student> getStudentsOnCloud(int cloudIndex) {
-        if(clouds[cloudIndex] == null) { }//exception ("This cloud doesn't have students on it")
+    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
+        if(clouds[cloudIndex].isEmpty()) throw new EmptyCloudException();
         List<Student> studentsOnTheCloud = new ArrayList<>();
         if(cloudIndex >= 0 && cloudIndex < clouds.length) {
             studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());

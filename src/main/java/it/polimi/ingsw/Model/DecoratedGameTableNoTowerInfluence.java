@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Model;
 
 import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.EmptyCloudException;
 import it.polimi.ingsw.Model.exception.InvalidIndexException;
 
 import java.util.List;
@@ -74,7 +75,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    public List<Student> getStudentsOnCloud(int cloudIndex){
+    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
         return this.gameTable.getStudentsOnCloud(cloudIndex);
     }
 

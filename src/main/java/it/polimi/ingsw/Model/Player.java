@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Model;
 
+import it.polimi.ingsw.Model.exception.EmptyCloudException;
+
 import java.util.*;
 
 public class Player {
@@ -38,6 +40,7 @@ public class Player {
     public void moveStudentOnTable(int pos){
         this.schoolBoard.addStudentOnTable(pos);
     }
+
     // non so se serva
     public void moveStudentOnIsland(int posStudent, int posIsland){
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
@@ -52,16 +55,7 @@ public class Player {
         this.errorMessage = errorMessage;
     }
 
-    /*public void putTowers(List<Integer> posTowers) {
-
-        List<Tower> towers = new ArrayList<>();
-        for(int i=0; i<posTowers.size(); i++){
-            towers.add(schoolBoard.removeTower(posTowers.get(i)));
-        }
-        this.gameTable.putTowerOnIsland(towers);
-    }*/
-
-    public void takeStudentsFromCloud(int indexCloud) {
+    public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
         this.schoolBoard.addStudentsOnEntrance(s);
     }
