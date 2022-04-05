@@ -134,7 +134,7 @@ public class GameTable {
                 indexMaxInfluence = i;
             }
         }
-        if(indexMaxInfluence < 0 || maxInfluence < 0) { } // exception
+        if(indexMaxInfluence < 0 || maxInfluence <= 0) { } // exception
         try {
             if(towerOnTheIsland == null) {
                 boolean equalInfluenceToOtherPlayer = false;
@@ -149,7 +149,7 @@ public class GameTable {
                     if(islands.get(motherNaturePosition).getTowers().isEmpty()) throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
                     mergeIslandsIfNecessary();
                 }
-            }else
+            } else
                 if(indexMaxInfluence != towerOnTheIsland.getColor().getIndex()) {
                     int numberOfRequiredTowers = islands.get(motherNaturePosition).getAggregation();
                     List<Tower> previousTowers = islands.get(motherNaturePosition).removeTowers();
@@ -216,18 +216,18 @@ public class GameTable {
         return influence;
     }
 
-    protected void mergeIslandsIfNecessary() {
-        Tower towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
-        Tower towerOnTheNextIsland = islands.get(motherNaturePosition).getTowers().get(0);
-        Tower towerOnThePreviousIsland = islands.get(motherNaturePosition).getTowers().get(0);
-        if(towerOnTheIsland.getColor() == towerOnTheNextIsland.getColor()) {
-            islands.set(motherNaturePosition, new MergedIslands(islands.get(motherNaturePosition), islands.get(motherNaturePosition + 1)));
-            islands.remove(islands.get(motherNaturePosition + 1));
+    public void mergeIslandsIfNecessary() {
+        List<Tower> towersOnTheIsland = islands.get(motherNaturePosition).getTowers();
+        List<Tower> towersOnTheNextIsland = islands.get((motherNaturePosition + 1) % islands.size()).getTowers();
+        List<Tower> towersOnThePreviousIsland = islands.get((motherNaturePosition + 1) % islands.size()).getTowers();
+        if(towersOnTheNextIsland.size() > 0 && towersOnTheIsland.get(0).getColor() == towersOnTheNextIsland.get(0).getColor()) {
+            islands.set(motherNaturePosition, new MergedIslands(islands.get(motherNaturePosition), islands.get((motherNaturePosition + 1) % islands.size())));
+            islands.remove(islands.get((motherNaturePosition + 1) % islands.size()));
         }
-        if(towerOnTheIsland.getColor() == towerOnThePreviousIsland.getColor()) {
-            islands.set(motherNaturePosition - 1, new MergedIslands(islands.get(motherNaturePosition - 1), islands.get(motherNaturePosition)));
+        if(towersOnThePreviousIsland.size() > 0 && towersOnTheIsland.get(0).getColor() == towersOnThePreviousIsland.get(0).getColor()) {
+            islands.set((motherNaturePosition - 1) % islands.size(), new MergedIslands(islands.get((motherNaturePosition - 1) % islands.size()), islands.get(motherNaturePosition)));
             islands.remove(islands.get(motherNaturePosition));
-            motherNaturePosition--;
+            motherNaturePosition = (motherNaturePosition - 1) % islands.size();
         }
         for(Island island : islands){
             if(island == null) { } // exception
@@ -253,14 +253,14 @@ public class GameTable {
                 minimumNumberOfTowerOnSchoolboards = schoolBoards[i].getTowers().size();
         }
         for(int i = 0; i < numberOfIterations; i++) {
-            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size()){
+            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size())
                 teamColor.add(schoolBoards[i].getTowersColor());
         }
         return teamColor;
     }
 
     protected List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
-        TowerColor teamColor = null;
+        List<TowerColor> teamColor = null;
         int maximumNumberOfProfessors = -1;
         int[] numberOfProfessors = new int[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)

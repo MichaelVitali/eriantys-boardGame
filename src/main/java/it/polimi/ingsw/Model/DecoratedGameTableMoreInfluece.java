@@ -57,7 +57,7 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
     }
 
     @Override
-    protected void mergeIslandsIfNecessary(){
+    public void mergeIslandsIfNecessary(){
         this.gameTable.mergeIslandsIfNecessary();
     }
 
@@ -67,8 +67,8 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
     }
 
     @Override
-    protected TowerColor teamWithLessTowersOnSchoolboars(){
-        return this.gameTable.teamWithLessTowersOnSchoolboars();
+    public List<TowerColor> teamWithLessTowersOnSchoolboards(){
+        return this.gameTable.teamWithLessTowersOnSchoolboards();
     }
 
     @Override

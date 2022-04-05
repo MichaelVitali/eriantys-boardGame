@@ -70,7 +70,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    protected void mergeIslandsIfNecessary(){
+    public void mergeIslandsIfNecessary(){
         this.gameTable.mergeIslandsIfNecessary();
     }
 
