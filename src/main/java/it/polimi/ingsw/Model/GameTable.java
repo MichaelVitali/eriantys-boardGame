@@ -1,9 +1,14 @@
 package it.polimi.ingsw.Model;
 
-import it.polimi.ingsw.Model.exception.*;
+import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.NoMoreTowersException;
+import it.polimi.ingsw.Model.exception.ThreeOrLessIslandException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class GameTable {
     private int numberOfPlayers;
@@ -25,7 +30,8 @@ public class GameTable {
 
         this.schoolBoards = schoolBoards;
 
-        motherNaturePosition = 0;
+        Random random = new Random();
+        motherNaturePosition = random.nextInt(12);
         victory = false;
         draw = false;
         winner = null;
@@ -120,83 +126,81 @@ public class GameTable {
         motherNaturePosition = newPosition;
     }
 
-    protected void putTowerOrChangeColorIfNecessary() {
+    public void putTowerOrChangeColorIfNecessary() {
+        Tower towerOnTheIsland;
         int[] influences = calculateInfluences(); // pay attention : influence.length isn't numberOfPlayers
-        Tower towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
+        if (islands.get(motherNaturePosition).getTowers().size() == 0) towerOnTheIsland = null;
+        else towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
         int maxInfluence = -1, indexMaxInfluence = -1;
+
         if(towerOnTheIsland != null) {
             maxInfluence = influences[islands.get(motherNaturePosition).getTowers().get(0).getColor().getIndex()];
             indexMaxInfluence = islands.get(motherNaturePosition).getTowers().get(0).getColor().getIndex();
         }
-        for (int i = 0; i < influences.length; i++) {
+
+        for(int i = 0; i < influences.length; i++) {
             if (influences[i] > maxInfluence) {
                 maxInfluence = influences[i];
                 indexMaxInfluence = i;
             }
         }
-        if(indexMaxInfluence < 0 || maxInfluence <= 0) { } // exception
-        try {
-            if(towerOnTheIsland == null) {
-                boolean equalInfluenceToOtherPlayer = false;
-                for (int i = 0; i < influences.length; i++) {
-                    if (maxInfluence == influences[i] && indexMaxInfluence != i) {
-                        equalInfluenceToOtherPlayer = true;
-                        break;
+        if (indexMaxInfluence < 0 || maxInfluence < 0) {}
+        else {
+            try {
+                if (towerOnTheIsland == null) {
+                    boolean equalInfluenceToOtherPlayer = false;
+                    for (int i = 0; i < influences.length; i++) {
+                        if (maxInfluence == influences[i] && indexMaxInfluence != i) {
+                            equalInfluenceToOtherPlayer = true;
+                            break;
+                        }
                     }
-                }
-                if(!equalInfluenceToOtherPlayer) {
-                    islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(1));
-                    if(islands.get(motherNaturePosition).getTowers().isEmpty()) throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
-                    mergeIslandsIfNecessary();
-                }
-            } else
-                if(indexMaxInfluence != towerOnTheIsland.getColor().getIndex()) {
+                    if (!equalInfluenceToOtherPlayer) {
+                        islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(1));
+                        mergeIslandsIfNecessary();
+                    }
+                } else if (indexMaxInfluence != towerOnTheIsland.getColor().getIndex()) {
                     int numberOfRequiredTowers = islands.get(motherNaturePosition).getAggregation();
                     List<Tower> previousTowers = islands.get(motherNaturePosition).removeTowers();
                     schoolBoards[towerOnTheIsland.getColor().getIndex()].addTowers(previousTowers);
                     islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(numberOfRequiredTowers));
-                    if(islands.get(motherNaturePosition).getTowers().isEmpty()) throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
-                    if(islands.size() <= 3) throw new ThreeOrLessIslandException();
+                    if (islands.get(motherNaturePosition).getTowers().isEmpty())
+                        throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
+                    if (islands.size() <= 3) throw new ThreeOrLessIslandException();
                     mergeIslandsIfNecessary();
                 }
-        }catch(InvalidIndexException e) {
-            e.printStackTrace();
-        }catch(NoMoreTowersException e) {
-            victory = true;
-            winner = e.getEmptySchoolboardColor();
-        }catch(ThreeOrLessIslandException e) {
-            victory = false;
-            List<TowerColor> possibleWinner = teamWithLessTowersOnSchoolboards();
-            if(possibleWinner.size() > 1) {
-                possibleWinner = teamWithMoreProfessors(possibleWinner);
-                if (possibleWinner.size() > 1) {
-                    draw = true;
+            } catch (InvalidIndexException e) {
+                e.printStackTrace();
+            } catch (NoMoreTowersException e) {
+                victory = true;
+                winner = e.getEmptySchoolboardColor();
+            } catch (ThreeOrLessIslandException e) {
+                victory = true;
+                TowerColor possibleWinner = teamWithLessTowersOnSchoolboars();
+                if (possibleWinner == null) {
+                    possibleWinner = teamWithMoreProfessors();
+                    if (possibleWinner == null) {
+                        draw = true;
+                    } else {
+                        victory = true;
+                        winner = possibleWinner;
+                    }
                 } else {
                     victory = true;
-                    winner = possibleWinner.get(0);
+                    winner = possibleWinner;
                 }
-            }else {
-                victory = true;
-                winner = possibleWinner.get(0);
             }
         }
+
         if(islands.get(motherNaturePosition).getTowers() == null) { } // exception
     }
 
     public int[] calculateInfluences() {
-        int numberOfIteration = numberOfPlayers == 4 ? 2 : numberOfPlayers;
+        int numberOfIteration = (numberOfPlayers == 4) ? 2 : numberOfPlayers;
         int[] influence = new int[numberOfIteration];
         List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
         List<Tower> towersOnTheIslands = islands.get(motherNaturePosition).getTowers();
-        influence[0] = 0;
-
-        /*
-        * Controllo che tutte le torri siano dello stesso colore
-        TowerColor colorOfTheTowers = towersOnTheIslands.get(0).getColor();
-        for(Tower tower : towersOnTheIslands) {
-            if(tower.getColor() != colorOfTheTowers) { } //exception
-        }
-        */
+        Arrays.fill(influence, 0);
 
         for(int i = 0; i < numberOfIteration; i++) {
             influence[i] = 0;
@@ -207,9 +211,9 @@ public class GameTable {
                     if (professor == student.getColor()) influence[i]++;
                 }
             }
-            if (towersOnTheIslands != null) {
+            if (towersOnTheIslands.size() > 0) {
                 if (schoolBoards[i].getTowers().size() <= 0) { } //exception
-                if (schoolBoards[i].getTowers().get(0).getColor() == towersOnTheIslands.get(0).getColor())
+                else if (schoolBoards[i].getTowers().get(0).getColor() == towersOnTheIslands.get(0).getColor())
                     influence[i] += islands.get(motherNaturePosition).getAggregation();
             }
         }
@@ -225,9 +229,9 @@ public class GameTable {
             islands.remove(islands.get((motherNaturePosition + 1) % islands.size()));
         }
         if(towersOnThePreviousIsland.size() > 0 && towersOnTheIsland.get(0).getColor() == towersOnThePreviousIsland.get(0).getColor()) {
-            islands.set((motherNaturePosition - 1) % islands.size(), new MergedIslands(islands.get((motherNaturePosition - 1) % islands.size()), islands.get(motherNaturePosition)));
+            islands.set((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1), new MergedIslands(islands.get((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1)), islands.get(motherNaturePosition)));
             islands.remove(islands.get(motherNaturePosition));
-            motherNaturePosition = (motherNaturePosition - 1) % islands.size();
+            motherNaturePosition = (motherNaturePosition == 0) ? islands.size() -1 : motherNaturePosition - 1;
         }
         for(Island island : islands){
             if(island == null) { } // exception
@@ -253,14 +257,14 @@ public class GameTable {
                 minimumNumberOfTowerOnSchoolboards = schoolBoards[i].getTowers().size();
         }
         for(int i = 0; i < numberOfIterations; i++) {
-            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size())
+            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size()){
                 teamColor.add(schoolBoards[i].getTowersColor());
         }
         return teamColor;
     }
 
     protected List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
-        List<TowerColor> teamColor = null;
+            TowerColor teamColor = null;
         int maximumNumberOfProfessors = -1;
         int[] numberOfProfessors = new int[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
@@ -280,11 +284,6 @@ public class GameTable {
                 teamColor = schoolBoards[i].getTowersColor();
             }
         }
-        ///////////////////////////////////////////////
-        int i = 0;
-
-        /*das/d/asd/asd/asd/as/da*/
-
         return teamColor;
     }
 
@@ -299,5 +298,9 @@ public class GameTable {
 
     public GameTable getGameTableInstance(){
         return this;
+    }
+
+    public Cloud[] getClouds(){
+        return clouds;
     }
 }

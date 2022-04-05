@@ -23,9 +23,8 @@ public class Island {
 
     //modificato return null se la torre non è presente
     public List<Tower> getTowers() {
-        if(tower == null) return null;
         List<Tower> towersOnTheIsland = new ArrayList<>();
-        towersOnTheIsland.add(tower);
+        if ( tower != null ) towersOnTheIsland.add(tower);
         return towersOnTheIsland;
     }
 

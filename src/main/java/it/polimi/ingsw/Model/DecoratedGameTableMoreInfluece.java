@@ -52,7 +52,7 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
     }
 
     @Override
-    protected void putTowerOrChangeColorIfNecessary(){
+    public void putTowerOrChangeColorIfNecessary(){
         this.gameTable.putTowerOrChangeColorIfNecessary();
     }
 
@@ -72,7 +72,7 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
     }
 
     @Override
-    protected TowerColor teamWithMoreProfessors(){
+    public TowerColor teamWithMoreProfessors(){
         return this.teamWithMoreProfessors();
     }
 

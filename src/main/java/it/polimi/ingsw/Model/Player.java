@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Model;
-
-import it.polimi.ingsw.Model.exception.EmptyCloudException;
+import it.polimi.ingsw.Model.exception.InvalidIndexException;
+import it.polimi.ingsw.Model.exception.OutOfBoundException;
 
 import java.util.*;
 
@@ -18,7 +18,7 @@ public class Player {
         this.assistants = new ArrayList<>();
         this.assistants.addAll(assistants);
     }
-    // secondo me non serve
+
     public void addGameTable(GameTable gameTable){
         this.gameTable = gameTable;
     }
@@ -27,8 +27,8 @@ public class Player {
         this.schoolBoard = s;
     }
 
-    public Assistant playAssistant(int pos) { // MT: ho modificato il ritorno del metodo da void ad Assistant: mi serve in PianificationPhase
-        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
+    public Assistant playAssistant(int pos) throws OutOfBoundException {
+        if(pos < 0 || pos >= assistants.size()) throw new OutOfBoundException("Assistant index out of bound");
         return this.assistants.remove(pos);
     }
 
@@ -36,13 +36,13 @@ public class Player {
         if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
         return this.assistants.get(pos);
     }
-    // non so se serva
+
     public void moveStudentOnTable(int pos){
         this.schoolBoard.addStudentOnTable(pos);
     }
 
     // non so se serva
-    public void moveStudentOnIsland(int posStudent, int posIsland){
+    public void moveStudentOnIsland(int posStudent, int posIsland) throws InvalidIndexException {
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
@@ -63,5 +63,9 @@ public class Player {
     public void addAssistants(List<Assistant> l) {
         if(this.assistants.size() == 0)
             this.assistants.addAll(l);
+    }
+
+    public Student[] getStudentsFormEntrance(){
+        return this.schoolBoard.getStudentsFromEntrance();
     }
 }
