@@ -280,6 +280,11 @@ public class GameTable {
                 teamColor = schoolBoards[i].getTowersColor();
             }
         }
+        ///////////////////////////////////////////////
+        int i = 0;
+
+        /*das/d/asd/asd/asd/as/da*/
+
         return teamColor;
     }
 
