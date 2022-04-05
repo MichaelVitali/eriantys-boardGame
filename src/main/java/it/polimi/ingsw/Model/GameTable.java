@@ -1,9 +1,6 @@
 package it.polimi.ingsw.Model;
 
-import it.polimi.ingsw.Model.exception.EmptyBagException;
-import it.polimi.ingsw.Model.exception.InvalidIndexException;
-import it.polimi.ingsw.Model.exception.NoMoreTowersException;
-import it.polimi.ingsw.Model.exception.ThreeOrLessIslandException;
+import it.polimi.ingsw.Model.exception.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -176,7 +173,7 @@ public class GameTable {
                 winner = e.getEmptySchoolboardColor();
             } catch (ThreeOrLessIslandException e) {
                 victory = true;
-                TowerColor possibleWinner = teamWithLessTowersOnSchoolboars();
+                TowerColor possibleWinner = teamWithLessTowersOnSchoolboards();
                 if (possibleWinner == null) {
                     possibleWinner = teamWithMoreProfessors();
                     if (possibleWinner == null) {
@@ -257,33 +254,40 @@ public class GameTable {
                 minimumNumberOfTowerOnSchoolboards = schoolBoards[i].getTowers().size();
         }
         for(int i = 0; i < numberOfIterations; i++) {
-            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size()){
+            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size())
                 teamColor.add(schoolBoards[i].getTowersColor());
         }
         return teamColor;
     }
 
-    protected List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
-            TowerColor teamColor = null;
+    public List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
+        List<TowerColor> teamColor = new ArrayList<>();
         int maximumNumberOfProfessors = -1;
         int[] numberOfProfessors = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++)
-            numberOfProfessors[i] = schoolBoards[i].getProfessors().size();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            if(teamWithLessTowersOnSchoolboards.contains(schoolBoards[i].getTowersColor()))
+                numberOfProfessors[i] = schoolBoards[i].getProfessors().size();
+            else
+                numberOfProfessors[i]=-1;
+        }
         if(numberOfPlayers == 4) {
             int[] numberOfProfessorsForFourPlayers = new int[2];
             numberOfProfessorsForFourPlayers[0] = numberOfProfessors[0] + numberOfProfessors[2];
             numberOfProfessorsForFourPlayers[1] = numberOfProfessors[1] + numberOfProfessors[3];
             numberOfProfessors = numberOfProfessorsForFourPlayers;
         }
+
         for (int i = 0; i < numberOfProfessors.length; i++) {
-            if (maximumNumberOfProfessors == numberOfProfessors[i]) {
-                teamColor = null;
-                break;
-            }else if (maximumNumberOfProfessors < numberOfProfessors[i]) {
-                maximumNumberOfProfessors = numberOfPlayers;
-                teamColor = schoolBoards[i].getTowersColor();
-            }
+
+            if (numberOfProfessors[i] > maximumNumberOfProfessors)
+                maximumNumberOfProfessors=numberOfProfessors[i];
         }
+
+        for(int i=0; i<numberOfProfessors.length; i++){
+            if(numberOfProfessors[i]==maximumNumberOfProfessors)
+                teamColor.add(teamWithLessTowersOnSchoolboards.get(i));
+        }
+
         return teamColor;
     }
 
