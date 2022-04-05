@@ -13,15 +13,15 @@ public class Character {
     }
 
     public int getID(){
-        return this.ID;
+        return ID;
     }
 
     public int getCost(){
-        return this.cost;
+        return cost;
     }
 
     public boolean getFirstUse(){
-        return this.firstUse;
+        return firstUse;
     }
 
     public void setFirstUse(){

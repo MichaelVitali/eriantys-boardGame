@@ -72,6 +72,18 @@ public class GameTable {
         return motherNaturePosition;
     }
 
+    public int getNumberOfIslands() {
+        return islands.size();
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public boolean isDraw() {
+        return draw;
+    }
+
     public void addStudentsOnClouds() throws EmptyBagException {
             for (int i = 0; i < numberOfPlayers; i++)
                 clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
@@ -80,19 +92,19 @@ public class GameTable {
     public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
         int indexOfTheProfessor = -1;
         int[] studentsOnTheTable = new int[numberOfPlayers];
-        for(int i = 0; i < numberOfPlayers; i++) {
+        for (int i = 0; i < numberOfPlayers; i++) {
             studentsOnTheTable[i] = schoolBoards[i].getNumberOfStudentsOnTable(colorOfTheMovedStudent);
             if(schoolBoards[i].getProfessors().contains(colorOfTheMovedStudent))
                 indexOfTheProfessor = i;
         }
-        if(indexOfTheProfessor == -1) {
+        if (indexOfTheProfessor == -1) {
             for(int i = 0; i < numberOfPlayers; i++) {
                 if(studentsOnTheTable[i] > 0) {
                     schoolBoards[i].setProfessor(colorOfTheMovedStudent, true);
                     break;
                 }
             }
-        }else {
+        } else {
             for(int i = 0; i < numberOfPlayers; i++) {
                 if(studentsOnTheTable[i] > studentsOnTheTable[indexOfTheProfessor]) {
                     schoolBoards[i].setProfessor(colorOfTheMovedStudent, true);
@@ -106,6 +118,7 @@ public class GameTable {
     public void addStudentOnIsland(Student s, int islandIndex) {
         if(islandIndex >= 0 && islandIndex < islands.size())
             this.islands.get(islandIndex).addStudents(s);
+
     }
 
     public void changeMotherNaturePosition(int newPosition) throws InvalidIndexException {
@@ -190,6 +203,7 @@ public class GameTable {
         Arrays.fill(influence, 0);
 
         for(int i = 0; i < numberOfIteration; i++) {
+            influence[i] = 0;
             List<PawnColor> professors = schoolBoards[i].getProfessors();
             if (numberOfPlayers == 4) professors.addAll(schoolBoards[i + 2].getProfessors());
             for (PawnColor professor : professors) {
@@ -224,8 +238,8 @@ public class GameTable {
         }
     }
 
-    public List<Student> getStudentsOnCloud(int cloudIndex) {
-        if(clouds[cloudIndex] == null) { }//exception ("This cloud doesn't have students on it")
+    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
+        if(clouds[cloudIndex].isEmpty()) throw new EmptyCloudException();
         List<Student> studentsOnTheCloud = new ArrayList<>();
         if(cloudIndex >= 0 && cloudIndex < clouds.length) {
             studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
@@ -233,25 +247,24 @@ public class GameTable {
         return studentsOnTheCloud;
     }
 
-    public TowerColor teamWithLessTowersOnSchoolboars() {
-        TowerColor teamColor = null;
+    public List<TowerColor> teamWithLessTowersOnSchoolboards() {
+        List<TowerColor> teamColor = new ArrayList<>();
         int minimumNumberOfTowerOnSchoolboards = 9;
         int numberOfIterations = 2;
         if(numberOfPlayers == 3) numberOfIterations = numberOfPlayers;
         for (int i = 0; i < numberOfIterations; i++) {
-            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size()){
-                teamColor = null;
-                break;
-            }else if(minimumNumberOfTowerOnSchoolboards > schoolBoards[i].getTowers().size()) {
+            if (minimumNumberOfTowerOnSchoolboards > schoolBoards[i].getTowers().size())
                 minimumNumberOfTowerOnSchoolboards = schoolBoards[i].getTowers().size();
-                teamColor = schoolBoards[i].getTowersColor();
-            }
+        }
+        for(int i = 0; i < numberOfIterations; i++) {
+            if(minimumNumberOfTowerOnSchoolboards == schoolBoards[i].getTowers().size()){
+                teamColor.add(schoolBoards[i].getTowersColor());
         }
         return teamColor;
     }
 
-    public TowerColor teamWithMoreProfessors() {
-        TowerColor teamColor = null;
+    protected List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
+            TowerColor teamColor = null;
         int maximumNumberOfProfessors = -1;
         int[] numberOfProfessors = new int[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
@@ -276,6 +289,11 @@ public class GameTable {
 
     public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
+    }
+
+    public void addSchoolBoards(SchoolBoard[] schoolBoards) {
+        if(schoolBoards != null)
+            this.schoolBoards = schoolBoards;
     }
 
     public GameTable getGameTableInstance(){
