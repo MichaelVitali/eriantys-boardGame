@@ -67,6 +67,8 @@ public class Round {
                         playedAssistantsCopy[i] = playedAssistants[i].getAssistant();
                     if (!assistantNoChoice(playedAssistantsCopy, (Assistant[]) game.getPlayer(playerId).assistants.toArray())) {
                         //c'è sicuramente un'altra opzione, rifai la scelta
+                        game.getPlayer(playerId).setErrorMessage("Assistant not playable");
+                        return;
                     }
                 }
             }
@@ -179,8 +181,8 @@ public class Round {
         return false;
     }
 
-    public boolean isActonPhaseEnded() {
-        if (currentPhase == 1) {
+    public boolean isActionPhaseEnded() {
+        if (currentPhase == 1 && roundState == 4) {
             if (indexOfPlayerOnTurn == game.getNumberOfPlayers() - 1) return true;
         }
         return false;
@@ -193,6 +195,11 @@ public class Round {
 
     public boolean isTimeToChooseACloud() {
         if (roundState == 2) return true;
+        return false;
+    }
+
+    public boolean islandHasBeenChosen() {
+        if (roundState == 3) return true;
         return false;
     }
 
@@ -210,18 +217,18 @@ public class Round {
             playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
     }
 
-    // per ora non riesco a ordinarli sono fuso
     public void setActionPhaseOrder() {
         PlayedAssistant[] playedAssistantsOrdered = new PlayedAssistant[playedAssistants.length];
         for (int i = 0; i < playedAssistants.length; i++) {
             int j = 0;
-            while (j < i && playedAssistants[i].getAssistant().getCardValue() <= playedAssistantsOrdered[j].getAssistant().getCardValue())
+            while (j < i && playedAssistants[i].getAssistant().getCardValue() >= playedAssistantsOrdered[j].getAssistant().getCardValue())
                 j++;
-            PlayedAssistant swapAssistant = playedAssistantsOrdered[j];
-            playedAssistantsOrdered[j] = playedAssistants[i];
-            while(j <= i) {
-
+            int k = i;
+            while(k > j) {
+                playedAssistantsOrdered[k] = playedAssistantsOrdered[k - 1];
+                k--;
             }
+            playedAssistantsOrdered[j] = playedAssistants[i];
         }
         for (int i = 0; i < game.getNumberOfPlayers(); i++)
             playerOrder[i] = playedAssistantsOrdered[i].getPlayerIndex();
@@ -229,28 +236,29 @@ public class Round {
 
     private void switchToPianificationPhase() {
         setPianificationPhaseOrder();
-        roundState = 0;
-        indexOfPlayerOnTurn = 0;
-        currentPhase = 1;
+        game.startRound(playerOrder);
     }
 
     private void switchToActionPhase() {
         setActionPhaseOrder();
         roundState = 1;
         indexOfPlayerOnTurn = 0;
-        currentPhase = 0;
+        currentPhase = 1;
     }
 
     private void calculateNextPlayer() {
         if (isPianificationPhaseEnded()) {
             switchToActionPhase();
-        } else if (isActonPhaseEnded()) {
-            switchToPianificationPhase();           //////////////////////////////////////////
+        } else if (isActionPhaseEnded()) {
+            switchToPianificationPhase();         //////////////////////////////////////////
         } else if (isTimeToMoveMotherNature()) {
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
             roundState = 3;
-        } else{
+        } else if (islandHasBeenChosen()) {
+            roundState = 1;
+            indexOfPlayerOnTurn++;
+        } else {
             if (indexOfPlayerOnTurn + 1 < game.getNumberOfPlayers()) // non dovrebbe mai accadere il contrario visti i controlli precedenti
                 indexOfPlayerOnTurn++;
 

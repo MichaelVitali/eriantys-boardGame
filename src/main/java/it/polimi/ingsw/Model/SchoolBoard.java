@@ -88,7 +88,7 @@ public class SchoolBoard {
 
     public List<Tower> removeTowers(int numberOfTowers) throws InvalidIndexException, NoMoreTowersException {
         if(numberOfTowers < 0) throw new InvalidIndexException("Numero non valido");
-        if(numberOfTowers > towers.size()) throw new NoMoreTowersException(towersColor);
+        if(numberOfTowers >= towers.size()) throw new NoMoreTowersException(towersColor); // Vedremo se mandare le torri tramite exception
         List<Tower> removedTowers = new ArrayList<>();
         for(int i = 0; i < numberOfTowers; i++)
             removedTowers.add(towers.get(0));
