@@ -73,17 +73,17 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    public List<Student> getStudentsOnCloud(int cloudIndex) {
+    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
         return this.gameTable.getStudentsOnCloud(cloudIndex);
     }
 
     @Override
-    public List<TowerColor> teamWithMoreTowersOnSchoolboards(List<TowerColor> teamWithMoreTowersOnSchoolboards){
-        return gameTable.teamWithMoreTowersOnSchoolboards(teamWithMoreTowersOnSchoolboards);
+    public List<TowerColor> teamWithLessTowersOnSchoolboards(){
+        return gameTable.teamWithLessTowersOnSchoolboards();
     }
 
     @Override
-    public List<TowerColor> teamWithLessProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards){
+    public List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards){
         return gameTable.teamWithMoreProfessors(teamWithLessTowersOnSchoolboards);
     }
 

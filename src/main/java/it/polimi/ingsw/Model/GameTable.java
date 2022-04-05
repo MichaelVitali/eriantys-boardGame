@@ -172,19 +172,19 @@ public class GameTable {
                 victory = true;
                 winner = e.getEmptySchoolboardColor();
             } catch (ThreeOrLessIslandException e) {
-                victory = true;
-                TowerColor possibleWinner = teamWithLessTowersOnSchoolboards();
-                if (possibleWinner == null) {
-                    possibleWinner = teamWithMoreProfessors();
-                    if (possibleWinner == null) {
+                victory = false;
+                List<TowerColor> possibleWinner = teamWithLessTowersOnSchoolboards();
+                if (possibleWinner.size() > 1) {
+                    possibleWinner = teamWithMoreProfessors(possibleWinner);
+                    if (possibleWinner.size() > 1) {
                         draw = true;
                     } else {
                         victory = true;
-                        winner = possibleWinner;
+                        winner = possibleWinner.get(0);
                     }
                 } else {
                     victory = true;
-                    winner = possibleWinner;
+                    winner = possibleWinner.get(0);
                 }
             }
         }
@@ -260,36 +260,36 @@ public class GameTable {
         return teamColor;
     }
 
-    public List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
-        List<TowerColor> teamColor = new ArrayList<>();
-        int maximumNumberOfProfessors = -1;
-        int[] numberOfProfessors = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) {
-            if(teamWithLessTowersOnSchoolboards.contains(schoolBoards[i].getTowersColor()))
-                numberOfProfessors[i] = schoolBoards[i].getProfessors().size();
-            else
-                numberOfProfessors[i]=-1;
-        }
-        if(numberOfPlayers == 4) {
-            int[] numberOfProfessorsForFourPlayers = new int[2];
-            numberOfProfessorsForFourPlayers[0] = numberOfProfessors[0] + numberOfProfessors[2];
-            numberOfProfessorsForFourPlayers[1] = numberOfProfessors[1] + numberOfProfessors[3];
-            numberOfProfessors = numberOfProfessorsForFourPlayers;
-        }
+        protected List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
+            List<TowerColor> teamColor = new ArrayList<>();
+            int maximumNumberOfProfessors = -1;
+            int[] numberOfProfessors = new int[numberOfPlayers];
+            for (int i = 0; i < numberOfPlayers; i++) {
+                if(teamWithLessTowersOnSchoolboards.contains(schoolBoards[i].getTowersColor()))
+                    numberOfProfessors[i] = schoolBoards[i].getProfessors().size();
+                else
+                    numberOfProfessors[i]=-1;
+            }
+            if(numberOfPlayers == 4) {
+                int[] numberOfProfessorsForFourPlayers = new int[2];
+                numberOfProfessorsForFourPlayers[0] = numberOfProfessors[0] + numberOfProfessors[2];
+                numberOfProfessorsForFourPlayers[1] = numberOfProfessors[1] + numberOfProfessors[3];
+                numberOfProfessors = numberOfProfessorsForFourPlayers;
+            }
 
-        for (int i = 0; i < numberOfProfessors.length; i++) {
+            for (int i = 0; i < numberOfProfessors.length; i++) {
 
-            if (numberOfProfessors[i] > maximumNumberOfProfessors)
-                maximumNumberOfProfessors=numberOfProfessors[i];
+                if (numberOfProfessors[i] > maximumNumberOfProfessors)
+                    maximumNumberOfProfessors=numberOfProfessors[i];
+            }
+
+            for(int i=0; i<numberOfProfessors.length; i++){
+                if(numberOfProfessors[i]==maximumNumberOfProfessors)
+                    teamColor.add(teamWithLessTowersOnSchoolboards.get(i));
+            }
+
+            return teamColor;
         }
-
-        for(int i=0; i<numberOfProfessors.length; i++){
-            if(numberOfProfessors[i]==maximumNumberOfProfessors)
-                teamColor.add(teamWithLessTowersOnSchoolboards.get(i));
-        }
-
-        return teamColor;
-    }
 
     public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
