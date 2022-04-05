@@ -68,7 +68,7 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
 
     @Override
     protected TowerColor teamWithLessTowersOnSchoolboars(){
-        return this.gameTable.teamWithLessTowersOnSchoolboars();
+        return this.gameTable.teamWithLessTowersOnSchoolboards();
     }
 
     @Override
