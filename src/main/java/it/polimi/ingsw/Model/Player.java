@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Model;
-import it.polimi.ingsw.Model.exception.InvalidIndexException;
-import it.polimi.ingsw.Model.exception.OutOfBoundException;
+import it.polimi.ingsw.Model.exception.*;
 
 import java.util.*;
 

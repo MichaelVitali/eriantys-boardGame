@@ -30,8 +30,10 @@ public class Island {
 
     public List<Tower> removeTowers() {
         List<Tower> removedTowers = new ArrayList<>();
-        removedTowers.add(tower);
-        tower = null;
+        if (tower != null){
+            removedTowers.add(tower);
+            tower = null;
+        }
         return removedTowers;
     }
 

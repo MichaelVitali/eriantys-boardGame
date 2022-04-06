@@ -21,7 +21,7 @@ public class ExpertGame extends Game {
     //// private boolean[] newCoinOrNot;
 
     public ExpertGame(int numberOfPlayers, String[] nicknames) throws EmptyBagException {
-        super();
+        super(numberOfPlayers, nicknames);
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];

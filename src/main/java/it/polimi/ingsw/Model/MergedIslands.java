@@ -30,7 +30,6 @@ public class MergedIslands extends Island {
     public List<Tower> removeTowers() {
         List<Tower> towersOnTheIslands = new ArrayList<>();
         towersOnTheIslands.addAll(firstIstand.removeTowers());
-        firstIstand.setTowers(null);
         towersOnTheIslands.addAll(secondIstand.removeTowers());
         return towersOnTheIslands;
     }

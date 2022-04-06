@@ -220,7 +220,7 @@ public class GameTable {
     public void mergeIslandsIfNecessary() {
         List<Tower> towersOnTheIsland = islands.get(motherNaturePosition).getTowers();
         List<Tower> towersOnTheNextIsland = islands.get((motherNaturePosition + 1) % islands.size()).getTowers();
-        List<Tower> towersOnThePreviousIsland = islands.get((motherNaturePosition + 1) % islands.size()).getTowers();
+        List<Tower> towersOnThePreviousIsland = islands.get((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1)).getTowers();
         if(towersOnTheNextIsland.size() > 0 && towersOnTheIsland.get(0).getColor() == towersOnTheNextIsland.get(0).getColor()) {
             islands.set(motherNaturePosition, new MergedIslands(islands.get(motherNaturePosition), islands.get((motherNaturePosition + 1) % islands.size())));
             islands.remove(islands.get((motherNaturePosition + 1) % islands.size()));
@@ -229,10 +229,10 @@ public class GameTable {
             islands.set((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1), new MergedIslands(islands.get((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1)), islands.get(motherNaturePosition)));
             islands.remove(islands.get(motherNaturePosition));
             motherNaturePosition = (motherNaturePosition == 0) ? islands.size() -1 : motherNaturePosition - 1;
-        }
+        }/*
         for(Island island : islands){
             if(island == null) { } // exception
-        }
+        }*/
     }
 
     public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
@@ -260,7 +260,7 @@ public class GameTable {
         return teamColor;
     }
 
-        protected List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
+    public List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
             List<TowerColor> teamColor = new ArrayList<>();
             int maximumNumberOfProfessors = -1;
             int[] numberOfProfessors = new int[numberOfPlayers];

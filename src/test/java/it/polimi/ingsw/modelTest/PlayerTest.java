@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.Model.*;
 import it.polimi.ingsw.Model.exception.EmptyBagException;
+import it.polimi.ingsw.Model.exception.EmptyCloudException;
 import it.polimi.ingsw.Model.exception.InvalidIndexException;
 import it.polimi.ingsw.Model.exception.OutOfBoundException;
 import org.junit.Before;
@@ -75,7 +76,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testTakeStudentsFromCloud() throws EmptyBagException {
+    public void testTakeStudentsFromCloud() throws EmptyBagException, EmptyCloudException {
         Student[] entrance;
         Student[] entrance2;
 
