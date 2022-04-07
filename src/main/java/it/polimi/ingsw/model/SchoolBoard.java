@@ -98,7 +98,7 @@ public class SchoolBoard {
 
     public Student removeStudentFromEntrance(int index) throws InvalidIndexException{
         if (entrance[index] == null) throw new InvalidIndexException("No student on entrance position");
-        if(index < 0 || index >= entrance.length) throw new InvalidIndexException("Index error on entrance");
+        if(index < 0 || index >= entrance.length) throw new InvalidIndexException("There isn't a student on this position");
         else{
             Student studentToBeRemoved = entrance[index];
             entrance[index] = null;
