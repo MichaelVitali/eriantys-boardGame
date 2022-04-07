@@ -1,7 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.PawnColor;
-import it.polimi.ingsw.Model.Student;
+import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Student;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

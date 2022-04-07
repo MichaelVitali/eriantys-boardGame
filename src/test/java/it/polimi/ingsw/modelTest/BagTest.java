@@ -1,9 +1,9 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Bag;
-import it.polimi.ingsw.Model.exception.EmptyBagException;
-import it.polimi.ingsw.Model.Student;
-import it.polimi.ingsw.Model.PawnColor;
+import it.polimi.ingsw.model.Bag;
+import it.polimi.ingsw.model.exception.EmptyBagException;
+import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.PawnColor;
 
 import org.junit.Test;;
 import java.util.ArrayList;
