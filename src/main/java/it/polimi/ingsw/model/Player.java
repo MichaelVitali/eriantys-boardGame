@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
+import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.OutOfBoundException;
 
@@ -33,12 +34,12 @@ public class Player {
         return this.assistants.remove(pos);
     }
 
-    public Assistant getAssistant(int pos) {
+    public Assistant getAssistant(int pos) throws FullTableException {
         if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
         return this.assistants.get(pos);
     }
 
-    public void moveStudentOnTable(int pos){
+    public void moveStudentOnTable(int pos) throws FullTableException {
         this.schoolBoard.addStudentOnTable(pos);
     }
 

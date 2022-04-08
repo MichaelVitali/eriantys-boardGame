@@ -1,9 +1,9 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Island;
-import it.polimi.ingsw.Model.MergedIslands;
-import it.polimi.ingsw.Model.Tower;
-import it.polimi.ingsw.Model.TowerColor;
+import it.polimi.ingsw.model.Island;
+import it.polimi.ingsw.model.MergedIslands;
+import it.polimi.ingsw.model.Tower;
+import it.polimi.ingsw.model.TowerColor;
 import org.junit.Test;
 
 import java.util.ArrayList;

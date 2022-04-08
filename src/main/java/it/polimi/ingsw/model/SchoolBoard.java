@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
+import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.NoMoreTowersException;
 
@@ -40,13 +41,13 @@ public class SchoolBoard {
         }
     }
 
-    public void addStudentOnTable(int index) {
+    public void addStudentOnTable(int index) throws FullTableException {
         if(index >= 0 && index < numberOfStudentsOnEntrance) {}//throw new InvalidIndexException("");
         tables[entrance[index].getColor().getIndex()].addStudent(entrance[index]);
         entrance[index] = null;
     }
 
-    public void addStudentOnTable(Student s) {
+    public void addStudentOnTable(Student s) throws FullTableException {
         this.tables[s.getColor().getIndex()].addStudent(s);
     }
 

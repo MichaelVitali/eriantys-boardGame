@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.exception.FullTableException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,7 +12,7 @@ public class TableTest {
     private Table table = new Table(PawnColor.RED);
 
     @Test
-    public void testGetNumberOfStudents() {
+    public void testGetNumberOfStudents() throws FullTableException {
         assertTrue(table.getNumberOfStudents() == 0);
 
         for(int i = 0; i < 5; i++){
@@ -38,7 +39,7 @@ public class TableTest {
         assertTrue(table.hasProfessor());
     }
     @Test
-    public void testAddStudent() {
+    public void testAddStudent() throws FullTableException {
         for(int i = 0; i < 10; i++){
             Student s = new Student(PawnColor.RED);
             table.addStudent(s);

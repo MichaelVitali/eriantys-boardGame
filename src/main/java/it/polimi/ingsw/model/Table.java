@@ -1,66 +1,91 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.EmptyTableException;
+import it.polimi.ingsw.model.exception.FullTableException;
 
 public class Table {
+    private final int NUMBEROFSEATS = 10;
     private final PawnColor color;
-    private final int NUMBEROFSEATS = 10; /////////
     private final Student[] students;
     private boolean professor;
 
+    /**
+     * Creates a new table of the color passed as parameter
+     * @param color color of the new created table
+     */
     public Table(PawnColor color) {
         this.color = color;
         students = new Student[NUMBEROFSEATS];
         professor = false;
     }
 
-    public int getNumberOfStudents() {
-        int i;
-        for(i = 0; i < NUMBEROFSEATS ; i++)
-            if(students[i] == null) break;
-        return i;
-    }
-
+    /**
+     * Returns the color of the students and the professor which can be put on the table
+     * @return color of the table
+     */
     public PawnColor getColor() {
         return color;
     }
 
-    public void setProfessor(boolean value) {
-        this.professor = value;
-    }
-
+    /**
+     * Returns the value of the professor.
+     * The value is true if the professor is on the table and is false if the table doesn't contain the professor
+     * @return value of the professor
+     */
     public boolean hasProfessor() {
         return professor;
     }
 
-    public void addStudent(Student newStudent) {
-        for(int i = 0; i < NUMBEROFSEATS; i++){
-            if(students[i] == null) {
+    /**
+     * Returns the number of students the table contains
+     * @return number of students the table contains
+     */
+    public int getNumberOfStudents() {
+        int i;
+        for (i = 0; i < NUMBEROFSEATS ; i++)
+            if (students[i] == null) break;
+        return i;
+    }
+
+    /**
+     * Sets the value of the professor to the value passed as parameter.
+     * The true value means the professor is put on the table and the false value means the professor is removed
+     * @param value value to set to professor
+     */
+    public void setProfessor(boolean value) {
+        this.professor = value;
+    }
+
+    /**
+     * Adds a student on the table
+     * @param newStudent student to add on the table
+     * @throws FullTableException if there are no more empty seats on the table, the student cannot be added
+     */
+    public void addStudent(Student newStudent) throws FullTableException {
+        if (students.length <= getNumberOfStudents()) throw new FullTableException(newStudent);
+        for (int i = 0; i < NUMBEROFSEATS; i++) {
+            if (students[i] == null) {
                 students[i] = newStudent;
                 break;
             }
         }
     }
 
-    //restituisce la posizione dell'ultimo studente aggiunto per l'aggiunta del coin
-    /*public int getLastStudentPosition(){
-        for(int i = 0; i < students.length; i++){
-            if(this.students[i] == null) return --i;
-        }
-        return 0;
-    }*/
-
+    /**
+     * Removes a student from the table
+     * @return the student removed from the table
+     * @throws EmptyTableException if there are no more students on the table
+     */
     public Student removeStudentFromTable() throws EmptyTableException {
-        Student s = null;
-        if(getNumberOfStudents() <= 0) throw new EmptyTableException();
-        for(int i = 0; i < NUMBEROFSEATS; i++){
-            if(this.students[i] == null){
-                s = this.students[--i];
-                this.students[++i] = null; // non dovrebbe esserci i ?
+        Student removedStudent = null;
+        if (getNumberOfStudents() <= 0) throw new EmptyTableException();
+        for (int i = 0; i < NUMBEROFSEATS; i++) {
+            if (students[i] == null) {
+                removedStudent = students[--i];
+                students[i] = null;
                 break;
             }
         }
-        return s;
+        return removedStudent;
     }
-
 }

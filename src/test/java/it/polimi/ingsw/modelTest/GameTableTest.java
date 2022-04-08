@@ -1,11 +1,11 @@
 package it.polimi.ingsw.modelTest;
-import it.polimi.ingsw.Model.*;;
+import it.polimi.ingsw.model.*;;
 import java.util.*;
 
-import it.polimi.ingsw.Model.exception.EmptyBagException;
-import it.polimi.ingsw.Model.exception.EmptyCloudException;
-import it.polimi.ingsw.Model.exception.InvalidIndexException;
-import it.polimi.ingsw.Model.exception.NoMoreTowersException;
+import it.polimi.ingsw.model.exception.EmptyBagException;
+import it.polimi.ingsw.model.exception.EmptyCloudException;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.NoMoreTowersException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
