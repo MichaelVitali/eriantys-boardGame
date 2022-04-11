@@ -1,18 +1,15 @@
 package it.polimi.ingsw.modelTest;
-import it.polimi.ingsw.Model.*;;
+import it.polimi.ingsw.model.*;;
 import java.util.*;
 
-import it.polimi.ingsw.Model.exception.EmptyBagException;
-import it.polimi.ingsw.Model.exception.EmptyCloudException;
-import it.polimi.ingsw.Model.exception.InvalidIndexException;
-import it.polimi.ingsw.Model.exception.NoMoreTowersException;
+import it.polimi.ingsw.model.exception.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTableTest {
 
-    private SchoolBoard[] schoolBoards = {new  SchoolBoard(7, TowerColor.BLACK, 8), new SchoolBoard(7, TowerColor.WHITE, 8)};
-    private GameTable gameTable= new GameTable(2,schoolBoards);
+    private SchoolBoard[] schoolBoards = new SchoolBoard[2];
+    private GameTable gameTable = new GameTable(2,schoolBoards);
 
 
     @Test
@@ -29,13 +26,6 @@ public class GameTableTest {
             for (Student s : studentsOnCloud) assertNotNull(s);
             assertTrue(gameTable.getClouds()[i].isEmpty());
         }
-    }
-
-    @Test
-    public void testAddStudentOnTableFromEntrance() {
-        Student[] entranceSchoolBoard = gameTable.getSchoolBoards()[0].getStudentsFromEntrance();
-        gameTable.addStudentOnTableFromEntrance(0,0);
-        assertEquals(1, gameTable.getSchoolBoards()[0].getNumberOfStudentsOnTable(entranceSchoolBoard[0].getColor()));
     }
 
     @Test
@@ -63,7 +53,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testMoveProfessorToTheRightPosition() {
+    public void testMoveProfessorToTheRightPosition() throws FullTableException {
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         gameTable.moveProfessorToTheRightPosition(PawnColor.YELLOW);
         assertEquals(gameTable.getSchoolBoards()[0].getProfessors().get(0), PawnColor.YELLOW);
@@ -85,7 +75,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testAddStudentOnIsland() {
+    public void testAddStudentOnIsland() throws InvalidIndexException {
         Student s = new Student(PawnColor.BLUE);
         gameTable.addStudentOnIsland(s, 5);
         List<Island> islands = gameTable.getIslands();
@@ -106,7 +96,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testPutTowerOrChangeColorIfNecessary() throws InvalidIndexException {
+    public void testPutTowerOrChangeColorIfNecessary() throws InvalidIndexException, FullTableException {
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), 0);
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
@@ -117,7 +107,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testCalculateInfluences() throws InvalidIndexException {
+    public void testCalculateInfluences() throws InvalidIndexException, FullTableException {
         //test se il primmo giocatore ha il professore dello studente di quel colore e gli altri no
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), 0);
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
@@ -173,6 +163,13 @@ public class GameTableTest {
         //test with same number of professors. Expected list with all TowerColor
         gameTable.getSchoolBoards()[0].setProfessor(PawnColor.GREEN, true);
         assertEquals(2, gameTable.teamWithMoreProfessors(gameTable.teamWithLessTowersOnSchoolboards()).size());
+    }
+
+    @Test
+    public void testAddStudentOnTableFromEntrance() throws FullTableException {
+        Student[] entranceSchoolBoard = gameTable.getSchoolBoards()[0].getStudentsFromEntrance();
+        gameTable.addStudentOnTableFromEntrance(0,0);
+        assertEquals(1, gameTable.getSchoolBoards()[0].getNumberOfStudentsOnTable(entranceSchoolBoard[0].getColor()));
     }
 
     @Test

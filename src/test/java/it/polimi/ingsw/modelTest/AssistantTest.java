@@ -1,6 +1,6 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Assistant;
+import it.polimi.ingsw.model.Assistant;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

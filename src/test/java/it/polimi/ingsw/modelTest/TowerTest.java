@@ -1,8 +1,8 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Tower;
+import it.polimi.ingsw.model.Tower;
 
-import it.polimi.ingsw.Model.TowerColor;
+import it.polimi.ingsw.model.TowerColor;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
