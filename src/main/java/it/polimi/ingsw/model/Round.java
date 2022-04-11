@@ -54,14 +54,14 @@ public class Round {
             return Arrays.asList(outer).containsAll(Arrays.asList(inner));
         }
 
-        public void playAssistant(int playerId, int assistantPosition) throws OutOfBoundException {
+        public void playAssistant(int playerId, int assistantPosition) throws InvalidIndexException, OutOfBoundException {
 
             for (int i = 0; i < playedAssistants.length; i++) {
                 if (game.getPlayer(playerId).getAssistant(assistantPosition).equals(playedAssistants[i])) {
                     Assistant[] playedAssistantsCopy = new Assistant[playedAssistants.length];
                     for (int j = 0; i < playedAssistants.length; j++)
                         playedAssistantsCopy[i] = playedAssistants[i].getAssistant();
-                    if (!assistantNoChoice(playedAssistantsCopy, (Assistant[]) game.getPlayer(playerId).assistants.toArray())) {
+                    if (!assistantNoChoice(playedAssistantsCopy, (Assistant[]) game.getPlayer(playerId).getAssistants().toArray())) {
                         //c'è sicuramente un'altra opzione, rifai la scelta
                         game.getPlayer(playerId).setErrorMessage("Assistant not playable");
                         return;
@@ -209,6 +209,8 @@ public class Round {
             setErrorMessage(playerId, "You cannot play any assistant now");
         } catch (OutOfBoundException e) {
             setErrorMessage(playerId,"You can't choose that assistant");
+        } catch (InvalidIndexException e) {
+            setErrorMessage(playerId, e.getMessage());
         }
     }
 
@@ -245,6 +247,8 @@ public class Round {
             setErrorMessage(playerId, "You cannot move students now");
         } catch (TooManyMovesException e) {
             setErrorMessage(playerId, "You can move no more students");
+        } catch (FullTableException e) {
+            setErrorMessage(playerId, "You can't move that student, his table has no more free seats");
         }
     }
 

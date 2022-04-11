@@ -51,7 +51,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    public void addStudentOnIsland(Student s, int islandIndex){
+    public void addStudentOnIsland(Student s, int islandIndex) throws InvalidIndexException {
         this.gameTable.addStudentOnIsland(s, islandIndex);
     }
 

@@ -160,32 +160,35 @@ public class ExpertGame extends Game {
                     break;
                 case 9:
                     break;
-                case 10:
+                case 10: ////////////// da rivedere
                     if (indexTable.size() > 2 || indexTable.size() <= 0 || studentsIndexEntrance.size() > 2 || studentsIndexEntrance.size() <= 0) throw new InvalidIndexException("Error Effect 10");
                         newStudentsOnEntrance = new ArrayList<>();
                         //estrae gli studenti dai tavoli selezionati
                         try {
                             if (indexTable.size() == 1) {
                                 if (studentsIndexEntrance.size() == 1) {
-                                    newStudentsOnEntrance.add(schoolBoards[playerIndex].tables[indexTable.get(0)].removeStudentFromTable());
+                                    newStudentsOnEntrance.add(schoolBoards[playerIndex].removeStudentFromTable(indexTable.get(0)));
                                 } else {
                                     for (int j = 0; j < 2; j++) {
-                                        newStudentsOnEntrance.add(schoolBoards[playerIndex].tables[indexTable.get(0)].removeStudentFromTable());
+                                        newStudentsOnEntrance.add(schoolBoards[playerIndex].removeStudentFromTable(indexTable.get(0)));
                                     }
                                 }
                             } else {
                                 for (Integer i : indexTable) {
-                                    newStudentsOnEntrance.add(schoolBoards[playerIndex].tables[i].removeStudentFromTable());
+                                    newStudentsOnEntrance.add(schoolBoards[playerIndex].removeStudentFromTable(i));
                                 }
+                            }
+                            //mette gli studenti selezionati dalla entrance ai tavoli
+                            for (Integer i : studentsIndexEntrance) {
+                                schoolBoards[playerIndex].addStudentOnTable(i);
                             }
                         } catch (EmptyTableException e) {
                             // se arrivo qua c'è un problema nel codice
+                            ////////////////////////////////////////////////////// da vedere se fare qualcosa
                             e.printStackTrace();
-                        }
-
-                        //mette gli studenti selezionati dalla entrance ai tavoli
-                        for (Integer i : studentsIndexEntrance) {
-                            schoolBoards[playerIndex].addStudentOnTable(i);
+                        } catch (FullTableException e) {
+                            e.printStackTrace();
+                            ////////////////////////////////////////////////////// da vedere se fare qualcosa
                         }
 
                         //mette li studenti nei tavoli nella entrance
@@ -204,21 +207,25 @@ public class ExpertGame extends Game {
                     break;
                 case 11:
                     if (studentsIndex.size() == 1) {
-                        studentsOnCard = new ArrayList<>(getStudentFromCard(indexCard, studentsIndex)); /// potrebbe aver finito gli studenti?
-                        Student student = studentsOnCard.remove(0);
-                        schoolBoards[playerIndex].addStudentOnTable(student);
-                        if (schoolBoards[playerIndex].getNumberOfStudentsOnTable(student.getColor()) % 3 == 0) {
-                            try {
-                                removeCoinFromTheTable();
-                                addCoinToAPlayer(playerIndex);
-                            } catch (NotEnoughCoins e) {
-                                ///////// da vedere cosa fare se sono finiti i coins
-                            }
-                        }
                         try {
-                            addStudentsOnCard(indexCard, Bag.getBag().drawStudents(1));
-                        } catch (EmptyBagException e) {
-                            // The bag is empty : we continue without adding students on the character
+                            studentsOnCard = new ArrayList<>(getStudentFromCard(indexCard, studentsIndex)); /// potrebbe aver finito gli studenti?
+                            Student student = studentsOnCard.remove(0);
+                            schoolBoards[playerIndex].addStudentOnTable(student);
+                            if (schoolBoards[playerIndex].getNumberOfStudentsOnTable(student.getColor()) % 3 == 0) {
+                                try {
+                                    removeCoinFromTheTable();
+                                    addCoinToAPlayer(playerIndex);
+                                } catch (NotEnoughCoins e) {
+                                    ///////// da vedere cosa fare se sono finiti i coins
+                                }
+                            }
+                            try {
+                                addStudentsOnCard(indexCard, Bag.getBag().drawStudents(1));
+                            } catch (EmptyBagException e) {
+                                // The bag is empty : we continue without adding students on the character
+                            }
+                        } catch (FullTableException e) {
+                            game.getRound().setErrorMessage(playerIndex, "Tou cannot add that student on the table");
                         }
                     }
                     break;
@@ -232,7 +239,7 @@ public class ExpertGame extends Game {
                     for (SchoolBoard schoolBoard : game.getGameTable().getSchoolBoards()) {
                         try {
                             for (int i = 0; i < 3; i++)
-                                newStudentsBag.add(schoolBoard.tables[tableIndex].removeStudentFromTable());
+                                newStudentsBag.add(schoolBoard.removeStudentFromTable(tableIndex));
                         } catch (EmptyTableException e) { } // non faccio nulla se il tavolo è vuoto e proseguo con gli altri giocatori
                         Bag.getBag().addStudents(newStudentsBag);
                     }

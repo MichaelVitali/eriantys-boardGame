@@ -112,10 +112,31 @@ public class GameTable {
         }
     }
 
-    public void addStudentOnIsland(Student s, int islandIndex) {
-        if(islandIndex >= 0 && islandIndex < islands.size())
-            this.islands.get(islandIndex).addStudents(s);
-
+    /**
+     * Adds a student on an island
+     * @param student student to put on the island
+     * @param islandIndex index of the island where has to be put the student. The index is the index of the island from 0 to 11 (beginning indexes)
+     * @throws InvalidIndexException if in the set of island there is no islands with an index that match with the index passed as parameter
+     */
+    public void addStudentOnIsland(Student student, int islandIndex) throws InvalidIndexException {
+        if(islandIndex < 0 || islandIndex >= 12) throw new InvalidIndexException("The island index " + islandIndex + " doesn't exists");
+        int index = -1;
+        for(int i = 0; i < islands.size(); i++) {
+            if(islands.get(i).getIndex().contains(islandIndex)) {
+                index = i;
+                break;
+            }
+        }
+        try {
+            if(index == -1) throw new OutOfBoundException("Errore in addStudents of GameTable");
+            this.islands.get(index).addStudents(student, islandIndex);
+        } catch (OutOfBoundException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } catch (InvalidIndexException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 
     public void changeMotherNaturePosition(int newPosition) throws InvalidIndexException {
@@ -291,7 +312,7 @@ public class GameTable {
         return teamColor;
     }
 
-    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) throws FullTableException {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
     }
 

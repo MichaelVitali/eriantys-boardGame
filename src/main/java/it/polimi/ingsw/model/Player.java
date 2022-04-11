@@ -9,9 +9,9 @@ import java.util.*;
 public class Player {
     private SchoolBoard schoolBoard;
     private GameTable gameTable;
-    protected final String nickName;
-    protected final int playerId;
-    protected List<Assistant> assistants;
+    private final String nickName;
+    private final int playerId;
+    private List<Assistant> assistants;
     private String errorMessage;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
@@ -29,14 +29,24 @@ public class Player {
         this.schoolBoard = s;
     }
 
-    public Assistant playAssistant(int pos) throws OutOfBoundException {
-        if(pos < 0 || pos >= assistants.size()) throw new OutOfBoundException("Assistant index out of bound");
+    public Assistant playAssistant(int pos) throws InvalidIndexException {
+        if(pos < 0 || pos >= assistants.size()) throw new InvalidIndexException("Assistant index out of bound");
         return this.assistants.remove(pos);
     }
 
-    public Assistant getAssistant(int pos) throws FullTableException {
-        if(pos < 0 && pos >= assistants.size()) {} // throw new InvalidIndexException("No such index in assistants"); TODO out of bound exception
-        return this.assistants.get(pos);
+    /**
+     * Returns the list containing the player's assistants
+     * @return list containing the assistants the player hasn't played yet
+     */
+    public List<Assistant> getAssistants() {
+        List<Assistant> returnedAssistants = new ArrayList<>();
+        returnedAssistants.addAll(assistants);
+        return returnedAssistants;
+    }
+
+    public Assistant getAssistant(int position) throws InvalidIndexException{
+        if(position < 0 && position >= assistants.size()) throw new InvalidIndexException("Choose a valid assistant");
+        return this.assistants.get(position);
     }
 
     public void moveStudentOnTable(int pos) throws FullTableException {

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exception.InvalidIndexException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +27,10 @@ public class Island {
      * Returns the index of the island in the group of island on the beginning game table
      * @return index of the island in the group of island on the beginning game table
      */
-    public int getIndex() {
+    public List<Integer> getIndex() {
+        List<Integer> index = new ArrayList<>();
+        index.add(this.index);
         return index;
-    }
-
-    /**
-     * Puts the first tower of the list on the island
-     * @param tower list of towers within which, on index 0, there is the tower to put on the island
-     */
-    public void setTowers(List<Tower> tower){
-        this.tower = tower.get(0);
     }
 
     /**
@@ -45,6 +41,14 @@ public class Island {
         List<Tower> towersOnTheIsland = new ArrayList<>();
         if ( tower != null ) towersOnTheIsland.add(tower);
         return towersOnTheIsland;
+    }
+
+    /**
+     * Puts the first tower of the list on the island
+     * @param tower list of towers within which, on index 0, there is the tower to put on the island
+     */
+    public void setTowers(List<Tower> tower){
+        this.tower = tower.get(0);
     }
 
     /**
@@ -61,10 +65,12 @@ public class Island {
     }
 
     /**
-     * Adds the student passed as parameter on the island
+     * Adds the student passed as parameter on the island which has the index passed as parameter
      * @param newStudent instance of the student to put on the island
+     * @throws InvalidIndexException if the index passed as parameter doesn't match with the index of the island
      */
-    public void addStudents(Student newStudent) {
+    public void addStudents(Student newStudent, int index) throws InvalidIndexException {
+        if (this.index != index) throw new InvalidIndexException("The island index is wrong, you have to add the student on another island");
         students.add(newStudent);
     }
 
