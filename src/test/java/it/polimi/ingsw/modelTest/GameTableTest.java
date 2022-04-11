@@ -6,8 +6,6 @@ import it.polimi.ingsw.Model.exception.EmptyBagException;
 import it.polimi.ingsw.Model.exception.EmptyCloudException;
 import it.polimi.ingsw.Model.exception.InvalidIndexException;
 import it.polimi.ingsw.Model.exception.NoMoreTowersException;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
