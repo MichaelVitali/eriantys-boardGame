@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
+import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 
 import java.util.List;
@@ -90,7 +91,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) {
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) throws FullTableException {
         this.gameTable.addStudentOnTableFromEntrance(indexStudent, schoolBoardIndex);
     }
 
