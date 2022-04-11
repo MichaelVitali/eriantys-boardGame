@@ -1,9 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.*;
-import it.polimi.ingsw.Model.exception.EmptyBagException;
-import it.polimi.ingsw.Model.exception.InvalidIndexException;
-import it.polimi.ingsw.Model.exception.OutOfBoundException;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +32,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayAssistant() throws OutOfBoundException {
+    public void testPlayAssistant() throws InvalidIndexException {
         List<Assistant> assistants = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             assistants.add(new Assistant(i, i%5));
@@ -46,7 +44,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetAssistant() throws OutOfBoundException{
+    public void testGetAssistant() throws InvalidIndexException {
         List<Assistant> assistants = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             assistants.add(new Assistant(i, i%5));
@@ -61,7 +59,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMoveStudentOnTable() {
+    public void testMoveStudentOnTable() throws FullTableException {
         player.moveStudentOnTable(0);
     }
 
@@ -75,7 +73,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testTakeStudentsFromCloud() throws EmptyBagException {
+    public void testTakeStudentsFromCloud() throws EmptyBagException, EmptyCloudException, FullTableException {
         Student[] entrance;
         Student[] entrance2;
 
@@ -95,7 +93,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testAddAssistants() throws OutOfBoundException{
+    public void testAddAssistants() throws InvalidIndexException {
         List<Assistant> assistants = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             assistants.add(new Assistant(i, i%5));

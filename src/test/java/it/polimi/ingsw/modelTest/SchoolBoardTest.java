@@ -1,7 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.*;
-import it.polimi.ingsw.Model.exception.*;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.*;
 import org.junit.Test;
 import java.util.*;
 

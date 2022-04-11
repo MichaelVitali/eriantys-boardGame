@@ -1,9 +1,9 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Bag;
-import it.polimi.ingsw.Model.Cloud;
-import it.polimi.ingsw.Model.exception.*;
-import it.polimi.ingsw.Model.Student;
+import it.polimi.ingsw.model.Bag;
+import it.polimi.ingsw.model.Cloud;
+import it.polimi.ingsw.model.exception.*;
+import it.polimi.ingsw.model.Student;
 import org.junit.Test;
 
 import java.util.ArrayList;

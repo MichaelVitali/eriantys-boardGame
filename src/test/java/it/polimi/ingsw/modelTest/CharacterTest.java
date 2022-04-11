@@ -1,6 +1,6 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Character;
+import it.polimi.ingsw.model.Character;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
