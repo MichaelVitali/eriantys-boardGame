@@ -13,18 +13,31 @@ import static org.junit.Assert.*;
 
 public class GameTableTest {
 
-    private SchoolBoard[] schoolBoards = new SchoolBoard[2];
-    private GameTable gameTable = new GameTable(2,schoolBoards);
+    private SchoolBoard[] schoolBoards = {new  SchoolBoard(7, TowerColor.BLACK, 8), new SchoolBoard(7, TowerColor.WHITE, 8)};
+    private GameTable gameTable= new GameTable(2,schoolBoards);
 
-    @Before
-    public void createSchoolbords(){
-        schoolBoards[0] = new  SchoolBoard(9, TowerColor.BLACK, 8);
-        schoolBoards[1] = new SchoolBoard(9, TowerColor.WHITE, 8);
-    }
 
     @Test
     public void testGetNumberOfPlayers() {
         assertEquals(2, gameTable.getNumberOfPlayers());
+    }
+
+    @Test
+    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException {
+        List<Student> studentsOnCloud;
+        gameTable.addStudentsOnClouds();
+        for (int i = 0; i < gameTable.getClouds().length; i++){
+            studentsOnCloud = gameTable.getStudentsOnCloud(i);
+            for (Student s : studentsOnCloud) assertNotNull(s);
+            assertTrue(gameTable.getClouds()[i].isEmpty());
+        }
+    }
+
+    @Test
+    public void testAddStudentOnTableFromEntrance() {
+        Student[] entranceSchoolBoard = gameTable.getSchoolBoards()[0].getStudentsFromEntrance();
+        gameTable.addStudentOnTableFromEntrance(0,0);
+        assertEquals(1, gameTable.getSchoolBoards()[0].getNumberOfStudentsOnTable(entranceSchoolBoard[0].getColor()));
     }
 
     @Test
@@ -136,17 +149,6 @@ public class GameTableTest {
     }
 
     @Test
-    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException {
-        List<Student> studentsOnCloud;
-        gameTable.addStudentsOnClouds();
-        for (int i = 0; i < gameTable.getClouds().length; i++){
-            studentsOnCloud = gameTable.getStudentsOnCloud(i);
-            for (Student s : studentsOnCloud) assertNotNull(s);
-            assertTrue(gameTable.getClouds()[i].isEmpty());
-        }
-    }
-
-    @Test
     public void testTeamWithLessTowersOnSchoolboars() throws InvalidIndexException, NoMoreTowersException {
         gameTable.getSchoolBoards()[0].removeTowers(2);
         gameTable.getSchoolBoards()[1].removeTowers(4);
@@ -173,13 +175,6 @@ public class GameTableTest {
         //test with same number of professors. Expected list with all TowerColor
         gameTable.getSchoolBoards()[0].setProfessor(PawnColor.GREEN, true);
         assertEquals(2, gameTable.teamWithMoreProfessors(gameTable.teamWithLessTowersOnSchoolboards()).size());
-    }
-
-    @Test
-    public void testAddStudentOnTableFromEntrance() {
-        Student[] entranceSchoolBoard = gameTable.getSchoolBoards()[0].getStudentsFromEntrance();
-        gameTable.addStudentOnTableFromEntrance(0,0);
-        assertEquals(1, gameTable.getSchoolBoards()[0].getNumberOfStudentsOnTable(entranceSchoolBoard[0].getColor()));
     }
 
     @Test

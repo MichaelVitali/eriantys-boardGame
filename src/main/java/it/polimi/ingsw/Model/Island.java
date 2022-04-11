@@ -6,7 +6,7 @@ import java.util.List;
 public class Island {
     private final int index;
     private Tower tower;
-    private final List<Student> students;
+    protected final List<Student> students;
 
     public Island(int index) {
         this.index = index;

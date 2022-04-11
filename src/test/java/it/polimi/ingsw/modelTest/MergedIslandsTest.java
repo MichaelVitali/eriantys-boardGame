@@ -1,9 +1,6 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.Model.Island;
-import it.polimi.ingsw.Model.MergedIslands;
-import it.polimi.ingsw.Model.Tower;
-import it.polimi.ingsw.Model.TowerColor;
+import it.polimi.ingsw.Model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -96,5 +93,15 @@ public class MergedIslandsTest {
 
     @Test
     public void testGetStudents() {
+        Student s1 = new Student(PawnColor.GREEN);
+        mergedIslands.addStudents(s1);
+        assertEquals(1, mergedIslands.getStudents().size());
+        assertEquals(s1, mergedIslands.getStudents().get(0));
+
+        Student s2 = new Student(PawnColor.RED);
+        mergedIslands2.addStudents(s2);
+        assertEquals(2, mergedIslands2.getStudents().size());
+        assertEquals(s1, mergedIslands2.getStudents().get(0));
+        assertEquals(s2, mergedIslands2.getStudents().get(1));
     }
 }

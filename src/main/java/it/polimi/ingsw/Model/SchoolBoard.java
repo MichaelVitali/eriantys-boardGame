@@ -41,7 +41,6 @@ public class SchoolBoard {
     }
 
     public void addStudentOnTable(int index) {
-        if(index >= 0 && index < numberOfStudentsOnEntrance) {}//throw new InvalidIndexException("");
         tables[entrance[index].getColor().getIndex()].addStudent(entrance[index]);
         entrance[index] = null;
     }

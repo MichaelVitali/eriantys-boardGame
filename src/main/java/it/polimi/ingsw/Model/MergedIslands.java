@@ -42,6 +42,7 @@ public class MergedIslands extends Island {
         List<Student> studentsOnTheIslands = new ArrayList<>();
         studentsOnTheIslands.addAll(firstIstand.getStudents());
         studentsOnTheIslands.addAll(secondIstand.getStudents());
+        studentsOnTheIslands.addAll(students);
         return studentsOnTheIslands;
     }
 }
