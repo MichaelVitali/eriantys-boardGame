@@ -1,5 +1,5 @@
 package it.polimi.ingsw.modelTest;
-import it.polimi.ingsw.model.*;;
+import it.polimi.ingsw.model.*;
 import java.util.*;
 
 import it.polimi.ingsw.model.exception.*;
@@ -8,9 +8,8 @@ import static org.junit.Assert.*;
 
 public class GameTableTest {
 
-    private SchoolBoard[] schoolBoards = new SchoolBoard[2];
+    private SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.BLACK, 8), new SchoolBoard(9, TowerColor.WHITE, 8)};
     private GameTable gameTable = new GameTable(2,schoolBoards);
-
 
     @Test
     public void testGetNumberOfPlayers() {
