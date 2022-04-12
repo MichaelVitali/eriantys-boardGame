@@ -41,7 +41,7 @@ public class Round {
 
     private class PianificationPhase {
 
-        public PianificationPhase(Game game) { }
+        public PianificationPhase(Game game) {}
 
         private int calculateFirstPlayer() {
             return new Random().nextInt(game.getNumberOfPlayers());
