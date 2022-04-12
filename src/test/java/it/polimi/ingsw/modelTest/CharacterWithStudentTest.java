@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Bag;
 import it.polimi.ingsw.model.CharacterWithStudent;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 public class CharacterWithStudentTest {
     private CharacterWithStudent c = new CharacterWithStudent(1, 2, 4);
     @Test
-    public void testAddStudents() throws EmptyBagException {
+    public void testAddStudents() throws EmptyBagException, InvalidIndexException {
         c.addStudents(Bag.getBag().drawStudents(4));
         List<Integer> indexStudents = new ArrayList<>();
         for(int i = 0; i < 4; i++){
@@ -24,8 +25,9 @@ public class CharacterWithStudentTest {
             assertNotNull(s);
         }
     }
+
     @Test
-    public void testGetStudents() throws EmptyBagException {
+    public void testGetStudents() throws EmptyBagException, InvalidIndexException {
         c.addStudents(Bag.getBag().drawStudents(4));
         List<Integer> indexStudents = new ArrayList<>();
         for(int i = 0; i < 4; i++){
@@ -33,6 +35,6 @@ public class CharacterWithStudentTest {
             assertNotNull(c.getStudents(indexStudents));
             indexStudents.clear();
         }
-        assertNull(c.getStudents(indexStudents));
+        assertEquals(0, c.getStudents(indexStudents).size());
     }
 }

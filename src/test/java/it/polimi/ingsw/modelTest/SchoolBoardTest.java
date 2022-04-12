@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.*;
+import org.junit.Before;
 import org.junit.Test;
 import java.util.*;
 
@@ -12,7 +13,7 @@ public class SchoolBoardTest {
     private SchoolBoard schoolBoard = new SchoolBoard(9, TowerColor.BLACK, 8);
 
     @Test
-    public void testAddStudentOnTable() {
+    public void testAddStudentOnTable() throws FullTableException {
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (int i = 0; i < 9; i++) {
@@ -26,7 +27,7 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testTestAddStudentOnTable() {
+    public void testTestAddStudentOnTable() throws FullTableException {
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (Student s : entrance) {
@@ -89,8 +90,8 @@ public class SchoolBoardTest {
             assertEquals(TowerColor.BLACK, t.getColor());
         }
 
-        schoolBoard.removeTowers(8);
-        assertEquals(0, schoolBoard.getTowers().size());
+        List<Tower> towers = schoolBoard.removeTowers(7);
+        assertEquals(1, schoolBoard.getTowers().size());
     }
 
     @Test
@@ -112,16 +113,14 @@ public class SchoolBoardTest {
 
     @Test
     public void testAddTowers() throws InvalidIndexException, NoMoreTowersException {
-        schoolBoard.removeTowers(8);
+        List<Tower> towersRemoved = schoolBoard.removeTowers(7);
         List<Tower> towers = new ArrayList<>();
-        for(int i = 0; i < 8; i++) {
+        for(int i = 0; i < 7; i++) {
             towers.add(new Tower(TowerColor.BLACK));
         }
-        schoolBoard.addTowers(towers);
-        for (Tower t : schoolBoard.getTowers()) {
-            assertEquals(t, towers.remove(0));
-        }
 
+        schoolBoard.addTowers(towers);
+        assertEquals(8, schoolBoard.getTowers().size());
     }
 
     @Test
@@ -140,7 +139,7 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testGetNumberOfStudentsOnTable() {
+    public void testGetNumberOfStudentsOnTable() throws FullTableException {
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (int i = 0; i < 9; i++) {

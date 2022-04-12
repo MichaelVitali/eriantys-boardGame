@@ -1,27 +1,30 @@
 package it.polimi.ingsw.modelTest;
-import it.polimi.ingsw.model.*;;
+import it.polimi.ingsw.model.*;
 import java.util.*;
 
 import it.polimi.ingsw.model.exception.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTableTest {
 
-    private SchoolBoard[] schoolBoards = new SchoolBoard[2];
+    private SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.BLACK, 8), new SchoolBoard(9, TowerColor.WHITE, 8)};
     private GameTable gameTable = new GameTable(2,schoolBoards);
-
-    @Before
-    public void createSchoolbords(){
-        schoolBoards[0] = new  SchoolBoard(9, TowerColor.BLACK, 8);
-        schoolBoards[1] = new SchoolBoard(9, TowerColor.WHITE, 8);
-    }
 
     @Test
     public void testGetNumberOfPlayers() {
         assertEquals(2, gameTable.getNumberOfPlayers());
+    }
+
+    @Test
+    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException {
+        List<Student> studentsOnCloud;
+        gameTable.addStudentsOnClouds();
+        for (int i = 0; i < gameTable.getClouds().length; i++){
+            studentsOnCloud = gameTable.getStudentsOnCloud(i);
+            for (Student s : studentsOnCloud) assertNotNull(s);
+            assertTrue(gameTable.getClouds()[i].isEmpty());
+        }
     }
 
     @Test
@@ -130,17 +133,6 @@ public class GameTableTest {
         gameTable.changeMotherNaturePosition(0);
         gameTable.mergeIslandsIfNecessary();
         assertEquals(2, gameTable.getIslands().get(0).getAggregation());
-    }
-
-    @Test
-    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException {
-        List<Student> studentsOnCloud;
-        gameTable.addStudentsOnClouds();
-        for (int i = 0; i < gameTable.getClouds().length; i++){
-            studentsOnCloud = gameTable.getStudentsOnCloud(i);
-            for (Student s : studentsOnCloud) assertNotNull(s);
-            assertTrue(gameTable.getClouds()[i].isEmpty());
-        }
     }
 
     @Test

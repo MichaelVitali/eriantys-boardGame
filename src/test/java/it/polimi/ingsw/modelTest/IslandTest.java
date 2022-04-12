@@ -16,7 +16,7 @@ public class IslandTest {
 
     @Test
     public void testGetIndex() {
-        assertEquals(1, island.getIndex());
+        assertEquals(1, (int) island.getIndex().get(0));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class IslandTest {
         t.add(new Tower(TowerColor.BLACK));
         island.setTowers(t);
         assertEquals(t.get(0), island.removeTowers().get(0));
-        assertNull(island.getTowers());
+        assertEquals(0, island.getTowers().size());
     }
 
     @Test
