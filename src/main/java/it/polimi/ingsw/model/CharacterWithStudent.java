@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exception.InvalidIndexException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +34,17 @@ public class CharacterWithStudent extends Character {
      * @param indexesOfTheStudents list of indexes at which the required students are
      * @return list of students at the required indexes
      */
-    public List<Student> getStudents(List<Integer> indexesOfTheStudents) {
+
+    public List<Student> getStudents(List<Integer> indexesOfTheStudents) throws InvalidIndexException{
         List<Student> returnedStudents = new ArrayList<>();
 
         if (indexesOfTheStudents.size() > 0) {
             for (Integer i : indexesOfTheStudents) {
-                returnedStudents.add(this.students[i]);
-                this.students[i] = null;
+                if (students[i] == null) throw new InvalidIndexException("No student on card in this position");
+                else{
+                    returnedStudents.add(this.students[i]);
+                    this.students[i] = null;
+                }
             }
         }
         return returnedStudents;

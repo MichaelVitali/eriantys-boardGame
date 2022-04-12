@@ -72,6 +72,7 @@ public class MergedIslands extends Island {
     /**
      * Adds the student passed as parameter on the island which has the index passed as parameter
      * @param newStudent instance of the student to put on the island
+     * @param index index of the island where the student has to be placed
      */
     public void addStudents(Student newStudent, int index) throws InvalidIndexException {
         if (firstIsland.getIndex().contains(index))

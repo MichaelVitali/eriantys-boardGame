@@ -78,11 +78,13 @@ public class ExpertGame extends Game {
 
     public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions) {
         List<Student> returnStudents = new ArrayList<>();
-        returnStudents.addAll(((CharacterWithStudent)characters[indexCard]).getStudents(studentsPositions));
         try {
+            returnStudents.addAll(((CharacterWithStudent)characters[indexCard]).getStudents(studentsPositions));
             ((CharacterWithStudent) characters[indexCard]).addStudents(Bag.getBag().drawStudents(studentsPositions.size()));
         } catch(EmptyBagException e) {
             // The bag is empty : we continue without adding students on the character
+        }catch (InvalidIndexException e) {
+
         }
         return returnStudents;
     }
