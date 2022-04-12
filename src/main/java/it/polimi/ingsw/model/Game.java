@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.message.GameMessage;
+import it.polimi.ingsw.observer.Observable;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game extends Observable<GameMessage> {
 
     private final int numberOfPlayers;
     private GameTable gameTable;
@@ -20,9 +22,9 @@ public class Game {
     private Player[] players;
     private Round round;
 
-    Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
+    public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
-    Game(int numberOfPlayers, String[] nicknames) {
+    public Game(int numberOfPlayers, String[] nicknames) {
         this.numberOfPlayers = numberOfPlayers;
 
         gameTable = createGameTable(numberOfPlayers);

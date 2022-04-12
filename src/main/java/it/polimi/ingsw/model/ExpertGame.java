@@ -20,14 +20,18 @@ public class ExpertGame extends Game {
     private int[] playersCoins;
     //// private boolean[] newCoinOrNot;
 
-    public ExpertGame(int numberOfPlayers, String[] nicknames) throws EmptyBagException {
+    public ExpertGame(int numberOfPlayers, String[] nicknames) {
         super(numberOfPlayers, nicknames);
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
         for(int coins : playersCoins)
             coins = 1;
-        createCharacters();
+        try {
+            createCharacters();
+        } catch (EmptyBagException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createCharacters() throws EmptyBagException {
