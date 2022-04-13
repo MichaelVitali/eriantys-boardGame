@@ -37,8 +37,7 @@ public class Cloud {
      * @return true to notify the cloud is empty
      */
     public boolean isEmpty() {
-        if (students.size() <= 0) return true;
-        return false;
+        return students.size() <= 0;
     }
 
     /**

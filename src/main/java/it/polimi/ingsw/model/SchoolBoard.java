@@ -23,14 +23,6 @@ public class SchoolBoard {
     public SchoolBoard(int numberOfStudentsOnEntrance, TowerColor schoolBoardTowerColor, int numberOfTowers) {
         this.numberOfStudentsOnEntrance = numberOfStudentsOnEntrance;
         entrance = new Student[this.numberOfStudentsOnEntrance];
-        try {
-            List<Student> drawnStudents = Bag.getBag().drawStudents(numberOfStudentsOnEntrance);
-            for (int i = 0; i < numberOfStudentsOnEntrance; i++) {
-                entrance[i] = drawnStudents.get(i);
-            }
-        }catch(EmptyBagException e) {
-            e.printStackTrace();
-        }
 
         tables = new Table[numberOfTables];
         for(PawnColor tableColor : PawnColor.values())
@@ -154,6 +146,10 @@ public class SchoolBoard {
         Student[] returnEntrance = new Student[numberOfStudentsOnEntrance];
         System.arraycopy(entrance, 0, returnEntrance, 0, numberOfStudentsOnEntrance);
         return returnEntrance;
+    }
+
+    public int getNumberOfStudentsOnEntrance(){
+        return numberOfStudentsOnEntrance;
     }
 
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
 public class ClientApp
 {
     public static void main(String[] args){
-        if(args.length == 2) {
+        if(args.length == 1) {
             ClientCLI client = new ClientCLI("127.0.0.1", 40000);
             try {
                 client.run();

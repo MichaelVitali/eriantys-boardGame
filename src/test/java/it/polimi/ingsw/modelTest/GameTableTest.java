@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class GameTableTest {
 
     private SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.BLACK, 8), new SchoolBoard(9, TowerColor.WHITE, 8)};
-    private GameTable gameTable = new GameTable(2,schoolBoards);
+    private GameTable gameTable = new GameTable(2,schoolBoards, new Bag());
 
     @Test
     public void testGetNumberOfPlayers() {
@@ -179,5 +179,9 @@ public class GameTableTest {
     @Test
     public void testGetClouds() {
         for (Cloud c : gameTable.getClouds()) assertNotNull(c);
+    }
+
+    public void testGetBag(){
+        assertNotNull(gameTable.getBag());
     }
 }

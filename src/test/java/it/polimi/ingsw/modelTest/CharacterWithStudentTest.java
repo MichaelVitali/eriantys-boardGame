@@ -14,9 +14,10 @@ import static org.junit.Assert.*;
 
 public class CharacterWithStudentTest {
     private CharacterWithStudent c = new CharacterWithStudent(1, 2, 4);
+    private Bag bag = new Bag();
     @Test
     public void testAddStudents() throws EmptyBagException, InvalidIndexException {
-        c.addStudents(Bag.getBag().drawStudents(4));
+        c.addStudents(bag.drawStudents(4));
         List<Integer> indexStudents = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             indexStudents.add(i);
@@ -28,7 +29,7 @@ public class CharacterWithStudentTest {
 
     @Test
     public void testGetStudents() throws EmptyBagException, InvalidIndexException {
-        c.addStudents(Bag.getBag().drawStudents(4));
+        c.addStudents(bag.drawStudents(4));
         List<Integer> indexStudents = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             indexStudents.add(i);

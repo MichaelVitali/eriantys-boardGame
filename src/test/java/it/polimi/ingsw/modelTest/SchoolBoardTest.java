@@ -11,9 +11,11 @@ import static org.junit.Assert.*;
 public class SchoolBoardTest {
 
     private SchoolBoard schoolBoard = new SchoolBoard(9, TowerColor.BLACK, 8);
+    private Bag bag = new Bag();
 
     @Test
-    public void testAddStudentOnTable() throws FullTableException {
+    public void testAddStudentOnTable() throws FullTableException, EmptyBagException {
+        schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (int i = 0; i < 9; i++) {
@@ -27,7 +29,8 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testTestAddStudentOnTable() throws FullTableException {
+    public void testTestAddStudentOnTable() throws FullTableException, EmptyBagException {
+        schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (Student s : entrance) {
@@ -43,12 +46,14 @@ public class SchoolBoardTest {
     @Test
     public void testAddStudentsOnEntrance() throws EmptyBagException, InvalidIndexException {
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
+        schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         for (int i = 0; i < 9; i++) {
             schoolBoard.removeStudentFromEntrance(i);
         }
-        schoolBoard.addStudentsOnEntrance(Bag.getBag().drawStudents(9));
+        schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         for (int i = 0; i < 9; i++) {
             assertNotEquals(entrance[i], schoolBoard.getStudentsFromEntrance()[i]);
+            assertNotNull(schoolBoard.getStudentsFromEntrance()[i]);
         }
     }
 
@@ -139,7 +144,8 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testGetNumberOfStudentsOnTable() throws FullTableException {
+    public void testGetNumberOfStudentsOnTable() throws FullTableException, EmptyBagException {
+        schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (int i = 0; i < 9; i++) {
@@ -158,7 +164,8 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testGetStudentsFromEntrance() throws InvalidIndexException {
+    public void testGetStudentsFromEntrance() throws InvalidIndexException, EmptyBagException {
+        schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         for (int i = 0; i < 9; i++) {
             assertNotNull(schoolBoard.getStudentsFromEntrance()[i]);
             schoolBoard.removeStudentFromEntrance(i);
