@@ -13,6 +13,10 @@ public class AddStudentOnTableMessage implements Serializable, PlayerMessage {
         this.studentIndex = studentIndex;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
+
     @Override
     public void performMove(Game game) {
         game.getRound().playAssistant(playerId, studentIndex);

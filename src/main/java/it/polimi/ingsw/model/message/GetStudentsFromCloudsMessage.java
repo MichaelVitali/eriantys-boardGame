@@ -13,6 +13,10 @@ public class GetStudentsFromCloudsMessage implements Serializable, PlayerMessage
         this.cloudIndex = cloudIndex;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
+
     @Override
     public void performMove(Game game) { game.getRound().getStudentsFromCloud(playerId, cloudIndex); }
 

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.message.AddStudentOnIslandMessage;
+import it.polimi.ingsw.model.message.PlayerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,17 +11,16 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ClientCLI {
+public class ClientCli {
 
     private String ip;
     private int port;
+    private boolean active = true;
 
-    public ClientCLI(String ip, int port){
+    public ClientCli(String ip, int port){
         this.ip = ip;
         this.port = port;
     }
-/*
-    private boolean active = true;
 
     public synchronized boolean isActive(){
         return active;
@@ -38,8 +39,9 @@ public class ClientCLI {
                         Object inputObject = socketIn.readObject();
                         if(inputObject instanceof String){
                             System.out.println((String)inputObject);
-                        } else if (inputObject instanceof Board){
-                            ((Board)inputObject).print();
+                            /////// fare qualcos'altro tipo if sul messaggio in arrivo
+                        } else if (inputObject instanceof DisplayedBoard){
+                            /////// displayare un messaggio
                         } else {
                             throw new IllegalArgumentException();
                         }
@@ -59,8 +61,12 @@ public class ClientCLI {
             public void run() {
                 try {
                     while (isActive()) {
-                        String inputLine = stdin.nextLine();
-                        socketOut.println(inputLine);
+                        /////// ci sarà un certo flusso di esecuzione
+
+
+                        ////Problema: non può essere il client a scrivere che player è
+                        PlayerMessage playerMessage = new AddStudentOnIslandMessage(0,0,0);
+                        socketOut.println(playerMessage);
                         socketOut.flush();
                     }
                 }catch(Exception e){
@@ -71,9 +77,8 @@ public class ClientCLI {
         t.start();
         return t;
     }
-*/
+
     public void run() throws IOException {
-    }/*
         Socket socket = new Socket(ip, port);
         System.out.println("Connection established");
         ObjectInputStream socketIn = new ObjectInputStream(socket.getInputStream());
@@ -94,5 +99,4 @@ public class ClientCLI {
             socket.close();
         }
     }
-*/
 }

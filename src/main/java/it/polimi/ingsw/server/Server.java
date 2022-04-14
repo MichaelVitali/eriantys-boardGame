@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.*;
 
+import javax.management.ConstructorParameters;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -95,10 +96,20 @@ public class Server {
      * @return
      */
     private Match searchForMatch(GameMode gameMode, int numberOfPlayers) {
-        for(Match match : pendingMatches) {
-            if(match.getGameMode() == gameMode && match.getNumberOfPlayers() == numberOfPlayers)
+        for (Match match : pendingMatches) {
+            if (match.getGameMode() == gameMode && match.getNumberOfPlayers() == numberOfPlayers)
                 return match;
         }
         return null;
+    }
+
+    public int getMyId(Socket clientSocketConnection) {
+        int playerId = -1;
+        for (Match match : runningMatches) {
+            if (match.getSockets().contains(clientSocketConnection)) {
+               playerId = match.getSockets().indexOf(clientSocketConnection);
+            }
+        }
+        return playerId;
     }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.model.GameMode;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.message.PlayerMessage;
 import it.polimi.ingsw.observer.Observable;
 
@@ -94,7 +95,11 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             PlayerMessage clientMessage;
             while (isActive()) {
                 clientMessage = (PlayerMessage) in.readObject();
-                notify(clientMessage);
+                if(server.getMyId(socket) == clientMessage.getPlayerId())
+                    notify(clientMessage);
+                else
+                    // invia l'errore al client
+                    System.out.println("Someone is sending a message with an other's player id");
             }
         } catch (IOException | NoSuchElementException e) {
             System.err.println("Error! " + e.getMessage());

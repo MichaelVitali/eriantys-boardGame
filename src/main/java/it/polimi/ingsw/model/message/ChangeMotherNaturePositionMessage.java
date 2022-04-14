@@ -13,6 +13,10 @@ public class ChangeMotherNaturePositionMessage implements Serializable, PlayerMe
         this.islandIndex = islandIndex;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
+
     @Override
     public void performMove(Game game) { game.getRound().changeMotherNaturePosition(playerId, islandIndex); }
 }
