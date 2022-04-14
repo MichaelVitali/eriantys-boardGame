@@ -47,12 +47,12 @@ public class ExpertGame extends Game {
 
                 if (ID == 1 || ID == 11) {
                     CharacterWithStudent character = new CharacterWithStudent(ID,cost,4);
-                    character.addStudents(Bag.getBag().drawStudents(4));
+                    character.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(character);
 
                 } else if(ID == 7) {
                     CharacterWithStudent character = new CharacterWithStudent(ID,cost,6);
-                    character.addStudents(Bag.getBag().drawStudents(6));
+                    character.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(character);
                 } else {
                     c.add(new Character(ID, cost));
@@ -84,7 +84,7 @@ public class ExpertGame extends Game {
         List<Student> returnStudents = new ArrayList<>();
         try {
             returnStudents.addAll(((CharacterWithStudent)characters[indexCard]).getStudents(studentsPositions));
-            ((CharacterWithStudent) characters[indexCard]).addStudents(Bag.getBag().drawStudents(studentsPositions.size()));
+            ((CharacterWithStudent) characters[indexCard]).addStudents(game.getGameTable().getBag().drawStudents(studentsPositions.size()));
         } catch(EmptyBagException e) {
             // The bag is empty : we continue without adding students on the character
         }catch (InvalidIndexException e) {
@@ -226,7 +226,7 @@ public class ExpertGame extends Game {
                                 }
                             }
                             try {
-                                addStudentsOnCard(indexCard, Bag.getBag().drawStudents(1));
+                                addStudentsOnCard(indexCard, game.getGameTable().getBag().drawStudents(1));
                             } catch (EmptyBagException e) {
                                 // The bag is empty : we continue without adding students on the character
                             }
@@ -247,7 +247,7 @@ public class ExpertGame extends Game {
                             for (int i = 0; i < 3; i++)
                                 newStudentsBag.add(schoolBoard.removeStudentFromTable(tableIndex));
                         } catch (EmptyTableException e) { } // non faccio nulla se il tavolo è vuoto e proseguo con gli altri giocatori
-                        Bag.getBag().addStudents(newStudentsBag);
+                        game.getGameTable().getBag().addStudents(newStudentsBag);
                     }
                     break;
             }

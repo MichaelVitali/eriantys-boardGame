@@ -74,8 +74,12 @@ public class Game extends Observable<GameMessage> {
                 schoolBoards[3] = new SchoolBoard(numberOfStudentsOnEntrance, TowerColor.BLACK, 0);
                 break;
         }
+        Bag bag = createBag();
+        return new GameTable(numberOfPlayers, schoolBoards, bag);
+    }
 
-        return new GameTable(numberOfPlayers, schoolBoards);
+    public Bag createBag(){
+        return new Bag();
     }
 
     private List<Assistant> createAssistants(){

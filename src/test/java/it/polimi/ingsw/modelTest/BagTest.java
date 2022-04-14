@@ -13,16 +13,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 public class BagTest {
-    private Bag bag;
+    private Bag bag = new Bag();
     private boolean flag;
     private int arrayCountColor[];
 
     @Test
     public void testDrowStudent() throws EmptyBagException {
         arrayCountColor = new int[5];
-        //test bag not null because Singleton
-        bag = bag.getBag();
-        assertNotNull(bag);
 
         //test remove all student and controll color
         for(int j = 0; j < 130; j++) {
@@ -41,10 +38,5 @@ public class BagTest {
         }
         //controll number of student foreach PawnColor
         for(int i = 0; i < 5; i++) assertTrue(arrayCountColor[i] == 26);
-    }
-    @Test
-    public void testGetBag() {
-        bag = bag.getBag();
-        assertNotNull(bag);
     }
 }

@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 public class IslandTest {
 
     private Island island = new Island(1);
+    private Bag bag = new Bag();
 
     @Test
     public void testGetIndex() {
@@ -48,7 +49,7 @@ public class IslandTest {
     @Test
     public void testAddStudents() throws EmptyBagException, InvalidIndexException {
         for(int i = 0; i < 3; i++){
-            island.addStudents(Bag.getBag().drawStudents(1).get(0), island.getIndex().get(0));
+            island.addStudents(bag.drawStudents(1).get(0), island.getIndex().get(0));
             assertNotNull(island.getStudents());
         }
         assertEquals(3, island.getStudents().size());
@@ -57,7 +58,7 @@ public class IslandTest {
     @Test
     public void testGetStudents() throws EmptyBagException, InvalidIndexException {
         for(int i = 0; i < 3; i++){
-            Student s = Bag.getBag().drawStudents(1).get(0);
+            Student s = bag.drawStudents(1).get(0);
             island.addStudents(s, island.getIndex().get(0));
             assertNotNull(island.getStudents());
             assertEquals(s, island.getStudents().get(i));
