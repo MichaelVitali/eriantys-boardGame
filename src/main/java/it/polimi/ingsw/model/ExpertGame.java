@@ -20,7 +20,7 @@ public class ExpertGame extends Game {
     private int[] playersCoins;
     //// private boolean[] newCoinOrNot;
 
-    public ExpertGame(int numberOfPlayers, String[] nicknames) {
+    public ExpertGame(int numberOfPlayers, List<String> nicknames) {
         super(numberOfPlayers, nicknames);
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;

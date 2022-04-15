@@ -9,7 +9,7 @@ import it.polimi.ingsw.observer.Observer;
 public abstract class View extends Observable<PlayerMessage> implements Observer<GameMessage> {
 
     private int playerId;
-    public View(int playerId){
+    public View(int playerId) {
         this.playerId = playerId;
     }
 

@@ -63,7 +63,8 @@ public class Match {
         return new ArrayList<>(sockets);
     }
 
-    public void addPlayer(ClientConnection socket) {
+    public void addPlayer(ClientConnection socket, String playerNickname) {
+        playerNicknames.add(playerNickname);
         sockets.add(socket);
     }
 }

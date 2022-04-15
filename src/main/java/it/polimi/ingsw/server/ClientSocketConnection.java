@@ -73,33 +73,68 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
     public void run() {
         ObjectInputStream in;
         try{
+            Object buffer = null;
+            int gameMode = -1;
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
-            int gameMode = -1;
             do {
-                send("Welcome!\nChoose game mode { 0 : normal mode - 1 : expert mode } :\n");
-                gameMode = in.readInt();
-            } while (gameMode != 0 || gameMode != 1);
+                send("Welcome!\nChoose game mode { 0 : normal mode - 1 : expert mode } :");
+                try {
+                    buffer = in.readObject();
+                    if(buffer instanceof String) {
+                        gameMode = Integer.parseInt((String) buffer);
+                        //System.out.println("The player inserts " + gameMode);
+                    }
+                } catch (Exception e) {
+                    send("Error : you are not sending the correct information");
+                }
+            } while (gameMode != 0 && gameMode != 1);
+            System.out.println("The player with socket " + toString() + " choose " + (gameMode == 0 ? "normal" : "expert") + " mode");
             int numberOfPlayers = 0;
             do {
-                send("Choose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :\n");
-                numberOfPlayers = in.readInt();
+                send("Choose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :");
+                try {
+                    buffer = in.readObject();
+                    if(buffer instanceof String) {
+                        numberOfPlayers = Integer.parseInt((String) buffer);
+                        //System.out.println("The player in playing in a match with " + numberOfPlayers + " players");
+                    }
+                } catch (Exception e) {
+                    send("Error : you are not sending the correct information");
+                }
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
-
-            String playerNickname;
-            send("Insert a nickname\n");
-            playerNickname = (String)in.readObject();
-
+            System.out.println("The player with socket " + toString() + " choose " + numberOfPlayers + " players mode");
+            String playerNickname = "";
+            send("Insert a nickname");
+            do {
+                try {
+                    buffer = in.readObject();
+                    if (buffer instanceof String) {
+                        playerNickname = (String) buffer;
+                        System.out.println("The player choose is " + playerNickname);
+                    }
+                } catch (Exception e) {
+                    send("Error : you are not sending the correct information");
+                }
+            } while (playerNickname == "");
+            System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
             server.lobby(gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT,numberOfPlayers, playerNickname, this);
-
             PlayerMessage clientMessage;
             while (isActive()) {
-                clientMessage = (PlayerMessage) in.readObject();
-                if(server.getMyId(socket) == clientMessage.getPlayerId())
-                    notify(clientMessage);
-                else
-                    // invia l'errore al client
-                    System.out.println("Someone is sending a message with an other's player id");
+                buffer = in.readObject();
+                if (buffer instanceof String) {
+                    System.out.println("The player " + server.getMyId(this) + " of match " + server.getMyMatch(this) +  " sends "+ (String) buffer);
+                } else if (buffer instanceof PlayerMessage) {
+                    clientMessage = (PlayerMessage) buffer;
+                    if (server.getMyId(this) == clientMessage.getPlayerId())
+                        notify(clientMessage);
+                    else
+                        // invia l'errore al client
+                        System.out.println(toString() + " is sending a message with an other's player id");
+                } else {
+
+                    System.out.println(toString() + " is sending a wrong object");
+                }
             }
         } catch (IOException | NoSuchElementException e) {
             System.err.println("Error! " + e.getMessage());
