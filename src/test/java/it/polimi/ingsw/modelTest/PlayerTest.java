@@ -26,6 +26,11 @@ public class PlayerTest {
     }
 
     @Test
+    public void testGetNickName(){
+        assertEquals("Mike", player.getNickname());
+    }
+
+    @Test
     public void testAddSchoolBoard() {
         SchoolBoard s = new SchoolBoard(6, TowerColor.BLACK, 8);
         player.addSchoolBoard(s);
@@ -64,7 +69,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMoveStudentOnIsland() throws InvalidIndexException, InvalidIndexException {
+    public void testMoveStudentOnIsland() throws InvalidIndexException {
         Student[] entrance = player.getStudentsFormEntrance();
         player.moveStudentOnIsland(0, 1);
         List<Island> islands = gameTable.getIslands();

@@ -1,13 +1,47 @@
 package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.*;
 import java.util.*;
+
+import it.polimi.ingsw.model.exception.InvalidMethodException;
+import it.polimi.ingsw.model.exception.PlayerNotOnTurnException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class RoundTest {
 
+    private Game game2p = new Game(2); //Ho cambiato protected in public sui costruttori di Game
+    private Round firstRound = new Round(game2p);
+    private Round round = new Round(game2p, firstRound.getPlayerOrder());
+
+    //PianificationPhase Tests
+
     @Test
-    public void testCheckStatusAndMethod() {
+    public void testCalculateFirstPlayer(){
+    }
+
+    @Test
+    public void testPlayAssistantPianificationPhase(){
+    }
+
+    //----------------------------------------------------------------
+    //PlayedAssistants Tests
+
+    @Test
+    public void testGetPlayerIndex(){
+    }
+
+    @Test
+    public void testGetAssistant(){
+    }
+
+    //-----------------------------------------------------------------
+
+    @Test
+    public void testCheckPlayerOnTurn() throws PlayerNotOnTurnException {
+    }
+
+    @Test
+    public void testCheckStatusAndMethod() throws InvalidMethodException {
     }
 
     @Test

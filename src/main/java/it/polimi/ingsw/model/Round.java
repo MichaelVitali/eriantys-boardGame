@@ -30,7 +30,7 @@ public class Round {
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
-        game = game;
+        this.game = game;
     }
 
     public Round(Game game, int[] playerOrder) {
@@ -41,13 +41,17 @@ public class Round {
 
     private class PianificationPhase {
 
-        public PianificationPhase(Game game) {}
+        private Game game; //------------------------------------------
 
-        private int calculateFirstPlayer() {
+        public PianificationPhase(Game game) {
+            this.game=game;    //---------------------------------------------
+        }
+
+        public int calculateFirstPlayer(){
             return new Random().nextInt(game.getNumberOfPlayers());
         }
 
-        private boolean assistantNoChoice(Assistant[] outer, Assistant[] inner) {
+        public boolean assistantNoChoice(Assistant[] outer, Assistant[] inner) {
             if (outer.length< inner.length)
                 return false;
 
@@ -90,9 +94,15 @@ public class Round {
         }
     }
 
-    private void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
-        if(playerOrder[indexOfPlayerOnTurn] != playerId) setErrorMessage(playerId, "You are not the current player");
-        throw new PlayerNotOnTurnException();
+    public int[] getPlayerOrder(){
+        return this.playerOrder.clone();
+    }
+
+    public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
+        if(playerOrder[indexOfPlayerOnTurn] != playerId) {
+            setErrorMessage(playerId, "You are not the current player");
+            throw new PlayerNotOnTurnException();
+        }
     }
 
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {

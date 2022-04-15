@@ -20,9 +20,9 @@ public class Game {
     private Player[] players;
     private Round round;
 
-    Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
+    public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
-    Game(int numberOfPlayers, String[] nicknames) {
+    public Game(int numberOfPlayers, String[] nicknames) {
         this.numberOfPlayers = numberOfPlayers;
 
         gameTable = createGameTable(numberOfPlayers);
@@ -80,7 +80,7 @@ public class Game {
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Manuel\\IdeaProjects\\ing-sw-2022-Vitali-Tacca-Simionato\\src\\main\\java\\it\\polimi\\ingsw\\model\\Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
                 int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
@@ -95,33 +95,33 @@ public class Game {
 
     public int getNumberOfPlayers(){
         return numberOfPlayers;
-    }
+    } //DONE
 
     public GameTable getGameTable() {
         return gameTable;
-    }
+    } //DONE
 
     public Player getPlayer(int playerId) {
         try {
             if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
         } catch (InvalidIndexException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return this.players[playerId];
-    }
+    } //DONE
 
     public void setGameTable(GameTable gameTable) {
         this.gameTable = gameTable;
-    }
+    } //DONE
 
     public boolean isAValidPositionForMotherNature(int position) {
         if(0 <= position && position < gameTable.getIslands().size()) return true;
         return false;
-    }
+    } //DONE
 
     public Round getRound() {
         return round;
-    }
+    } //DONE IS IT CORRECT ?
 
     public Round startRound() {
         round = new Round(this);
@@ -131,7 +131,7 @@ public class Game {
             // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
         }
         return round;
-    }
+    } //DONE
 
     public Round startRound(int[] playerOrder) {
         round = new Round(this, playerOrder);
@@ -141,9 +141,7 @@ public class Game {
             // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
         }
         return round;
-    }
-
-    public void endRound() { }
+    } //DONE
 
     public boolean checkEndgame() {
         if(gameTable.isVictory() || gameTable.isDraw()) return true;

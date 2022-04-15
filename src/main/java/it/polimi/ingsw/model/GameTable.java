@@ -60,6 +60,8 @@ public class GameTable {
         return islands;
     }
 
+    public int getNumberOfClouds(){ return clouds.length; }
+
     /*messo solo perché serve nei decorator*/
     public SchoolBoard[] getSchoolBoards() {
         return schoolBoards;

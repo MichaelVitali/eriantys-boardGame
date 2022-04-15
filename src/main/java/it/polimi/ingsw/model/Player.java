@@ -21,6 +21,10 @@ public class Player {
         this.assistants.addAll(assistants);
     }
 
+    public String getNickname(){
+        return this.nickName;
+    }
+
     public void addGameTable(GameTable gameTable){
         this.gameTable = gameTable;
     }
