@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Bag {
-    private static Bag bag;
     private final List<Student> students;
 
-    private Bag() {
+    public Bag() {
         students = new ArrayList<>();
         for (int i = 0; i < 26 ; i++) {
             students.add(new Student(PawnColor.YELLOW));
@@ -46,10 +45,11 @@ public class Bag {
      * Returns the instance of the Bag from which the students will be drawn
      * @return instance of the bag
      */
+    /*
     public static Bag getBag() {
         if (bag == null) bag = new Bag();
         return bag;
-    }
+    }*/
 
     /**
      * Inserts every student of the list in the bag

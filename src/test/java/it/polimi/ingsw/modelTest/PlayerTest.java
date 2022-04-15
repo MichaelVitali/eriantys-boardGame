@@ -20,7 +20,7 @@ public class PlayerTest {
         SchoolBoard[] schoolBoards= new SchoolBoard[2];
         schoolBoards[0] = new SchoolBoard(6, TowerColor.WHITE, 8);
         schoolBoards[1] = new SchoolBoard(6, TowerColor.BLACK, 8);
-        this.gameTable = new GameTable(2, schoolBoards);
+        this.gameTable = new GameTable(2, schoolBoards, new Bag());
         player.addGameTable(gameTable);
         player.addSchoolBoard(schoolBoards[0]);
     }

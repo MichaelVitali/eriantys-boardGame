@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 public class CloudTest {
 
     private Cloud c = new Cloud(3);
+    private Bag bag = new Bag();
 
     @Test
     public void testGetNumberOfStudents() {
@@ -21,14 +22,14 @@ public class CloudTest {
     }
     @Test
     public void testGetStudents() throws EmptyBagException {
-        c.addStudents(Bag.getBag().drawStudents(3));
+        c.addStudents(bag.drawStudents(3));
         List<Student> students = new ArrayList<>(c.getStudents());
         assertTrue(students.size() > 0);
         for(Student s : students) assertNotNull(s);
     }
     @Test
     public void testRemoveStudents() throws EmptyBagException {
-        c.addStudents(Bag.getBag().drawStudents(3));
+        c.addStudents(bag.drawStudents(3));
         List<Student> studentsRemoved = new ArrayList<>(c.removeStudents());
         assertEquals(0, c.getStudents().size());
         assertEquals(3, studentsRemoved.size());
@@ -37,7 +38,7 @@ public class CloudTest {
 
     @Test
     public void testAddStudents() throws EmptyBagException {
-        c.addStudents(Bag.getBag().drawStudents(3));
+        c.addStudents(bag.drawStudents(3));
         for(Student s : c.getStudents()){
             assertNotNull(s);
         }

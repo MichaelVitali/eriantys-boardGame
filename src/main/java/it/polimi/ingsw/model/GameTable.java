@@ -16,16 +16,23 @@ public class GameTable {
     private boolean victory;
     private boolean draw;
     private TowerColor winner;
+    private Bag bag;
 
     public GameTable() { }
 
-    public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards) {
+    public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards, Bag bag) {
         this.numberOfPlayers = numberOfPlayers;
 
         createIslands();
         createClouds(numberOfPlayers);
 
         this.schoolBoards = schoolBoards;
+        this.bag = bag;
+        try{
+            for(SchoolBoard s : this.schoolBoards) s.addStudentsOnEntrance(this.bag.drawStudents(s.getNumberOfStudentsOnEntrance()));
+        }catch (EmptyBagException e){
+            e.printStackTrace();
+        }
 
         Random random = new Random();
         motherNaturePosition = random.nextInt(12);
@@ -85,7 +92,7 @@ public class GameTable {
 
     public void addStudentsOnClouds() throws EmptyBagException {
             for (int i = 0; i < numberOfPlayers; i++)
-                clouds[i].addStudents(Bag.getBag().drawStudents(clouds[i].getNumberOfStudents()));
+                clouds[i].addStudents(bag.drawStudents(clouds[i].getNumberOfStudents()));
     }
 
     public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
@@ -329,5 +336,9 @@ public class GameTable {
 
     public Cloud[] getClouds(){
         return clouds;
+    }
+
+    public Bag getBag(){
+        return this.bag;
     }
 }
