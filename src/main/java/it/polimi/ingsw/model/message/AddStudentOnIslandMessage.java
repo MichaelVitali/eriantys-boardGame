@@ -15,6 +15,10 @@ public class AddStudentOnIslandMessage implements Serializable, PlayerMessage {
         this.islandIndex = islandIndex;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
+
     @Override
     public void performMove(Game game) {
         game.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);

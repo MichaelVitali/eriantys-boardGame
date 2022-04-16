@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +13,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT = 40000;
+    private static final int PORT = 50000;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private int nextMatchId;
@@ -38,8 +37,8 @@ public class Server {
         while(true) {
             try {
                 Socket newSocket = serverSocket.accept();
+                System.out.println("Received connection " + connections + "");
                 connections++;
-                System.out.println("Ready for the new connection number : " + connections);
                 ClientSocketConnection socketConnection = new ClientSocketConnection(newSocket, this);
                 executor.submit(socketConnection);
             } catch (IOException e) {
@@ -56,32 +55,44 @@ public class Server {
      */
     public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) {
         Match match = searchForMatch(gameMode, numberOfPlayers);
-        if (match == null)
+        if (match == null) {
+            System.out.println("Just create a match with the id : " + nextMatchId);
             pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
-        else {
-            match.addPlayer(clientConnection);
+        } else {
+            match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
+
                 View[] playerView = new RemoteView[match.getNumberOfPlayers()];
-                for (int i = 0; i < numberOfPlayers; i++) {
+                for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                     playerView[i] = new RemoteView(i, match.getPlayerNicknames().get(i), match.getSockets().get(i));
                 }
+                for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+                    System.out.println("Player : " + i + " " + match.getPlayerNicknames().get(i) + " " + match.getSockets().get(i).toString());
+                }
+
                 if (match.getGameMode() == GameMode.NORMAL) {
-                    Game model = new Game(match.getNumberOfPlayers(), (String[]) match.getPlayerNicknames().toArray());
+                    /*
+                    Game model = new Game(numberOfPlayers, match.getPlayerNicknames());
                     Controller controller = new Controller(model);
-                    for (int i = 0; i < numberOfPlayers; i++) {
+                    for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
-                        match.getSockets().get(i).asyncSend(model); /////////////// Da fare - mando la situazione iniziale
-                    }
-                } else {
-                    ExpertGame model = new ExpertGame(match.getNumberOfPlayers(), (String[]) match.getPlayerNicknames().toArray());
+                        match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
+                    }*/
+                } /*else {
+                    ExpertGame model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
                     Controller controller = new Controller(model);
-                    for (int i = 0; i < numberOfPlayers; i++) {
+                    for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
-                        match.getSockets().get(i).asyncSend(model); /////////////// Da fare - mando la situazione iniziale
+                        match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
                     }
                 }
+                */
+                for (ClientConnection connection : match.getSockets()) {
+                    connection.asyncSend("The match begins !");
+                }
+                System.out.println("The match " + match.getMatchId() + " starts");
                 runningMatches.add(match);
                 pendingMatches.remove(match);
             }
@@ -95,10 +106,30 @@ public class Server {
      * @return
      */
     private Match searchForMatch(GameMode gameMode, int numberOfPlayers) {
-        for(Match match : pendingMatches) {
-            if(match.getGameMode() == gameMode && match.getNumberOfPlayers() == numberOfPlayers)
+        if(pendingMatches.size() == 0) return null;
+        for (Match match : pendingMatches) {
+            if (match.getGameMode() == gameMode && match.getNumberOfPlayers() == numberOfPlayers)
                 return match;
         }
         return null;
+    }
+
+    public int getMyMatch(ClientConnection clientSocketConnection) {
+        int matchId = -1;
+        for (Match match : runningMatches) {
+            if (match.getSockets().contains(clientSocketConnection)) {
+                matchId = match.getMatchId();
+            }
+        }
+        return matchId;
+    }
+    public int getMyId(ClientConnection clientSocketConnection) {
+        int playerId = -1;
+        for (Match match : runningMatches) {
+            if (match.getSockets().contains(clientSocketConnection)) {
+                playerId = match.getSockets().indexOf(clientSocketConnection);
+            }
+        }
+        return playerId;
     }
 }

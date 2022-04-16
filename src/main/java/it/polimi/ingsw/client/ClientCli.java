@@ -1,25 +1,27 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.message.AddStudentOnIslandMessage;
+import it.polimi.ingsw.model.message.PlayerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ClientCLI {
+public class ClientCli {
 
     private String ip;
     private int port;
+    private boolean configurationDone = false;
+    private boolean active = true;
 
-    public ClientCLI(String ip, int port){
+    public ClientCli(String ip, int port){
         this.ip = ip;
         this.port = port;
     }
-/*
-    private boolean active = true;
 
     public synchronized boolean isActive(){
         return active;
@@ -30,21 +32,30 @@ public class ClientCLI {
     }
 
     public Thread asyncReadFromSocket(final ObjectInputStream socketIn){
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof String){
+                        if(inputObject instanceof String) {
+                            // initial configuration
                             System.out.println((String)inputObject);
-                        } else if (inputObject instanceof Board){
-                            ((Board)inputObject).print();
+                        } else if (inputObject instanceof DisplayedBoard){
+                            if(!configurationDone) {
+                                configurationDone = true;
+                                System.out.println("Get ready to play...");
+                            }
+
+                            /////// displayare la board
+
                         } else {
                             throw new IllegalArgumentException();
                         }
                     }
                 } catch (Exception e){
+                    e.printStackTrace();
                     setActive(false);
                 }
             }
@@ -53,31 +64,42 @@ public class ClientCLI {
         return t;
     }
 
-    public Thread asyncWriteToSocket(final Scanner stdin, final PrintWriter socketOut){
-        Thread t = new Thread(new Runnable() {
+    public Thread asyncWriteToSocket(final Scanner stdin, final ObjectOutputStream socketOut){
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     while (isActive()) {
-                        String inputLine = stdin.nextLine();
-                        socketOut.println(inputLine);
+                        String playerInput = stdin.nextLine();
+                        playerInput.replace("\n", "");
+                        if (!configurationDone) {
+                            socketOut.writeObject(playerInput);
+                        } else {
+                            System.out.println("Lets move");
+
+                            /////// ci sarà un certo flusso di esecuzione
+                            //// sarà da gestire l'esecuzione
+                            ////Problema: non può essere il client a scrivere che player è
+                            //PlayerMessage playerMessage = new AddStudentOnIslandMessage(0,0,0);
+
+                            //socketOut.writeObject((PlayerMessage)playerMessage);
+                        }
                         socketOut.flush();
                     }
-                }catch(Exception e){
+                } catch(Exception e) {
                     setActive(false);
                 }
             }
         });
-        t.start();
-        return t;
+        thread.start();
+        return thread;
     }
-*/
+
     public void run() throws IOException {
-    }/*
         Socket socket = new Socket(ip, port);
         System.out.println("Connection established");
+        ObjectOutputStream socketOut = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream socketIn = new ObjectInputStream(socket.getInputStream());
-        PrintWriter socketOut = new PrintWriter(socket.getOutputStream());
         Scanner stdin = new Scanner(System.in);
 
         try{
@@ -94,5 +116,4 @@ public class ClientCLI {
             socket.close();
         }
     }
-*/
 }

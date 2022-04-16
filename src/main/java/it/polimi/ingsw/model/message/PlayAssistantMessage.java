@@ -14,6 +14,10 @@ public class PlayAssistantMessage implements Serializable, PlayerMessage {
         this.assistantPosition = assistantPosition;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
+    
     @Override
     public void performMove(Game game) {
         game.getRound().playAssistant(playerId, assistantPosition);

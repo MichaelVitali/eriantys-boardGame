@@ -9,5 +9,7 @@ public interface ClientConnection {
 
     void addObserver(Observer<PlayerMessage> observer);
 
+    public void send(Object message);
+
     void asyncSend(Object message);
 }

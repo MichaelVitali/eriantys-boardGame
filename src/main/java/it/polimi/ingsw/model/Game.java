@@ -24,7 +24,7 @@ public class Game extends Observable<GameMessage> {
 
     public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
-    public Game(int numberOfPlayers, String[] nicknames) {
+    public Game(int numberOfPlayers, List<String> nicknames) {
         this.numberOfPlayers = numberOfPlayers;
 
         gameTable = createGameTable(numberOfPlayers);
@@ -38,7 +38,7 @@ public class Game extends Observable<GameMessage> {
 
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
-            players[i] = new Player(nicknames[i], i, assistantsList);
+            players[i] = new Player(nicknames.get(i), i, assistantsList);
 
         round = startRound();
 
@@ -86,7 +86,7 @@ public class Game extends Observable<GameMessage> {
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("/home/enrico/IdeaProjects/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/src/main/java/it/polimi/ingsw/model/Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
                 int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
