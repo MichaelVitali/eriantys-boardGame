@@ -41,14 +41,21 @@ public class GameTable {
         winner = null;
     }
 
-    private void createIslands() {
+    /**
+     * Creates the 12 Island used in the game
+     */
+    public void createIslands() {
         islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             islands.add(new Island(i));
         }
     }
 
-    private void createClouds(int numberOfPlayers) {
+    /**
+     * Creates clouds used in the game. The clouds are one for each player
+     * @param numberOfPlayers number of player in the game
+     */
+    public void createClouds(int numberOfPlayers) {
         int numberOfStudentsOnClouds = 3;
         if (numberOfPlayers == 3)
             numberOfStudentsOnClouds = 4;
@@ -57,25 +64,39 @@ public class GameTable {
             clouds[i] = new Cloud(numberOfStudentsOnClouds);
     }
 
-    /*messo solo perché serve nei decorator*/
+    /**
+     * Returns the number of players
+     * @return numberOfPlayers
+     */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-    /*messo solo perché serve nei decorator*/
+    /**
+     * Returns the list of islands, including mergeIslands
+     * @return list of islands
+     */
     public List<Island> getIslands() {
         return islands;
     }
 
-    /*messo solo perché serve nei decorator*/
+    /**
+     * @return an array with the schoolboards
+     */
     public SchoolBoard[] getSchoolBoards() {
         return schoolBoards;
     }
 
+    /**
+     * @return current mother nature position
+     */
     public int getMotherNaturePosition() {
         return motherNaturePosition;
     }
 
+    /**
+     * @return the number of island/merged island
+     */
     public int getNumberOfIslands() {
         return islands.size();
     }
@@ -88,11 +109,20 @@ public class GameTable {
         return draw;
     }
 
+    /**
+     * Takes new students from the bag and adds the students on the clouds. The number of students change with the number of players
+     * @throws EmptyBagException if there are no more students on the bag
+     */
     public void addStudentsOnClouds() throws EmptyBagException {
             for (int i = 0; i < numberOfPlayers; i++)
                 clouds[i].addStudents(bag.drawStudents(clouds[i].getNumberOfStudents()));
     }
 
+    /**
+     * Calculates wich players has to take the professor. If another player had it, the professor is swapped.
+     * If one player had the professor and all the players have the same number of students for this color, the professor will not move.
+     * @param colorOfTheMovedStudent that is the color of the professor to control the position
+     */
     public void moveProfessorToTheRightPosition(PawnColor colorOfTheMovedStudent) {
         int indexOfTheProfessor = -1;
         int[] studentsOnTheTable = new int[numberOfPlayers];
@@ -146,11 +176,20 @@ public class GameTable {
         }
     }
 
+    /**
+     * Changes the mother nature position with the new position of the island where it is.
+     * @param newPosition index of the island where is the mother nature
+     * @throws InvalidIndexException if the position isn't one of the island
+     */
     public void changeMotherNaturePosition(int newPosition) throws InvalidIndexException {
         if (newPosition >= islands.size()) throw new InvalidIndexException("Wrong new index of mother nature");
         motherNaturePosition = newPosition;
     }
 
+    /**
+     * Calculates if, after the movement of mother nature, the player with the highest influence is the same. If not the towers on the island are changed
+     * with the towers of the player with the highest influence. The old towers on the island are added to his player on his schoolboard.
+     */
     public void putTowerOrChangeColorIfNecessary() {
         Tower towerOnTheIsland;
         int[] influences = calculateInfluences(); // pay attention : influence.length isn't numberOfPlayers
@@ -220,6 +259,10 @@ public class GameTable {
         if(islands.get(motherNaturePosition).getTowers() == null) { } // exception
     }
 
+    /**
+     * Calculate all the influences related to the players on the island where mother nature is moved.
+     * @return an array with all the players influence
+     */
     public int[] calculateInfluences() {
         int numberOfIteration = (numberOfPlayers == 4) ? 2 : numberOfPlayers;
         int[] influence = new int[numberOfIteration];
@@ -245,6 +288,9 @@ public class GameTable {
         return influence;
     }
 
+    /**
+     * Calculates if there are two island close to each other with the same color tower. If there are, they are merged.
+     */
     public void mergeIslandsIfNecessary() {
         List<Tower> towersOnTheIsland = islands.get(motherNaturePosition).getTowers();
         List<Tower> towersOnTheNextIsland = islands.get((motherNaturePosition + 1) % islands.size()).getTowers();
@@ -263,6 +309,12 @@ public class GameTable {
         }*/
     }
 
+    /**
+     * Return all the student on a cloud. Then all the students on the cloud are removed.
+     * @param cloudIndex index of the cloud where I have to take the students
+     * @return a list with all the students on the cloud
+     * @throws EmptyCloudException if there isn't any student on the cloud
+     */
     public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
         if(clouds[cloudIndex].isEmpty()) throw new EmptyCloudException();
         List<Student> studentsOnTheCloud = new ArrayList<>();
@@ -319,23 +371,33 @@ public class GameTable {
         return teamColor;
     }
 
+    /**
+     * Adds a student from the entrance to his related table.
+     * @param indexStudent index of the student on entrance to move on the table
+     * @param schoolBoardIndex
+     * @throws FullTableException if there isn't much space on the table
+     */
     public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) throws FullTableException {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
     }
 
-    public void addSchoolBoards(SchoolBoard[] schoolBoards) {
-        if(schoolBoards != null)
-            this.schoolBoards = schoolBoards;
-    }
-
+    /**
+     * @return the gameTable instance
+     */
     public GameTable getGameTableInstance(){
         return this;
     }
 
+    /**
+     * @return all the cloud in the gameTable
+     */
     public Cloud[] getClouds(){
         return clouds;
     }
 
+    /**
+     * @return the bag with the students used in this game
+     */
     public Bag getBag(){
         return this.bag;
     }
