@@ -17,12 +17,12 @@ public class GameTableTest {
         assertEquals(12, gameTable.getIslands().size());
         for (Island i :gameTable.getIslands()) assertNotNull(i);
     }
-
+/*
     @Test
     public void testCreateClouds() {
         gameTable.createClouds(2);
         for (Cloud c : gameTable.getClouds()) assertNotNull(c);
-    }
+    }*/
 
     @Test
     public void testGetNumberOfPlayers() {
