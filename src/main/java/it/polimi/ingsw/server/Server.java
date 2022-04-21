@@ -71,14 +71,13 @@ public class Server {
                 }
 
                 if (match.getGameMode() == GameMode.NORMAL) {
-                    /*
-                    Game model = new Game(numberOfPlayers, match.getPlayerNicknames());
+                    Game model = null;/*new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());*/
                     Controller controller = new Controller(model);
                     for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
-                    }*/
+                    }
                 } /*else {
                     ExpertGame model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
                     Controller controller = new Controller(model);

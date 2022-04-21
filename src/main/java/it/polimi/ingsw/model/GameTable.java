@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
+import it.polimi.ingsw.server.ClientConnection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +24,8 @@ public class GameTable {
     public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards, Bag bag) {
         this.numberOfPlayers = numberOfPlayers;
 
-        createIslands();
-        createClouds(numberOfPlayers);
+        islands = createIslands();
+        clouds = createClouds(numberOfPlayers);
 
         this.schoolBoards = schoolBoards;
         this.bag = bag;
@@ -41,20 +42,22 @@ public class GameTable {
         winner = null;
     }
 
-    private void createIslands() {
-        islands = new ArrayList<>();
+    private List<Island> createIslands() {
+        List<Island> islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             islands.add(new Island(i));
         }
+        return islands;
     }
 
-    private void createClouds(int numberOfPlayers) {
+    private Cloud[] createClouds(int numberOfPlayers) {
         int numberOfStudentsOnClouds = 3;
         if (numberOfPlayers == 3)
             numberOfStudentsOnClouds = 4;
-        clouds = new Cloud[numberOfPlayers];
+        Cloud[] clouds = new Cloud[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
             clouds[i] = new Cloud(numberOfStudentsOnClouds);
+        return clouds;
     }
 
     /*messo solo perché serve nei decorator*/
