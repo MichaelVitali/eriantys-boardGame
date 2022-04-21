@@ -117,7 +117,7 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                 }
             } while (playerNickname.equals(""));
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
-            server.lobby(gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT,numberOfPlayers, playerNickname, this);
+            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
             PlayerMessage clientMessage;
             while (isActive()) {
                 buffer = in.readObject();
