@@ -53,11 +53,11 @@ public class Server {
      * @param numberOfPlayers
      * @param gameMode
      */
-    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) {
-        Match match = searchForMatch(gameMode, numberOfPlayers);
+    public synchronized void lobby(int gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) {
+        Match match = searchForMatch(gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT, numberOfPlayers);
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
-            pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
+            pendingMatches.add(new Match(nextMatchId++, gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT, numberOfPlayers, playerNickname, clientConnection));
         } else {
             match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
@@ -71,24 +71,26 @@ public class Server {
                 }
 
                 if (match.getGameMode() == GameMode.NORMAL) {
-                    /*
-                    Game model = new Game(numberOfPlayers, match.getPlayerNicknames());
+                    System.out.println("Game cretated!");
+                    Game model = new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());
                     Controller controller = new Controller(model);
-                    for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+                    /*for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
                     }*/
-                } /*else {
+                } else {
+                    System.out.println("Game cretated!");
                     ExpertGame model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
                     Controller controller = new Controller(model);
-                    for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+                    /*for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
-                    }
+                    }*/
+
                 }
-                */
+
                 for (ClientConnection connection : match.getSockets()) {
                     connection.asyncSend("The match begins !");
                 }

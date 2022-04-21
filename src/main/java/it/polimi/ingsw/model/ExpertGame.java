@@ -38,7 +38,7 @@ public class ExpertGame extends Game {
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("it\\polimi\\ingsw\\Model\\Characters.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\model\\Characters.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
 

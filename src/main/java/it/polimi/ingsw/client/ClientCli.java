@@ -74,7 +74,7 @@ public class ClientCli {
                         playerInput.replace("\n", "");
                         if (!configurationDone) {
                             socketOut.writeObject(playerInput);
-                        } else {
+                        }/* else {
                             System.out.println("Lets move");
 
                             /////// ci sarà un certo flusso di esecuzione
@@ -83,7 +83,7 @@ public class ClientCli {
                             //PlayerMessage playerMessage = new AddStudentOnIslandMessage(0,0,0);
 
                             //socketOut.writeObject((PlayerMessage)playerMessage);
-                        }
+                        }*/
                         socketOut.flush();
                     }
                 } catch(Exception e) {
