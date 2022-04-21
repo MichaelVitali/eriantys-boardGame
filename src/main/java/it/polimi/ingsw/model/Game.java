@@ -47,14 +47,11 @@ public class Game extends Observable<GameMessage> {
     private GameTable createGameTable(int numberOfPlayers) {
         SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
-        int numberOfStudentsOnEntrance;
-        int numberOfTowers;
+        int numberOfStudentsOnEntrance = 7;
+        int numberOfTowers = 8;
         if (numberOfPlayers == 3) {
             numberOfStudentsOnEntrance = 9;
             numberOfTowers = 6;
-        } else {
-            numberOfStudentsOnEntrance = 7;
-            numberOfTowers = 8;
         }
 
         switch (numberOfPlayers) {
