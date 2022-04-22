@@ -4,21 +4,16 @@ import it.polimi.ingsw.model.Game;
 
 import java.io.Serializable;
 
-public class AddStudentOnTableMessage implements Serializable, PlayerMessage {
-    private int playerId;
+public class AddStudentOnTableMessage extends PlayerMessage implements Serializable {
     private int studentIndex;
 
     public AddStudentOnTableMessage(int playerId, int studentIndex) {
-        this.playerId = playerId;
+        super(playerId);
         this.studentIndex = studentIndex;
-    }
-
-    public int getPlayerId() {
-        return playerId;
     }
 
     @Override
     public void performMove(Game game) {
-        game.getRound().playAssistant(playerId, studentIndex);
+        game.getRound().playAssistant(getPlayerId(), studentIndex);
     }
 }

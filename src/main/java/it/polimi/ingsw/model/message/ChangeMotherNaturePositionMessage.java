@@ -4,19 +4,14 @@ import it.polimi.ingsw.model.Game;
 
 import java.io.Serializable;
 
-public class ChangeMotherNaturePositionMessage implements Serializable, PlayerMessage {
-    private int playerId;
+public class ChangeMotherNaturePositionMessage extends PlayerMessage implements Serializable {
     private int islandIndex;
 
     public ChangeMotherNaturePositionMessage(int playerId, int islandIndex) {
-        this.playerId = playerId;
+        super(playerId);
         this.islandIndex = islandIndex;
     }
 
-    public int getPlayerId() {
-        return playerId;
-    }
-
     @Override
-    public void performMove(Game game) { game.getRound().changeMotherNaturePosition(playerId, islandIndex); }
+    public void performMove(Game game) { game.getRound().changeMotherNaturePosition(getPlayerId(), islandIndex); }
 }
