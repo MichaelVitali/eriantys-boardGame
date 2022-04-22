@@ -39,7 +39,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
 
     }
 
-    // da vedere
     @Override
     public synchronized void closeConnection() {
         send("Connection closed!");
@@ -116,9 +115,9 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                 } catch (Exception e) {
                     send("Error : you are not sending the correct information");
                 }
-            } while (playerNickname == "");
+            } while (playerNickname.equals(""));
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
-            server.lobby(gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT,numberOfPlayers, playerNickname, this);
+            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
             PlayerMessage clientMessage;
             while (isActive()) {
                 buffer = in.readObject();
@@ -132,7 +131,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                         // invia l'errore al client
                         System.out.println(toString() + " is sending a message with an other's player id");
                 } else {
-
                     System.out.println(toString() + " is sending a wrong object");
                 }
             }
