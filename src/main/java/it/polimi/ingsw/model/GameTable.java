@@ -82,6 +82,14 @@ public class GameTable {
         return islands.size();
     }
 
+    public void setVictory(){
+        victory=true;
+    }
+
+    public void setDraw(){
+        draw=true;
+    }
+
     public boolean isVictory() {
         return victory;
     }

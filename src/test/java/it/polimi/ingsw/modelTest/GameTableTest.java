@@ -181,7 +181,20 @@ public class GameTableTest {
         for (Cloud c : gameTable.getClouds()) assertNotNull(c);
     }
 
+    @Test
     public void testGetBag(){
         assertNotNull(gameTable.getBag());
+    }
+
+    @Test
+    public void testSetVictory(){
+        gameTable.setVictory();
+        assertTrue(gameTable.isVictory());
+    }
+
+    @Test
+    public void testSetDraw(){
+        gameTable.setDraw();
+        assertTrue(gameTable.isDraw());
     }
 }

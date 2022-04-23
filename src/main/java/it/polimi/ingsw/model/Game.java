@@ -44,7 +44,7 @@ public class Game extends Observable<GameMessage> {
 
     }
 
-    private GameTable createGameTable(int numberOfPlayers) {
+    public GameTable createGameTable(int numberOfPlayers) {
         SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
         int numberOfStudentsOnEntrance;
@@ -76,13 +76,13 @@ public class Game extends Observable<GameMessage> {
         }
         Bag bag = createBag();
         return new GameTable(numberOfPlayers, schoolBoards, bag);
-    }
+    } //DONE
 
     public Bag createBag(){
         return new Bag();
-    }
+    }  //DA RIVEDERE
 
-    private List<Assistant> createAssistants(){
+    public List<Assistant> createAssistants(){
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
@@ -97,7 +97,7 @@ public class Game extends Observable<GameMessage> {
             e.printStackTrace();
         }
         return l;
-    }
+    } //DA RIVEDERE
 
     public int getNumberOfPlayers(){
         return numberOfPlayers;
@@ -127,7 +127,7 @@ public class Game extends Observable<GameMessage> {
 
     public Round getRound() {
         return round;
-    } //DONE IS IT CORRECT ?
+    } //DA RIVEDERE
 
     public Round startRound() {
         round = new Round(this);

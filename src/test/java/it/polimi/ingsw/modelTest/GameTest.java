@@ -4,16 +4,80 @@ import java.util.*;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.NoMoreTowersException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTest {
 
-    private SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.BLACK, 8), new SchoolBoard(9, TowerColor.WHITE, 8)};
-    private GameTable gameTable = new GameTable(2, schoolBoards);
+    private Bag bag = new Bag();
+    private SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.WHITE, 8), new SchoolBoard(9, TowerColor.BLACK, 8)};
+    private GameTable gameTable = new GameTable(2, schoolBoards,  bag);
     private Player[] players = {new Player("player0", 0,  new ArrayList<Assistant>()), new Player("player1", 1,  new ArrayList<Assistant>())};
     private String[] nicknames = {players[0].getNickname(), players[1].getNickname()};
     private Game game2p = new Game(2, nicknames);
+
+    @Test
+    public void testCreateGameTable() {
+
+        //SchoolBoard[] expectedSchoolBoards= new SchoolBoard[]{new SchoolBoard(7, TowerColor.WHITE, 8), new SchoolBoard(7, TowerColor.BLACK, 8)};
+        Game g = new Game(2);
+
+        assertNull(g.getGameTable());
+        g.setGameTable(g.createGameTable(2));
+        assertNotNull(g.getGameTable());
+
+        assertEquals(7, g.getGameTable().getSchoolBoards()[0].getNumberOfStudentsOnEntrance());
+        assertEquals(TowerColor.WHITE, g.getGameTable().getSchoolBoards()[0].getTowersColor());
+        assertEquals(8, g.getGameTable().getSchoolBoards()[0].getTowers().size());
+        assertEquals(7, g.getGameTable().getSchoolBoards()[1].getNumberOfStudentsOnEntrance());
+        assertEquals(TowerColor.BLACK, g.getGameTable().getSchoolBoards()[1].getTowersColor());
+        assertEquals(8, g.getGameTable().getSchoolBoards()[1].getTowers().size());
+
+    }
+
+    @Test
+    public void testCreateBag() throws EmptyBagException {
+
+        assertNotNull(game2p.createBag());
+
+        try {
+            assertEquals(130, game2p.createBag().drawStudents(130).size());
+        }catch (EmptyBagException e){
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void testCreateAssistants() {
+
+        List<Assistant> assistantsCheck = new ArrayList<>();
+        assistantsCheck = game2p.createAssistants();
+
+        assertNotNull(assistantsCheck);
+
+        for(int i=0; i<assistantsCheck.size(); i++){
+
+            assertEquals(i+1, assistantsCheck.get(i).getCardValue());
+
+            if(i==0 || i==1)
+                assertEquals(1, assistantsCheck.get(i).getMotherNatureMoves());
+
+            if(i==2 || i==3)
+                assertEquals(2, assistantsCheck.get(i).getMotherNatureMoves());
+
+            if(i==4 || i==5)
+                assertEquals(3, assistantsCheck.get(i).getMotherNatureMoves());
+
+            if(i==6 || i==7)
+                assertEquals(4, assistantsCheck.get(i).getMotherNatureMoves());
+
+            if(i==8 || i==9)
+                assertEquals(5, assistantsCheck.get(i).getMotherNatureMoves());
+
+        }
+    }
 
     @Test
     public void testGetNumberOfPlayers() {
@@ -98,9 +162,7 @@ public class GameTest {
     }
 
     @Test
-    public void testCheckEndgame() {
-        gameTable.addSchoolBoards(schoolBoards);
-        game2p.setGameTable(gameTable);
-    }
+    public void testCheckEndgame() throws InvalidIndexException, NoMoreTowersException {
 
+    }
 }

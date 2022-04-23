@@ -25,6 +25,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
+        characters=new Character[3];
         for(int coins : playersCoins)
             coins = 1;
         try {
@@ -34,16 +35,32 @@ public class ExpertGame extends Game {
         }
     }
 
-    private void createCharacters() throws EmptyBagException {
+    public Game getGame(){
+        return game;
+    }
+
+    public void setGame(Game game){
+        this.game=game;
+    }
+
+    public Character[] getCharacters(){
+        return characters;
+    }
+
+    public void setCharacters(Character[] characters){
+        this.characters=characters;
+    }
+
+    public void createCharacters() throws EmptyBagException {
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("it\\polimi\\ingsw\\Model\\Characters.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Manuel\\IdeaProjects\\ing-sw-2022-Vitali-Tacca-Simionato\\src\\main\\java\\it\\polimi\\ingsw\\model\\Characters.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
 
-                int ID =  Integer.parseInt((String) assistant.get("ID"));
-                int cost = Integer.parseInt((String) assistant.get("cost"));
+                int ID =  Integer.parseInt(assistant.get("ID").toString());
+                int cost = Integer.parseInt(assistant.get("cost").toString());
 
                 if (ID == 1 || ID == 11) {
                     CharacterWithStudent character = new CharacterWithStudent(ID,cost,4);
@@ -266,28 +283,29 @@ public class ExpertGame extends Game {
         return playersCoins;
     }
 
-    private void addCoinToAPlayer(int playerIndex) {
+    public void addCoinToAPlayer(int playerIndex) {
         playersCoins[playerIndex]++;
     }
 
-    private void removeCoinsFromAPlayer(int playerIndex, int numberOfCoinsToRemove) throws NotEnoughCoins {
+    public void removeCoinsFromAPlayer(int playerIndex, int numberOfCoinsToRemove) throws NotEnoughCoins {
         if(playersCoins[playerIndex] < numberOfCoinsToRemove) throw new NotEnoughCoins();
         playersCoins[playerIndex] -= numberOfCoinsToRemove;
     }
 
-    private void addCoinsToTheTable(int numberOfCoinsToAdd) {
+    public void addCoinsToTheTable(int numberOfCoinsToAdd) {
         coinsOfTheTable += numberOfCoinsToAdd;
     }
 
-    private void removeCoinFromTheTable() throws NotEnoughCoins {
+    public void removeCoinFromTheTable() throws NotEnoughCoins {
         if(coinsOfTheTable < 1) throw new NotEnoughCoins();
         coinsOfTheTable -= 1;
     }
-
+/*
     @Override
     public void endRound() {
 
         /// più tante altre cose immagino tipo game.endRound();
         game.setGameTable(game.getGameTable().getGameTableInstance());
     }
+ */
 }

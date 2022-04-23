@@ -35,48 +35,56 @@ public class Round {
 
     public Round(Game game, int[] playerOrder) {
         this(game);
-        for(int i = 0; i < game.getNumberOfPlayers(); i ++)
+        for(int i = 0; i < game.getNumberOfPlayers(); i++)
             this.playerOrder[i] = playerOrder[i];
     }
 
-    private class PianificationPhase {
+    public class PianificationPhase {
 
         private Game game; //------------------------------------------
 
         public PianificationPhase(Game game) {
-            this.game=game;    //---------------------------------------------
+            this.game=game;
         }
 
         public int calculateFirstPlayer(){
             return new Random().nextInt(game.getNumberOfPlayers());
         }
 
-        public boolean assistantNoChoice(Assistant[] outer, Assistant[] inner) {
-            if (outer.length< inner.length)
+        public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) {
+            if (outer.size()<inner.size())
                 return false;
 
-            return Arrays.asList(outer).containsAll(Arrays.asList(inner));
+            return outer.containsAll(inner);
         }
 
-        public void playAssistant(int playerId, int assistantPosition) throws InvalidIndexException, OutOfBoundException {
+        public void playAssistant(int playerId, int assistantPosition) throws InvalidIndexException {
+
+            List<Assistant> playedAssistantsCopy = new ArrayList<Assistant>();
 
             for (int i = 0; i < playedAssistants.length; i++) {
-                if (game.getPlayer(playerId).getAssistant(assistantPosition).equals(playedAssistants[i])) {
-                    Assistant[] playedAssistantsCopy = new Assistant[playedAssistants.length];
-                    for (int j = 0; i < playedAssistants.length; j++)
-                        playedAssistantsCopy[i] = playedAssistants[i].getAssistant();
-                    if (!assistantNoChoice(playedAssistantsCopy, (Assistant[]) game.getPlayer(playerId).getAssistants().toArray())) {
-                        //c'è sicuramente un'altra opzione, rifai la scelta
-                        game.getPlayer(playerId).setErrorMessage("Assistant not playable");
-                        return;
+                try{
+                    if (game.getPlayer(playerId).getAssistant(assistantPosition).equals(playedAssistants[i].getAssistant())) {
+
+                        for (int j = 0; j < playedAssistants.length; j++) { //QUESTO FOR ITERA SOLO UNA VOLTA ???
+                            if(playedAssistants[j].getAssistant() != null)
+                                playedAssistantsCopy.add(playedAssistants[j].getAssistant());
+                            //System.out.println(j);
+                        }
+                        if (!assistantNoChoice(playedAssistantsCopy, game.getPlayer(playerId).getAssistants())) {
+                            //c'è sicuramente un'altra opzione, rifai la scelta
+                            game.getPlayer(playerId).setErrorMessage("Assistant not playable");
+                            return;
+                        }
+                        playedAssistantsCopy.clear();
                     }
-                }
+                }catch (NullPointerException e){};
             }
-            playedAssistants[indexOfPlayerOnTurn] = new PlayedAssistant(playerId, game.getPlayer(playerId).playAssistant(assistantPosition));
+            playedAssistants[playerId] = new PlayedAssistant(playerId, game.getPlayer(playerId).playAssistant(assistantPosition));
         }
     }
 
-    private class PlayedAssistant {
+    public class PlayedAssistant {
         private int playerIndex;
         private Assistant assistant;
 
@@ -94,6 +102,14 @@ public class Round {
         }
     }
 
+    public PianificationPhase getPianificationPhase() {
+        return pianificationPhase;
+    }
+
+    public PlayedAssistant[] getPlayedAssistants(){
+        return  playedAssistants;
+    }
+
     public int[] getPlayerOrder(){
         return this.playerOrder.clone();
     }
@@ -105,16 +121,43 @@ public class Round {
         }
     }
 
+    public void setRoundState(int state){
+        if (state>=0 && state<4)
+            this.roundState=state;
+        else roundState = -1;
+    }
+
+    public int getRoundState(){
+        return roundState;
+    }
+
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {
         if (methodId != roundState) throw new InvalidMethodException();
     }
 
+    public void setMovesCounter(int playerId, int moves){
+            movesCounter[playerId] = moves;
+    }
+
+    public int[] getMovesCounter(){
+        return movesCounter;
+    }
+
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException {
-        if(movesCounter[playerId] >= 3) throw new TooManyMovesException();
+        if(movesCounter[playerId] > 3) throw new TooManyMovesException();
     }
 
     public void setErrorMessage(int playerId, String errorMessage) {
         game.getPlayer(playerId).setErrorMessage(errorMessage);
+    }
+
+    public void setIndexOfPlayerOnTurn(int index){
+        if(index>=0 && index<game.getNumberOfPlayers())
+            indexOfPlayerOnTurn=index;
+    }
+
+    public int getIndexOfPlayerOnTurn(){
+        return indexOfPlayerOnTurn;
     }
 
     public boolean isPianificationPhaseEnded() {
@@ -131,7 +174,9 @@ public class Round {
     }
 
     public boolean isTimeToMoveMotherNature() {
-        if (roundState == 1 && 3 <= movesCounter[playerOrder[indexOfPlayerOnTurn]]) return true;
+        if (roundState == 1 && 3 <= movesCounter[playerOrder[indexOfPlayerOnTurn]])
+            return true;
+
         return false;
     }
 
@@ -155,8 +200,9 @@ public class Round {
             }
         }
         playerOrder[0] = nextTurnFirstPlayer;
+
         for(int i = 1; i < playedAssistants.length; i++)
-            playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
+            playerOrder[i] = (playerOrder[i - 1] + 1) % playedAssistants.length;
     }
 
     public void setActionPhaseOrder() {
@@ -176,23 +222,32 @@ public class Round {
             playerOrder[i] = playedAssistantsOrdered[i].getPlayerIndex();
     }
 
-    private void switchToPianificationPhase() {
+    public void switchToPianificationPhase() {
         setPianificationPhaseOrder();
         game.startRound(playerOrder);
     }
 
-    private void switchToActionPhase() {
+    public int getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(int currentPhase){
+        if(currentPhase>=0 && currentPhase<=1)
+            this.currentPhase=currentPhase;
+    }
+
+    public void switchToActionPhase() {
         setActionPhaseOrder();
         roundState = 1;
         indexOfPlayerOnTurn = 0;
         currentPhase = 1;
     }
 
-    private void calculateNextPlayer() {
+    public void calculateNextPlayer() {
         if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isActionPhaseEnded()) {
-            switchToPianificationPhase();         //////////////////////////////////////////
+            switchToPianificationPhase();
         } else if (isTimeToMoveMotherNature()) {
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
@@ -203,7 +258,6 @@ public class Round {
         } else {
             if (indexOfPlayerOnTurn + 1 < game.getNumberOfPlayers()) // non dovrebbe mai accadere il contrario visti i controlli precedenti
                 indexOfPlayerOnTurn++;
-
         }
     }
 
@@ -217,7 +271,7 @@ public class Round {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
             setErrorMessage(playerId, "You cannot play any assistant now");
-        } catch (OutOfBoundException e) {
+        } catch (IndexOutOfBoundsException e) {
             setErrorMessage(playerId,"You can't choose that assistant");
         } catch (InvalidIndexException e) {
             setErrorMessage(playerId, e.getMessage());
@@ -272,7 +326,7 @@ public class Round {
         return false;
     }
 
-    public void changeMotherNaturePosition(int playerId, int islandIndex) {
+    public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(2);
@@ -286,7 +340,7 @@ public class Round {
                 game.getGameTable().changeMotherNaturePosition(islandIndex);
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
-                setErrorMessage(playerId, "You cannot put mother nature in the choosen island");
+                setErrorMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {
                 // Stato di errore sasrà da togliere dal codicec
             }
@@ -294,7 +348,7 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot move students now");
+            setErrorMessage(playerId, "You cannot move mother nature now");
         }
     }
 
@@ -308,9 +362,9 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot play any assistant now");
+            setErrorMessage(playerId, "You cannot get students from cloud now");
         } catch (InvalidIndexException e) {
-            setErrorMessage(playerId, "The chosen island doesn't exist");
+            setErrorMessage(playerId, "The chosen cloud doesn't exist");
         } catch (EmptyCloudException e)  {
             setErrorMessage(playerId, "The chosen cloud is empty. Chose another one!");
         }
