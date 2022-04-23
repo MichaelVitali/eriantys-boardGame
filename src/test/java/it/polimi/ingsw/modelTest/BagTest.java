@@ -9,8 +9,7 @@ import org.junit.Test;;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class BagTest {
     private Bag bag = new Bag();
@@ -38,5 +37,13 @@ public class BagTest {
         }
         //controll number of student foreach PawnColor
         for(int i = 0; i < 5; i++) assertTrue(arrayCountColor[i] == 26);
+    }
+
+    @Test
+    public void testAddStudents() throws EmptyBagException {
+        List<Student> newStudents = new ArrayList<>();
+        newStudents.addAll(bag.drawStudents(130));
+        bag.addStudents(newStudents);
+        assertEquals(130, bag.drawStudents(130).size());
     }
 }

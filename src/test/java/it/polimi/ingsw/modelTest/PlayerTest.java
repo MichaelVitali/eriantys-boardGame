@@ -59,6 +59,17 @@ public class PlayerTest {
     }
 
     @Test
+    public void testgetAssistats(){
+        List<Assistant> assistants = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            assistants.add(new Assistant(i, i%5));
+        }
+        player.addAssistants(assistants);
+        assertEquals(10, player.getAssistants().size());
+        for (Assistant a : player.getAssistants()) assertNotNull(a);
+    }
+
+    @Test
     public void testMoveStudentOnTable() throws FullTableException {
         player.moveStudentOnTable(0);
     }
@@ -70,6 +81,18 @@ public class PlayerTest {
         List<Island> islands = gameTable.getIslands();
         assertEquals(islands.get(1).getStudents().get(0), entrance[0]);
         assertTrue(islands.get(1).getStudents().size() == 1);
+    }
+
+    @Test
+    public void testGetErrorMessage(){
+        player.setErrorMessage("Error!");
+        assertEquals(player.getErrorMessage(), "Error!");
+    }
+
+    @Test
+    public void testSetErrorMessage(){
+        player.setErrorMessage("Error!");
+        assertEquals(player.getErrorMessage(), "Error!");
     }
 
     @Test
@@ -105,5 +128,11 @@ public class PlayerTest {
             assertNotNull(player.getAssistant(i));
             i++;
         }
+    }
+
+    @Test
+    public void testGetStudentsFromEntrance(){
+        assertEquals(6, player.getStudentsFormEntrance().length);
+        for (Student s : player.getStudentsFormEntrance()) assertNotNull(s);
     }
 }

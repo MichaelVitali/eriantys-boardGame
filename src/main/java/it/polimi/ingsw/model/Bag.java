@@ -42,16 +42,6 @@ public class Bag {
     }
 
     /**
-     * Returns the instance of the Bag from which the students will be drawn
-     * @return instance of the bag
-     */
-    /*
-    public static Bag getBag() {
-        if (bag == null) bag = new Bag();
-        return bag;
-    }*/
-
-    /**
      * Inserts every student of the list in the bag
      * @param newStudents students to insert in the bag
      */

@@ -42,6 +42,10 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
     public void addStudentOnIsland(Student s, int islandIndex)throws InvalidIndexException {
         this.gameTable.addStudentOnIsland(s, islandIndex);
     }
+    @Override
+    public SchoolBoard[] getSchoolBoards() {
+        return gameTable.getSchoolBoards();
+    }
 
     @Override
     public void changeMotherNaturePosition(int newPosition){
