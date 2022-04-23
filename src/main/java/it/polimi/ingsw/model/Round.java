@@ -30,7 +30,7 @@ public class Round {
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
-        game = game;
+        this.game = game;
     }
 
     public Round(Game game, int[] playerOrder) {
@@ -44,7 +44,9 @@ public class Round {
         public PianificationPhase(Game game) { }
 
         private int calculateFirstPlayer() {
-            return new Random().nextInt(game.getNumberOfPlayers());
+            //Random random = new Random();
+            //int firstPlayer = random.nextInt(game.getNumberOfPlayers());
+            return 0;
         }
 
         private boolean assistantNoChoice(Assistant[] outer, Assistant[] inner) {

@@ -59,7 +59,6 @@ public class Server {
             System.out.println("Just create a match with the id : " + nextMatchId);
             pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
         } else {
-            System.out.println("Aggiungo il secondo");
             match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
 
@@ -71,28 +70,24 @@ public class Server {
                     System.out.println("Player : " + i + " " + match.getPlayerNicknames().get(i) + " " + match.getSockets().get(i).toString());
                 }
 
-                List<String> prova = new ArrayList<>();
-                prova.add("mike");
-                prova.add("enri");
+
                 if (match.getGameMode() == GameMode.NORMAL) {
-                    Game model = new Game(2, prova);
-                    //Controller controller = new Controller(model);
-                    System.out.println("Game creation!");
+                    Game model = new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());
+                    Controller controller = new Controller(model);
                     /*for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
                     }*/
-                } /*else {
+                } else { /*
                     ExpertGame model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
                     Controller controller = new Controller(model);
                     for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
-                    }
+                    }*/
                 }
-                */
                 for (ClientConnection connection : match.getSockets()) {
                     connection.asyncSend("The match begins !");
                 }
