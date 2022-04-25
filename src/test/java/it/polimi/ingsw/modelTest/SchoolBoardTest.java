@@ -2,7 +2,6 @@ package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.*;
-import org.junit.Before;
 import org.junit.Test;
 import java.util.*;
 
@@ -19,8 +18,8 @@ public class SchoolBoardTest {
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
         for (int i = 0; i < 9; i++) {
-            schoolBoard.addStudentOnTable(i);
             numberOfStudentsForColor[entrance[i].getColor().getIndex()]++;
+            schoolBoard.addStudentOnTable(i);
         }
 
         for (PawnColor color : PawnColor.values()) {
@@ -173,5 +172,25 @@ public class SchoolBoardTest {
         for (int i = 0; i < 9; i++) {
             assertNull(schoolBoard.getStudentsFromEntrance()[i]);
         }
+    }
+
+    @Test
+    public void testGetNumberOfStudentsOnEntrance(){
+        assertEquals(9, schoolBoard.getNumberOfStudentsOnEntrance());
+    }
+
+    @Test
+    public void testRemoveStudentFromTable() throws FullTableException {
+        Student s = new Student(PawnColor.YELLOW);
+        schoolBoard.addStudentOnTable(s);
+        assertEquals(1, schoolBoard.getNumberOfStudentsOnTable(PawnColor.YELLOW));
+        try{
+            schoolBoard.removeStudentFromTable(0);
+            assertEquals(0, schoolBoard.getNumberOfStudentsOnTable(PawnColor.YELLOW));
+            schoolBoard.removeStudentFromTable(0);
+        }catch (EmptyTableException e){
+            assertTrue(true);
+        }
+
     }
 }

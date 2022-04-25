@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.*;
 import java.util.*;
 
+
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.exception.*;
 import org.junit.Test;

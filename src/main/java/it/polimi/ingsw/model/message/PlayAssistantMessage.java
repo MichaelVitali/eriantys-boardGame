@@ -5,17 +5,17 @@ import it.polimi.ingsw.model.Round;
 
 import java.io.Serializable;
 
-public class PlayAssistantMessage implements Serializable, PlayerMessage {
-    private int playerId;
+public class PlayAssistantMessage extends PlayerMessage implements Serializable {
+
     private int assistantPosition;
 
     public PlayAssistantMessage(int playerId, int assistantPosition) {
-        this.playerId = playerId;
+        super(playerId);
         this.assistantPosition = assistantPosition;
     }
-
+    
     @Override
     public void performMove(Game game) {
-        game.getRound().playAssistant(playerId, assistantPosition);
+        game.getRound().playAssistant(getPlayerId(), assistantPosition);
     }
 }

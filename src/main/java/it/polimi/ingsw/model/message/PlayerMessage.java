@@ -2,7 +2,19 @@ package it.polimi.ingsw.model.message;
 
 import it.polimi.ingsw.model.Game;
 
-public interface PlayerMessage {
+import java.io.Serializable;
 
-    public void performMove(Game game);
+public abstract class PlayerMessage implements Serializable {
+
+    private int playerId;
+
+    public PlayerMessage(int playerId) {
+        this.playerId = playerId;
+    }
+
+    public abstract void performMove(Game game);
+
+    public int getPlayerId() {
+        return playerId;
+    }
 }

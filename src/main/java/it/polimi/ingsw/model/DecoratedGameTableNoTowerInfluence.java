@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.exception.EmptyCloudException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DecoratedGameTableNoTowerInfluence extends GameTable {
@@ -25,8 +26,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
         int numberOfIteration = gameTable.getNumberOfPlayers() == 4 ? 2 : gameTable.getNumberOfPlayers();
         int[] influence = new int[numberOfIteration];
         List<Student> studentsOnTheIslands = gameTable.getIslands().get(gameTable.getMotherNaturePosition()).getStudents();
-        List<Tower> towersOnTheIslands = getIslands().get(gameTable.getMotherNaturePosition()).getTowers();
-        influence[0] = 0;
+        Arrays.fill(influence, 0);
 
         for (int i = 0; i < numberOfIteration; i++) {
             influence[i] = 0;
@@ -97,5 +97,10 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
 
     public GameTable getGameTableInstance() {
         return gameTable;
+    }
+
+    @Override
+    public SchoolBoard[] getSchoolBoards() {
+        return gameTable.getSchoolBoards();
     }
 }

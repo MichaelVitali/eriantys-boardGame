@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Match {
 
-    private int matchId;
-    private GameMode gameMode;
+    private final int matchId;
+    private final GameMode gameMode;
     private int numberOfPlayers;
-    private List<String> playerNicknames = new ArrayList<>();
-    private List<ClientConnection> sockets = new ArrayList<>();
+    private final List<String> playerNicknames = new ArrayList<>();
+    private  final List<ClientConnection> sockets = new ArrayList<>();
 
     /**
      * Creates a match instance - maybe to manage reconnection and related issues
@@ -63,7 +63,8 @@ public class Match {
         return new ArrayList<>(sockets);
     }
 
-    public void addPlayer(ClientConnection socket) {
+    public void addPlayer(ClientConnection socket, String playerNickname) {
+        playerNicknames.add(playerNickname);
         sockets.add(socket);
     }
 }

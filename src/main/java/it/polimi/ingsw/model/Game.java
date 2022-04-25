@@ -47,8 +47,8 @@ public class Game extends Observable<GameMessage> {
     public GameTable createGameTable(int numberOfPlayers) {
         SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
-        int numberOfStudentsOnEntrance;
-        int numberOfTowers;
+        int numberOfStudentsOnEntrance = 7;
+        int numberOfTowers = 8;
         if (numberOfPlayers == 3) {
             numberOfStudentsOnEntrance = 9;
             numberOfTowers = 6;
@@ -76,17 +76,17 @@ public class Game extends Observable<GameMessage> {
         }
         Bag bag = createBag();
         return new GameTable(numberOfPlayers, schoolBoards, bag);
-    } //DONE
+    }
 
     public Bag createBag(){
         return new Bag();
-    }  //DA RIVEDERE
+    }
 
     public List<Assistant> createAssistants(){
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Manuel\\IdeaProjects\\ing-sw-2022-Vitali-Tacca-Simionato\\src\\main\\java\\it\\polimi\\ingsw\\model\\Assistant.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\Model\\Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
                 int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
@@ -97,37 +97,37 @@ public class Game extends Observable<GameMessage> {
             e.printStackTrace();
         }
         return l;
-    } //DA RIVEDERE
+    }
 
     public int getNumberOfPlayers(){
         return numberOfPlayers;
-    } //DONE
+    }
 
     public GameTable getGameTable() {
         return gameTable;
-    } //DONE
+    }
 
     public Player getPlayer(int playerId) {
         try {
             if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
         } catch (InvalidIndexException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
         return this.players[playerId];
-    } //DONE
+    }
 
     public void setGameTable(GameTable gameTable) {
         this.gameTable = gameTable;
-    } //DONE
+    }
 
     public boolean isAValidPositionForMotherNature(int position) {
         if(0 <= position && position < gameTable.getIslands().size()) return true;
         return false;
-    } //DONE
+    }
 
     public Round getRound() {
         return round;
-    } //DA RIVEDERE
+    }
 
     public Round startRound() {
         round = new Round(this);
@@ -137,7 +137,7 @@ public class Game extends Observable<GameMessage> {
             // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
         }
         return round;
-    } //DONE
+    }
 
     public Round startRound(int[] playerOrder) {
         round = new Round(this, playerOrder);
@@ -147,7 +147,9 @@ public class Game extends Observable<GameMessage> {
             // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
         }
         return round;
-    } //DONE
+    }
+
+    public void endRound() { }
 
     public boolean checkEndgame() {
         if(gameTable.isVictory() || gameTable.isDraw()) return true;
