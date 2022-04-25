@@ -17,7 +17,7 @@
     <sonar.language>java</sonar.language>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <sonar.coverage.exclusions>**/client/**/*, **/controller/**/*, **/server/**/*, **/ClientApp.java, **/ServerApp.java, **/observer/**/*</sonar.coverage.exclusions>
+    <sonar.coverage.exclusions>**/client/**/*, **/controller/**/*, **/server/**/*, **/ClientApp.java, **/ServerApp.java, **/observer/**/*, **/model/message/*</sonar.coverage.exclusions>
   </properties>
 
   <dependencies>
