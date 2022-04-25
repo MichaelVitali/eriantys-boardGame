@@ -48,7 +48,8 @@ public class Round {
         }
 
         public int calculateFirstPlayer(){
-            return new Random().nextInt(game.getNumberOfPlayers());
+            //return new Random().nextInt(game.getNumberOfPlayers());
+            return 0;
         }
 
         public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) {

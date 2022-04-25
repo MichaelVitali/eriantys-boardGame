@@ -13,7 +13,7 @@ public class RoundTest {
     private GameTable gameTable = new GameTable(2, schoolBoards,  bag);
     private Player[] players = {new Player("player0", 0,  new ArrayList<Assistant>()), new Player("player1", 1,  new ArrayList<Assistant>())};
     private String[] nicknames = {players[0].getNickname(), players[1].getNickname()};
-    private Game game2p = new Game(2, nicknames);
+    private Game game2p = new Game(2, Arrays.stream(nicknames).toList());
 
     //PianificationPhase Tests
 
@@ -284,7 +284,7 @@ public class RoundTest {
     @Test
     public void testSwitchToPianificationPhase() throws InvalidIndexException, OutOfBoundException {
 
-        Game gameTest = new Game(2,new String[]{"player0","player1"});
+        Game gameTest = new Game(2, Arrays.stream(new String[]{"player0","player1"}).toList());
         gameTest.startRound();
         game2p.startRound();
 
@@ -306,7 +306,7 @@ public class RoundTest {
 
     @Test
     public void testSwitchToActionPhase() throws InvalidIndexException, OutOfBoundException {
-        Game gameTest = new Game(2,new String[]{"player0","player1"});
+        Game gameTest = new Game(2, Arrays.stream(new String[]{"player0","player1"}).toList());
         gameTest.startRound();
         game2p.startRound();
 

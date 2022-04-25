@@ -118,12 +118,7 @@ public class SchoolBoardTest {
     @Test
     public void testAddTowers() throws InvalidIndexException, NoMoreTowersException {
         List<Tower> towersRemoved = schoolBoard.removeTowers(7);
-        List<Tower> towers = new ArrayList<>();
-        for(int i = 0; i < 7; i++) {
-            towers.add(new Tower(TowerColor.BLACK));
-        }
-
-        schoolBoard.addTowers(towers);
+        schoolBoard.addTowers(towersRemoved);
         assertEquals(8, schoolBoard.getTowers().size());
     }
 

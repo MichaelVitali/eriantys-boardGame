@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 
 public class ExpertGameTest {
 
-    ExpertGame exp_game2p = new ExpertGame(2, new String[]{"player0", "player1"});
+    ExpertGame exp_game2p = new ExpertGame(2, Arrays.stream(new String[]{"player0", "player1"}).toList());
 
     @Test
     public void testGetCharacters(){

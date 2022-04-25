@@ -79,10 +79,10 @@ public class Server {
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale
                     }*/
-                } else { /*
+                } else {
                     ExpertGame model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
                     Controller controller = new Controller(model);
-                    for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+                    /*for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                         model.addObserver(playerView[i]);
                         playerView[i].addObserver(controller);
                         match.getSockets().get(i).send(new DisplayedBoard(model)); /////////////// Da fare - mando la situazione iniziale

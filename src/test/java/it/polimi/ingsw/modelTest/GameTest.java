@@ -16,7 +16,7 @@ public class GameTest {
     private GameTable gameTable = new GameTable(2, schoolBoards,  bag);
     private Player[] players = {new Player("player0", 0,  new ArrayList<Assistant>()), new Player("player1", 1,  new ArrayList<Assistant>())};
     private String[] nicknames = {players[0].getNickname(), players[1].getNickname()};
-    private Game game2p = new Game(2, nicknames);
+    private Game game2p = new Game(2, Arrays.stream(nicknames).toList());
 
     @Test
     public void testCreateGameTable() {

@@ -56,20 +56,19 @@ public class SchoolBoard {
         this.tables[student.getColor().getIndex()].addStudent(student);
     }
 
-    //NON PENSO SERVA
-    /*
+
+    /**
      * Removes a student from a table
      * @param color color of the student to remove
      * @return removed student
      * @throws EmptyTableException if there are no more student on the table, the table is empty
-     *
+     */
     public Student removeStudentFromTable(PawnColor color) throws EmptyTableException {
         if(tables[color.getIndex()].getNumberOfStudents() <= 0) throw new EmptyTableException();
         return tables[color.getIndex()].removeStudentFromTable();
     }
-     */
 
-    //DA FARE TEST
+
     /**
      * Removes a student from a table
      * @param tableIndex index of the table from which it has to be removed a student

@@ -24,7 +24,7 @@ public class Game extends Observable<GameMessage> {
 
     public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
-    public Game(int numberOfPlayers, String[] nicknames) {
+    public Game(int numberOfPlayers, List<String> nicknames) {
         this.numberOfPlayers = numberOfPlayers;
 
         gameTable = createGameTable(numberOfPlayers);
@@ -38,7 +38,7 @@ public class Game extends Observable<GameMessage> {
 
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
-            players[i] = new Player(nicknames[i], i, assistantsList);
+            players[i] = new Player(nicknames.get(i), i, assistantsList);
 
         round = startRound();
 
