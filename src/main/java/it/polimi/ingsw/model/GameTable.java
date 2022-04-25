@@ -317,10 +317,7 @@ public class GameTable {
             islands.set((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1), new MergedIslands(islands.get((motherNaturePosition == 0 ? islands.size() -1 : motherNaturePosition - 1)), islands.get(motherNaturePosition)));
             islands.remove(islands.get(motherNaturePosition));
             motherNaturePosition = (motherNaturePosition == 0) ? islands.size() -1 : motherNaturePosition - 1;
-        }/*
-        for(Island island : islands){
-            if(island == null) { } // exception
-        }*/
+        }
     }
 
     /**

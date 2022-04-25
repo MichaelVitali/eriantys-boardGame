@@ -86,7 +86,7 @@ public class Game extends Observable<GameMessage> {
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Manuel\\IdeaProjects\\ing-sw-2022-Vitali-Tacca-Simionato\\src\\main\\java\\it\\polimi\\ingsw\\model\\Assistant.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\model\\Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
                 int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
@@ -148,11 +148,11 @@ public class Game extends Observable<GameMessage> {
         }
         return round;
     }
-
+/*
     public void endRound() { }
 
     public boolean checkEndgame() {
         if(gameTable.isVictory() || gameTable.isDraw()) return true;
         return false;
-    }
+    }*/
 }
