@@ -28,6 +28,7 @@ public class ExpertGame extends Game {
         for(int coins : playersCoins)
             coins = 1;
         try {
+            characters = new Character[3];
             createCharacters();
         } catch (EmptyBagException e) {
             e.printStackTrace();

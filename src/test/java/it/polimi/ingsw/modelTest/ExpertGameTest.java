@@ -5,13 +5,22 @@ import java.util.*;
 
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.exception.*;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
 public class ExpertGameTest {
 
-    ExpertGame exp_game2p = new ExpertGame(2, Arrays.stream(new String[]{"player0", "player1"}).toList());
+    private ExpertGame exp_game2p;
+
+    @Before
+    public void setUp(){
+        List<String> nicknames = new ArrayList<>();
+        nicknames.add("mike");
+        nicknames.add("enri");
+        exp_game2p = new ExpertGame(2, nicknames);
+    }
 
     @Test
     public void testGetCharacters(){
@@ -22,9 +31,9 @@ public class ExpertGameTest {
 
     @Test
     public void testSetCharacters(){
-        Character[] cs=new Character[]{new Character(6,3)};
+        Character[] cs = new Character[]{new Character(6,3)};
         exp_game2p.setCharacters(cs);
-        assertEquals(cs, exp_game2p.getCharacters());
+        for (int i = 0; i < cs.length; i++) assertEquals(cs[i], exp_game2p.getCharacters()[i]);
     }
 
     @Test
@@ -34,8 +43,8 @@ public class ExpertGameTest {
         assertEquals(3, testCharacters.length);
         for(Character c : testCharacters){
             assertNotNull(c);
-            assertNotNull(c.getCost());
-            assertNotNull(c.getID());
+            /*assertNotNull(c.getCost());
+            assertNotNull(c.getID());*/
             if(c.getID()==1 || c.getID()==11 || c.getID()==7){
                 assertThat(c, instanceOf(CharacterWithStudent.class));
             }
