@@ -38,4 +38,9 @@ public class CharacterWithStudentTest {
         }
         assertEquals(0, c.getStudents(indexStudents).size());
     }
+
+    @Test
+    public void testGetHowManyStudents(){
+        assertEquals(4, c.getHowManyStudents());
+    }
 }

@@ -564,7 +564,6 @@ public class RoundTest {
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
         assertEquals("The chosen cloud doesn't exist", game2p.getPlayer(playerId).getErrorMessage());
 
-        //TODO empty cloud
     }
 
 }

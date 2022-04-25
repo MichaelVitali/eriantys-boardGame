@@ -35,14 +35,6 @@ public class ExpertGame extends Game {
         }
     }
 
-    public Game getGame(){
-        return game;
-    }
-
-    public void setGame(Game game){
-        this.game=game;
-    }
-
     public Character[] getCharacters(){
         return characters;
     }
@@ -100,8 +92,10 @@ public class ExpertGame extends Game {
     public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions) {
         List<Student> returnStudents = new ArrayList<>();
         try {
-            returnStudents.addAll(((CharacterWithStudent)characters[indexCard]).getStudents(studentsPositions));
-            ((CharacterWithStudent) characters[indexCard]).addStudents(game.getGameTable().getBag().drawStudents(studentsPositions.size()));
+            if (characters[indexCard] instanceof CharacterWithStudent) {
+                returnStudents.addAll(((CharacterWithStudent) characters[indexCard]).getStudents(studentsPositions));
+                ((CharacterWithStudent) characters[indexCard]).addStudents(game.getGameTable().getBag().drawStudents(studentsPositions.size()));
+            }
         } catch(EmptyBagException e) {
             // The bag is empty : we continue without adding students on the character
         }catch (InvalidIndexException e) {
@@ -111,7 +105,8 @@ public class ExpertGame extends Game {
     }
 
     public void addStudentsOnCard(int cardIndex, List<Student> newStudents) {
-        ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
+        if(characters[cardIndex] instanceof CharacterWithStudent)
+            ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
     public Character getCharacter(int indexCard) {

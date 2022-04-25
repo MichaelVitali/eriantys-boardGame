@@ -25,7 +25,8 @@ public class CharacterWithStudent extends Character {
      */
     public void addStudents(List<Student> students) {
         for (int i = 0; i < this.students.length; i++) {
-            if (this.students[i] == null) this.students[i] = students.remove(0);
+            if (this.students[i] == null)
+                this.students[i] = students.remove(0);
         }
     }
 
@@ -48,5 +49,9 @@ public class CharacterWithStudent extends Character {
             }
         }
         return returnedStudents;
+    }
+
+    public int getHowManyStudents(){
+        return students.length;
     }
 }
