@@ -1,8 +1,10 @@
 package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import it.polimi.ingsw.model.exception.*;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,10 +14,18 @@ public class RoundTest {
     private SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(7, TowerColor.WHITE, 8), new SchoolBoard(7, TowerColor.BLACK, 8)};
     private GameTable gameTable = new GameTable(2, schoolBoards,  bag);
     private Player[] players = {new Player("player0", 0,  new ArrayList<Assistant>()), new Player("player1", 1,  new ArrayList<Assistant>())};
-    private String[] nicknames = {players[0].getNickname(), players[1].getNickname()};
-    private Game game2p = new Game(2, Arrays.stream(nicknames).toList());
+
+    private Game game2p;
 
     //PianificationPhase Tests
+
+    @Before
+    public void setUp(){
+        List<String> nicknames = new ArrayList<>();
+        nicknames.add("mike");
+        nicknames.add("enri");
+        game2p = new Game(2, nicknames);
+    }
 
     @Test
     public void testGetPianificationPhase(){
@@ -63,19 +73,17 @@ public class RoundTest {
 
         game2p.getRound().getPianificationPhase().playAssistant(0, 0);
         game2p.getRound().getPianificationPhase().playAssistant(1, 1);
-        assertNotNull(game2p.getRound().getPlayedAssistants());
-        //System.out.println(game2p.getRound().getPlayedAssistants()[0].getAssistant());
-        //System.out.println(game2p.getRound().getPlayedAssistants()[1].getAssistant());
+        for(int i=0; i<game2p.getRound().getPlayedAssistants().length; i++)
+            assertNotNull(game2p.getRound().getPlayedAssistants()[i]);
 
         int[] playerOrder=game2p.getRound().getPlayerOrder();
         game2p.startRound(playerOrder);
         game2p.getRound().getPianificationPhase().playAssistant(0, 2);
         game2p.getRound().getPianificationPhase().playAssistant(1, 2);
-        //System.out.println(game2p.getRound().getPlayedAssistants()[0].getAssistant());
-        //System.out.println(game2p.getRound().getPlayedAssistants()[1].getAssistant());
-        //System.out.println(game2p.getRound().getPlayedAssistants()[0].getAssistant().equals(game2p.getRound().getPlayedAssistants()[1].getAssistant()));
-        assertTrue(game2p.getRound().getPlayedAssistants()[1].getAssistant() == null);
-    } //PROBLEMA NEL METODO: un for itera una volta sola e non so perchè
+
+        assertEquals("Assistant not playable", game2p.getPlayer(1).getErrorMessage());
+
+    }
 
     //----------------------------------------------------------------
     //PlayedAssistants Tests
@@ -254,7 +262,7 @@ public class RoundTest {
     }
 
     @Test
-    public void testSetPianificationPhaseOrder() throws InvalidIndexException, OutOfBoundException {
+    public void testSetPianificationPhaseOrder() throws InvalidIndexException {
         game2p.startRound();
         assertNotNull(game2p.getRound().getPlayedAssistants());
 
@@ -268,7 +276,7 @@ public class RoundTest {
     }
 
     @Test
-    public void testSetActionPhaseOrder() throws InvalidIndexException, OutOfBoundException {
+    public void testSetActionPhaseOrder() throws InvalidIndexException {
         game2p.startRound();
         assertNotNull(game2p.getRound().getPlayedAssistants());
 
@@ -282,9 +290,9 @@ public class RoundTest {
     }
 
     @Test
-    public void testSwitchToPianificationPhase() throws InvalidIndexException, OutOfBoundException {
+    public void testSwitchToPianificationPhase() throws InvalidIndexException {
 
-        Game gameTest = new Game(2, Arrays.stream(new String[]{"player0","player1"}).toList());
+        Game gameTest = new Game(2, Arrays.stream(new String[]{"player0","player1"}).collect(Collectors.toList()));
         gameTest.startRound();
         game2p.startRound();
 
@@ -305,8 +313,8 @@ public class RoundTest {
     }
 
     @Test
-    public void testSwitchToActionPhase() throws InvalidIndexException, OutOfBoundException {
-        Game gameTest = new Game(2, Arrays.stream(new String[]{"player0","player1"}).toList());
+    public void testSwitchToActionPhase() throws InvalidIndexException {
+        Game gameTest = new Game(2, Arrays.stream(new String[]{"player0","player1"}).collect(Collectors.toList()));
         gameTest.startRound();
         game2p.startRound();
 
@@ -331,7 +339,7 @@ public class RoundTest {
     }
 
     @Test
-    public void testCalculateNextPlayer() throws InvalidIndexException, OutOfBoundException {
+    public void testCalculateNextPlayer() throws InvalidIndexException {
         game2p.startRound();
 
         game2p.getRound().setCurrentPhase(0);
@@ -383,8 +391,6 @@ public class RoundTest {
         game2p.getRound().setRoundState(0);
         game2p.getRound().playAssistant(1, 11);
         assertEquals("You can't choose that assistant", game2p.getPlayer(playerId).getErrorMessage());
-
-        //InvalidIndexException
     }
 
     @Test
@@ -423,7 +429,6 @@ public class RoundTest {
         game2p.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);
         assertEquals("You can move no more students", game2p.getPlayer(playerId).getErrorMessage());
 
-        //InvalidIndexException
     }
 
     @Test
@@ -468,21 +473,17 @@ public class RoundTest {
         game2p.getRound().addStudentOnTable(playerId, studentIndex);
         assertEquals("You can move no more students", game2p.getPlayer(playerId).getErrorMessage());
 
-        game2p.getRound().setMovesCounter(playerId, 0);
-        //TODO
-        game2p.getRound().addStudentOnTable(playerId, studentIndex);
-        //assertEquals("You can't move that student, his table has no more free seats", game2p.getPlayer(playerId).getErrorMessage());
-
     }
 
     @Test
     public void testIsANewAllowedPositionForMotherNature() {
-        Assistant a = new Assistant(2,2);
-        int islandIndex=1;
         game2p.startRound();
+        Assistant a = new Assistant(2,2);
+        int islandIndex=(game2p.getGameTable().getMotherNaturePosition()+1)%game2p.getGameTable().getNumberOfIslands();
+
         assertTrue(game2p.getRound().isANewAllowedPositionForMotherNature(a, islandIndex));
 
-        islandIndex=4;
+        islandIndex=(game2p.getGameTable().getMotherNaturePosition()+3)%game2p.getGameTable().getNumberOfIslands();
         assertFalse(game2p.getRound().isANewAllowedPositionForMotherNature(a, islandIndex));
     }
 
@@ -490,15 +491,15 @@ public class RoundTest {
     public void testChangeMotherNaturePosition() throws InvalidIndexException {
         int[] playerOrder={0,1};
         int playerId=0;
-        int islandIndex=1;
-        int expectedPosition=1;
+        int islandIndex=(game2p.getGameTable().getMotherNaturePosition()+1)%game2p.getGameTable().getNumberOfIslands();;
+        int expectedPosition=islandIndex;
 
         game2p.getPlayer(playerId).addGameTable(game2p.getGameTable());
         game2p.getPlayer(playerId+1).addGameTable(game2p.getGameTable());
 
         game2p.startRound(playerOrder);
         game2p.getRound().getPianificationPhase().playAssistant(playerId,7);
-        game2p.getRound().getPianificationPhase().playAssistant(playerId+1,7);
+        game2p.getRound().getPianificationPhase().playAssistant(playerId+1,9);
 
         game2p.getRound().setRoundState(2);
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
@@ -509,7 +510,7 @@ public class RoundTest {
 
         playerId=1;
         game2p.getRound().setRoundState(2);
-        game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
+        game2p.getRound().changeMotherNaturePosition(playerId, islandIndex+game2p.getRound().getPlayedAssistants()[playerId].getAssistant().getMotherNatureMoves()+1);
         assertEquals("You cannot put mother nature in the chosen island", game2p.getPlayer(playerId).getErrorMessage());
 
         playerId=0;
