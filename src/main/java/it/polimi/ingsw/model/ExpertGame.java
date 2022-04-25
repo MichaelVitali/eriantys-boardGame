@@ -25,7 +25,6 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        characters=new Character[3];
         for(int coins : playersCoins)
             coins = 1;
         try {
@@ -47,7 +46,7 @@ public class ExpertGame extends Game {
         JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Manuel\\IdeaProjects\\ing-sw-2022-Vitali-Tacca-Simionato\\src\\main\\java\\it\\polimi\\ingsw\\model\\Characters.js"));
+            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\model\\Characters.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
 
@@ -302,5 +301,4 @@ public class ExpertGame extends Game {
         /// più tante altre cose immagino tipo game.endRound();
         game.setGameTable(game.getGameTable().getGameTableInstance());
     }
- */
 }

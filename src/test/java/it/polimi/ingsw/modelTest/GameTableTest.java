@@ -12,6 +12,19 @@ public class GameTableTest {
     private GameTable gameTable = new GameTable(2,schoolBoards, new Bag());
 
     @Test
+    public void testCreateIslands(){
+        gameTable.createIslands();
+        assertEquals(12, gameTable.getIslands().size());
+        for (Island i :gameTable.getIslands()) assertNotNull(i);
+    }
+/*
+    @Test
+    public void testCreateClouds() {
+        gameTable.createClouds(2);
+        for (Cloud c : gameTable.getClouds()) assertNotNull(c);
+    }*/
+
+    @Test
     public void testGetNumberOfPlayers() {
         assertEquals(2, gameTable.getNumberOfPlayers());
     }
@@ -42,6 +55,21 @@ public class GameTableTest {
     @Test
     public void testGetMotherNaturePosition() {
         assertTrue(gameTable.getMotherNaturePosition() >= 0 && gameTable.getMotherNaturePosition() < 12);
+    }
+
+    @Test
+    public void testGetNumberOfIslands(){
+        assertEquals(12, gameTable.getNumberOfIslands());
+    }
+
+    @Test
+    public void testGetIsVictory(){
+        assertFalse(gameTable.isVictory());
+    }
+
+    @Test
+    public void testGetIsDraw(){
+        assertFalse(gameTable.isDraw());
     }
 
     @Test

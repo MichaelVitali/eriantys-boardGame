@@ -4,16 +4,15 @@ import it.polimi.ingsw.model.Game;
 
 import java.io.Serializable;
 
-public class GetStudentsFromCloudsMessage implements Serializable, PlayerMessage {
-    private int playerId;
+public class GetStudentsFromCloudsMessage extends PlayerMessage implements Serializable {
     private int cloudIndex;
 
     public GetStudentsFromCloudsMessage(int playerId, int cloudIndex) {
-        this.playerId = playerId;
+        super(playerId);
         this.cloudIndex = cloudIndex;
     }
 
     @Override
-    public void performMove(Game game) { game.getRound().getStudentsFromCloud(playerId, cloudIndex); }
+    public void performMove(Game game) { game.getRound().getStudentsFromCloud(getPlayerId(), cloudIndex); }
 
 }

@@ -57,7 +57,6 @@ public class Player {
         this.schoolBoard.addStudentOnTable(pos);
     }
 
-    // non so se serva
     public void moveStudentOnIsland(int posStudent, int posIsland) throws InvalidIndexException {
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
