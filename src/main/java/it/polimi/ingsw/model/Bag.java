@@ -20,6 +20,19 @@ public class Bag {
         }
     }
 
+    public List<Student> drawStudentsByColor(int numberOfStudents, PawnColor color) {
+        List<Student> returnStudents = new ArrayList<>();
+        for (int i = 0; i < numberOfStudents; i++) {
+            for (int j = 0; j < students.size(); j++) {
+                if (students.get(j).getColor()== color) {
+                    returnStudents.add(students.remove(j));
+                    break;
+                }
+            }
+        }
+        return returnStudents;
+    }
+
     /**
      * Draws a certain amount of students from the bag so the bag remove the students from itself and return them to the caller
      * @param numberOfStudents number of students to draw

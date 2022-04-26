@@ -24,11 +24,11 @@ public class GameTable {
     public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards, Bag bag) {
         this.numberOfPlayers = numberOfPlayers;
 
+        this.bag = bag;
         islands = createIslands();
         clouds = createClouds(numberOfPlayers);
 
         this.schoolBoards = schoolBoards;
-        this.bag = bag;
         try{
             for(SchoolBoard s : this.schoolBoards) s.addStudentsOnEntrance(this.bag.drawStudents(s.getNumberOfStudentsOnEntrance()));
         }catch (EmptyBagException e){
@@ -37,9 +37,22 @@ public class GameTable {
 
         Random random = new Random();
         motherNaturePosition = random.nextInt(12);
+        addStudentsOnIslandOnStart();
         victory = false;
         draw = false;
         winner = null;
+    }
+
+    public void addStudentsOnIslandOnStart() {
+        try {
+            Random random = new Random();
+            List<Student> studentsForIsland = new ArrayList<>();
+            for (PawnColor color : PawnColor.values()) studentsForIsland.addAll(bag.drawStudentsByColor(2, color));
+            for (int i = 0; i < 12; i++) {
+                if (i != motherNaturePosition && i != (motherNaturePosition + 6) % 12)
+                    addStudentOnIsland(studentsForIsland.get(random.nextInt(studentsForIsland.size())), i);
+            }
+        }catch (InvalidIndexException e){}
     }
     /**
      * Creates the 12 Island used in the game
@@ -57,7 +70,7 @@ public class GameTable {
      * Creates clouds used in the game. The clouds are one for each player
      * @param numberOfPlayers number of player in the game
      */
-    private Cloud[] createClouds(int numberOfPlayers) {
+    public Cloud[] createClouds(int numberOfPlayers) {
         int numberOfStudentsOnClouds = 3;
         if (numberOfPlayers == 3)
             numberOfStudentsOnClouds = 4;

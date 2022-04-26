@@ -46,4 +46,11 @@ public class BagTest {
         bag.addStudents(newStudents);
         assertEquals(130, bag.drawStudents(130).size());
     }
+
+    @Test
+    public void testDrawStudentsByColor() {
+        assertEquals(bag.drawStudentsByColor(1, PawnColor.YELLOW).get(0).getColor(), PawnColor.YELLOW);
+        assertEquals(bag.drawStudentsByColor(5, PawnColor.RED).size(), 5);
+        for (Student s : bag.drawStudentsByColor(3, PawnColor.BLUE)) assertEquals(s.getColor(), PawnColor.BLUE);
+    }
 }

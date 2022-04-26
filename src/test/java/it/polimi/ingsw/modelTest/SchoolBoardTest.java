@@ -176,7 +176,7 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testRemoveStudentFromTable() throws FullTableException {
+    public void testRemoveStudentFromTableIndexTable() throws FullTableException {
         Student s = new Student(PawnColor.YELLOW);
         schoolBoard.addStudentOnTable(s);
         assertEquals(1, schoolBoard.getNumberOfStudentsOnTable(PawnColor.YELLOW));
@@ -188,5 +188,19 @@ public class SchoolBoardTest {
             assertTrue(true);
         }
 
+    }
+
+    @Test
+    public void testRemoveStudentFromTablePawnColor() throws FullTableException {
+        Student s = new Student(PawnColor.YELLOW);
+        schoolBoard.addStudentOnTable(s);
+        assertEquals(1, schoolBoard.getNumberOfStudentsOnTable(PawnColor.YELLOW));
+        try {
+            schoolBoard.removeStudentFromTable(PawnColor.YELLOW);
+            assertEquals(0, schoolBoard.getNumberOfStudentsOnTable(PawnColor.YELLOW));
+            schoolBoard.removeStudentFromTable(PawnColor.YELLOW);
+        }catch (EmptyTableException e) {
+            assertTrue(true);
+        }
     }
 }

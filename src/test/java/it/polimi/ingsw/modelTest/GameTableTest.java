@@ -17,12 +17,22 @@ public class GameTableTest {
         assertEquals(12, gameTable.getIslands().size());
         for (Island i :gameTable.getIslands()) assertNotNull(i);
     }
-/*
+
+    @Test
+    public void testAddStudentsOnIslandOnStart() {
+        SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.BLACK, 8), new SchoolBoard(9, TowerColor.WHITE, 8)};
+        GameTable g = new GameTable(2, schoolBoards, new Bag());
+
+        for (int i = 0; i < 12; i++) {
+            if (i != g.getMotherNaturePosition() && i != (g.getMotherNaturePosition()+6)%12) assertEquals(g.getIslands().get(i).getStudents().size(), 1);
+            else assertEquals(g.getIslands().get(i).getStudents().size(), 0);
+        }
+    }
     @Test
     public void testCreateClouds() {
         gameTable.createClouds(2);
         for (Cloud c : gameTable.getClouds()) assertNotNull(c);
-    }*/
+    }
 
     @Test
     public void testGetNumberOfPlayers() {
@@ -104,9 +114,9 @@ public class GameTableTest {
     @Test
     public void testAddStudentOnIsland() throws InvalidIndexException {
         Student s = new Student(PawnColor.BLUE);
-        gameTable.addStudentOnIsland(s, 5);
+        gameTable.addStudentOnIsland(s, gameTable.getMotherNaturePosition());
         List<Island> islands = gameTable.getIslands();
-        assertEquals(islands.get(5).getStudents().get(0), s);
+        assertEquals(islands.get(gameTable.getMotherNaturePosition()).getStudents().get(0), s);
     }
 
     @Test
@@ -136,15 +146,14 @@ public class GameTableTest {
     @Test
     public void testCalculateInfluences() throws InvalidIndexException, FullTableException {
         //test se il primmo giocatore ha il professore dello studente di quel colore e gli altri no
-        gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), 0);
+        gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
-        gameTable.changeMotherNaturePosition(0);
         int[] influences = gameTable.calculateInfluences();
         assertTrue(influences[0] > influences[1]);
 
         //test che calcola l'influenza di entrambi i giocatori con un solo professore
-        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), 0);
+        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
         gameTable.moveProfessorToTheRightPosition(PawnColor.YELLOW);
         assertEquals(PawnColor.YELLOW, gameTable.getSchoolBoards()[1].getProfessors().get(0));
