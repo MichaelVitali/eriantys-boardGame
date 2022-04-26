@@ -44,31 +44,26 @@ public class ExpertGame extends Game {
     }
 
     public void createCharacters() throws EmptyBagException {
-        JSONParser parser = new JSONParser();
         List<Character> c = new ArrayList<>();
-        try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("/home/enrico/IdeaProjects/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/src/main/java/it/polimi/ingsw/model/Assistant.js"));
-            for (Object o : a) {
-                JSONObject assistant = (JSONObject) o;
 
-                int ID =  Integer.parseInt(assistant.get("ID").toString());
-                int cost = Integer.parseInt(assistant.get("cost").toString());
+        String characters = CharactersStorage.getCharacters();
+        String[] charactersParsed = characters.split(";");
+        for (String s : charactersParsed) {
+            String[] character = s.split(",");
+            int ID = Integer.parseInt(character[0]);
+            int cost = Integer.parseInt(character[1]);
 
-                if (ID == 1 || ID == 11) {
-                    CharacterWithStudent character = new CharacterWithStudent(ID,cost,4);
-                    character.addStudents(game.getGameTable().getBag().drawStudents(4));
-                    c.add(character);
-
-                } else if(ID == 7) {
-                    CharacterWithStudent character = new CharacterWithStudent(ID,cost,6);
-                    character.addStudents(game.getGameTable().getBag().drawStudents(6));
-                    c.add(character);
-                } else {
-                    c.add(new Character(ID, cost));
-                }
+            if(ID == 1 || ID == 11){
+                CharacterWithStudent characterWithStudent = new CharacterWithStudent(ID, cost, 4);
+                characterWithStudent.addStudents(game.getGameTable().getBag().drawStudents(4));
+                c.add(characterWithStudent);
+            }else if (ID == 7) {
+                CharacterWithStudent characterWithStudent = new CharacterWithStudent(ID, cost, 6);
+                characterWithStudent.addStudents(game.getGameTable().getBag().drawStudents(6));
+                c.add(characterWithStudent);
+            } else {
+                c.add(new Character(ID, cost));
             }
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
         }
 
         Random rnd = new Random();
