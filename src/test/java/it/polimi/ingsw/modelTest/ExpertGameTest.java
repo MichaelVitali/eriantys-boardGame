@@ -43,8 +43,8 @@ public class ExpertGameTest {
         assertEquals(3, testCharacters.length);
         for(Character c : testCharacters){
             assertNotNull(c);
-            /*assertNotNull(c.getCost());
-            assertNotNull(c.getID());*/
+            assertNotNull(c.getCost());
+            assertNotNull(c.getID());
             if(c.getID()==1 || c.getID()==11 || c.getID()==7){
                 assertThat(c, instanceOf(CharacterWithStudent.class));
             }

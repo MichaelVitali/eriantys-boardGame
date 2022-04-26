@@ -83,18 +83,15 @@ public class Game extends Observable<GameMessage> {
     }
 
     public List<Assistant> createAssistants(){
-        JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
-        try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader("C:\\Users\\Mike\\IdeaProjects\\project_ingsw\\src\\main\\java\\it\\polimi\\ingsw\\model\\Assistant.js"));
-            for (Object o : a) {
-                JSONObject assistant = (JSONObject) o;
-                int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
-                int motherNatureMoves = Integer.parseInt((String) assistant.get("motherNatureMoves"));
-                l.add(new Assistant(cardValue, motherNatureMoves));
-            }
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
+
+        String assistants = AssistantStorage.getAssistants();
+        String[] assistantsParsed = assistants.split(";");
+        for (String s : assistantsParsed) {
+            String[] assistant = s.split(",");
+            int cardValue = Integer.parseInt(assistant[0]);
+            int motherNatureMoves = Integer.parseInt(assistant[1]);
+            l.add(new Assistant(cardValue, motherNatureMoves));
         }
         return l;
     }
