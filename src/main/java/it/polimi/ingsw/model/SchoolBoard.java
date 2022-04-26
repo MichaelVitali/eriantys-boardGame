@@ -141,7 +141,7 @@ public class SchoolBoard {
         if(numberOfTowers >= towers.size()) throw new NoMoreTowersException(towersColor);// Vedremo se mandare le torri tramite exception
         List<Tower> removedTowers = new ArrayList<>();
         for(int i = 0; i < numberOfTowers; i++)
-            removedTowers.add(towers.remove(i));
+            removedTowers.add(towers.remove(0));
         return removedTowers;
     }
 

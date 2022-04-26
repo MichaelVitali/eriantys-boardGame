@@ -5,6 +5,8 @@ public class Character {
     private int cost;
     private boolean firstUse;
 
+    private Round oldRound;
+
     /**
      * Creates a character card with the given two values
      * @param id integer that identifies the character card
@@ -48,5 +50,4 @@ public class Character {
         firstUse = true;
         cost++;
     }
-
 }
