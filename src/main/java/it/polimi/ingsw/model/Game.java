@@ -22,7 +22,9 @@ public class Game extends Observable<GameMessage> {
     private Player[] players;
     private Round round;
 
-    public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
+    public Game(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
 
     public Game(int numberOfPlayers, List<String> nicknames) {
         this.numberOfPlayers = numberOfPlayers;
@@ -78,18 +80,18 @@ public class Game extends Observable<GameMessage> {
         return new GameTable(numberOfPlayers, schoolBoards, bag);
     }
 
-    public Bag createBag(){
+    public Bag createBag() {
         return new Bag();
     }
 
-    public List<Assistant> createAssistants(){
+    public List<Assistant> createAssistants() {
         JSONParser parser = new JSONParser();
         List<Assistant> l = new ArrayList<>();
         try {
             JSONArray a = (JSONArray) parser.parse(new FileReader("/home/enrico/IdeaProjects/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/src/main/java/it/polimi/ingsw/model/Assistant.js"));
             for (Object o : a) {
                 JSONObject assistant = (JSONObject) o;
-                int  cardValue =  Integer.parseInt((String) assistant.get("cardValue"));
+                int cardValue = Integer.parseInt((String) assistant.get("cardValue"));
                 int motherNatureMoves = Integer.parseInt((String) assistant.get("motherNatureMoves"));
                 l.add(new Assistant(cardValue, motherNatureMoves));
             }
@@ -99,7 +101,7 @@ public class Game extends Observable<GameMessage> {
         return l;
     }
 
-    public int getNumberOfPlayers(){
+    public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
@@ -109,7 +111,8 @@ public class Game extends Observable<GameMessage> {
 
     public Player getPlayer(int playerId) {
         try {
-            if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
+            if (playerId < 0 || playerId >= numberOfPlayers)
+                throw new InvalidIndexException("This player doesn't exit");
         } catch (InvalidIndexException e) {
             System.out.println(e);
         }
@@ -121,7 +124,7 @@ public class Game extends Observable<GameMessage> {
     }
 
     public boolean isAValidPositionForMotherNature(int position) {
-        if(0 <= position && position < gameTable.getIslands().size()) return true;
+        if (0 <= position && position < gameTable.getIslands().size()) return true;
         return false;
     }
 
@@ -149,10 +152,15 @@ public class Game extends Observable<GameMessage> {
         return round;
     }
 
-    public void endRound() { }
+    public void endRound() {
+    }
 
     public boolean checkEndgame() {
-        if(gameTable.isVictory() || gameTable.isDraw()) return true;
+        if (gameTable.isVictory() || gameTable.isDraw()) return true;
         return false;
+    }
+
+    public void activateEffect(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+        return;
     }
 }

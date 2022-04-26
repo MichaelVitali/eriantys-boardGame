@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Game;
 import java.io.Serializable;
 
 public abstract class PlayerMessage implements Serializable {
-
+    private static final long serialVersionUID = 0L;
     private int playerId;
 
     public PlayerMessage(int playerId) {

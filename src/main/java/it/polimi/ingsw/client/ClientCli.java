@@ -82,7 +82,7 @@ public class ClientCli {
                             ////Problema: non può essere il client a scrivere che player è
                             //PlayerMessage playerMessage = new AddStudentOnIslandMessage(0,0,0);
 
-                            //socketOut.writeObject((PlayerMessage)playerMessage);
+                            //socketOut.writeObject(playerMessage);
                         }
                         socketOut.flush();
                     }
