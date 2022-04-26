@@ -26,7 +26,7 @@ public class ExpertGameTest {
     public void testGetCharacters(){
         Character[] cs=new Character[]{new Character(6,3)};
         exp_game2p.setCharacters(cs);
-        assertEquals(cs, exp_game2p.getCharacters());
+        for (int i = 0; i < cs.length; i++) assertEquals(cs[i], exp_game2p.getCharacters()[i]);
     }
 
     @Test

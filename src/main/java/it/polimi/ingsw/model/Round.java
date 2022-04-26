@@ -41,10 +41,16 @@ public class Round {
 
     public class PianificationPhase {
 
-        private Game game; //------------------------------------------
+        private Game game;
+        private boolean[] alreadyPlayedAssistants;
+        private List<Assistant> playedAssistantsPF;
 
         public PianificationPhase(Game game) {
             this.game=game;
+            alreadyPlayedAssistants=new boolean[game.getNumberOfPlayers()];
+            for(int i=0; i<alreadyPlayedAssistants.length; i++)
+                alreadyPlayedAssistants[i]=false;
+            playedAssistantsPF=new ArrayList<>();
         }
 
         public int calculateFirstPlayer(){
@@ -60,30 +66,24 @@ public class Round {
         }
 
         public void playAssistant(int playerId, int assistantPosition) throws InvalidIndexException {
+            Assistant toPlay=game.getPlayer(playerId).getAssistant(assistantPosition);
 
-            List<Assistant> playedAssistantsCopy = new ArrayList<Assistant>();
-
-            for (int i = 0; i < playedAssistants.length; i++) {
-                try{
-                    if (game.getPlayer(playerId).getAssistant(assistantPosition).equals(playedAssistants[i].getAssistant())) {
-
-                        for (int j = 0; j < playedAssistants.length; j++) { //QUESTO FOR ITERA SOLO UNA VOLTA ???
-                            if(playedAssistants[j].getAssistant() != null)
-                                playedAssistantsCopy.add(playedAssistants[j].getAssistant());
-                            //System.out.println(j);
-                        }
-                        if (!assistantNoChoice(playedAssistantsCopy, game.getPlayer(playerId).getAssistants())) {
-                            //c'è sicuramente un'altra opzione, rifai la scelta
+            for (int i=0; i<playedAssistants.length ; i++){
+                if (alreadyPlayedAssistants[i]==true && i!=playerId){
+                    if(toPlay.equals(playedAssistants[i].getAssistant())){
+                        if(assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())==false){
                             game.getPlayer(playerId).setErrorMessage("Assistant not playable");
                             return;
                         }
-                        playedAssistantsCopy.clear();
                     }
-                }catch (NullPointerException e){};
+                }
             }
-            playedAssistants[playerId] = new PlayedAssistant(playerId, game.getPlayer(playerId).playAssistant(assistantPosition));
+            playedAssistants[playerId] = new PlayedAssistant(playerId, toPlay);
+            alreadyPlayedAssistants[playerId]=true;
+            playedAssistantsPF.add(toPlay);
         }
     }
+
 
     public class PlayedAssistant {
         private int playerIndex;
@@ -321,10 +321,16 @@ public class Round {
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         int numberOfIsland = game.getGameTable().getNumberOfIslands();
         if(islandIndex < motherNaturePosition)
-            if((numberOfIsland - motherNaturePosition + islandIndex) <= assistant.getMotherNatureMoves()) return true;
-        else
-            if((islandIndex - motherNaturePosition) <= assistant.getMotherNatureMoves()) return true;
-        return false;
+            if((numberOfIsland - motherNaturePosition + islandIndex) <= assistant.getMotherNatureMoves())
+                return true;
+            else
+                return false;
+        else {
+            if ((islandIndex - motherNaturePosition) <= assistant.getMotherNatureMoves())
+                return true;
+            else
+                return false;
+        }
     }
 
     public void changeMotherNaturePosition (int playerId, int islandIndex) {

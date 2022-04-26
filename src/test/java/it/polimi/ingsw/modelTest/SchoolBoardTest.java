@@ -100,16 +100,17 @@ public class SchoolBoardTest {
 
     @Test
     public void testRemoveTowers() {
-        try {
-            schoolBoard.removeTowers(9);
-        }catch (InvalidIndexException | NoMoreTowersException e) {
-            assertTrue(true);
-        }
+
         try {
             List<Tower> towers = schoolBoard.removeTowers(8);
             assertEquals(8, towers.size());
             schoolBoard.removeTowers(8);
         }catch (NoMoreTowersException | InvalidIndexException e){
+            assertTrue(true);
+        }
+        try {
+            schoolBoard.removeTowers(1);
+        }catch (InvalidIndexException | NoMoreTowersException e) {
             assertTrue(true);
         }
 

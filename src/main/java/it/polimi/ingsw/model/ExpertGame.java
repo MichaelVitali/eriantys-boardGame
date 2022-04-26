@@ -136,8 +136,6 @@ public class ExpertGame extends Game {
                         // bisogna capire come dire all'utente che non ci sono più studenti e non può usare l'effetto
                     }
                     break;
-                case 2:
-                    break;
                 case 3:
                     int oldPosition = gameTable.getMotherNaturePosition();
                     // exception da togliere
@@ -151,10 +149,6 @@ public class ExpertGame extends Game {
                         System.out.println("Error in effect 3");
                         e.printStackTrace();
                     }
-                    break;
-                case 4:
-                    break;
-                case 5:
                     break;
                 case 6:
                     DecoratedGameTableNoTowerInfluence decoratedGameTableNoTower = new DecoratedGameTableNoTowerInfluence(gameTable);
@@ -176,9 +170,7 @@ public class ExpertGame extends Game {
                     DecoratedGameTableMoreInfluece decoratedGameTableMoreInfluence = new DecoratedGameTableMoreInfluece(gameTable, playerIndex);
                     game.setGameTable(decoratedGameTableMoreInfluence);
                     break;
-                case 9:
-                    break;
-                case 10: ////////////// da rivedere
+                case 10:
                     if (indexTable.size() > 2 || indexTable.size() <= 0 || studentsIndexEntrance.size() > 2 || studentsIndexEntrance.size() <= 0) throw new InvalidIndexException("Error Effect 10");
                         newStudentsOnEntrance = new ArrayList<>();
                         //estrae gli studenti dai tavoli selezionati

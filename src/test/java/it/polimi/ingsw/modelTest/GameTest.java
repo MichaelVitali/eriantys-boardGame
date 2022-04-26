@@ -1,6 +1,7 @@
 package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
@@ -16,7 +17,7 @@ public class GameTest {
     private GameTable gameTable = new GameTable(2, schoolBoards,  bag);
     private Player[] players = {new Player("player0", 0,  new ArrayList<Assistant>()), new Player("player1", 1,  new ArrayList<Assistant>())};
     private String[] nicknames = {players[0].getNickname(), players[1].getNickname()};
-    private Game game2p = new Game(2, Arrays.stream(nicknames).toList());
+    private Game game2p = new Game(2, Arrays.stream(nicknames).collect(Collectors.toList()));
 
     @Test
     public void testCreateGameTable() {
