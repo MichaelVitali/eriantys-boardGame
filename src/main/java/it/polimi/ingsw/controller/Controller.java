@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.message.PlayerMessage;
 import it.polimi.ingsw.observer.Observer;
 
 public class Controller implements Observer<PlayerMessage> {
-    Game model;
+    private Game model;
 
     public Controller(Game model) {
         this.model = model;

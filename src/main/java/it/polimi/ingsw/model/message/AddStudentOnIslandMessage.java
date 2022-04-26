@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Game;
 import java.io.Serializable;
 
 public class AddStudentOnIslandMessage extends PlayerMessage implements Serializable {
+    private static final long serialVersionUID = 2L;
     private int studentIndex;
     private int islandIndex;
 

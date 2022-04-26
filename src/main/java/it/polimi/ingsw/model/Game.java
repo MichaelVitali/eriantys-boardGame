@@ -78,7 +78,7 @@ public class Game extends Observable<GameMessage> {
         return new GameTable(numberOfPlayers, schoolBoards, bag);
     }
 
-    public Bag createBag(){
+    public Bag createBag() {
         return new Bag();
     }
 
@@ -96,7 +96,7 @@ public class Game extends Observable<GameMessage> {
         return l;
     }
 
-    public int getNumberOfPlayers(){
+    public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
@@ -118,7 +118,7 @@ public class Game extends Observable<GameMessage> {
     }
 
     public boolean isAValidPositionForMotherNature(int position) {
-        if(0 <= position && position < gameTable.getIslands().size()) return true;
+        if (0 <= position && position < gameTable.getIslands().size()) return true;
         return false;
     }
 
@@ -145,11 +145,16 @@ public class Game extends Observable<GameMessage> {
         }
         return round;
     }
-/*
-    public void endRound() { }
+
+    public void endRound() {
+    }
 
     public boolean checkEndgame() {
-        if(gameTable.isVictory() || gameTable.isDraw()) return true;
+        if (gameTable.isVictory() || gameTable.isDraw()) return true;
         return false;
-    }*/
+    }
+
+    public void activateEffect(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+        return;
+    }
 }
