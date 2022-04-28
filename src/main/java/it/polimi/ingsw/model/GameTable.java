@@ -302,6 +302,10 @@ public class GameTable {
         return influence;
     }
 
+    /*public int[] calculateInfluences() {
+
+    }*/
+
     /**
      * Calculates if there are two island close to each other with the same color tower. If there are, they are merged.
      */

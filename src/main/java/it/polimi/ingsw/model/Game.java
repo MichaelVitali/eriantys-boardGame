@@ -78,6 +78,10 @@ public class Game extends Observable<GameMessage> {
         return new GameTable(numberOfPlayers, schoolBoards, bag);
     }
 
+    public void setRound(Round round) {
+        this.round = round;
+    }
+
     public Bag createBag() {
         return new Bag();
     }
@@ -154,7 +158,7 @@ public class Game extends Observable<GameMessage> {
         return false;
     }
 
-    public void activateEffect(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+    public void activateEffect(int playerIndex, int indexCard) {
         return;
     }
 }

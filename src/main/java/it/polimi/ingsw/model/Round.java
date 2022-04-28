@@ -16,6 +16,7 @@ public class Round {
     private PlayedAssistant[] playedAssistants;
     private Game game;
 
+    public Round() { }
     public Round(Game game) {
         pianificationPhase = new PianificationPhase(game);
         currentPhase = 0;
@@ -37,6 +38,10 @@ public class Round {
         this(game);
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
             this.playerOrder[i] = playerOrder[i];
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public class PianificationPhase {
@@ -349,7 +354,7 @@ public class Round {
             } catch (TooFarIslandException e) {
                 setErrorMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {
-                // Stato di errore sasrà da togliere dal codicec
+                // Stato di errore sarà da togliere dal codice
             }
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
@@ -377,10 +382,19 @@ public class Round {
         }
     }
 
-    public void activateEffect(int playerId, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+    /*public void activateEffect(int playerId, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
         try {
             checkPlayerOnTurn(playerId);
             game.activateEffect(playerId, indexCard, studentsIndex, studentsIndexEntrance, islandIndex, indexTable, color);
+        } catch (PlayerNotOnTurnException e) {
+            // The player is not the current player so the round tate doesn't change
+        }
+    }*/
+
+    public void activateEffect(int playerId, int indexCard) {
+        try {
+            checkPlayerOnTurn(playerId);
+            game.activateEffect(playerId, indexCard);
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         }

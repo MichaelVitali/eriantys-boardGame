@@ -108,7 +108,7 @@ public class ExpertGame extends Game {
         return this.characters[indexCard];
     }
 
-    public void effectActivation(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+    /*public void effectActivation(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
         GameTable gameTable = game.getGameTable();
         SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {
@@ -254,6 +254,28 @@ public class ExpertGame extends Game {
             // Il giocatore non aveva abbastanza soldi, bisogna andare in uno stato di essore o notificarglielo
         } catch (InvalidIndexException e) {
             e.printStackTrace();
+        }
+    }*/
+
+    @Override
+    public void activateEffect(int playerId, int indexCard) {
+        GameTable gameTable = game.getGameTable();
+        SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
+        try {
+            int id = getIdCharacter(indexCard);
+            int cost = getCostCharacter(indexCard);
+
+            if (playersCoins[playerId] < cost)
+                throw new NotEnoughCoins(); //se ho abbastanza coin per la carta eseguo l'effetto
+            removeCoinsFromAPlayer(playerId, cost);
+            addCoinsToTheTable(cost);
+            if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
+
+            setRound(characters[indexCard].activateEffect(getRound()));
+        } catch (InvalidIndexException e) {
+            e.printStackTrace(); // Non esiste quell'indice
+        } catch (NotEnoughCoins e) {
+            // Il giocatore non ha abbastanza soldi
         }
     }
 
