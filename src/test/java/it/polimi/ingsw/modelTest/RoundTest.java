@@ -394,11 +394,11 @@ public class RoundTest {
     }
 
     @Test
-    public void testAddStudentOnIsland() throws InvalidIndexException {
+    public void testAddStudentOnIsland() {
         int[] playerOrder={0,1};
         int playerId=0;
-        int studentIndex=1;
-        int islandIndex=1;
+        int studentIndex=0;
+        int islandIndex = game2p.getGameTable().getMotherNaturePosition()+1;
 
         game2p.getPlayer(playerId).addGameTable(game2p.getGameTable());
         game2p.getPlayer(playerId).addSchoolBoard(schoolBoards[playerId]);
@@ -408,16 +408,14 @@ public class RoundTest {
         Student played=game2p.getPlayer(playerId).getStudentsFormEntrance()[studentIndex];
 
         game2p.startRound(playerOrder);
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
         game2p.getRound().setRoundState(1);
         game2p.getRound().setMovesCounter(playerId, 0);
         game2p.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);
-        //System.out.println(game2p.getPlayer(playerId).getErrorMessage());
-        assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get(0));
+
+        assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex+1)%game2p.getGameTable().getIslands().get(islandIndex).getStudents().size()));
 
         game2p.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);
-        assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get(0));
+        assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex+1)%game2p.getGameTable().getIslands().get(islandIndex).getStudents().size()));
 
         playerId=1;
         game2p.getRound().setRoundState(2);
@@ -432,7 +430,7 @@ public class RoundTest {
     }
 
     @Test
-    public void testAddStudentOnTable() throws InvalidIndexException, FullTableException {
+    public void testAddStudentOnTable() throws InvalidIndexException {
         int[] playerOrder={0,1};
         int playerId=0;
         int studentIndex=6;

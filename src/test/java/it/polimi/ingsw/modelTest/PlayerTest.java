@@ -82,10 +82,10 @@ public class PlayerTest {
     @Test
     public void testMoveStudentOnIsland() throws InvalidIndexException {
         Student[] entrance = player.getStudentsFormEntrance();
-        player.moveStudentOnIsland(0, 1);
+        player.moveStudentOnIsland(0, gameTable.getMotherNaturePosition());
         List<Island> islands = gameTable.getIslands();
-        assertEquals(islands.get(1).getStudents().get(0), entrance[0]);
-        assertTrue(islands.get(1).getStudents().size() == 1);
+        assertEquals(islands.get(gameTable.getMotherNaturePosition()).getStudents().get(0), entrance[0]);
+        assertEquals(1, islands.get(gameTable.getMotherNaturePosition()).getStudents().size());
     }
 
     @Test
