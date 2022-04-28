@@ -20,9 +20,8 @@ public class DecoratedGameTableNoTowerInfluenceTest {
         schoolBoards[0] = new SchoolBoard(7, TowerColor.BLACK, 6);
         schoolBoards[1] = new SchoolBoard(7, TowerColor.WHITE, 6);
         GameTable gameTable = new GameTable(2, schoolBoards, new Bag());
-        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), 1);
+        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[0].setProfessor(PawnColor.YELLOW, true);
-        gameTable.changeMotherNaturePosition(1);
         gameTable.putTowerOrChangeColorIfNecessary();
         decoratedGameTableNoTowerInfluence = new DecoratedGameTableNoTowerInfluence(gameTable);
     }
@@ -34,7 +33,6 @@ public class DecoratedGameTableNoTowerInfluenceTest {
 
     @Test
     public void testCalculateInfluences() {
-        decoratedGameTableNoTowerInfluence.changeMotherNaturePosition(1);
         assertEquals(2, decoratedGameTableNoTowerInfluence.getGameTableInstance().calculateInfluences()[0]);
         int[] influences = decoratedGameTableNoTowerInfluence.calculateInfluences();
         assertEquals(1, influences[0]);

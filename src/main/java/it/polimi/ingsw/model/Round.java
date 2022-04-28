@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
+import java.nio.channels.AlreadyBoundException;
 import java.util.*;
 
 public class Round {
@@ -15,6 +16,7 @@ public class Round {
     private boolean roundFinished;
     private PlayedAssistant[] playedAssistants;
     private Game game;
+    private boolean alreadyPlayedCharacter;
 
     public Round() { }
     public Round(Game game) {
@@ -32,6 +34,7 @@ public class Round {
             movesCounter[i] = 0;
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
         this.game = game;
+        alreadyPlayedCharacter = false;
     }
 
     public Round(Game game, int[] playerOrder) {
@@ -128,7 +131,7 @@ public class Round {
     }
 
     public void setRoundState(int state){
-        if (state>=0 && state<4)
+        if (state>=0 && state<7)
             this.roundState=state;
         else roundState = -1;
     }
@@ -191,7 +194,7 @@ public class Round {
         return false;
     }
 
-    public boolean islandHasBeenChosen() {
+    public boolean cloudHasBeenChosen() {
         if (roundState == 3) return true;
         return false;
     }
@@ -258,12 +261,14 @@ public class Round {
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
             roundState = 3;
-        } else if (islandHasBeenChosen()) {
+        } else if (cloudHasBeenChosen()) {
             roundState = 1;
             indexOfPlayerOnTurn++;
+            alreadyPlayedCharacter = false;
         } else {
-            if (indexOfPlayerOnTurn + 1 < game.getNumberOfPlayers()) // non dovrebbe mai accadere il contrario visti i controlli precedenti
+            if (indexOfPlayerOnTurn + 1 < game.getNumberOfPlayers()){
                 indexOfPlayerOnTurn++;
+            }
         }
     }
 
@@ -394,10 +399,19 @@ public class Round {
     public void activateEffect(int playerId, int indexCard) {
         try {
             checkPlayerOnTurn(playerId);
+            if (roundState == 0) throw new InvalidMethodException();
+            if (alreadyPlayedCharacter) throw new AlreadyPlayedCharcaterException();
             game.activateEffect(playerId, indexCard);
+            alreadyPlayedCharacter = true;
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
+        } catch (AlreadyPlayedCharcaterException e) {
+            setErrorMessage(playerId, "You already played a character");
+        } catch (InvalidMethodException e) {
+            setErrorMessage(playerId, "You can't play a character during the pianification phase");
         }
     }
+
+    public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
 }
 

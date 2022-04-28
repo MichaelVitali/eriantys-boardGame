@@ -20,7 +20,7 @@ public class DecoratedGameTableMoreInflueceTest {
         schoolBoards[0] = new SchoolBoard(7, TowerColor.BLACK, 6);
         schoolBoards[1] = new SchoolBoard(7, TowerColor.WHITE, 6);
         GameTable gameTable = new GameTable(2, schoolBoards, new Bag());
-        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), 1);
+        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[0].setProfessor(PawnColor.YELLOW, true);
         decoratedGameTableMoreInfluece = new DecoratedGameTableMoreInfluece(gameTable, 0);
     }
@@ -32,7 +32,6 @@ public class DecoratedGameTableMoreInflueceTest {
 
     @Test
     public void testCalculateInfluences() {
-        decoratedGameTableMoreInfluece.changeMotherNaturePosition(1);
         int[] result;
         result = decoratedGameTableMoreInfluece.calculateInfluences();
         assertEquals(result[0], 3);

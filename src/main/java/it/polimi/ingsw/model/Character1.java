@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.NoMoreStudentsException;
 
@@ -29,22 +30,36 @@ public class Character1 extends CharacterWithStudent {
     }*/
 
     @Override
-    public void doYourJob(int playerId, int parameter) throws InvalidIndexException { ////// controlliamo eccezione
+    public void doYourJob(int playerId, int parameter) {
+        //problema a tornare nello stato vecchio
         if (getRoundState() == 5) {
-            getGame().getPlayer(playerId).setErrorMessage("Select island");
+            getRound().getGame().getPlayer(playerId).setErrorMessage("Select island");
             studentIndex = parameter;
             setRoundState(6);
         } else if (getRoundState() == 6) {
             islandIndex = parameter;
-            List<Student> studentsOnCard = new ArrayList<>(getStudents(new ArrayList<Integer>(studentIndex)));
             try {
+                List<Integer> indexStudentsOnCard = new ArrayList<>();
+                indexStudentsOnCard.add(studentIndex);
+                List<Student> studentsOnCard = new ArrayList<>(getStudents(indexStudentsOnCard));
                 if (studentsOnCard.size() <= 0) throw new NoMoreStudentsException();
-                Student newStudent = studentsOnCard.remove(0);
-                getGame().getGameTable().addStudentOnIsland(newStudent, islandIndex);
+                getRound().getGame().getGameTable().addStudentOnIsland(studentsOnCard.remove(0), islandIndex);
+                addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
                 deactivateEffect();
             } catch (NoMoreStudentsException e) {
-                // bisogna capire come dire all'utente che non ci sono più studenti e non può usare l'effetto
+                getRound().getGame().getPlayer(playerId).setErrorMessage("You can't play this card because there are no students");
+            } catch (InvalidIndexException e) {
+                getRound().getGame().getPlayer(playerId).setErrorMessage(e.getMessage());
+            } catch (EmptyBagException e) {
+                //Non aggiunge nessuno studente sulla carta
             }
         }
+    }
+
+    public Round activateEffect (int playerID, Round round) {
+        round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
+        //bisogna tenere lo stato precedente?
+        setRoundState(5);
+        return super.activateEffect(playerID, round);
     }
 }

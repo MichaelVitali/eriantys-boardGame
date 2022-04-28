@@ -19,7 +19,7 @@ public class Character extends Round {
         this.ID = id;
         this.cost = cost;
         firstUse = false;
-
+        round = null;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Character extends Round {
         cost++;
     }
 
-    public Round activateEffect(Round oldRound) {
+    public Round activateEffect(int playerID, Round oldRound) {
         round = oldRound;
         return this;
     }
@@ -66,7 +66,11 @@ public class Character extends Round {
         round.getGame().setRound(round);
     }
 
-    public void doYourJob(int playerId, int parameter) throws InvalidIndexException {
+    public void doYourJob(int playerId, int parameter) {
 
+    }
+
+    public Round getRound() {
+        return round;
     }
 }

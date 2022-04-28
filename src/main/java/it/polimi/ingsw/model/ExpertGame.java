@@ -1,14 +1,6 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -270,8 +262,7 @@ public class ExpertGame extends Game {
             removeCoinsFromAPlayer(playerId, cost);
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
-
-            setRound(characters[indexCard].activateEffect(getRound()));
+            setRound(characters[indexCard].activateEffect(playerId, getRound()));
         } catch (InvalidIndexException e) {
             e.printStackTrace(); // Non esiste quell'indice
         } catch (NotEnoughCoins e) {

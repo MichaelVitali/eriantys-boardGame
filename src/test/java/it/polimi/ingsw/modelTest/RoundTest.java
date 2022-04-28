@@ -126,7 +126,7 @@ public class RoundTest {
         game2p.startRound();
         game2p.getRound().setRoundState(1);
         assertEquals(1, game2p.getRound().getRoundState());
-        game2p.getRound().setRoundState(4);
+        game2p.getRound().setRoundState(7);
         assertEquals(-1, game2p.getRound().getRoundState());
     }
 
@@ -255,10 +255,10 @@ public class RoundTest {
     @Test
     public void testIslandHasBeenChosen() {
         game2p.startRound();
-        assertFalse(game2p.getRound().islandHasBeenChosen());
+        assertFalse(game2p.getRound().cloudHasBeenChosen());
 
         game2p.getRound().setRoundState(3);
-        assertTrue(game2p.getRound().islandHasBeenChosen());
+        assertTrue(game2p.getRound().cloudHasBeenChosen());
     }
 
     @Test
@@ -563,6 +563,12 @@ public class RoundTest {
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
         assertEquals("The chosen cloud doesn't exist", game2p.getPlayer(playerId).getErrorMessage());
 
+    }
+
+    @Test
+    public void testDoYourJob() throws InvalidIndexException {
+        game2p.startRound();
+        game2p.getRound().doYourJob(0, 0);
     }
 
 }
