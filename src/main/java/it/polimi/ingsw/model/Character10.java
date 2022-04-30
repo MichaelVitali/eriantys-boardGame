@@ -34,10 +34,9 @@ public class Character10 extends Character{
 
         Student tmpStudentEntrance = null;
         Student tmpStudentTable = null;
-
-        while (canSwitch < 2 && wantToGoOn == 1) {
+        if (canSwitch < 2 && wantToGoOn == 1) {
             if (getRoundState() == 5) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student from Entrance");
+                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student from Table");
                 try {
                     if (parameter < 0 || parameter >= getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnEntrance())
                         throw new InvalidIndexException("Error effect 10: invalid index on entrance");
@@ -51,21 +50,27 @@ public class Character10 extends Character{
                 try {
                     if (parameter < 0 || parameter > 4)
                         throw new InvalidIndexException("Error effect 10: invalid table choice");
-                    if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(pawnColor) == 0)
-                        throw new EmptyTableException();
 
                     switch (parameter){
                         case 0:
                             pawnColor = PawnColor.YELLOW;
+                            break;
                         case 1:
                             pawnColor = PawnColor.BLUE;
+                            break;
                         case 2:
                             pawnColor = PawnColor.GREEN;
+                            break;
                         case 3:
                             pawnColor = PawnColor.RED;
+                            break;
                         case 4:
                             pawnColor = PawnColor.PINK;
+                            break;
                     }
+
+                    if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(pawnColor) == 0)
+                        throw new EmptyTableException();
 
                     tmpStudentEntrance=getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(entranceIndex);
                     tmpStudentTable=getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromTable(pawnColor);
@@ -92,10 +97,20 @@ public class Character10 extends Character{
                 }catch (OutOfBoundException e){}
             }
         }
+        deactivateEffect();
     }
 
+    @Override
     public Round activateEffect (int playerID, Round round) {
+        round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
         setRoundState(5);
         return super.activateEffect(playerID, round);
+    }
+
+    @Override
+    public void setRoundState(int state){
+        if (state>=0 && state<8)
+            this.roundState=state;
+        else roundState = -1;
     }
 }
