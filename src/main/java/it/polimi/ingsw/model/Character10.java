@@ -88,8 +88,14 @@ public class Character10 extends Character{
                 try {
                     if (parameter < 0 || parameter > 1) throw new OutOfBoundException("The parameter must be 0 or 1");
                     wantToGoOn = parameter;
+                    canSwitch++;
                 }catch (OutOfBoundException e){}
             }
         }
+    }
+
+    public Round activateEffect (int playerID, Round round) {
+        setRoundState(5);
+        return super.activateEffect(playerID, round);
     }
 }
