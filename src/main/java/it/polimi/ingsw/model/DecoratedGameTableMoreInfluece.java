@@ -20,14 +20,14 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
     public int getMotherNaturePosition() {
         return this.gameTable.getMotherNaturePosition();
     }
-
+/*
     @Override
     public int[] calculateInfluences() {
         int[] influences = this.gameTable.calculateInfluences();
         influences[playerIndex] += 2;
         return influences;
     }
-
+*/
     @Override
     public void addStudentsOnClouds() throws EmptyBagException {
         this.gameTable.addStudentsOnClouds();
@@ -55,12 +55,12 @@ public class DecoratedGameTableMoreInfluece extends GameTable {
             System.out.println("Error in effect 8");
         }
     }
-
+/*
     @Override
     public void putTowerOrChangeColorIfNecessary(){
         this.gameTable.putTowerOrChangeColorIfNecessary();
     }
-
+*/
     @Override
     public void mergeIslandsIfNecessary(){
         this.gameTable.mergeIslandsIfNecessary();

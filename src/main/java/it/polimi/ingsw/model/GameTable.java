@@ -54,6 +54,7 @@ public class GameTable {
             }
         }catch (InvalidIndexException e){}
     }
+
     /**
      * Creates the 12 Island used in the game
      */
@@ -217,9 +218,8 @@ public class GameTable {
      * Calculates if, after the movement of mother nature, the player with the highest influence is the same. If not the towers on the island are changed
      * with the towers of the player with the highest influence. The old towers on the island are added to his player on his schoolboard.
      */
-    public void putTowerOrChangeColorIfNecessary() {
+    public void putTowerOrChangeColorIfNecessary(int[] influences) { // pay attention : influence.length isn't numberOfPlayers
         Tower towerOnTheIsland;
-        int[] influences = calculateInfluences(); // pay attention : influence.length isn't numberOfPlayers
         if (islands.get(motherNaturePosition).getTowers().size() == 0) towerOnTheIsland = null;
         else towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
         int maxInfluence = -1, indexMaxInfluence = -1;
@@ -287,37 +287,44 @@ public class GameTable {
     }
 
     /**
-     * Calculate all the influences related to the players on the island where mother nature is moved.
+     * Calculate all the influences related to the players on the island where mother nature is moved based on just the students which each player controls.
      * @return an array with all the players influence
      */
-    public int[] calculateInfluences() {
-        int numberOfIteration = (numberOfPlayers == 4) ? 2 : numberOfPlayers;
-        int[] influence = new int[numberOfIteration];
+    public int[] calculateInfluenceValuesGivenByStudents() {
+        int numberOfInfluenceValues = (numberOfPlayers == 4) ? 2 : numberOfPlayers;
+        int[] influenceValues = new int[numberOfInfluenceValues];
         List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
-        List<Tower> towersOnTheIslands = islands.get(motherNaturePosition).getTowers();
-        Arrays.fill(influence, 0);
-
-        for(int i = 0; i < numberOfIteration; i++) {
-            influence[i] = 0;
+        Arrays.fill(influenceValues, 0);
+        for(int i = 0; i < numberOfInfluenceValues; i++) {
             List<PawnColor> professors = schoolBoards[i].getProfessors();
             if (numberOfPlayers == 4) professors.addAll(schoolBoards[i + 2].getProfessors());
             for (PawnColor professor : professors) {
                 for (Student student : studentsOnTheIslands) {
-                    if (professor == student.getColor()) influence[i]++;
+                    if (professor == student.getColor()) influenceValues[i]++;
                 }
             }
+        }
+        return influenceValues;
+    }
+
+    /**
+     * Calculate all the influences related to the players on the island where mother nature is moved based on just the towers placed on the island.
+     * @return an array with all the players influence
+     */
+    public int[] calculateInfluenceValuesGivenByTowers() {
+        int numberOfInfluenceValues = (numberOfPlayers == 4) ? 2 : numberOfPlayers;
+        int[] influenceValues = new int[numberOfInfluenceValues];
+        List<Tower> towersOnTheIslands = islands.get(motherNaturePosition).getTowers();
+        Arrays.fill(influenceValues, 0);
+        for(int i = 0; i < numberOfInfluenceValues; i++) {
             if (towersOnTheIslands.size() > 0) {
                 if (schoolBoards[i].getTowers().size() <= 0) { } //exception
                 else if (schoolBoards[i].getTowers().get(0).getColor() == towersOnTheIslands.get(0).getColor())
-                    influence[i] += islands.get(motherNaturePosition).getAggregation();
+                    influenceValues[i] += islands.get(motherNaturePosition).getAggregation();
             }
         }
-        return influence;
+        return influenceValues;
     }
-
-    /*public int[] calculateInfluences() {
-
-    }*/
 
     /**
      * Calculates if there are two island close to each other with the same color tower. If there are, they are merged.

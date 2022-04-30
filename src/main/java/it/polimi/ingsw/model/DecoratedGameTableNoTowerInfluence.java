@@ -20,7 +20,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     public int getMotherNaturePosition(){
         return this.gameTable.getMotherNaturePosition();
     }
-
+    /*
     @Override
     public int[] calculateInfluences() {
         int numberOfIteration = gameTable.getNumberOfPlayers() == 4 ? 2 : gameTable.getNumberOfPlayers();
@@ -40,7 +40,7 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
         }
         return influence;
     }
-
+    */
     @Override
     public void addStudentsOnClouds() throws EmptyBagException {
         this.gameTable.addStudentsOnClouds();
@@ -66,8 +66,8 @@ public class DecoratedGameTableNoTowerInfluence extends GameTable {
     }
 
     @Override
-    public void putTowerOrChangeColorIfNecessary(){
-        this.gameTable.putTowerOrChangeColorIfNecessary();
+    public void putTowerOrChangeColorIfNecessary(int[] influenceValues) {
+        this.gameTable.putTowerOrChangeColorIfNecessary(influenceValues);
     }
 
     @Override

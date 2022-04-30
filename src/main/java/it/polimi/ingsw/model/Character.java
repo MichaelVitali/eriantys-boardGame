@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Character extends Round {
     private final int ID;
@@ -57,20 +60,133 @@ public class Character extends Round {
         cost++;
     }
 
+    public void deactivateEffect() {
+        round.getGame().setRound(round);
+    }
+
     public Round activateEffect(int playerID, Round oldRound) {
         round = oldRound;
         return this;
     }
 
-    public void deactivateEffect() {
-        round.getGame().setRound(round);
-    }
-
-    public void doYourJob(int playerId, int parameter) {
-
-    }
-
+    @Override
     public Round getRound() {
         return round;
     }
+
+    @Override
+    public Game getGame() {
+        return round.getGame();
+    }
+
+    @Override
+    public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
+
+    @Override
+    public Round.PianificationPhase getPianificationPhase() { return round.getPianificationPhase(); }
+
+    @Override
+    public Round.PlayedAssistant[] getPlayedAssistants(){
+        return round.getPlayedAssistants();
+    }
+
+    @Override
+    public int[] getPlayerOrder() { return round.getPlayerOrder(); }
+
+    @Override
+    public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException { round.checkPlayerOnTurn(playerId); }
+
+    @Override
+    public void setRoundState(int state) { round.setRoundState(state); }
+
+    @Override
+    public int getRoundState(){
+        return round.getRoundState();
+    }
+
+    @Override
+    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { checkStatusAndMethod(methodId); }
+
+    @Override
+    public void setMovesCounter(int playerId, int moves){
+        round.setMovesCounter(playerId, moves);
+    }
+
+    @Override
+    public int[] getMovesCounter(){
+        return round.getMovesCounter();
+    }
+
+    @Override
+    public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
+
+    @Override
+    public void setErrorMessage(int playerId, String errorMessage) { round.setErrorMessage(playerId, errorMessage); }
+
+    @Override
+    public void setIndexOfPlayerOnTurn(int index)  { round.setIndexOfPlayerOnTurn(index); }
+
+    @Override
+    public int getIndexOfPlayerOnTurn(){
+        return round.getIndexOfPlayerOnTurn();
+    }
+
+    @Override
+    public boolean isPianificationPhaseEnded() { return round.isPianificationPhaseEnded(); }
+
+    @Override
+    public boolean isActionPhaseEnded() { return round.isActionPhaseEnded(); }
+
+    @Override
+    public boolean isTimeToMoveMotherNature() { return round.isTimeToMoveMotherNature(); }
+
+    @Override
+    public boolean isTimeToChooseACloud() { return round.isTimeToChooseACloud(); }
+
+    @Override
+    public boolean cloudHasBeenChosen() { return round.cloudHasBeenChosen(); }
+
+    @Override
+    public void setPianificationPhaseOrder() { round.setPianificationPhaseOrder(); }
+
+    @Override
+    public void setActionPhaseOrder() { round.setActionPhaseOrder(); }
+
+    @Override
+    public void switchToPianificationPhase() { round.switchToPianificationPhase();}
+
+    @Override
+    public int getCurrentPhase() { return round.getCurrentPhase(); }
+
+    @Override
+    public void setCurrentPhase(int currentPhase) { round.setCurrentPhase(currentPhase);}
+
+    @Override
+    public void switchToActionPhase() { round.switchToActionPhase(); }
+
+    @Override
+    public void calculateNextPlayer() { round.calculateNextPlayer(); }
+
+    @Override
+    public void playAssistant(int playerId, int assistantPosition) { round.playAssistant(playerId, assistantPosition); }
+
+    @Override
+    public void addStudentOnIsland(int playerId, int studentIndex, int islandIndex) { round.addStudentOnIsland(playerId, studentIndex, islandIndex); }
+
+    @Override
+    public void addStudentOnTable(int playerId, int studentIndex) { round. addStudentOnTable(playerId, studentIndex); }
+
+    @Override
+    public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) { return round.isANewAllowedPositionForMotherNature(assistant, islandIndex); }
+
+    @Override
+    /**
+     * Changes mother nature position, calculate the influences of the players on the island and puts or changes the tower on the island
+     * @param playerId player ID of the player which want to make the move
+     * @param islandIndex index of the island on which the player wants to move mothter nature
+     */
+    public void changeMotherNaturePosition (int playerId, int islandIndex) { round.changeMotherNaturePosition(playerId, islandIndex); }
+
+    @Override
+    public void getStudentsFromCloud(int playerId, int cloudIndex) { round.getStudentsFromCloud(playerId, cloudIndex); }
 }
