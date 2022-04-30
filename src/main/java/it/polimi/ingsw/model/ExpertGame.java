@@ -252,11 +252,10 @@ public class ExpertGame extends Game {
         GameTable gameTable = game.getGameTable();
         SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {
-            int id = getIdCharacter(indexCard);
+            //int id = getIdCharacter(indexCard);
             int cost = getCostCharacter(indexCard);
 
-            if (playersCoins[playerId] < cost)
-                throw new NotEnoughCoins(); //se ho abbastanza coin per la carta eseguo l'effetto
+            if (playersCoins[playerId] < cost) throw new NotEnoughCoins(); //se ho abbastanza coin per la carta eseguo l'effetto
             removeCoinsFromAPlayer(playerId, cost);
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();

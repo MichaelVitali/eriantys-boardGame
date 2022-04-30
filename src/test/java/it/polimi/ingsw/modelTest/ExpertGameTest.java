@@ -158,15 +158,15 @@ public class ExpertGameTest {
     @Test
     public void testGetPlayersCoins() {
         for(int i=0; i< exp_game2p.getPlayersCoins().length; i++)
-            assertEquals(0, exp_game2p.getPlayersCoins()[i]);
+            assertEquals(1, exp_game2p.getPlayersCoins()[i]);
     }
 
     @Test
     public void testAddCoinToAPlayer() throws NotEnoughCoins {
         int playerIndex=0;
-        assertEquals(0, exp_game2p.getPlayersCoins()[playerIndex]);
-        exp_game2p.addCoinToAPlayer(playerIndex);
         assertEquals(1, exp_game2p.getPlayersCoins()[playerIndex]);
+        exp_game2p.addCoinToAPlayer(playerIndex);
+        assertEquals(2, exp_game2p.getPlayersCoins()[playerIndex]);
     }
 
     @Test
