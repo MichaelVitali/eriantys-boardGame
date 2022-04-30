@@ -378,7 +378,7 @@ public class Round {
             } catch (TooFarIslandException e) {
                 setErrorMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {
-                // Stato di errore sarà da togliere dal codice
+                setErrorMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
             }
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
