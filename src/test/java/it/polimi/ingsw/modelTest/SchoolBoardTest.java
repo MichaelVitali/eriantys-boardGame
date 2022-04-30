@@ -126,8 +126,9 @@ public class SchoolBoardTest {
     @Test
     public void testRemoveStudentFromEntrance() {
         try {
+            Student[] entrance = schoolBoard.getStudentsFromEntrance();
             for (int i = 0; i < 9; i++) {
-                schoolBoard.removeStudentFromEntrance(i);
+                assertEquals(schoolBoard.removeStudentFromEntrance(i).getColor(), entrance[i].getColor());
             }
             for (int i = 0; i < 9; i++) {
                 assertNull(schoolBoard.getStudentsFromEntrance()[i]);

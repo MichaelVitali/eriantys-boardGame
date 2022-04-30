@@ -9,56 +9,63 @@ public class Character7 extends CharacterWithStudent{
 
     private List<Integer> studentsIndexOnCard;
     private List<Integer> studentsIndexOnEntrance;
+    private int countCard;
+    private int countEntrance;
 
     public Character7(int id, int cost, int numberOfStudent) {
         super(id, cost, numberOfStudent);
         studentsIndexOnCard = new ArrayList<>();
+        studentsIndexOnEntrance = new ArrayList<>();
     }
 
     @Override
     public void doYourJob(int playerId, int parameter) {
-        if (parameter == -1) setRoundState(7);
-        if (parameter == -2 || getRoundState() == 11) applyEffect(playerId);
-        switch (getRoundState()) {
-            case 5:
-            case 6:
-            case 7:
+        if (getRoundState() == 5) {
+                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student on card");
+                countCard = parameter;
+                countEntrance = parameter;
+                setRoundState(6);
+        } else if (getRoundState() == 6) {
+            if (countCard > 0) {
                 studentsIndexOnCard.add(parameter);
-                setRoundState(getRoundState()+1);
-                break;
-            case 8:
-            case 9:
-            case 10:
+                countCard -= 1;
+            }
+            if(countCard == 0) {
+                setRoundState(7);
+                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student on entrance");
+            }
+        } else if (getRoundState() == 7) {
+            if (countEntrance > 0) {
                 studentsIndexOnEntrance.add(parameter);
-                setRoundState(getRoundState()+1);
-                break;
-        }
-    }
-
-    public void applyEffect(int playerIndex) {
-        try {
-            if (studentsIndexOnEntrance.size() != studentsIndexOnCard.size()) throw new InvalidIndexException("Error on index");
-            List<Student> newStudentsOnEntrance = new ArrayList<>(getStudents(studentsIndexOnCard));
-            List<Student> newStudentsOnCard = new ArrayList<>();
-            for (Integer i : studentsIndexOnEntrance)
-                newStudentsOnCard.add(getRound().getGame().getGameTable().getSchoolBoards()[playerIndex].removeStudentFromEntrance(i));
-            addStudents(newStudentsOnCard);
-            getRound().getGame().getGameTable().getSchoolBoards()[playerIndex].addStudentsOnEntrance(newStudentsOnEntrance);
-        } catch (InvalidIndexException e) {
-            setErrorMessage(playerIndex, e.getMessage());
+                countEntrance -= 1;
+            }
+            if(countEntrance == 0){
+                try {
+                    if (studentsIndexOnEntrance.size() != studentsIndexOnCard.size())
+                        throw new InvalidIndexException("Error on index character 7");
+                    List<Student> newStudentsOnEntrance = new ArrayList<>(getStudents(studentsIndexOnCard));
+                    List<Student> newStudentsOnCard = new ArrayList<>();
+                    for (Integer i : studentsIndexOnEntrance)
+                        newStudentsOnCard.add(getRound().getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(i));
+                    addStudents(newStudentsOnCard);
+                    getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
+                } catch (InvalidIndexException e) {
+                    setErrorMessage(playerId, e.getMessage());
+                }
+            }
         }
     }
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select Student on card");
+        round.getGame().getPlayer(playerID).setErrorMessage("How many Students do you want to change");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }
 
     @Override
     public void setRoundState(int state){
-        if (state>=0 && state<7)
+        if (state>=0 && state<8)
             this.roundState=state;
         else roundState = -1;
     }

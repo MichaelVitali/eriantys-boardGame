@@ -276,7 +276,8 @@ public class ExpertGame extends Game {
         return playersCoins;
     }
 
-    public void addCoinToAPlayer(int playerIndex) {
+    public void addCoinToAPlayer(int playerIndex) throws NotEnoughCoins {
+        if (getCoinsOfTheTable() <= 0) throw new NotEnoughCoins();
         playersCoins[playerIndex]++;
     }
 

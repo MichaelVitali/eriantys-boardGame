@@ -30,12 +30,17 @@ public class CharacterWithStudent extends Character {
         }
     }
 
+    public Student[] getStudentsOnCard(){
+        Student[] returnEntrance = new Student[students.length];
+        System.arraycopy(students, 0, returnEntrance, 0, students.length);
+        return returnEntrance;
+    }
+
     /**
      * Returns the list of students on the card at the indexes passed as parameter. The return is an empty List if there list of indexes is empty
      * @param indexesOfTheStudents list of indexes at which the required students are
      * @return list of students at the required indexes
      */
-
     public List<Student> getStudents(List<Integer> indexesOfTheStudents) throws InvalidIndexException{
         List<Student> returnedStudents = new ArrayList<>();
 
@@ -43,8 +48,8 @@ public class CharacterWithStudent extends Character {
             for (Integer i : indexesOfTheStudents) {
                 if (students[i] == null) throw new InvalidIndexException("No student on card in this position");
                 else{
-                    returnedStudents.add(this.students[i]);
-                    this.students[i] = null;
+                    returnedStudents.add(students[i]);
+                    students[i] = null;
                 }
             }
         }

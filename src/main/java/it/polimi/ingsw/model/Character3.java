@@ -21,7 +21,12 @@ public class Character3 extends Character{
             try {
                 if (getRound().getGame().isAValidPositionForMotherNature(islandIndex)) {
                     getRound().getGame().getGameTable().changeMotherNaturePosition(islandIndex);
-                    getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary();
+                    int[] influences = getRound().getGame().getGameTable().calculateInfluenceValuesGivenByStudents();
+                    int[] influencesFromTowers = getRound().getGame().getGameTable().calculateInfluenceValuesGivenByTowers();
+                    for (int i = 0; i < influences.length; i++) {
+                        influences[i] += influencesFromTowers[i];
+                    }
+                    getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary(influences);
                 }
                 getRound().getGame().getGameTable().changeMotherNaturePosition(oldPosition);
                 deactivateEffect();

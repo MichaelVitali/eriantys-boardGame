@@ -162,7 +162,7 @@ public class ExpertGameTest {
     }
 
     @Test
-    public void testAddCoinToAPlayer(){
+    public void testAddCoinToAPlayer() throws NotEnoughCoins {
         int playerIndex=0;
         assertEquals(0, exp_game2p.getPlayersCoins()[playerIndex]);
         exp_game2p.addCoinToAPlayer(playerIndex);

@@ -101,7 +101,7 @@ public class Character extends Round {
 
     @Override
     public int getRoundState(){
-        return round.getRoundState();
+        return roundState;
     }
 
     @Override
