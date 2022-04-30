@@ -19,6 +19,7 @@ public class Round {
     private boolean alreadyPlayedCharacter;
 
     public Round() { }
+
     public Round(Game game) {
         pianificationPhase = new PianificationPhase(game);
         currentPhase = 0;
@@ -43,6 +44,16 @@ public class Round {
             this.playerOrder[i] = playerOrder[i];
     }
 
+    /**
+     * Returns the instance of itself
+     * @return itself
+     */
+    public Round getRound() { return this; }
+
+    /**
+     * Returns the game of which the round is part
+     * @return the game of which the round is part
+     */
     public Game getGame() {
         return game;
     }
@@ -91,7 +102,6 @@ public class Round {
             playedAssistantsPF.add(toPlay);
         }
     }
-
 
     public class PlayedAssistant {
         private int playerIndex;
@@ -343,6 +353,11 @@ public class Round {
         }
     }
 
+    /**
+     * Changes mother nature position, calculate the influences of the players on the island and puts or changes the tower on the island
+     * @param playerId player ID of the player which want to make the move
+     * @param islandIndex index of the island on which the player wants to move mothter nature
+     */
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
             checkPlayerOnTurn(playerId);
@@ -355,11 +370,15 @@ public class Round {
                 }
                 if(!isANewAllowedPositionForMotherNature(playedAssistants[i].getAssistant(), islandIndex)) throw new TooFarIslandException();
                 game.getGameTable().changeMotherNaturePosition(islandIndex);
+                int[] influenceValues = game.getGameTable().calculateInfluenceValuesGivenByStudents();
+                for(i = 0; i < influenceValues.length; i++)
+                    influenceValues[i] += game.getGameTable().calculateInfluenceValuesGivenByTowers()[i];
+                game.getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setErrorMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {
-                // Stato di errore sarà da togliere dal codice
+                setErrorMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
             }
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
@@ -386,15 +405,6 @@ public class Round {
             setErrorMessage(playerId, "The chosen cloud is empty. Chose another one!");
         }
     }
-
-    /*public void activateEffect(int playerId, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
-        try {
-            checkPlayerOnTurn(playerId);
-            game.activateEffect(playerId, indexCard, studentsIndex, studentsIndexEntrance, islandIndex, indexTable, color);
-        } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
-        }
-    }*/
 
     public void activateEffect(int playerId, int indexCard) {
         try {

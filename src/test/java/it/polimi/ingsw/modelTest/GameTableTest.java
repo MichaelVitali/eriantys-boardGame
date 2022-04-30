@@ -138,7 +138,12 @@ public class GameTableTest {
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
         gameTable.changeMotherNaturePosition(0);
-        gameTable.putTowerOrChangeColorIfNecessary();
+        int[] influences = gameTable.calculateInfluenceValuesGivenByStudents();
+        int[] influencesFromTowers = gameTable.calculateInfluenceValuesGivenByTowers();
+        for (int i = 0; i < influences.length; i++) {
+            influences[i] += influencesFromTowers[i];
+        }
+        gameTable.putTowerOrChangeColorIfNecessary(influences);
         assertEquals(TowerColor.BLACK, gameTable.getIslands().get(0).getTowers().get(0).getColor());
 
     }
@@ -149,7 +154,11 @@ public class GameTableTest {
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
-        int[] influences = gameTable.calculateInfluences();
+        int[] influences = gameTable.calculateInfluenceValuesGivenByStudents();
+        int[] influencesFromTowers = gameTable.calculateInfluenceValuesGivenByTowers();
+        for (int i = 0; i < influences.length; i++) {
+            influences[i] += influencesFromTowers[i];
+        }
         assertTrue(influences[0] > influences[1]);
 
         //test che calcola l'influenza di entrambi i giocatori con un solo professore
@@ -157,7 +166,11 @@ public class GameTableTest {
         gameTable.getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
         gameTable.moveProfessorToTheRightPosition(PawnColor.YELLOW);
         assertEquals(PawnColor.YELLOW, gameTable.getSchoolBoards()[1].getProfessors().get(0));
-        int[] influences2 = gameTable.calculateInfluences();
+        int[] influences2 = gameTable.calculateInfluenceValuesGivenByStudents();
+        int[] influencesFromTowers2 = gameTable.calculateInfluenceValuesGivenByTowers();
+        for (int i = 0; i < influences2.length; i++) {
+            influences2[i] += influencesFromTowers2[i];
+        }
         assertEquals(influences2[0], influences2[1]);
     }
 
