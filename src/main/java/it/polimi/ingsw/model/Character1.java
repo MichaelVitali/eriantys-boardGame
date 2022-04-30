@@ -21,7 +21,6 @@ public class Character1 extends CharacterWithStudent {
      */
     public Character1(int id, int cost, int numberOfStudent) {
         super(id, cost, numberOfStudent);
-        setRoundState(5);
     }
 
     /*@Override
@@ -56,10 +55,18 @@ public class Character1 extends CharacterWithStudent {
         }
     }
 
+    @Override
     public Round activateEffect (int playerID, Round round) {
         round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
-        //bisogna tenere lo stato precedente?
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }
+
+    @Override
+    public void setRoundState(int state){
+        if (state>=0 && state<7)
+            this.roundState=state;
+        else roundState = -1;
+    }
+
 }

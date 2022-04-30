@@ -10,15 +10,13 @@ public class ExpertGame extends Game {
     private Character[] characters;
     private int coinsOfTheTable;
     private int[] playersCoins;
-    //// private boolean[] newCoinOrNot;
 
     public ExpertGame(int numberOfPlayers, List<String> nicknames) {
         super(numberOfPlayers, nicknames);
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for(int coins : playersCoins)
-            coins = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
         try {
             characters = new Character[3];
             createCharacters();
@@ -254,11 +252,10 @@ public class ExpertGame extends Game {
         GameTable gameTable = game.getGameTable();
         SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {
-            int id = getIdCharacter(indexCard);
+            //int id = getIdCharacter(indexCard);
             int cost = getCostCharacter(indexCard);
 
-            if (playersCoins[playerId] < cost)
-                throw new NotEnoughCoins(); //se ho abbastanza coin per la carta eseguo l'effetto
+            if (playersCoins[playerId] < cost) throw new NotEnoughCoins(); //se ho abbastanza coin per la carta eseguo l'effetto
             removeCoinsFromAPlayer(playerId, cost);
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
@@ -278,7 +275,8 @@ public class ExpertGame extends Game {
         return playersCoins;
     }
 
-    public void addCoinToAPlayer(int playerIndex) {
+    public void addCoinToAPlayer(int playerIndex) throws NotEnoughCoins {
+        if (getCoinsOfTheTable() <= 0) throw new NotEnoughCoins();
         playersCoins[playerIndex]++;
     }
 

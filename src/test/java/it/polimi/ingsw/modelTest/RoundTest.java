@@ -126,7 +126,7 @@ public class RoundTest {
         game2p.startRound();
         game2p.getRound().setRoundState(1);
         assertEquals(1, game2p.getRound().getRoundState());
-        game2p.getRound().setRoundState(7);
+        game2p.getRound().setRoundState(4);
         assertEquals(-1, game2p.getRound().getRoundState());
     }
 

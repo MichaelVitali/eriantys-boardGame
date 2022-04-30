@@ -54,4 +54,5 @@ public class TableTest {
         table.setProfessor(false);
         assertFalse(table.hasProfessor());
     }
+
 }

@@ -1,15 +1,13 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
-
-import java.nio.channels.AlreadyBoundException;
 import java.util.*;
 
 public class Round {
 
     private PianificationPhase pianificationPhase;
     private int currentPhase;
-    private int roundState;
+    protected int roundState;
     private int[] movesCounter;                     // In indice playerId si trovano gli spostamenti di studenti fatti dal giocatore con tale id
     private int indexOfPlayerOnTurn;                // Indice in playerOrder del giocatore che sta giocando
     private int[] playerOrder;                      // Da 0 al numero di player identifica l'ordine di essi in quella fase di gioco
@@ -141,7 +139,7 @@ public class Round {
     }
 
     public void setRoundState(int state){
-        if (state>=0 && state<7)
+        if (state>=0 && state<4)
             this.roundState=state;
         else roundState = -1;
     }
@@ -324,6 +322,10 @@ public class Round {
             checkStatusAndMethod(1);
             checkNumberOfMoves(playerId);
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
+            if (game instanceof ExpertGame){
+                PawnColor studentColor = game.getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
+                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(studentColor) % 3 == 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
+            }
             movesCounter[playerId]++;
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
@@ -334,6 +336,8 @@ public class Round {
             setErrorMessage(playerId, "You can move no more students");
         } catch (FullTableException e) {
             setErrorMessage(playerId, "You can't move that student, his table has no more free seats");
+        } catch (NotEnoughCoins e) {
+            setErrorMessage(playerId, "You can't take a coin from a table");
         }
     }
 

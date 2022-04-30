@@ -56,7 +56,6 @@ public class SchoolBoard {
         this.tables[student.getColor().getIndex()].addStudent(student);
     }
 
-
     /**
      * Removes a student from a table
      * @param color color of the student to remove
@@ -85,13 +84,6 @@ public class SchoolBoard {
      * @param newStudents list of the students to add on the entrance
      */
     public void addStudentsOnEntrance(List<Student> newStudents) {
-        // potremmo creare una eccezione che notifica che il numero di studenti passato sia sbagliato
-        int freePositions = 0;
-        for(Student student : entrance) {
-            if(student == null)
-                freePositions++;
-        }
-        // if(freePositions != newStudents.size()) throw new SomeTypeOfException("Too many students to add on entrance");
         for(int entranceIndex = 0; entranceIndex < entrance.length; entranceIndex++){
             if(entrance[entranceIndex] == null){
                 entrance[entranceIndex] = newStudents.remove(0);
@@ -193,7 +185,6 @@ public class SchoolBoard {
         System.arraycopy(entrance, 0, returnEntrance, 0, numberOfStudentsOnEntrance);
         return returnEntrance;
     }
-
 
     /**
      * @return the max number of students on the entrance
