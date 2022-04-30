@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Round;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -49,7 +50,11 @@ public class CharacterTest {
 
     @Test
     public void testDoYourJob() {
-        c.doYourJob(0, 1);
+        try {
+            c.doYourJob(0, 1);
+        } catch (InvalidIndexException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
