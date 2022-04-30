@@ -87,7 +87,7 @@ public class Character10 extends Character{
                 }catch (FullTableException e){
                     /////////////
                 }
-                if (canSwitch > 1)
+                if (canSwitch < 1)
                     setRoundState(7);
             }else if (getRoundState() == 7) {
                 try {
