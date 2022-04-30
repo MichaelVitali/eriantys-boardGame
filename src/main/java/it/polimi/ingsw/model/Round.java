@@ -9,7 +9,7 @@ public class Round {
 
     private PianificationPhase pianificationPhase;
     private int currentPhase;
-    private int roundState;
+    protected int roundState;
     private int[] movesCounter;                     // In indice playerId si trovano gli spostamenti di studenti fatti dal giocatore con tale id
     private int indexOfPlayerOnTurn;                // Indice in playerOrder del giocatore che sta giocando
     private int[] playerOrder;                      // Da 0 al numero di player identifica l'ordine di essi in quella fase di gioco
@@ -131,7 +131,7 @@ public class Round {
     }
 
     public void setRoundState(int state){
-        if (state>=0 && state<7)
+        if (state>=0 && state<4)
             this.roundState=state;
         else roundState = -1;
     }

@@ -42,6 +42,9 @@ public class CharacterTest {
 
     @Test
     public void testDeactivateEffect() {
+        c.activateEffect(0, round);
+        c.deactivateEffect();
+        assertEquals(round, round.getGame().getRound());
     }
 
     @Test

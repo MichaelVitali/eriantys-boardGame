@@ -33,10 +33,19 @@ public class Character1Test {
         Island island = character.getRound().getGame().getGameTable().getIslands().get(character.getRound().getGame().getGameTable().getMotherNaturePosition());
         assertEquals(1, island.getStudents().size());
         assertNotEquals(island.getStudents().get(0), character.getStudents(new ArrayList<>(2)));
+        assertEquals(round, character.getRound().getGame().getRound());
     }
 
     @Test
     public void testActivateEffect() {
         assertEquals(character.activateEffect(0, round), character);
+        assertEquals(0, character.getRound().getRoundState());
+    }
+    @Test
+    public void testSetRoundState(){
+        character.setRoundState(1);
+        assertEquals(1, character.getRoundState());
+        character.setRoundState(7);
+        assertEquals(-1, character.getRoundState());
     }
 }

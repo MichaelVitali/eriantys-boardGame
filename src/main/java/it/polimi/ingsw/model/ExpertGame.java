@@ -10,15 +10,13 @@ public class ExpertGame extends Game {
     private Character[] characters;
     private int coinsOfTheTable;
     private int[] playersCoins;
-    //// private boolean[] newCoinOrNot;
 
     public ExpertGame(int numberOfPlayers, List<String> nicknames) {
         super(numberOfPlayers, nicknames);
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for(int coins : playersCoins)
-            coins = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
         try {
             characters = new Character[3];
             createCharacters();

@@ -54,4 +54,11 @@ public class TableTest {
         table.setProfessor(false);
         assertFalse(table.hasProfessor());
     }
+
+    @Test
+    public void testGetNumberOfStudentsOnTable() throws FullTableException {
+        assertEquals(0, table.getNumberOfStudentOnTable());
+        table.addStudent(new Student(PawnColor.RED));
+        assertEquals(1, table.getNumberOfStudentOnTable());
+    }
 }
