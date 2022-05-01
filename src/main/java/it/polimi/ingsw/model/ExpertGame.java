@@ -97,8 +97,8 @@ public class ExpertGame extends Game {
     public Character getCharacter(int indexCard) {
         return this.characters[indexCard];
     }
-
-    /*public void effectActivation(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+/*
+    public void effectActivation(int playerIndex, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
         GameTable gameTable = game.getGameTable();
         SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {
