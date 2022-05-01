@@ -1,6 +1,6 @@
 package it.polimi.ingsw.controller.message;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.client.DisplayedBoard;
 
 public class GameMessage {
     private String printableMessage;
