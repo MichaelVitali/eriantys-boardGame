@@ -2,15 +2,9 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.message.GameMessage;
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.observer.Observable;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

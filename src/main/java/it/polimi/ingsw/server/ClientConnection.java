@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.model.message.PlayerMessage;
+import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.observer.Observer;
 
 public interface ClientConnection {

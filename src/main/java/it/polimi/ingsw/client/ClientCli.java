@@ -1,9 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.message.AddStudentOnIslandMessage;
-import it.polimi.ingsw.model.message.PlayerMessage;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

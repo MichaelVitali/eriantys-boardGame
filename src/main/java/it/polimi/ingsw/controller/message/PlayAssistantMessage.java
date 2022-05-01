@@ -1,7 +1,6 @@
-package it.polimi.ingsw.model.message;
+package it.polimi.ingsw.controller.message;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Round;
 
 import java.io.Serializable;
 
