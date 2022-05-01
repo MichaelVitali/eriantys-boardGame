@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.message.PlayerMessage;
+import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.observer.Observer;
 
 public class Controller implements Observer<PlayerMessage> {

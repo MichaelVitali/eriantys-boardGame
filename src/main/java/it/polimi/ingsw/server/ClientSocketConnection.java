@@ -1,8 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.model.GameMode;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.message.PlayerMessage;
+import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class ClientSocketConnection extends Observable<PlayerMessage> implements ClientConnection, Runnable {
 
