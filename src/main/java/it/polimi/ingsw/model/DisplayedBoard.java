@@ -4,13 +4,15 @@ import java.io.Serializable;
 
 public class DisplayedBoard implements Serializable {
     private static final long serialVersionUID = 100L;
-    private GameTable gameTable;
+    private int state;
+    private String playerMessage;
 
-    public DisplayedBoard(Game model) {
-
+    public DisplayedBoard(Game model, int playerId) {
+        state = model.getRound().getRoundState();
+        playerMessage = model.getPlayer(playerId).getErrorMessage();
     }
 
     public void printDefaultOnCli() {
-
+        System.out.println(playerMessage);
     }
 }

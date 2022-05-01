@@ -161,4 +161,6 @@ public class Game extends Observable<GameMessage> {
     public void activateEffect(int playerIndex, int indexCard) {
         return;
     }
+
+    public void sendGameMessage() {}
 }

@@ -81,7 +81,7 @@ public class Server {
                 for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                     model.addObserver(playerView[i]);
                     playerView[i].addObserver(controller);
-                    match.getSockets().get(i).send(new DisplayedBoard(model));
+                    match.getSockets().get(i).send(new DisplayedBoard(model, i));
                 }
 
                 for (ClientConnection connection : match.getSockets()) {
