@@ -17,4 +17,8 @@ public abstract class PlayerMessage implements Serializable {
     public int getPlayerId() {
         return playerId;
     }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
 }

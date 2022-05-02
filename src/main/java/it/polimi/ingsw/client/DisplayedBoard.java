@@ -15,7 +15,15 @@ public class DisplayedBoard implements Serializable {
         playerMessage = model.getPlayer(playerId).getErrorMessage();
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public String getPlayerMessage() {
+        return playerMessage;
+    }
+
     public void printDefaultOnCli() {
-        System.out.println(playerMessage);
+        System.out.println(playerMessage);System.out.println("Ciao bello");
     }
 }

@@ -1,14 +1,14 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.client.DisplayedBoard;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends Observable<GameMessage> {
+public class Game extends Observable<Game> {
 
     private final int numberOfPlayers;
     private GameTable gameTable;
@@ -156,5 +156,7 @@ public class Game extends Observable<GameMessage> {
         return;
     }
 
-    public void sendGameMessage() {}
+    public void sendGame() {
+        notify(this);
+    }
 }

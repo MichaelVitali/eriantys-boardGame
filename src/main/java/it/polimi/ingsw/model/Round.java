@@ -278,6 +278,7 @@ public class Round {
                 indexOfPlayerOnTurn++;
             }
         }
+        game.sendGame();
     }
 
     public void playAssistant(int playerId, int assistantPosition) {

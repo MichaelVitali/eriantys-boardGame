@@ -1,7 +1,8 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.controller.message.GameMessage;
+import it.polimi.ingsw.client.DisplayedBoard;
 import it.polimi.ingsw.controller.message.PlayerMessage;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.server.ClientConnection;
 
@@ -20,13 +21,21 @@ public class RemoteView extends View {
         }
 
     }
-    public RemoteView(int id, String playerNickname, ClientConnection clientConnection) {
-        super(id);
+    public RemoteView(int playerId, String playerNickname, ClientConnection clientConnection) {
+        super(playerId);
         this.playerNickname = playerNickname;
         this.clientConnection = clientConnection;
+        clientConnection.addObserver(new MessageReceiver());
     }
 
-    public void update(GameMessage gameMessage) {
-        // cosa deve fare quando bisogna inviare un messaggio
+    @Override
+    public void update(Game model) {
+        DisplayedBoard board = new DisplayedBoard(model, super.getPlayerId());
+        clientConnection.asyncSend(board);
+    }
+
+    void handleMove(PlayerMessage message) {
+        message.setPlayerId(super.getPlayerId());
+        notify(message);
     }
 }
