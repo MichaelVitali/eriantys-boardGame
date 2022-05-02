@@ -1,13 +1,12 @@
-package it.polimi.ingsw.model.message;
+package it.polimi.ingsw.controller.message;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Round;
 
 import java.io.Serializable;
 
 public class PlayAssistantMessage extends PlayerMessage implements Serializable {
 
-    private static final long serialVersionUID =1L;
+    private static final long serialVersionUID = 1L;
     private int assistantPosition;
 
     public PlayAssistantMessage(int playerId, int assistantPosition) {

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.message.AddStudentOnIslandMessage;
-import it.polimi.ingsw.model.message.PlayerMessage;
+import it.polimi.ingsw.controller.message.PlayAssistantMessage;
+import it.polimi.ingsw.controller.message.PlayerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,6 +16,9 @@ public class ClientCli {
     private int port;
     private boolean configurationDone = false;
     private boolean active = true;
+
+    private final int playerId = 0;
+    private DisplayedBoard actualBoard;
 
     public ClientCli(String ip, int port){
         this.ip = ip;
@@ -45,10 +47,11 @@ public class ClientCli {
                         } else if (inputObject instanceof DisplayedBoard){
                             if(!configurationDone) {
                                 configurationDone = true;
-                                System.out.println("Get ready to play...");
+                                System.out.println("The configuration is done. Get ready to play...");
                             }
-
-                            /////// displayare la board
+                            actualBoard = ((DisplayedBoard) inputObject);
+                            if (actualBoard != null)
+                                actualBoard.printDefaultOnCli();
 
                         } else {
                             throw new IllegalArgumentException();
@@ -75,14 +78,24 @@ public class ClientCli {
                         if (!configurationDone) {
                             socketOut.writeObject(playerInput);
                         } else {
-                            System.out.println("Lets move");
+                            PlayerMessage playerMessage = null;
+                            try {
+                                int playerParameter = Integer.parseInt(playerInput);
+                                    switch(actualBoard.getState()) {
+                                        case 0:
+                                            playerMessage = new PlayAssistantMessage(0, playerParameter);
+                                            break;
+                                        case 1:
 
-                            /////// ci sarà un certo flusso di esecuzione
-                            //// sarà da gestire l'esecuzione
-                            ////Problema: non può essere il client a scrivere che player è
-                            //PlayerMessage playerMessage = new AddStudentOnIslandMessage(0,0,0);
-
-                            //socketOut.writeObject(playerMessage);
+                                            break;
+                                        case 2:
+                                            break;
+                                    }
+                            } catch (NumberFormatException e) {
+                                actualBoard.printDefaultOnCli();
+                            }
+                            if(playerMessage != null)
+                                socketOut.writeObject(playerMessage);
                         }
                         socketOut.flush();
                     }

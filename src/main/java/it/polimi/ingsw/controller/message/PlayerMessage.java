@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.message;
+package it.polimi.ingsw.controller.message;
 
 import it.polimi.ingsw.model.Game;
 
@@ -16,5 +16,9 @@ public abstract class PlayerMessage implements Serializable {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 }
