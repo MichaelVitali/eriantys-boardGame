@@ -31,13 +31,13 @@ public class Character11 extends CharacterWithStudent{
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
 
             }catch (InvalidIndexException e){
-                getRound().getGame().getPlayer(playerId).setErrorMessage(e.getMessage());
+                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             }catch (NoMoreStudentsException e){
-                getRound().getGame().getPlayer(playerId).setErrorMessage("You can't play this card because there are no students");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
             } catch (FullTableException e) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage("You can't add the chosen student on table because it is full");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't add the chosen student on table because it is full");
             } catch (EmptyBagException e) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage(e.getMessage());
+                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             }
             deactivateEffect();
         }
@@ -45,7 +45,7 @@ public class Character11 extends CharacterWithStudent{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }

@@ -38,7 +38,7 @@ public class Character3 extends Character{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select Island");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select Island");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }

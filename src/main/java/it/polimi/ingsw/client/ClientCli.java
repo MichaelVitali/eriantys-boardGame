@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.controller.message.PlayAssistantMessage;
-import it.polimi.ingsw.controller.message.PlayerMessage;
+import it.polimi.ingsw.controller.message.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +16,7 @@ public class ClientCli {
     private boolean configurationDone = false;
     private boolean active = true;
 
-    private final int playerId = 0;
+    private int playerId = 0;
     private DisplayedBoard actualBoard;
 
     public ClientCli(String ip, int port){
@@ -47,6 +46,7 @@ public class ClientCli {
                         } else if (inputObject instanceof DisplayedBoard){
                             if(!configurationDone) {
                                 configurationDone = true;
+                                playerId = actualBoard.getPlayerId();
                                 System.out.println("The configuration is done. Get ready to play...");
                             }
                             actualBoard = ((DisplayedBoard) inputObject);
@@ -83,12 +83,27 @@ public class ClientCli {
                                 int playerParameter = Integer.parseInt(playerInput);
                                     switch(actualBoard.getState()) {
                                         case 0:
-                                            playerMessage = new PlayAssistantMessage(0, playerParameter);
+                                            playerMessage = new PlayAssistantMessage(playerId, playerParameter);
                                             break;
                                         case 1:
-
+                                            if (playerParameter == 1) {
+                                                playerParameter = readLineAndParseInteger(stdin);
+                                                playerMessage = new AddStudentOnTableMessage(playerId, playerParameter);
+                                            } else if (playerParameter == 2) {
+                                                int targetStudent = readLineAndParseInteger(stdin);
+                                                int targetIsland = readLineAndParseInteger(stdin);
+                                                playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
+                                            } else {
+                                                System.out.println("Make your move:");
+                                                System.out.println("1 : Move a student from entrance to table");
+                                                System.out.println("2 : Move a student from entrance to an island");
+                                            }
                                             break;
                                         case 2:
+                                            playerMessage = new ChangeMotherNaturePositionMessage(playerId, playerParameter);
+                                            break;
+                                        case 3:
+                                            playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                             break;
                                     }
                             } catch (NumberFormatException e) {
@@ -96,6 +111,8 @@ public class ClientCli {
                             }
                             if(playerMessage != null)
                                 socketOut.writeObject(playerMessage);
+                            else
+                                System.out.println("You insert something wrong");
                         }
                         socketOut.flush();
                     }
@@ -128,5 +145,21 @@ public class ClientCli {
             socketOut.close();
             socket.close();
         }
+    }
+
+    private int readLineAndParseInteger(final Scanner inputStream) {
+        boolean isParameterSet = false;
+        int parameter = -1;
+        do {
+            String playerInput = inputStream.nextLine();
+            playerInput.replace("\n", "");
+            try {
+                parameter = Integer.parseInt(playerInput);
+                isParameterSet = true;
+            } catch (NumberFormatException e) {
+                System.out.println("You insert the wrong value");
+            }
+        } while(!isParameterSet);
+        return parameter;
     }
 }

@@ -51,7 +51,7 @@ public class TwoMoreInfluencePointsCharacter extends Character {
                 getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
-                setErrorMessage(playerId, "You cannot put mother nature in the chosen island");
+                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {
                 // Stato di errore sarà da togliere dal codice
             }
@@ -59,7 +59,7 @@ public class TwoMoreInfluencePointsCharacter extends Character {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot move mother nature now");
+            setPlayerMessage(playerId, "You cannot move mother nature now");
         }
     }
 }

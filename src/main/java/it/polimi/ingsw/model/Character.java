@@ -121,7 +121,7 @@ public class Character extends Round {
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
 
     @Override
-    public void setErrorMessage(int playerId, String errorMessage) { round.setErrorMessage(playerId, errorMessage); }
+    public void setPlayerMessage(int playerId, String message) { round.setPlayerMessage(playerId, message); }
 
     @Override
     public void setIndexOfPlayerOnTurn(int index)  { round.setIndexOfPlayerOnTurn(index); }

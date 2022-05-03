@@ -36,7 +36,7 @@ public class Character10 extends Character{
         Student tmpStudentTable = null;
         if (canSwitch < 2 && wantToGoOn == 1) {
             if (getRoundState() == 5) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student from Table");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student from Table");
                 try {
                     if (parameter < 0 || parameter >= getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnEntrance())
                         throw new InvalidIndexException("Error effect 10: invalid index on entrance");
@@ -102,7 +102,7 @@ public class Character10 extends Character{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }

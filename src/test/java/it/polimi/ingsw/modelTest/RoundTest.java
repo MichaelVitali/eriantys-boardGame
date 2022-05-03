@@ -175,7 +175,7 @@ public class RoundTest {
 
     @Test
     public void testSetErrorMessage() {
-        game2p.startRound().setErrorMessage(0, "Generic error");
+        game2p.startRound().setPlayerMessage(0, "Generic error");
         assertTrue(game2p.getPlayer(0).getErrorMessage()=="Generic error");
     }
 
