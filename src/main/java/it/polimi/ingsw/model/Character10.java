@@ -66,25 +66,26 @@ public class Character10 extends Character{
                     getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(tst);
 
                 }catch (EmptyTableException e){
-                    getGame().getPlayer(playerId).setErrorMessage("Error effect 10: the table you've chosen is empty");
+                    getGame().getPlayer(playerId).setPlayerMessage("Error effect 10: the table you've chosen is empty");
                 }catch (InvalidIndexException e){
-                    getGame().getPlayer(playerId).setErrorMessage("Error effect 10: the index of the table is not correct");
+                    getGame().getPlayer(playerId).setPlayerMessage("Error effect 10: the index of the table is not correct");
                 }catch (FullTableException e){
                     /////////////
                 }
 
                 if (canSwitch < 1)
                     setRoundState(7);
-
+                else
+                    deactivateEffect();
             }else if (getRoundState() == 7) {
                 try {
-                    if (parameter < 0 || parameter > 1) throw new OutOfBoundException("The parameter must be 0 or 1");
+                    if (parameter < 0 || parameter > 1)
+                        throw new OutOfBoundException("The parameter must be 0 or 1");
                     wantToGoOn = parameter;
                     canSwitch++;
                 }catch (OutOfBoundException e){}
             }
         }
-        deactivateEffect();
     }
 
     @Override

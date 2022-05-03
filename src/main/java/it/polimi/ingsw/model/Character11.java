@@ -45,7 +45,7 @@ public class Character11 extends CharacterWithStudent{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select student");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }

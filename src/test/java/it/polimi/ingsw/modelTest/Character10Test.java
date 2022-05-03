@@ -53,7 +53,7 @@ public class Character10Test {
     public void testSetRoundState(){
         character.setRoundState(1);
         assertEquals(1, character.getRoundState());
-        character.setRoundState(8);
+        character.setRoundState(9);
         assertEquals(-1, character.getRoundState());
     }
 }

@@ -21,24 +21,6 @@ public class Character12 extends Character{
                 if(parameter < 0 || parameter > 4)
                     throw new InvalidIndexException("Error effect 12: invalid pawncolor");
 
-                /*switch (parameter){
-                    case 0:
-                        pawnColor = PawnColor.YELLOW;
-                        break;
-                    case 1:
-                        pawnColor = PawnColor.BLUE;
-                        break;
-                    case 2:
-                        pawnColor = PawnColor.GREEN;
-                        break;
-                    case 3:
-                        pawnColor = PawnColor.RED;
-                        break;
-                    case 4:
-                        pawnColor = PawnColor.PINK;
-                        break;
-                }*/
-
                 pawnColor = PawnColor.associateIndexToPawnColor(parameter);
 
                 for(int i=0; i<getRound().getGame().getNumberOfPlayers(); i++)
@@ -47,10 +29,8 @@ public class Character12 extends Character{
                             getRound().getGame().getGameTable().getBag().addStudents(Arrays.asList(getRound().getGame().getGameTable().getSchoolBoards()[i].removeStudentFromTable(pawnColor)));
 
 
-            }catch (InvalidIndexException e){
-                ////////////////////////////////
-            }catch ( EmptyTableException e){
-                ////////////////////////////////
+            }catch (InvalidIndexException | EmptyTableException e){
+                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             }
 
             deactivateEffect();
@@ -59,7 +39,7 @@ public class Character12 extends Character{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select pawn color");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select pawn color");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }
