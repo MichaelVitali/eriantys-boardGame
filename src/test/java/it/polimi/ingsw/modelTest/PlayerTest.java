@@ -90,13 +90,13 @@ public class PlayerTest {
 
     @Test
     public void testGetErrorMessage(){
-        player.setErrorMessage("Error!");
+        player.setPlayerMessage("Error!");
         assertEquals(player.getErrorMessage(), "Error!");
     }
 
     @Test
     public void testSetErrorMessage(){
-        player.setErrorMessage("Error!");
+        player.setPlayerMessage("Error!");
         assertEquals(player.getErrorMessage(), "Error!");
     }
 

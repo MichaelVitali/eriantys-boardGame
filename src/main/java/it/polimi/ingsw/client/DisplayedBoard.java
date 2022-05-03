@@ -8,15 +8,22 @@ import java.io.Serializable;
 public class DisplayedBoard implements Serializable {
     private static final long serialVersionUID = 100L;
     private int state;
+
+    private int playerId;
     private String playerMessage;
 
     public DisplayedBoard(Game model, int playerId) {
         state = model.getRound().getRoundState();
+        this.playerId = playerId;
         playerMessage = model.getPlayer(playerId).getErrorMessage();
     }
 
     public int getState() {
         return state;
+    }
+
+    public int getPlayerId() {
+        return playerId;
     }
 
     public String getPlayerMessage() {

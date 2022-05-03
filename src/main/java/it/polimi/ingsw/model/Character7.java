@@ -21,7 +21,7 @@ public class Character7 extends CharacterWithStudent{
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 5) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student on card");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student on card");
                 countCard = parameter;
                 countEntrance = parameter;
                 setRoundState(6);
@@ -32,7 +32,7 @@ public class Character7 extends CharacterWithStudent{
             }
             if(countCard == 0) {
                 setRoundState(7);
-                getRound().getGame().getPlayer(playerId).setErrorMessage("Select student on entrance");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student on entrance");
             }
         } else if (getRoundState() == 7) {
             if (countEntrance > 0) {
@@ -51,7 +51,7 @@ public class Character7 extends CharacterWithStudent{
                     getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
                     deactivateEffect();
                 } catch (InvalidIndexException e) {
-                    setErrorMessage(playerId, e.getMessage()); // non penso sia da mostrare al player tale errore, magari chiediamo di nuovo l'inserimento
+                    setPlayerMessage(playerId, e.getMessage()); // non penso sia da mostrare al player tale errore, magari chiediamo di nuovo l'inserimento
                 }
             }
         }
@@ -59,7 +59,7 @@ public class Character7 extends CharacterWithStudent{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("How many Students do you want to change");
+        round.getGame().getPlayer(playerID).setPlayerMessage("How many Students do you want to change");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }

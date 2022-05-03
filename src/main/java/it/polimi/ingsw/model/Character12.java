@@ -21,7 +21,7 @@ public class Character12 extends Character{
                 if(parameter < 0 || parameter > 4)
                     throw new InvalidIndexException("Error effect 12: invalid pawncolor");
 
-                switch (parameter){
+                /*switch (parameter){
                     case 0:
                         pawnColor = PawnColor.YELLOW;
                         break;
@@ -37,7 +37,9 @@ public class Character12 extends Character{
                     case 4:
                         pawnColor = PawnColor.PINK;
                         break;
-                }
+                }*/
+
+                pawnColor = PawnColor.associateIndexToPawnColor(parameter);
 
                 for(int i=0; i<getRound().getGame().getNumberOfPlayers(); i++)
                     for (int j=0; j<3; j++)

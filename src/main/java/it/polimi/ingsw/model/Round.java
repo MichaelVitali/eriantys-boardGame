@@ -24,16 +24,20 @@ public class Round {
         indexOfPlayerOnTurn = 0;
         playerOrder = new int[game.getNumberOfPlayers()];
         playerOrder[0] = pianificationPhase.calculateFirstPlayer();
-        for(int i = 1; i < game.getNumberOfPlayers(); i++)
+        for (int i = 1; i < game.getNumberOfPlayers(); i++)
             playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
         roundFinished = false;
         roundState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
-        for(int i = 0; i < game.getNumberOfPlayers(); i++)
+        for (int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
         this.game = game;
         alreadyPlayedCharacter = false;
+        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
+            if(i == playerOrder[0])
+                setPlayerMessage(playerOrder[0], "Play an assistant");
+        }
     }
 
     public Round(Game game, int[] playerOrder) {
@@ -89,7 +93,7 @@ public class Round {
                 if (alreadyPlayedAssistants[i]==true && i!=playerId){
                     if(toPlay.equals(playedAssistants[i].getAssistant())){
                         if(assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())==false){
-                            game.getPlayer(playerId).setErrorMessage("Assistant not playable");
+                            game.getPlayer(playerId).setPlayerMessage("Assistant not playable");
                             return;
                         }
                     }
@@ -133,7 +137,7 @@ public class Round {
 
     public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
         if(playerOrder[indexOfPlayerOnTurn] != playerId) {
-            setErrorMessage(playerId, "You are not the current player");
+            setPlayerMessage(playerId, "You are not the current player");
             throw new PlayerNotOnTurnException();
         }
     }
@@ -164,8 +168,15 @@ public class Round {
         if(movesCounter[playerId] > 3) throw new TooManyMovesException();
     }
 
-    public void setErrorMessage(int playerId, String errorMessage) {
-        game.getPlayer(playerId).setErrorMessage(errorMessage);
+    public void setPlayerMessage(int playerId, String message) {
+        game.getPlayer(playerId).setPlayerMessage(message);
+    }
+
+    private void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
+        game.getPlayer(playerId).setPlayerMessage(message);
+        for(int i = 0; i < game.getNumberOfPlayers(); i++) {
+            if(i != playerId) game.getPlayer(playerId).setPlayerMessage("The player on turn is " + game.getPlayer(playerId).getNickname());
+        }
     }
 
     public void setIndexOfPlayerOnTurn(int index){
@@ -262,6 +273,7 @@ public class Round {
 
     public void calculateNextPlayer() {
         if (isPianificationPhaseEnded()) {
+
             switchToActionPhase();
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
@@ -290,11 +302,11 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot play any assistant now");
+            setPlayerMessage(playerId, "You cannot play any assistant now");
         } catch (IndexOutOfBoundsException e) {
-            setErrorMessage(playerId,"You can't choose that assistant");
+            setPlayerMessage(playerId,"You can't choose that assistant");
         } catch (InvalidIndexException e) {
-            setErrorMessage(playerId, e.getMessage());
+            setPlayerMessage(playerId, e.getMessage());
         }
     }
 
@@ -309,11 +321,11 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot move students now");
+            setPlayerMessage(playerId, "You cannot move students now");
         } catch (TooManyMovesException e) {
-            setErrorMessage(playerId, "You can move no more students");
+            setPlayerMessage(playerId, "You can move no more students");
         } catch (InvalidIndexException e) {
-            setErrorMessage(playerId, e.getMessage());
+            setPlayerMessage(playerId, e.getMessage());
         }
     }
 
@@ -332,13 +344,13 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot move students now");
+            setPlayerMessage(playerId, "You cannot move students now");
         } catch (TooManyMovesException e) {
-            setErrorMessage(playerId, "You can move no more students");
+            setPlayerMessage(playerId, "You can move no more students");
         } catch (FullTableException e) {
-            setErrorMessage(playerId, "You can't move that student, his table has no more free seats");
+            setPlayerMessage(playerId, "You can't move that student, his table has no more free seats");
         } catch (NotEnoughCoins e) {
-            setErrorMessage(playerId, "You can't take a coin from a table");
+            setPlayerMessage(playerId, "You can't take a coin from a table");
         }
     }
 
@@ -381,15 +393,15 @@ public class Round {
                 game.getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
-                setErrorMessage(playerId, "You cannot put mother nature in the chosen island");
+                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {
-                setErrorMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
             }
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot move mother nature now");
+            setPlayerMessage(playerId, "You cannot move mother nature now");
         }
     }
 
@@ -403,11 +415,11 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You cannot get students from cloud now");
+            setPlayerMessage(playerId, "You cannot get students from cloud now");
         } catch (InvalidIndexException e) {
-            setErrorMessage(playerId, "The chosen cloud doesn't exist");
+            setPlayerMessage(playerId, "The chosen cloud doesn't exist");
         } catch (EmptyCloudException e)  {
-            setErrorMessage(playerId, "The chosen cloud is empty. Chose another one!");
+            setPlayerMessage(playerId, "The chosen cloud is empty. Chose another one!");
         }
     }
 
@@ -421,9 +433,9 @@ public class Round {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (AlreadyPlayedCharcaterException e) {
-            setErrorMessage(playerId, "You already played a character");
+            setPlayerMessage(playerId, "You already played a character");
         } catch (InvalidMethodException e) {
-            setErrorMessage(playerId, "You can't play a character during the pianification phase");
+            setPlayerMessage(playerId, "You can't play a character during the pianification phase");
         }
     }
 

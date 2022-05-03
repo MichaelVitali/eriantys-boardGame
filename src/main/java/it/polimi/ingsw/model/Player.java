@@ -12,7 +12,7 @@ public class Player {
     private final String nickName;
     private final int playerId;
     private List<Assistant> assistants;
-    private String errorMessage;
+    private String message;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
         this.nickName = nickName;
@@ -63,11 +63,11 @@ public class Player {
     }
 
     public String getErrorMessage() {
-        return errorMessage;
+        return message;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setPlayerMessage(String message) {
+        this.message = message;
     }
 
     public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException {

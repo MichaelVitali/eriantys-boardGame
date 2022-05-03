@@ -32,7 +32,7 @@ public class Character1 extends CharacterWithStudent {
     public void doYourJob(int playerId, int parameter) {
         //problema a tornare nello stato vecchio
         if (getRoundState() == 5) {
-            getRound().getGame().getPlayer(playerId).setErrorMessage("Select island");
+            getRound().getGame().getPlayer(playerId).setPlayerMessage("Select island");
             studentIndex = parameter;
             setRoundState(6);
         } else if (getRoundState() == 6) {
@@ -46,9 +46,9 @@ public class Character1 extends CharacterWithStudent {
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
                 deactivateEffect();
             } catch (NoMoreStudentsException e) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage("You can't play this card because there are no students");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
             } catch (InvalidIndexException e) {
-                getRound().getGame().getPlayer(playerId).setErrorMessage(e.getMessage());
+                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             } catch (EmptyBagException e) {
                 //Non aggiunge nessuno studente sulla carta
             }
@@ -57,7 +57,7 @@ public class Character1 extends CharacterWithStudent {
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }
