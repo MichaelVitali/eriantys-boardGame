@@ -43,7 +43,7 @@ public class Character10 extends Character{
 
                     entranceIndex = parameter;
                 }catch (InvalidIndexException e) {
-                    getGame().getPlayer(playerId).setErrorMessage(e.getMessage());
+                    getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
                 }
                 setRoundState(6);
             }else if(getRoundState() == 6) {
