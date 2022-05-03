@@ -49,6 +49,7 @@ public class Character7 extends CharacterWithStudent{
                         newStudentsOnCard.add(getRound().getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(i));
                     addStudents(newStudentsOnCard);
                     getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
+                    deactivateEffect();
                 } catch (InvalidIndexException e) {
                     setErrorMessage(playerId, e.getMessage()); // non penso sia da mostrare al player tale errore, magari chiediamo di nuovo l'inserimento
                 }
