@@ -15,4 +15,29 @@ public enum PawnColor {
      * @return unique index associated with the specific value of the enumeration
      */
     public int getIndex() { return index; }
+
+    public static PawnColor associateIndexToPawnColor(int index){
+
+        PawnColor pc = null;
+
+        switch (index){
+            case 0:
+                pc=PawnColor.YELLOW;
+                break;
+            case 1:
+                pc=PawnColor.BLUE;
+                break;
+            case 2:
+                pc=PawnColor.GREEN;
+                break;
+            case 3:
+                pc=PawnColor.RED;
+                break;
+            case 4:
+                pc=PawnColor.PINK;
+                break;
+        }
+
+        return pc;
+    }
 }

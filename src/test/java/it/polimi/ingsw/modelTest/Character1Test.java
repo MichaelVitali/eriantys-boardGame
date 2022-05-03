@@ -38,8 +38,10 @@ public class Character1Test {
 
     @Test
     public void testActivateEffect() {
-        assertEquals(character.activateEffect(0, round), character);
-        assertEquals(0, character.getRound().getRoundState());
+        character.setRoundState(1);
+        assertEquals(1, character.getRoundState());
+        character.setRoundState(7);
+        assertEquals(-1, character.getRoundState());
     }
     @Test
     public void testSetRoundState(){

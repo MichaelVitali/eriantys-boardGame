@@ -43,31 +43,16 @@ public class Character10 extends Character{
 
                     entranceIndex = parameter;
                 }catch (InvalidIndexException e) {
-                    /////////////////////
+                    getGame().getPlayer(playerId).setErrorMessage(e.getMessage());
                 }
                 setRoundState(6);
             }else if(getRoundState() == 6) {
+
                 try {
                     if (parameter < 0 || parameter > 4)
                         throw new InvalidIndexException("Error effect 10: invalid table choice");
 
-                    switch (parameter){
-                        case 0:
-                            pawnColor = PawnColor.YELLOW;
-                            break;
-                        case 1:
-                            pawnColor = PawnColor.BLUE;
-                            break;
-                        case 2:
-                            pawnColor = PawnColor.GREEN;
-                            break;
-                        case 3:
-                            pawnColor = PawnColor.RED;
-                            break;
-                        case 4:
-                            pawnColor = PawnColor.PINK;
-                            break;
-                    }
+                    pawnColor = PawnColor.associateIndexToPawnColor(parameter);
 
                     if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(pawnColor) == 0)
                         throw new EmptyTableException();
@@ -81,14 +66,16 @@ public class Character10 extends Character{
                     getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(tst);
 
                 }catch (EmptyTableException e){
-                    //////////////
+                    getGame().getPlayer(playerId).setErrorMessage("Error effect 10: the table you've chosen is empty");
                 }catch (InvalidIndexException e){
-                    //////////////
+                    getGame().getPlayer(playerId).setErrorMessage("Error effect 10: the index of the table is not correct");
                 }catch (FullTableException e){
                     /////////////
                 }
+
                 if (canSwitch < 1)
                     setRoundState(7);
+
             }else if (getRoundState() == 7) {
                 try {
                     if (parameter < 0 || parameter > 1) throw new OutOfBoundException("The parameter must be 0 or 1");
@@ -102,7 +89,7 @@ public class Character10 extends Character{
 
     @Override
     public Round activateEffect (int playerID, Round round) {
-        round.getGame().getPlayer(playerID).setErrorMessage("Select Student");
+        round.getGame().getPlayer(playerID).setErrorMessage("Select Student on entrance");
         setRoundState(5);
         return super.activateEffect(playerID, round);
     }
