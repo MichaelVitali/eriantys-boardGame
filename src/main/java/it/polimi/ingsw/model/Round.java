@@ -24,16 +24,20 @@ public class Round {
         indexOfPlayerOnTurn = 0;
         playerOrder = new int[game.getNumberOfPlayers()];
         playerOrder[0] = pianificationPhase.calculateFirstPlayer();
-        for(int i = 1; i < game.getNumberOfPlayers(); i++)
+        for (int i = 1; i < game.getNumberOfPlayers(); i++)
             playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
         roundFinished = false;
         roundState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
-        for(int i = 0; i < game.getNumberOfPlayers(); i++)
+        for (int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
         this.game = game;
         alreadyPlayedCharacter = false;
+        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
+            if(i == playerOrder[0])
+                setPlayerMessage(playerOrder[0], "Play an assistant");
+        }
     }
 
     public Round(Game game, int[] playerOrder) {
@@ -168,6 +172,13 @@ public class Round {
         game.getPlayer(playerId).setPlayerMessage(message);
     }
 
+    private void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
+        game.getPlayer(playerId).setPlayerMessage(message);
+        for(int i = 0; i < game.getNumberOfPlayers(); i++) {
+            if(i != playerId) game.getPlayer(playerId).setPlayerMessage("The player on turn is " + game.getPlayer(playerId).getNickname());
+        }
+    }
+
     public void setIndexOfPlayerOnTurn(int index){
         if(index>=0 && index<game.getNumberOfPlayers())
             indexOfPlayerOnTurn=index;
@@ -262,6 +273,7 @@ public class Round {
 
     public void calculateNextPlayer() {
         if (isPianificationPhaseEnded()) {
+
             switchToActionPhase();
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
