@@ -2,8 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Character extends Round {
     private final int ID;
