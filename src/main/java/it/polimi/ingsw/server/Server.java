@@ -82,13 +82,15 @@ public class Server {
                 for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                     model.addObserver(playerView[i]);
                     playerView[i].addObserver(controller);
-                    match.getSockets().get(i).send(new DisplayedBoard(model, i));
+                    DisplayedBoard displayedBoard = new DisplayedBoard(model, i);
+                    match.getSockets().get(i).send(displayedBoard);
                 }
 
-                for (ClientConnection connection : match.getSockets()) {
+                /*for (ClientConnection connection : match.getSockets()) {
                     connection.asyncSend("The match begins !");
-                }
+                }*/
                 System.out.println("The match " + match.getMatchId() + " starts");
+                System.out.println("The starting order of match " + match.getMatchId() + " is " + model.getRound().getPlayerOrder().toString());
                 runningMatches.add(match);
                 pendingMatches.remove(match);
             }

@@ -46,12 +46,12 @@ public class ClientCli {
                             // initial configuration
                             System.out.println((String)inputObject);
                         } else if (inputObject instanceof DisplayedBoard){
+                            actualBoard = ((DisplayedBoard) inputObject);
                             if(!configurationDone) {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
                                 System.out.println("The configuration is done. Get ready to play...");
                             }
-                            actualBoard = ((DisplayedBoard) inputObject);
                             if (actualBoard != null)
                                 actualBoard.printDefaultOnCli();
                             stamp(actualBoard.getModel());
@@ -139,7 +139,7 @@ public class ClientCli {
             Thread t1 = asyncWriteToSocket(stdin, socketOut);
             t0.join();
             t1.join();
-        } catch(InterruptedException | NoSuchElementException e){
+        } catch(InterruptedException | NoSuchElementException e) {
             System.out.println("Connection closed from the client side");
         } finally {
             stdin.close();

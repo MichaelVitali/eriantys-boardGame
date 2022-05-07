@@ -117,13 +117,13 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             } while (playerNickname.equals(""));
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
             server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
-            PlayerMessage clientMessage;
+
             while (isActive()) {
                 buffer = in.readObject();
                 if (buffer instanceof String) {
                     System.out.println("The player " + server.getMyId(this) + " of match " + server.getMyMatch(this) +  " sends "+ (String) buffer);
                 } else if (buffer instanceof PlayerMessage) {
-                    clientMessage = (PlayerMessage) buffer;
+                    PlayerMessage clientMessage = (PlayerMessage) buffer;
                     if (server.getMyId(this) == clientMessage.getPlayerId())
                         notify(clientMessage);
                     else

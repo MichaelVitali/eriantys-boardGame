@@ -35,6 +35,6 @@ public class DisplayedBoard implements Serializable {
     public Game getModel() { return model;}
 
     public void printDefaultOnCli() {
-        System.out.println(playerMessage);System.out.println("Ciao bello");
+        System.out.println(playerMessage);
     }
 }

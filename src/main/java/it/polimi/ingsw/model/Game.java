@@ -32,8 +32,10 @@ public class Game extends Observable<Game> {
         }
 
         players = new Player[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++)
+        for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player(nicknames.get(i), i, assistantsList);
+            players[i].addSchoolBoard(gameTable.getSchoolBoards()[i]);
+        }
 
         round = startRound();
 
