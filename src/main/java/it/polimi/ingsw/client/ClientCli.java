@@ -1,11 +1,13 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.message.*;
+import it.polimi.ingsw.model.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -52,7 +54,7 @@ public class ClientCli {
                             actualBoard = ((DisplayedBoard) inputObject);
                             if (actualBoard != null)
                                 actualBoard.printDefaultOnCli();
-
+                            stamp(actualBoard.getModel());
                         } else {
                             throw new IllegalArgumentException();
                         }
@@ -161,5 +163,48 @@ public class ClientCli {
             }
         } while(!isParameterSet);
         return parameter;
+    }
+
+    public void stamp(Game game) {
+        printIslands(game.getGameTable().getIslands());
+        System.out.println("Mother nature position: " + game.getGameTable().getMotherNaturePosition());
+        printSchoolboard(game.getGameTable().getSchoolBoards()[playerId]);
+        printAssistants(game.getPlayerAssistant(playerId));
+        printCloud(game.getGameTable().getClouds());
+    }
+
+    void printIslands(List<Island> islands) {
+        for (int i = 0; i < islands.size(); i++) {
+            Island island = islands.get(i);
+            System.out.println("Island number " + i);
+            for (PawnColor color : PawnColor.values()) {
+                long numberOfStudents = island.getStudents().stream().filter(s -> (s.getColor() == color)).count();
+                System.out.println("Number of " + color + "students is " + numberOfStudents);
+            }
+        }
+    }
+
+    void printSchoolboard(SchoolBoard schoolBoard) {
+        System.out.println("Schoolboard");
+        for (Student s : schoolBoard.getStudentsFromEntrance()) {
+            System.out.print(s.getColor() + "\t");
+        }
+        for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + "has " + schoolBoard.getNumberOfStudentsOnTable(color) + "of students; " + "professor: " + schoolBoard.getProfessors().contains(color));
+        System.out.println("You have " + schoolBoard.getTowers().size() + "towers remaining");
+    }
+
+    void printAssistants(List<Assistant> assistants) {
+        System.out.println("List of remaining assistants");
+        for (Assistant a : assistants) System.out.println("Card value: " + a.getCardValue() + "mother nature moves: " + a.getMotherNatureMoves());
+    }
+
+    void printCloud(Cloud[] clouds) {
+        for (int i = 0; i < clouds.length; i++) {
+            System.out.println("Cloud number " + i);
+            for (PawnColor color : PawnColor.values()) {
+                long numberOfStudents = clouds[i].getStudents().stream().filter(s -> (s.getColor() == color)).count();
+                System.out.println("Number of " + color + "students is " + numberOfStudents);
+            }
+        }
     }
 }

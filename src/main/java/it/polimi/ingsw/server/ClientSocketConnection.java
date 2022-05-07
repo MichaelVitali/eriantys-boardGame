@@ -31,6 +31,7 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             out.reset();
             out.writeObject(message);
             out.flush();
+            out.reset();
         } catch(IOException e){
             System.err.println(e.getMessage());
         }
