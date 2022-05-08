@@ -59,6 +59,7 @@ public class Server {
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
             pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
+            clientConnection.send("Waiting for a match. Get ready to play...");
         } else {
             match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
@@ -86,13 +87,12 @@ public class Server {
                     match.getSockets().get(i).send(displayedBoard);
                 }
 
-                /*for (ClientConnection connection : match.getSockets()) {
-                    connection.asyncSend("The match begins !");
-                }*/
                 System.out.println("The match " + match.getMatchId() + " starts");
                 System.out.println("The starting order of match " + match.getMatchId() + " is " + model.getRound().getPlayerOrder().toString());
                 runningMatches.add(match);
                 pendingMatches.remove(match);
+            } else {
+                clientConnection.send("The configuration is done. Get ready to play...");
             }
         }
     }

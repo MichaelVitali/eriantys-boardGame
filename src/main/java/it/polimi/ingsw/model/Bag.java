@@ -2,11 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.EmptyBagException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Bag {
+public class Bag implements Serializable { //magari la bag potrebbe non essere serializzabile
     private final List<Student> students;
 
     public Bag() {

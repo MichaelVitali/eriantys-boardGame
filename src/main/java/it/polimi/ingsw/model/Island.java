@@ -2,10 +2,11 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Island {
+public class Island implements Serializable {
     /**
      * index is the index/identifier of the island in the group of islands on the game table (in the beginning).
      *      The index is created at the beginning of the match and remains the same even the island merges itself to another one

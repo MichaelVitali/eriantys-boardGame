@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends Observable<Game> {
+public class Game extends Observable<Game> implements Serializable {
 
     private final int numberOfPlayers;
     private GameTable gameTable;
@@ -35,6 +35,7 @@ public class Game extends Observable<Game> {
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player(nicknames.get(i), i, assistantsList);
             players[i].addSchoolBoard(gameTable.getSchoolBoards()[i]);
+            players[i].addGameTable(gameTable);
         }
 
         round = startRound();
@@ -144,6 +145,7 @@ public class Game extends Observable<Game> {
         } catch (EmptyBagException e) {
             // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
         }
+        sendGame();
         return round;
     }
 

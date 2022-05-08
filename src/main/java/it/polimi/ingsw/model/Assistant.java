@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public class Assistant {
+import java.io.Serializable;
+
+public class Assistant implements Serializable {
     private int cardValue;
     private int motherNatureMoves;
     public static final int MAXVALUE = 10;

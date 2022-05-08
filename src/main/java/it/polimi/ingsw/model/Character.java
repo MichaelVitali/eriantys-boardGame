@@ -2,8 +2,10 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
+import java.io.Serializable;
 
-public class Character extends Round {
+
+public class Character extends Round implements Serializable {
     private final int ID;
     private int cost;
     private boolean firstUse;

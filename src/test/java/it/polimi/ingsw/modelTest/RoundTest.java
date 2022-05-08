@@ -81,7 +81,7 @@ public class RoundTest {
         game2p.getRound().getPianificationPhase().playAssistant(0, 2);
         game2p.getRound().getPianificationPhase().playAssistant(1, 2);
 
-        assertEquals("Assistant not playable", game2p.getPlayer(1).getErrorMessage());
+        assertEquals("Assistant not playable", game2p.getPlayer(1).getPlayerMessage());
 
     }
 
@@ -112,13 +112,13 @@ public class RoundTest {
         int rightPlayer = playerOrder[0];
 
         game2p.getRound().checkPlayerOnTurn(rightPlayer);
-        assertEquals("Select an assistant", game2p.getPlayer(rightPlayer).getErrorMessage());
+        assertEquals("Select an assistant", game2p.getPlayer(rightPlayer).getPlayerMessage());
 
         try {
             game2p.getRound().checkPlayerOnTurn(wrongPlayer);
         }catch (PlayerNotOnTurnException e){ assertTrue(true);}
 
-        assertTrue(game2p.getPlayer(wrongPlayer).getErrorMessage() == "You are not the current player");
+        assertTrue(game2p.getPlayer(wrongPlayer).getPlayerMessage() == "You are not the current player");
     }
 
     @Test
@@ -176,7 +176,7 @@ public class RoundTest {
     @Test
     public void testSetErrorMessage() {
         game2p.startRound().setPlayerMessage(0, "Generic error");
-        assertTrue(game2p.getPlayer(0).getErrorMessage()=="Generic error");
+        assertTrue(game2p.getPlayer(0).getPlayerMessage()=="Generic error");
     }
 
     @Test
@@ -386,11 +386,11 @@ public class RoundTest {
         playerId=game2p.getRound().getPlayerOrder()[1];
         game2p.getRound().setRoundState(1);
         game2p.getRound().playAssistant(playerId, assistantPosition);
-        assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getPlayerMessage());
 
         game2p.getRound().setRoundState(0);
         game2p.getRound().playAssistant(1, 11);
-        assertEquals("You can't choose that assistant", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You can't choose that assistant", game2p.getPlayer(playerId).getPlayerMessage());
     }
 
     @Test
@@ -420,12 +420,12 @@ public class RoundTest {
         playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);
-        assertEquals("You cannot move students now", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You cannot move students now", game2p.getPlayer(playerId).getPlayerMessage());
 
         game2p.getRound().setRoundState(1);
         game2p.getRound().setMovesCounter(playerId, 4);
         game2p.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);
-        assertEquals("You can move no more students", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You can move no more students", game2p.getPlayer(playerId).getPlayerMessage());
 
     }
 
@@ -464,12 +464,12 @@ public class RoundTest {
         playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().addStudentOnTable(playerId, studentIndex);
-        assertEquals("You cannot move students now", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You cannot move students now", game2p.getPlayer(playerId).getPlayerMessage());
 
         game2p.getRound().setRoundState(1);
         game2p.getRound().setMovesCounter(playerId, 4);
         game2p.getRound().addStudentOnTable(playerId, studentIndex);
-        assertEquals("You can move no more students", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You can move no more students", game2p.getPlayer(playerId).getPlayerMessage());
 
     }
 
@@ -504,7 +504,7 @@ public class RoundTest {
         assertEquals(expectedPosition, game2p.getGameTable().getMotherNaturePosition());
 
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
-        assertEquals("You are not the current player",game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You are not the current player",game2p.getPlayer(playerId).getPlayerMessage());
         /*
         
         Problema con i messaggi: l'eccezione viene catchata correttamente ma il messaggio di errore non viene displayato
@@ -555,17 +555,17 @@ public class RoundTest {
 
         game2p.getRound().setRoundState(3);
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You are not the current player", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You are not the current player", game2p.getPlayer(playerId).getPlayerMessage());
 
         playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You cannot get students from cloud now", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You cannot get students from cloud now", game2p.getPlayer(playerId).getPlayerMessage());
 
         cloudIndex=4;
         game2p.getRound().setRoundState(3);
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("The chosen cloud doesn't exist", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("The chosen cloud doesn't exist", game2p.getPlayer(playerId).getPlayerMessage());
 
     }
 

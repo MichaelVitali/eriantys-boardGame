@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class Round {
+public class Round implements Serializable {
 
     private PianificationPhase pianificationPhase;
     private int currentPhase;
@@ -34,14 +36,14 @@ public class Round {
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
         this.game = game;
         alreadyPlayedCharacter = false;
-        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], getStateMessage());
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant");
     }
 
     public Round(Game game, int[] playerOrder) {
         this(game);
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
             this.playerOrder[i] = playerOrder[i];
-        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], getStateMessage());
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant");
     }
 
     /**
@@ -58,7 +60,7 @@ public class Round {
         return game;
     }
 
-    public class PianificationPhase {
+    public class PianificationPhase implements Serializable {
 
         private Game game;
         private boolean[] alreadyPlayedAssistants;
@@ -103,7 +105,7 @@ public class Round {
         }
     }
 
-    public class PlayedAssistant {
+    public class PlayedAssistant implements Serializable {
         private int playerIndex;
         private Assistant assistant;
 
@@ -208,6 +210,12 @@ public class Round {
         return false;
     }
 
+    public boolean isTimeToChooseTheNextStudent() {
+        if(roundState == 1 && movesCounter[playerOrder[indexOfPlayerOnTurn]] < 3 )
+            return true;
+        return false;
+    }
+
     public boolean isTimeToMoveMotherNature() {
         if (roundState == 1 && 3 <= movesCounter[playerOrder[indexOfPlayerOnTurn]])
             return true;
@@ -258,6 +266,7 @@ public class Round {
     }
 
     public void switchToPianificationPhase() {
+        System.out.println("Abbiamo eseguito la switch to action phase");
         setPianificationPhaseOrder();
         game.startRound(playerOrder);
     }
@@ -279,11 +288,14 @@ public class Round {
     }
 
     public void calculateNextPlayer() {
+        boolean roundEnded = false;
         if (isPianificationPhaseEnded()) {
-
             switchToActionPhase();
+        } else if (isTimeToChooseTheNextStudent()) {
+
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
+            roundEnded = true;
         } else if (isTimeToMoveMotherNature()) {
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
@@ -297,8 +309,10 @@ public class Round {
                 indexOfPlayerOnTurn++;
             }
         }
-        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessage());
-        game.sendGame();
+        if (!roundEnded) {
+            setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessage());
+            game.sendGame();
+        }
     }
 
     public void playAssistant(int playerId, int assistantPosition) {
@@ -342,6 +356,7 @@ public class Round {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(1);
             checkNumberOfMoves(playerId);
+            System.out.println("Player: " + playerId + " number of  moves: " + movesCounter[playerId]);
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             if (game instanceof ExpertGame){
                 PawnColor studentColor = game.getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
@@ -405,7 +420,6 @@ public class Round {
             } catch (InvalidIndexException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
             }
-            calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
@@ -417,7 +431,7 @@ public class Round {
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(3);
-            if(cloudIndex < 0 || game.getNumberOfPlayers() < cloudIndex) throw new InvalidIndexException("");
+            //if(cloudIndex < 0 || game.getNumberOfPlayers() < cloudIndex) throw new InvalidIndexException("");
             game.getPlayer(playerId).takeStudentsFromCloud(cloudIndex);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
@@ -425,7 +439,7 @@ public class Round {
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You cannot get students from cloud now");
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, "The chosen cloud doesn't exist");
+            setPlayerMessage(playerId, e.getMessage());
         } catch (EmptyCloudException e)  {
             setPlayerMessage(playerId, "The chosen cloud is empty. Chose another one!");
         }

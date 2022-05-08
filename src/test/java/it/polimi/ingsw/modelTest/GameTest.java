@@ -130,7 +130,7 @@ public class GameTest {
     }
 
     @Test
-    public void testStartRound() throws EmptyCloudException {
+    public void testStartRound() throws EmptyCloudException, InvalidIndexException {
         game2p.setGameTable(gameTable);
 
         for (int i=0; i<game2p.getGameTable().getNumberOfClouds(); i++)
@@ -146,7 +146,7 @@ public class GameTest {
     }
 
     @Test
-    public void testTestStartRound() throws EmptyCloudException {
+    public void testTestStartRound() throws EmptyCloudException, InvalidIndexException {
         int playerOrder[]={0,1};
         game2p.setGameTable(gameTable);
 

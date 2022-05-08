@@ -3,12 +3,13 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 import it.polimi.ingsw.server.ClientConnection;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class GameTable {
+public class GameTable implements Serializable {
     private int numberOfPlayers;
     private List<Island> islands;
     private Cloud[] clouds;
@@ -350,12 +351,11 @@ public class GameTable {
      * @return a list with all the students on the cloud
      * @throws EmptyCloudException if there isn't any student on the cloud
      */
-    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
+    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException, InvalidIndexException {
         if(clouds[cloudIndex].isEmpty()) throw new EmptyCloudException();
         List<Student> studentsOnTheCloud = new ArrayList<>();
-        if(cloudIndex >= 0 && cloudIndex < clouds.length) {
-            studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
-        }
+        if(cloudIndex < 0 && cloudIndex >= clouds.length) throw new InvalidIndexException("The chosen cloud doesn't exist");
+        studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
         return studentsOnTheCloud;
     }
 

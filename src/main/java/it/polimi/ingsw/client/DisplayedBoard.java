@@ -17,7 +17,7 @@ public class DisplayedBoard implements Serializable {
         this.model = model;
         state = model.getRound().getRoundState();
         this.playerId = playerId;
-        playerMessage = model.getPlayer(playerId).getErrorMessage();
+        playerMessage = model.getPlayer(playerId).getPlayerMessage();
     }
 
     public int getState() {
@@ -36,5 +36,9 @@ public class DisplayedBoard implements Serializable {
 
     public void printDefaultOnCli() {
         System.out.println(playerMessage);
+    }
+
+    public void printStateOnCli() {
+        System.out.println("The current round state is: " + state);
     }
 }

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public enum PawnColor {
+import java.io.Serializable;
+
+public enum PawnColor implements Serializable {
     YELLOW(0), BLUE(1), GREEN(2), RED(3), PINK(4);
     private final int index;
 

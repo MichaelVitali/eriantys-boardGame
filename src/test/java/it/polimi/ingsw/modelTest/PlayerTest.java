@@ -89,19 +89,19 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetErrorMessage(){
+    public void testGetPlayerMessage(){
         player.setPlayerMessage("Error!");
-        assertEquals(player.getErrorMessage(), "Error!");
+        assertEquals(player.getPlayerMessage(), "Error!");
     }
 
     @Test
-    public void testSetErrorMessage(){
+    public void testSetPlayerMessage(){
         player.setPlayerMessage("Error!");
-        assertEquals(player.getErrorMessage(), "Error!");
+        assertEquals(player.getPlayerMessage(), "Error!");
     }
 
     @Test
-    public void testTakeStudentsFromCloud() throws EmptyBagException, EmptyCloudException, FullTableException {
+    public void testTakeStudentsFromCloud() throws EmptyBagException, EmptyCloudException, FullTableException, InvalidIndexException {
         Student[] entrance;
         Student[] entrance2;
 

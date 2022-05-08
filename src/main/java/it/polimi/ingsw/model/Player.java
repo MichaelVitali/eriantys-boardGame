@@ -4,9 +4,10 @@ import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.OutOfBoundException;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Player {
+public class Player implements Serializable {
     private SchoolBoard schoolBoard;
     private GameTable gameTable;
     private final String nickName;
@@ -62,7 +63,7 @@ public class Player {
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
-    public String getErrorMessage() {
+    public String getPlayerMessage() {
         return message;
     }
 
@@ -70,7 +71,7 @@ public class Player {
         this.message = message;
     }
 
-    public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException {
+    public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException, InvalidIndexException {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
         this.schoolBoard.addStudentsOnEntrance(s);
     }

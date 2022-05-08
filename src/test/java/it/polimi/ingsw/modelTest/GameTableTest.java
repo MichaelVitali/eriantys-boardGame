@@ -40,7 +40,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException {
+    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException, InvalidIndexException {
         List<Student> studentsOnCloud;
         gameTable.addStudentsOnClouds();
         for (int i = 0; i < gameTable.getClouds().length; i++){

@@ -50,11 +50,11 @@ public class ClientCli {
                             if(!configurationDone) {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
-                                System.out.println("The configuration is done. Get ready to play...");
                             }
                             if (actualBoard != null)
                                 actualBoard.printDefaultOnCli();
-                            stamp(actualBoard.getModel());
+                            actualBoard.printStateOnCli();
+                            //stamp(actualBoard.getModel());
                         } else {
                             throw new IllegalArgumentException();
                         }
@@ -89,10 +89,13 @@ public class ClientCli {
                                             break;
                                         case 1:
                                             if (playerParameter == 1) {
+                                                System.out.println("Select the index of the student");
                                                 playerParameter = readLineAndParseInteger(stdin);
                                                 playerMessage = new AddStudentOnTableMessage(playerId, playerParameter);
                                             } else if (playerParameter == 2) {
+                                                System.out.println("Select the index of the student");
                                                 int targetStudent = readLineAndParseInteger(stdin);
+                                                System.out.println("Select the index of the island");
                                                 int targetIsland = readLineAndParseInteger(stdin);
                                                 playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
                                             } else {
@@ -109,6 +112,7 @@ public class ClientCli {
                                             break;
                                     }
                             } catch (NumberFormatException e) {
+                                System.out.println("You insert a wrong formatted input, insert only numbers");
                                 actualBoard.printDefaultOnCli();
                             }
                             if(playerMessage != null)
@@ -179,23 +183,26 @@ public class ClientCli {
             System.out.println("Island number " + i);
             for (PawnColor color : PawnColor.values()) {
                 long numberOfStudents = island.getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + "students is " + numberOfStudents);
+                System.out.println("Number of " + color + " students is " + numberOfStudents);
             }
         }
     }
 
     void printSchoolboard(SchoolBoard schoolBoard) {
         System.out.println("Schoolboard");
-        for (Student s : schoolBoard.getStudentsFromEntrance()) {
-            System.out.print(s.getColor() + "\t");
+        for (Student student : schoolBoard.getStudentsFromEntrance()) {
+            if(student != null)
+                System.out.print(student.getColor() + "\t");
+            else
+                System.out.print("void" + "\t");
         }
-        for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + "has " + schoolBoard.getNumberOfStudentsOnTable(color) + "of students; " + "professor: " + schoolBoard.getProfessors().contains(color));
-        System.out.println("You have " + schoolBoard.getTowers().size() + "towers remaining");
+        for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + " has " + schoolBoard.getNumberOfStudentsOnTable(color) + " students; " + (schoolBoard.getProfessors().contains(color) ? "There is the professor" : "There isn't the professor"));
+        System.out.println("You have " + schoolBoard.getTowers().size() + " towers remaining");
     }
 
     void printAssistants(List<Assistant> assistants) {
         System.out.println("List of remaining assistants");
-        for (Assistant a : assistants) System.out.println("Card value: " + a.getCardValue() + "mother nature moves: " + a.getMotherNatureMoves());
+        for (Assistant a : assistants) System.out.println("Card value: " + a.getCardValue() + " mother nature moves: " + a.getMotherNatureMoves());
     }
 
     void printCloud(Cloud[] clouds) {
@@ -203,7 +210,7 @@ public class ClientCli {
             System.out.println("Cloud number " + i);
             for (PawnColor color : PawnColor.values()) {
                 long numberOfStudents = clouds[i].getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + "students is " + numberOfStudents);
+                System.out.println("Number of " + color + " students is " + numberOfStudents);
             }
         }
     }

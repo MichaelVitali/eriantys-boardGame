@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cloud {
+public class Cloud implements Serializable {
     private final int numberOfStudents;
     private final List<Student> students;
 
