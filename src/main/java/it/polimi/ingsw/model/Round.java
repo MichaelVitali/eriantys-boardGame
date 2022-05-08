@@ -34,16 +34,14 @@ public class Round {
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
         this.game = game;
         alreadyPlayedCharacter = false;
-        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
-            if(i == playerOrder[0])
-                setPlayerMessage(playerOrder[0], "Play an assistant");
-        }
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], getStateMessage());
     }
 
     public Round(Game game, int[] playerOrder) {
         this(game);
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
             this.playerOrder[i] = playerOrder[i];
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], getStateMessage());
     }
 
     /**
@@ -173,10 +171,19 @@ public class Round {
     }
 
     private void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
-        game.getPlayer(playerId).setPlayerMessage(message);
-        for(int i = 0; i < game.getNumberOfPlayers(); i++) {
-            if(i != playerId) game.getPlayer(playerId).setPlayerMessage("The player on turn is " + game.getPlayer(playerId).getNickname());
+        setPlayerMessage(playerId, message);
+        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
+            if (i != playerId) setPlayerMessage(i, "The player on turn is " + game.getPlayer(playerId).getNickname());
         }
+    }
+
+    private String getStateMessage() {
+        String message = null;
+        if (roundState == 0) message = "Select an assistant";
+        else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
+        else if (roundState == 2) message = "Select an island where mother nature has to move";
+        else if (roundState == 3) message = "Select a cloud";
+        return message;
     }
 
     public void setIndexOfPlayerOnTurn(int index){
@@ -290,6 +297,7 @@ public class Round {
                 indexOfPlayerOnTurn++;
             }
         }
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessage());
         game.sendGame();
     }
 

@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.observer.Observable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,10 @@ public class Game extends Observable<Game> {
         }
 
         players = new Player[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++)
+        for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player(nicknames.get(i), i, assistantsList);
+            players[i].addSchoolBoard(gameTable.getSchoolBoards()[i]);
+        }
 
         round = startRound();
 
@@ -158,5 +161,9 @@ public class Game extends Observable<Game> {
 
     public void sendGame() {
         notify(this);
+    }
+
+    public List<Assistant> getPlayerAssistant(int playerIndex) {
+        return assistants[playerIndex];
     }
 }

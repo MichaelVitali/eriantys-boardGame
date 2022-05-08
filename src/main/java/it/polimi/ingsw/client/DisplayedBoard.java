@@ -11,8 +11,10 @@ public class DisplayedBoard implements Serializable {
 
     private int playerId;
     private String playerMessage;
+    private Game model;
 
     public DisplayedBoard(Game model, int playerId) {
+        this.model = model;
         state = model.getRound().getRoundState();
         this.playerId = playerId;
         playerMessage = model.getPlayer(playerId).getErrorMessage();
@@ -30,7 +32,9 @@ public class DisplayedBoard implements Serializable {
         return playerMessage;
     }
 
+    public Game getModel() { return model;}
+
     public void printDefaultOnCli() {
-        System.out.println(playerMessage);System.out.println("Ciao bello");
+        System.out.println(playerMessage);
     }
 }

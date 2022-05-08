@@ -1,17 +1,30 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.Character;
+import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Round;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class CharacterTest {
 
     private Character c = new Character(1, 2);
-    private Round round = new Round(new Game(2));
+    private Round round;
+
+    @Before
+    public void setUp() {
+        List<String> nicknames = new ArrayList<>();
+        nicknames.add("mike");
+        nicknames.add("enri");
+        round = new Round(new ExpertGame(2, nicknames));
+    }
 
     @Test
     public void testTestGetID() {
