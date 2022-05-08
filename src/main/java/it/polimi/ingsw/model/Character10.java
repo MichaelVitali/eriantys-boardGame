@@ -83,6 +83,12 @@ public class Character10 extends Character{
                         throw new OutOfBoundException("The parameter must be 0 or 1");
                     wantToGoOn = parameter;
                     canSwitch++;
+                    if(wantToGoOn == 1) {
+                        setRoundState(5);
+                        getRound().getGame().getPlayer(playerId).setPlayerMessage("Select Student on entrance");
+                    }
+                    else
+                        deactivateEffect();
                 }catch (OutOfBoundException e){}
             }
         }

@@ -30,10 +30,27 @@ public class Character10Test {
 
         Student entranceStudent = null;
 
+        character.activateEffect(1, round);
+        for (PawnColor pc : PawnColor.values())
+            for (int i = 0; i < 3; i++)
+                character.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(pc));
+        character.doYourJob(1, 3);
+        entranceStudent = character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[3];
+        character.doYourJob(1,1);
+        assertEquals(entranceStudent, character.getGame().getGameTable().getSchoolBoards()[1].removeStudentFromTable(entranceStudent.getColor()));
+        assertEquals(PawnColor.BLUE, character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[3].getColor());
+        character.doYourJob(1, 1);
+        assertEquals(5, character.getRoundState());
+        character.doYourJob(1, 5);
+        entranceStudent = character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[5];
+        character.doYourJob(1, 0);
+        assertEquals(entranceStudent, character.getGame().getGameTable().getSchoolBoards()[1].removeStudentFromTable(entranceStudent.getColor()));
+        assertEquals(PawnColor.YELLOW, character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[5].getColor());
+
         character.activateEffect(0, round);
-        round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
-        round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
-        round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
+        for (PawnColor pc : PawnColor.values())
+            for (int i = 0; i < 3; i++)
+                character.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(pc));
         character.doYourJob(0, 2);
         entranceStudent = round.getGame().getGameTable().getSchoolBoards()[0].getStudentsFromEntrance()[2];
         character.doYourJob(0, 0);
@@ -41,6 +58,7 @@ public class Character10Test {
         assertEquals(PawnColor.YELLOW, round.getGame().getGameTable().getSchoolBoards()[0].getStudentsFromEntrance()[2].getColor());
         character.doYourJob(0,0);
         assertNotEquals(7, round.getRoundState());
+
     }
 
     @Test
