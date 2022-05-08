@@ -43,16 +43,42 @@ public class ExpertGame extends Game {
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
 
-            if(ID == 1 || ID == 11){
-                CharacterWithStudent characterWithStudent = new CharacterWithStudent(ID, cost, 4);
-                characterWithStudent.addStudents(game.getGameTable().getBag().drawStudents(4));
-                c.add(characterWithStudent);
-            }else if (ID == 7) {
-                CharacterWithStudent characterWithStudent = new CharacterWithStudent(ID, cost, 6);
-                characterWithStudent.addStudents(game.getGameTable().getBag().drawStudents(6));
-                c.add(characterWithStudent);
-            } else {
-                c.add(new Character(ID, cost));
+            switch (ID) {
+                case 1:
+                    Character1 c1 = new Character1(ID, cost, 4);
+                    c1.addStudents(game.getGameTable().getBag().drawStudents(4));
+                    c.add(c1);
+                    break;
+                case 3:
+                    Character3 c3 = new Character3(ID, cost);
+                    c.add(c3);
+                    break;
+                case 6:
+                    NoInfluencePointsForTowersCharacter c6 = new NoInfluencePointsForTowersCharacter(ID, cost);
+                    c.add(c6);
+                    break;
+                case 7:
+                    Character7 c7 = new Character7(ID, cost, 6);
+                    c7.addStudents(game.getGameTable().getBag().drawStudents(6));
+                    c.add(c7);
+                    break;
+                case 8:
+                    TwoMoreInfluencePointsCharacter c8 = new TwoMoreInfluencePointsCharacter(ID, cost);
+                    c.add(c8);
+                    break;
+                case 10:
+                    Character10 c10 = new Character10(ID, cost);
+                    c.add(c10);
+                    break;
+                case 11:
+                    Character11 c11 = new Character11(ID, cost, 4);
+                    c11.addStudents(game.getGameTable().getBag().drawStudents(4));
+                    c.add(c11);
+                    break;
+                case 12:
+                    Character12 c12 = new Character12(ID, cost);
+                    c.add(c12);
+                    break;
             }
         }
 
