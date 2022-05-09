@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public class TwoMoreStepsCharacter extends Character {
+public class Postman extends Character {
 
     /**
      * Creates a character card with the given two values
@@ -8,7 +8,7 @@ public class TwoMoreStepsCharacter extends Character {
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public TwoMoreStepsCharacter(int id, int cost) {
+    public Postman(int id, int cost) {
         super(id, cost);
     }
 

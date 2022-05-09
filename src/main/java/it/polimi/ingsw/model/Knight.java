@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.exception.InvalidMethodException;
 import it.polimi.ingsw.model.exception.PlayerNotOnTurnException;
 import it.polimi.ingsw.model.exception.TooFarIslandException;
 
-public class TwoMoreInfluencePointsCharacter extends Character {
+public class Knight extends Character {
 
     private int teamWithTwoMorePoints;
     /**
@@ -14,7 +14,7 @@ public class TwoMoreInfluencePointsCharacter extends Character {
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public TwoMoreInfluencePointsCharacter(int id, int cost) {
+    public Knight(int id, int cost) {
         super(id, cost);
     }
 

@@ -2,9 +2,9 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 
 
-public class Character3 extends Character{
+public class Herald extends Character{
 
-    public Character3(int id, int cost) {
+    public Herald(int id, int cost) {
         super(id, cost);
     }
 

@@ -10,9 +10,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class Character3Test {
+public class HeraldTest {
 
-    private Character3 character = new Character3(1, 0);
+    private Herald character = new Herald(1, 0);
     private Round round;
 
     @Before

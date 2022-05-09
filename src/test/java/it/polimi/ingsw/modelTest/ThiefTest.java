@@ -1,7 +1,6 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.exception.EmptyTableException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +10,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class Character12Test {
+public class ThiefTest {
 
-    private Character12 character;
+    private Thief character;
     private Round round;
 
     @Before
     public void setUp() throws Exception {
-        character = new Character12(10, 0);
+        character = new Thief(10, 0);
         List<String> nicknames = new ArrayList<>();
         nicknames.add("mike");
         nicknames.add("enri");

@@ -458,19 +458,16 @@ public class RoundTest {
 
         assertEquals(1, game2p.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(expectedColor));
 /*
-        game2p.getRound().addStudentOnTable(playerId, studentIndex);
-        assertEquals(1, game2p.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(expectedColor));
-*/
         playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().addStudentOnTable(playerId, studentIndex);
-       //assertEquals("You cannot move students now", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("You are not the current player", game2p.getPlayer(playerId).getPlayerMessage());
 
         game2p.getRound().setRoundState(1);
         game2p.getRound().setMovesCounter(playerId, 4);
         game2p.getRound().addStudentOnTable(playerId, studentIndex);
-       // assertEquals("You can move no more students", game2p.getPlayer(playerId).getPlayerMessage());
-
+        assertEquals("You can move no more students", game2p.getPlayer(playerId).getPlayerMessage());
+*/
     }
 
     @Test
