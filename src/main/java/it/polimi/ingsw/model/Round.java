@@ -7,24 +7,22 @@ import java.util.*;
 
 public class Round implements Serializable {
 
-    private PianificationPhase pianificationPhase;
-    private int currentPhase;
+    private Game game;
     protected int roundState;
     private int[] movesCounter;                     // In indice playerId si trovano gli spostamenti di studenti fatti dal giocatore con tale id
-    private int indexOfPlayerOnTurn;                // Indice in playerOrder del giocatore che sta giocando
+    private int indexOfPlayerOnTurn;               // Indice in playerOrder del giocatore che sta giocando
     private int[] playerOrder;                      // Da 0 al numero di player identifica l'ordine di essi in quella fase di gioco
     private PlayedAssistant[] playedAssistants;
-    private Game game;
+    private boolean[] alreadyPlayedAssistants;
+    private List<Assistant> playedAssistantsPF; ///// cosa è
     private boolean alreadyPlayedCharacter;
 
     public Round() { }
 
     public Round(Game game) {
-        pianificationPhase = new PianificationPhase(game);
-        currentPhase = 0;
         indexOfPlayerOnTurn = 0;
         playerOrder = new int[game.getNumberOfPlayers()];
-        playerOrder[0] = pianificationPhase.calculateFirstPlayer();
+        playerOrder[0] = calculateFirstPlayer();
         for (int i = 1; i < game.getNumberOfPlayers(); i++)
             playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
         roundState = 0;
@@ -34,6 +32,14 @@ public class Round implements Serializable {
         playedAssistants = new PlayedAssistant[game.getNumberOfPlayers()];
         this.game = game;
         alreadyPlayedCharacter = false;
+
+
+        alreadyPlayedAssistants = new boolean[game.getNumberOfPlayers()];
+        for (int i = 0; i < alreadyPlayedAssistants.length; i++)
+            alreadyPlayedAssistants[i] = false;
+        playedAssistantsPF = new ArrayList<>();
+
+
         setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant");
     }
 
@@ -58,52 +64,6 @@ public class Round implements Serializable {
         return game;
     }
 
-    public class PianificationPhase implements Serializable {
-
-        private Game game;
-        private boolean[] alreadyPlayedAssistants;
-        private List<Assistant> playedAssistantsPF;
-
-        public PianificationPhase(Game game) {
-            this.game=game;
-            alreadyPlayedAssistants=new boolean[game.getNumberOfPlayers()];
-            for(int i=0; i<alreadyPlayedAssistants.length; i++)
-                alreadyPlayedAssistants[i]=false;
-            playedAssistantsPF=new ArrayList<>();
-        }
-
-        public int calculateFirstPlayer(){
-            Random generator = new Random();
-            int firstPlayer = generator.nextInt(game.getNumberOfPlayers());
-            return firstPlayer;
-        }
-
-        public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) {
-            if (outer.size()<inner.size())
-                return false;
-
-            return outer.containsAll(inner);
-        }
-
-        public void playAssistant(int playerId, int assistantPosition) throws InvalidIndexException {
-            Assistant toPlay=game.getPlayer(playerId).removeAssistant(assistantPosition);
-
-            for (int i=0; i<playedAssistants.length ; i++){
-                if (alreadyPlayedAssistants[i]==true && i!=playerId){
-                    if(toPlay.equals(playedAssistants[i].getAssistant())){
-                        if(assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())==false){
-                            game.getPlayer(playerId).setPlayerMessage("Assistant not playable");
-                            return;
-                        }
-                    }
-                }
-            }
-            playedAssistants[playerId] = new PlayedAssistant(playerId, toPlay);
-            alreadyPlayedAssistants[playerId]=true;
-            playedAssistantsPF.add(toPlay);
-        }
-    }
-
     public class PlayedAssistant implements Serializable {
         private int playerIndex;
         private Assistant assistant;
@@ -120,10 +80,6 @@ public class Round implements Serializable {
         public Assistant getAssistant() {
             return assistant;
         }
-    }
-
-    public PianificationPhase getPianificationPhase() {
-        return pianificationPhase;
     }
 
     public PlayedAssistant[] getPlayedAssistants(){
@@ -172,6 +128,12 @@ public class Round implements Serializable {
         this.alreadyPlayedCharacter = alreadyPlayedCharacter;
     }
 
+    public int calculateFirstPlayer(){
+        //Random generator = new Random();
+        int firstPlayer = 0;//generator.nextInt(game.getNumberOfPlayers());
+        return firstPlayer;
+    }
+
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {
         if (methodId != roundState) throw new InvalidMethodException();
     }
@@ -201,14 +163,14 @@ public class Round implements Serializable {
     }
 
     public boolean isPianificationPhaseEnded() {
-        if (currentPhase == 0) {
+        if (roundState == 0) {
             if (indexOfPlayerOnTurn == game.getNumberOfPlayers() - 1) return true;
         }
         return false;
     }
 
     public boolean isActionPhaseEnded() {
-        if (currentPhase == 1 && roundState == 3 && (indexOfPlayerOnTurn == game.getNumberOfPlayers() - 1)) return true;
+        if (roundState == 3 && (indexOfPlayerOnTurn == game.getNumberOfPlayers() - 1)) return true;
         return false;
     }
 
@@ -278,20 +240,10 @@ public class Round implements Serializable {
         game.startRound(playerOrder);
     }
 
-    public int getCurrentPhase() {
-        return currentPhase;
-    }
-
-    public void setCurrentPhase(int currentPhase){
-        if(currentPhase>=0 && currentPhase<=1)
-            this.currentPhase=currentPhase;
-    }
-
     public void switchToActionPhase() {
         setActionPhaseOrder();
         roundState = 1;
         indexOfPlayerOnTurn = 0;
-        currentPhase = 1;
     }
 
     public void calculateNextPlayer() {
@@ -327,11 +279,36 @@ public class Round implements Serializable {
         }
     }
 
+    public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) {
+        if (outer.size() < inner.size())
+            return false;
+        return outer.containsAll(inner);
+    }
+
+    public void removeAssistant(int playerId, int assistantPosition) throws InvalidIndexException {
+        Assistant assistantToPlay = game.getPlayer(playerId).getAssistant(assistantPosition);
+
+        for (int i = 0; i < playedAssistants.length; i++) {
+            if (alreadyPlayedAssistants[i] == true && i != playerId) {
+                if (assistantToPlay.equals(playedAssistants[i].getAssistant())) {
+                    if (!assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())) {
+                        game.getPlayer(playerId).setPlayerMessage("Someone has already choose that assistant. Select a different one");
+                        return;
+                    }
+                }
+            }
+        }
+        assistantToPlay = game.getPlayer(playerId).removeAssistant(assistantPosition);
+        playedAssistants[playerId] = new PlayedAssistant(playerId, assistantToPlay);
+        alreadyPlayedAssistants[playerId] = true;
+        playedAssistantsPF.add(assistantToPlay);
+    }
+
     public void playAssistant(int playerId, int assistantPosition) {
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(0);
-            pianificationPhase.playAssistant(playerId, assistantPosition);
+            removeAssistant(playerId, assistantPosition);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
@@ -439,8 +416,7 @@ public class Round implements Serializable {
                     if (playedAssistants[i].playerIndex == playerId) break;
                     i++;
                 }
-                if (!isANewAllowedPositionForMotherNature(playedAssistants[i].getAssistant(), islandIndex))
-                    throw new TooFarIslandException();
+                if (!isANewAllowedPositionForMotherNature(playedAssistants[i].getAssistant(), islandIndex)) throw new TooFarIslandException();
                 game.getGameTable().changeMotherNaturePosition(islandIndex);
                 int[] influenceValues = game.getGameTable().calculateInfluenceValuesGivenByStudents();
                 for (i = 0; i < influenceValues.length; i++)
@@ -474,7 +450,6 @@ public class Round implements Serializable {
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(3);
-            //if(cloudIndex < 0 || game.getNumberOfPlayers() < cloudIndex) throw new InvalidIndexException("");
             game.getPlayer(playerId).takeStudentsFromCloud(cloudIndex);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {

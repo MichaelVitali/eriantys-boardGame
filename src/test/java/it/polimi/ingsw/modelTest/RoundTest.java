@@ -26,16 +26,16 @@ public class RoundTest {
         nicknames.add("enri");
         game2p = new Game(2, nicknames);
     }
-
+/*
     @Test
     public void testGetPianificationPhase(){
         assertNotNull(game2p.startRound().getPianificationPhase());
     }
-
+*/
     @Test
     public void testCalculateFirstPlayerPianificationPhase(){ //Ho messo PianificationPhase public da private, altrimenti non avrei potuto testarne i metodi
         game2p.startRound();
-        int fp = game2p.getRound().getPianificationPhase().calculateFirstPlayer();
+        int fp = game2p.getRound().calculateFirstPlayer();
         assertTrue(fp >= 0 && fp < game2p.getNumberOfPlayers());
     }
 
@@ -55,14 +55,15 @@ public class RoundTest {
 
         game2p.startRound();
 
-        assertTrue(game2p.getRound().getPianificationPhase().assistantNoChoice(p1.getAssistants(),p0.getAssistants()));
+        assertTrue(game2p.getRound().assistantNoChoice(p1.getAssistants(),p0.getAssistants()));
 
         p0.playAssistant(1);
         p1.playAssistant(2);
 
-        assertFalse(game2p.getRound().getPianificationPhase().assistantNoChoice(p1.getAssistants(),p0.getAssistants()));
+        assertFalse(game2p.getRound().assistantNoChoice(p1.getAssistants(),p0.getAssistants()));
     }
 
+    /*
     @Test
     public void testPlayAssistantPianificationPhase() throws InvalidIndexException, OutOfBoundException {
 
@@ -84,7 +85,7 @@ public class RoundTest {
         assertEquals("Assistant not playable", game2p.getPlayer(1).getPlayerMessage());
 
     }
-
+*/
     //----------------------------------------------------------------
     //PlayedAssistants Tests
 
@@ -203,31 +204,11 @@ public class RoundTest {
     }
 
     @Test
-    public void testGetCurrentPhase(){
-        game2p.startRound();
-        assertEquals(0, game2p.getRound().getCurrentPhase());
-    }
-
-    @Test
-    public void testSetCurrentPhase(){
-        game2p.startRound();
-        game2p.getRound().setCurrentPhase(1);
-        assertEquals(1, game2p.getRound().getCurrentPhase());
-
-        game2p.getRound().setCurrentPhase(-1);
-        assertEquals(1, game2p.getRound().getCurrentPhase());
-
-        game2p.getRound().setCurrentPhase(2);
-        assertEquals(1, game2p.getRound().getCurrentPhase());
-    }
-
-    @Test
     public void testIsActionPhaseEnded() {
         game2p.startRound();
         assertFalse(game2p.getRound().isActionPhaseEnded());
 
         game2p.getRound().setRoundState(3);
-        game2p.getRound().setCurrentPhase(1);
         game2p.getRound().setIndexOfPlayerOnTurn(game2p.getNumberOfPlayers()-1);
         assertTrue(game2p.getRound().isActionPhaseEnded());
     }
@@ -266,8 +247,8 @@ public class RoundTest {
         game2p.startRound();
         assertNotNull(game2p.getRound().getPlayedAssistants());
 
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
+        game2p.getRound().removeAssistant(0,7);
+        game2p.getRound().removeAssistant(1,5);
 
         game2p.getRound().setPianificationPhaseOrder();
 
@@ -280,14 +261,15 @@ public class RoundTest {
         game2p.startRound();
         assertNotNull(game2p.getRound().getPlayedAssistants());
 
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
+        game2p.getRound().removeAssistant(0,7);
+        game2p.getRound().removeAssistant(1,5);
 
         game2p.getRound().setActionPhaseOrder();
 
         assertEquals(1, game2p.getRound().getPlayerOrder()[0]);
         assertEquals(0, game2p.getRound().getPlayerOrder()[1]);
     }
+
 
     @Test
     public void testSwitchToPianificationPhase() throws InvalidIndexException {
@@ -296,11 +278,11 @@ public class RoundTest {
         gameTest.startRound();
         game2p.startRound();
 
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
+        game2p.getRound().removeAssistant(0,7);
+        game2p.getRound().removeAssistant(1,5);
 
-        gameTest.getRound().getPianificationPhase().playAssistant(0,7);
-        gameTest.getRound().getPianificationPhase().playAssistant(1,5);
+        gameTest.getRound().removeAssistant(0,7);
+        gameTest.getRound().removeAssistant(1,5);
 
         gameTest.getRound().setPianificationPhaseOrder();
         int[] expectedPlayerOrder = gameTest.getRound().getPlayerOrder();
@@ -318,11 +300,11 @@ public class RoundTest {
         gameTest.startRound();
         game2p.startRound();
 
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
+        game2p.getRound().removeAssistant(0,7);
+        game2p.getRound().removeAssistant(1,5);
 
-        gameTest.getRound().getPianificationPhase().playAssistant(0,7);
-        gameTest.getRound().getPianificationPhase().playAssistant(1,5);
+        gameTest.getRound().removeAssistant(0,7);
+        gameTest.getRound().removeAssistant(1,5);
 
         gameTest.getRound().setActionPhaseOrder();
         int[] expectedPlayerOrder = gameTest.getRound().getPlayerOrder();
@@ -335,24 +317,19 @@ public class RoundTest {
 
         assertEquals(1, game2p.getRound().getRoundState());
         assertEquals(0, game2p.getRound().getIndexOfPlayerOnTurn());
-        assertEquals(1, game2p.getRound().getCurrentPhase());
     }
 
     @Test
     public void testCalculateNextPlayer() throws InvalidIndexException {
         game2p.startRound();
 
-        game2p.getRound().setCurrentPhase(0);
         game2p.getRound().calculateNextPlayer();
         game2p.getRound().setIndexOfPlayerOnTurn(game2p.getNumberOfPlayers()-1);
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
-        assertEquals(0, game2p.getRound().getCurrentPhase());
+        game2p.getRound().removeAssistant(0,7);
+        game2p.getRound().removeAssistant(1,5);
 
         game2p.getRound().setRoundState(3);
-        game2p.getRound().setCurrentPhase(1);
         game2p.getRound().calculateNextPlayer();
-        assertEquals(0, game2p.getRound().getCurrentPhase());
 
         game2p.getRound().setRoundState(1);
         game2p.getRound().setMovesCounter(game2p.getRound().getPlayerOrder()[game2p.getRound().getIndexOfPlayerOnTurn()], 3);
@@ -374,7 +351,6 @@ public class RoundTest {
         game2p.startRound(playerOrder);
         int playerId=0;
         int assistantPosition=3;
-        game2p.getRound().setCurrentPhase(0);
         Assistant played = game2p.getPlayer(playerId).getAssistant(assistantPosition);
 
         game2p.getRound().playAssistant(playerId, assistantPosition);
@@ -439,10 +415,10 @@ public class RoundTest {
         game2p.getPlayer(playerId).addSchoolBoard(game2p.getGameTable().getSchoolBoards()[playerId]);
         game2p.getPlayer(playerId+1).addGameTable(game2p.getGameTable());
         game2p.getPlayer(playerId+1).addSchoolBoard(game2p.getGameTable().getSchoolBoards()[playerId+1]);
-        game2p.getRound().getPianificationPhase().playAssistant(0,7);
-        game2p.getRound().getPianificationPhase().playAssistant(1,5);
-        //game2p.getRound().getPianificationPhase().playAssistant(0,6);
-        //game2p.getRound().getPianificationPhase().playAssistant(1,4);
+        game2p.getRound().removeAssistant(0,7);
+        game2p.getRound().removeAssistant(1,5);
+        //game2p.getRound().removeAssistant(0,6);
+        //game2p.getRound().removeAssistant(1,4);
 
         game2p.startRound(playerOrder);
         game2p.getRound().setRoundState(1);
@@ -496,8 +472,8 @@ public class RoundTest {
         game2p.getPlayer(playerId+1).addGameTable(game2p.getGameTable());
 
         game2p.startRound(playerOrder);
-        game2p.getRound().getPianificationPhase().playAssistant(playerId,7);
-        game2p.getRound().getPianificationPhase().playAssistant(playerId+1,9);
+        game2p.getRound().removeAssistant(playerId,7);
+        game2p.getRound().removeAssistant(playerId+1,9);
 
         game2p.getRound().setRoundState(2);
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);

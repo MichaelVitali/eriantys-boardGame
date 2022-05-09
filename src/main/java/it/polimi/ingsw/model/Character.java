@@ -83,9 +83,6 @@ public class Character extends Round implements Serializable {
     public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
 
     @Override
-    public Round.PianificationPhase getPianificationPhase() { return round.getPianificationPhase(); }
-
-    @Override
     public Round.PlayedAssistant[] getPlayedAssistants(){
         return round.getPlayedAssistants();
     }
@@ -154,12 +151,6 @@ public class Character extends Round implements Serializable {
 
     @Override
     public void switchToPianificationPhase() { round.switchToPianificationPhase();}
-
-    @Override
-    public int getCurrentPhase() { return round.getCurrentPhase(); }
-
-    @Override
-    public void setCurrentPhase(int currentPhase) { round.setCurrentPhase(currentPhase);}
 
     @Override
     public void switchToActionPhase() { round.switchToActionPhase(); }
