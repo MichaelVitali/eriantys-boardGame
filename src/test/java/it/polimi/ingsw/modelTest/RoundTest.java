@@ -512,12 +512,12 @@ public class RoundTest {
         playerId=game2p.getRound().getIndexOfPlayerOnTurn();
         game2p.getRound().setRoundState(2);
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex+game2p.getRound().getPlayedAssistants()[playerId].getAssistant().getMotherNatureMoves()+1);
-        assertEquals("You cannot put mother nature in the chosen island", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You cannot put mother nature in the chosen island", game2p.getPlayer(playerId).getPlayerMessage());
 
         playerId=0;
         islandIndex=2;
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
-        assertEquals("You cannot move mother nature now", game2p.getPlayer(playerId).getErrorMessage());
+        assertEquals("You cannot move mother nature now", game2p.getPlayer(playerId).getPlayerMessage());
         */
     }
 

@@ -73,16 +73,6 @@ public class GameTableTest {
     }
 
     @Test
-    public void testGetIsVictory(){
-        assertFalse(gameTable.isVictory());
-    }
-
-    @Test
-    public void testGetIsDraw(){
-        assertFalse(gameTable.isDraw());
-    }
-
-    @Test
     public void testAddStudentsOnClouds() throws EmptyBagException {
         for (Cloud c : gameTable.getClouds()) assertEquals(0, c.getStudents().size());
         gameTable.addStudentsOnClouds();
@@ -133,7 +123,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testPutTowerOrChangeColorIfNecessary() throws InvalidIndexException, FullTableException {
+    public void testPutTowerOrChangeColorIfNecessary() throws InvalidIndexException, FullTableException, NoMoreTowersException, ThreeOrLessIslandException {
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), 0);
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
@@ -150,7 +140,7 @@ public class GameTableTest {
 
     @Test
     public void testCalculateInfluences() throws InvalidIndexException, FullTableException {
-        //test se il primmo giocatore ha il professore dello studente di quel colore e gli altri no
+        //test se il primo giocatore ha il professore dello studente di quel colore e gli altri no
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
@@ -234,17 +224,5 @@ public class GameTableTest {
     @Test
     public void testGetBag(){
         assertNotNull(gameTable.getBag());
-    }
-
-    @Test
-    public void testSetVictory(){
-        gameTable.setVictory();
-        assertTrue(gameTable.isVictory());
-    }
-
-    @Test
-    public void testSetDraw(){
-        gameTable.setDraw();
-        assertTrue(gameTable.isDraw());
     }
 }
