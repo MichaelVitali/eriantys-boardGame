@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.NoMoreTowersException;
+import it.polimi.ingsw.model.exception.ThreeOrLessIslandException;
 
 
 public class Herald extends Character{
@@ -26,7 +28,19 @@ public class Herald extends Character{
                     for (int i = 0; i < influences.length; i++) {
                         influences[i] += influencesFromTowers[i];
                     }
-                    getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary(influences);
+                    try {
+                        getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary(influences);
+                    } catch (NoMoreTowersException e) {
+                        getRound().getGame().setVictory();
+                        getRound().getGame().setWinner(e.getEmptySchoolboardColor());
+                    } catch (ThreeOrLessIslandException e) {
+                        checkEndgameAndSetTheWinner();
+                    }
+                    if(getRound().getGame().isGameEnded()) {
+                        getRound().setRoundState(100);
+                        roundState = 100;
+                        getRound().getGame().endTheMatch();
+                    }
                 }
                 getRound().getGame().getGameTable().changeMotherNaturePosition(oldPosition);
                 deactivateEffect();

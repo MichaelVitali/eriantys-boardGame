@@ -166,4 +166,28 @@ public class GameTest {
     public void testCheckEndgame() throws InvalidIndexException, NoMoreTowersException {
 
     }
+    ////// aggiunto da enrico quando sposta robe e fa modifiche (arriva da gametabletest)
+    @Test
+    public void testSetVictory(){
+        game2p.setVictory();
+        assertTrue(game2p.isVictory());
+    }
+    ////// aggiunto da enrico quando sposta robe e fa modifiche (arriva da gametabletest)
+    @Test
+    public void testSetDraw(){
+        game2p.setDraw();
+        assertTrue(game2p.isDraw());
+    }
+
+    ////// aggiunto da enrico quando sposta robe e fa modifiche (arriva da gametabletest)
+    @Test
+    public void testGetIsVictory(){
+        assertFalse(game2p.isVictory());
+    }
+
+    ////// aggiunto da enrico quando sposta robe e fa modifiche (arriva da gametabletest)
+    @Test
+    public void testGetIsDraw(){
+        assertFalse(game2p.isDraw());
+    }
 }

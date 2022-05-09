@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.exception.InvalidMethodException;
-import it.polimi.ingsw.model.exception.PlayerNotOnTurnException;
-import it.polimi.ingsw.model.exception.TooFarIslandException;
+import it.polimi.ingsw.model.exception.*;
 
 public class Knight extends Character {
 
@@ -48,7 +45,19 @@ public class Knight extends Character {
                     influenceValues[i] += getGame().getGameTable().calculateInfluenceValuesGivenByTowers()[i];
                     if (i == teamWithTwoMorePoints) influenceValues[i] += 2;
                 }
-                getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
+                try {
+                    getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
+                } catch (NoMoreTowersException e) {
+                    getRound().getGame().setVictory();
+                    getRound().getGame().setWinner(e.getEmptySchoolboardColor());
+                } catch (ThreeOrLessIslandException e) {
+                    checkEndgameAndSetTheWinner();
+                }
+                if(getRound().getGame().isGameEnded()) {
+                    getRound().setRoundState(100);
+                    roundState = 100;
+                    getRound().getGame().endTheMatch();
+                }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");

@@ -15,9 +15,6 @@ public class GameTable implements Serializable {
     private Cloud[] clouds;
     private SchoolBoard[] schoolBoards;
     private int motherNaturePosition;
-    private boolean victory;
-    private boolean draw;
-    private TowerColor winner;
     private Bag bag;
 
     public GameTable() { }
@@ -39,9 +36,6 @@ public class GameTable implements Serializable {
         Random random = new Random();
         motherNaturePosition = random.nextInt(12);
         addStudentsOnIslandOnStart();
-        victory = false;
-        draw = false;
-        winner = null;
     }
 
     public void addStudentsOnIslandOnStart() {
@@ -120,22 +114,6 @@ public class GameTable implements Serializable {
      */
     public int getNumberOfIslands() {
         return islands.size();
-    }
-
-    public void setVictory(){
-        victory=true;
-    }
-
-    public void setDraw(){
-        draw=true;
-    }
-
-    public boolean isVictory() {
-        return victory;
-    }
-
-    public boolean isDraw() {
-        return draw;
     }
 
     /**
@@ -219,7 +197,7 @@ public class GameTable implements Serializable {
      * Calculates if, after the movement of mother nature, the player with the highest influence is the same. If not the towers on the island are changed
      * with the towers of the player with the highest influence. The old towers on the island are added to his player on his schoolboard.
      */
-    public void putTowerOrChangeColorIfNecessary(int[] influences) { // pay attention : influence.length isn't numberOfPlayers
+    public void putTowerOrChangeColorIfNecessary(int[] influences) throws NoMoreTowersException, ThreeOrLessIslandException { // pay attention : influence.length isn't numberOfPlayers
         Tower towerOnTheIsland;
         if (islands.get(motherNaturePosition).getTowers().size() == 0) towerOnTheIsland = null;
         else towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
@@ -263,24 +241,6 @@ public class GameTable implements Serializable {
                 }
             } catch (InvalidIndexException e) {
                 e.printStackTrace();
-            } catch (NoMoreTowersException e) {
-                victory = true;
-                winner = e.getEmptySchoolboardColor();
-            } catch (ThreeOrLessIslandException e) {
-                victory = false;
-                List<TowerColor> possibleWinner = teamWithLessTowersOnSchoolboards();
-                if (possibleWinner.size() > 1) {
-                    possibleWinner = teamWithMoreProfessors(possibleWinner);
-                    if (possibleWinner.size() > 1) {
-                        draw = true;
-                    } else {
-                        victory = true;
-                        winner = possibleWinner.get(0);
-                    }
-                } else {
-                    victory = true;
-                    winner = possibleWinner.get(0);
-                }
             }
         }
 
