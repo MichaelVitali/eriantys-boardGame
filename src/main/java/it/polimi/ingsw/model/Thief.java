@@ -5,11 +5,11 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 
 import java.util.Arrays;
 
-public class Character12 extends Character{
+public class Thief extends Character{
 
     private PawnColor pawnColor;
 
-    public Character12(int id, int cost){
+    public Thief(int id, int cost){
         super(id, cost);
         pawnColor = null;
     }

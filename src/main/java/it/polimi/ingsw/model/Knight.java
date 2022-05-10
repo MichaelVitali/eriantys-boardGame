@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.exception.InvalidMethodException;
-import it.polimi.ingsw.model.exception.PlayerNotOnTurnException;
-import it.polimi.ingsw.model.exception.TooFarIslandException;
+import it.polimi.ingsw.model.exception.*;
 
-public class TwoMoreInfluencePointsCharacter extends Character {
+public class Knight extends Character {
 
     private int teamWithTwoMorePoints;
     /**
@@ -14,7 +11,7 @@ public class TwoMoreInfluencePointsCharacter extends Character {
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public TwoMoreInfluencePointsCharacter(int id, int cost) {
+    public Knight(int id, int cost) {
         super(id, cost);
     }
 
@@ -48,7 +45,19 @@ public class TwoMoreInfluencePointsCharacter extends Character {
                     influenceValues[i] += getGame().getGameTable().calculateInfluenceValuesGivenByTowers()[i];
                     if (i == teamWithTwoMorePoints) influenceValues[i] += 2;
                 }
-                getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
+                try {
+                    getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
+                } catch (NoMoreTowersException e) {
+                    getRound().getGame().setVictory();
+                    getRound().getGame().setWinner(e.getEmptySchoolboardColor());
+                } catch (ThreeOrLessIslandException e) {
+                    checkEndgameAndSetTheWinner();
+                }
+                if(getRound().getGame().isGameEnded()) {
+                    getRound().setRoundState(100);
+                    roundState = 100;
+                    getRound().getGame().endTheMatch();
+                }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");

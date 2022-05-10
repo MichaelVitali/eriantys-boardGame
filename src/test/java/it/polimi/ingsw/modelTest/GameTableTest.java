@@ -40,7 +40,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException {
+    public void testGetStudentsOnCloud() throws EmptyBagException, EmptyCloudException, InvalidIndexException {
         List<Student> studentsOnCloud;
         gameTable.addStudentsOnClouds();
         for (int i = 0; i < gameTable.getClouds().length; i++){
@@ -70,16 +70,6 @@ public class GameTableTest {
     @Test
     public void testGetNumberOfIslands(){
         assertEquals(12, gameTable.getNumberOfIslands());
-    }
-
-    @Test
-    public void testGetIsVictory(){
-        assertFalse(gameTable.isVictory());
-    }
-
-    @Test
-    public void testGetIsDraw(){
-        assertFalse(gameTable.isDraw());
     }
 
     @Test
@@ -133,7 +123,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testPutTowerOrChangeColorIfNecessary() throws InvalidIndexException, FullTableException {
+    public void testPutTowerOrChangeColorIfNecessary() throws InvalidIndexException, FullTableException, NoMoreTowersException, ThreeOrLessIslandException {
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), 0);
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
@@ -150,7 +140,7 @@ public class GameTableTest {
 
     @Test
     public void testCalculateInfluences() throws InvalidIndexException, FullTableException {
-        //test se il primmo giocatore ha il professore dello studente di quel colore e gli altri no
+        //test se il primo giocatore ha il professore dello studente di quel colore e gli altri no
         gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), gameTable.getMotherNaturePosition());
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
@@ -234,17 +224,5 @@ public class GameTableTest {
     @Test
     public void testGetBag(){
         assertNotNull(gameTable.getBag());
-    }
-
-    @Test
-    public void testSetVictory(){
-        gameTable.setVictory();
-        assertTrue(gameTable.isVictory());
-    }
-
-    @Test
-    public void testSetDraw(){
-        gameTable.setDraw();
-        assertTrue(gameTable.isDraw());
     }
 }

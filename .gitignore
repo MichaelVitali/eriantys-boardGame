@@ -10,6 +10,7 @@ target
 /uml/
 *.idea
 
+*.pdf
 *.class
 
 *.iml

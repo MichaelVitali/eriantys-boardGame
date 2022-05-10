@@ -2,8 +2,10 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
+import java.io.Serializable;
 
-public class Character extends Round {
+
+public class Character extends Round implements Serializable {
     private final int ID;
     private int cost;
     private boolean firstUse;
@@ -81,9 +83,6 @@ public class Character extends Round {
     public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
 
     @Override
-    public Round.PianificationPhase getPianificationPhase() { return round.getPianificationPhase(); }
-
-    @Override
     public Round.PlayedAssistant[] getPlayedAssistants(){
         return round.getPlayedAssistants();
     }
@@ -152,12 +151,6 @@ public class Character extends Round {
 
     @Override
     public void switchToPianificationPhase() { round.switchToPianificationPhase();}
-
-    @Override
-    public int getCurrentPhase() { return round.getCurrentPhase(); }
-
-    @Override
-    public void setCurrentPhase(int currentPhase) { round.setCurrentPhase(currentPhase);}
 
     @Override
     public void switchToActionPhase() { round.switchToActionPhase(); }

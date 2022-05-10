@@ -1,6 +1,6 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.model.Character7;
+import it.polimi.ingsw.model.Jester;
 import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Round;
 import it.polimi.ingsw.model.Student;
@@ -14,9 +14,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class Character7Test {
+public class JesterTest {
 
-    private Character7 character = new Character7(1, 0, 6);
+    private Jester character = new Jester(1, 0, 6);
     private Round round;
 
     @Before

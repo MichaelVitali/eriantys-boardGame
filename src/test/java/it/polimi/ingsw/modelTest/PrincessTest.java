@@ -11,9 +11,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class Character11Test {
+public class PrincessTest {
 
-    private Character11 character = new Character11(11, 0, 4);
+    private Princess character = new Princess(11, 0, 4);
     private Round round;
 
     @Before

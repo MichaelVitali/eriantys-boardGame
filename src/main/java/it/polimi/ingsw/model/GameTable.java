@@ -3,20 +3,18 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 import it.polimi.ingsw.server.ClientConnection;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class GameTable {
+public class GameTable implements Serializable {
     private int numberOfPlayers;
     private List<Island> islands;
     private Cloud[] clouds;
     private SchoolBoard[] schoolBoards;
     private int motherNaturePosition;
-    private boolean victory;
-    private boolean draw;
-    private TowerColor winner;
     private Bag bag;
 
     public GameTable() { }
@@ -38,9 +36,6 @@ public class GameTable {
         Random random = new Random();
         motherNaturePosition = random.nextInt(12);
         addStudentsOnIslandOnStart();
-        victory = false;
-        draw = false;
-        winner = null;
     }
 
     public void addStudentsOnIslandOnStart() {
@@ -119,22 +114,6 @@ public class GameTable {
      */
     public int getNumberOfIslands() {
         return islands.size();
-    }
-
-    public void setVictory(){
-        victory=true;
-    }
-
-    public void setDraw(){
-        draw=true;
-    }
-
-    public boolean isVictory() {
-        return victory;
-    }
-
-    public boolean isDraw() {
-        return draw;
     }
 
     /**
@@ -218,7 +197,7 @@ public class GameTable {
      * Calculates if, after the movement of mother nature, the player with the highest influence is the same. If not the towers on the island are changed
      * with the towers of the player with the highest influence. The old towers on the island are added to his player on his schoolboard.
      */
-    public void putTowerOrChangeColorIfNecessary(int[] influences) { // pay attention : influence.length isn't numberOfPlayers
+    public void putTowerOrChangeColorIfNecessary(int[] influences) throws NoMoreTowersException, ThreeOrLessIslandException { // pay attention : influence.length isn't numberOfPlayers
         Tower towerOnTheIsland;
         if (islands.get(motherNaturePosition).getTowers().size() == 0) towerOnTheIsland = null;
         else towerOnTheIsland = islands.get(motherNaturePosition).getTowers().get(0);
@@ -262,24 +241,6 @@ public class GameTable {
                 }
             } catch (InvalidIndexException e) {
                 e.printStackTrace();
-            } catch (NoMoreTowersException e) {
-                victory = true;
-                winner = e.getEmptySchoolboardColor();
-            } catch (ThreeOrLessIslandException e) {
-                victory = false;
-                List<TowerColor> possibleWinner = teamWithLessTowersOnSchoolboards();
-                if (possibleWinner.size() > 1) {
-                    possibleWinner = teamWithMoreProfessors(possibleWinner);
-                    if (possibleWinner.size() > 1) {
-                        draw = true;
-                    } else {
-                        victory = true;
-                        winner = possibleWinner.get(0);
-                    }
-                } else {
-                    victory = true;
-                    winner = possibleWinner.get(0);
-                }
             }
         }
 
@@ -350,12 +311,11 @@ public class GameTable {
      * @return a list with all the students on the cloud
      * @throws EmptyCloudException if there isn't any student on the cloud
      */
-    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException {
+    public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException, InvalidIndexException {
         if(clouds[cloudIndex].isEmpty()) throw new EmptyCloudException();
         List<Student> studentsOnTheCloud = new ArrayList<>();
-        if(cloudIndex >= 0 && cloudIndex < clouds.length) {
-            studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
-        }
+        if(cloudIndex < 0 && cloudIndex >= clouds.length) throw new InvalidIndexException("The chosen cloud doesn't exist");
+        studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
         return studentsOnTheCloud;
     }
 

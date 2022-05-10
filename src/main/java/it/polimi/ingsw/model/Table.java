@@ -3,9 +3,10 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.EmptyTableException;
 import it.polimi.ingsw.model.exception.FullTableException;
 
+import java.io.Serializable;
 import java.sql.Struct;
 
-public class Table {
+public class Table implements Serializable {
     private final int NUMBEROFSEATS = 10;
     private final PawnColor color;
     private final Student[] students;

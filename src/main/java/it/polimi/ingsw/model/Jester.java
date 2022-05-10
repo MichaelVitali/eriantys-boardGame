@@ -5,14 +5,14 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character7 extends CharacterWithStudent{
+public class Jester extends CharacterWithStudent{
 
     private List<Integer> studentsIndexOnCard;
     private List<Integer> studentsIndexOnEntrance;
     private int countCard;
     private int countEntrance;
 
-    public Character7(int id, int cost, int numberOfStudent) {
+    public Jester(int id, int cost, int numberOfStudent) {
         super(id, cost, numberOfStudent);
         studentsIndexOnCard = new ArrayList<>();
         studentsIndexOnEntrance = new ArrayList<>();

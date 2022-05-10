@@ -2,10 +2,11 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SchoolBoard {
+public class SchoolBoard implements Serializable {
     private final int numberOfStudentsOnEntrance;
     private final Student[] entrance;
     private final int numberOfTables = 5;

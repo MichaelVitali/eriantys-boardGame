@@ -5,11 +5,11 @@ import it.polimi.ingsw.model.exception.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character11 extends CharacterWithStudent{
+public class Princess extends CharacterWithStudent{
 
     private int studentIndex;
 
-    public Character11(int id, int cost, int numberOfStudent){
+    public Princess(int id, int cost, int numberOfStudent){
         super(id, cost, numberOfStudent);
     }
 

@@ -11,14 +11,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class Character10Test {
+public class MinstrelTest {
 
-    private Character10 character;
+    private Minstrel character;
     private Round round;
 
     @Before
     public void setUp() throws Exception {
-        character = new Character10(10, 0);
+        character = new Minstrel(10, 0);
         List<String> nicknames = new ArrayList<>();
         nicknames.add("mike");
         nicknames.add("enri");

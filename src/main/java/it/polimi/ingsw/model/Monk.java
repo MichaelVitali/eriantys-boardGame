@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.exception.NoMoreStudentsException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character1 extends CharacterWithStudent {
+public class Monk extends CharacterWithStudent {
 
     private int studentIndex;
     private int islandIndex;
@@ -19,7 +19,7 @@ public class Character1 extends CharacterWithStudent {
      * @param cost            amount of money needed to activate the card effect
      * @param numberOfStudent maximum number of students the card can contain
      */
-    public Character1(int id, int cost, int numberOfStudent) {
+    public Monk(int id, int cost, int numberOfStudent) {
         super(id, cost, numberOfStudent);
     }
 

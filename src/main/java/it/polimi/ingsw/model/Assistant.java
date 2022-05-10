@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
-public class Assistant {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Assistant implements Serializable {
     private int cardValue;
     private int motherNatureMoves;
     public static final int MAXVALUE = 10;
@@ -29,5 +32,18 @@ public class Assistant {
      */
     public int getMotherNatureMoves() {
         return motherNatureMoves;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Assistant assistant = (Assistant) o;
+        return cardValue == assistant.cardValue && motherNatureMoves == assistant.motherNatureMoves;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardValue, motherNatureMoves);
     }
 }

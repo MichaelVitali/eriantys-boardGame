@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.exception.InvalidMethodException;
-import it.polimi.ingsw.model.exception.PlayerNotOnTurnException;
-import it.polimi.ingsw.model.exception.TooFarIslandException;
+import it.polimi.ingsw.model.exception.*;
 
-public class NoInfluencePointsForTowersCharacter extends Character {
+public class Centur extends Character {
 
     /**
      * Creates a character card with the given two values
@@ -13,7 +10,7 @@ public class NoInfluencePointsForTowersCharacter extends Character {
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public NoInfluencePointsForTowersCharacter(int id, int cost) {
+    public Centur(int id, int cost) {
         super(id, cost);
     }
 
@@ -31,7 +28,19 @@ public class NoInfluencePointsForTowersCharacter extends Character {
                 if(!isANewAllowedPositionForMotherNature(getPlayedAssistants()[i].getAssistant(), islandIndex)) throw new TooFarIslandException();
                 getGame().getGameTable().changeMotherNaturePosition(islandIndex);
                 int[] influenceValues = getGame().getGameTable().calculateInfluenceValuesGivenByStudents();
-                getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
+                try {
+                    getRound().getGame().getGameTable().putTowerOrChangeColorIfNecessary(influenceValues);
+                } catch (NoMoreTowersException e) {
+                    getRound().getGame().setVictory();
+                    getRound().getGame().setWinner(e.getEmptySchoolboardColor());
+                } catch (ThreeOrLessIslandException e) {
+                    checkEndgameAndSetTheWinner();
+                }
+                if(getRound().getGame().isGameEnded()) {
+                    getRound().setRoundState(100);
+                    roundState = 100;
+                    getRound().getGame().endTheMatch();
+                }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");

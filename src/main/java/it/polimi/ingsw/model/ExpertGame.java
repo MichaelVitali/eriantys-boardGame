@@ -43,16 +43,46 @@ public class ExpertGame extends Game {
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
 
-            if(ID == 1 || ID == 11){
-                CharacterWithStudent characterWithStudent = new CharacterWithStudent(ID, cost, 4);
-                characterWithStudent.addStudents(game.getGameTable().getBag().drawStudents(4));
-                c.add(characterWithStudent);
-            }else if (ID == 7) {
-                CharacterWithStudent characterWithStudent = new CharacterWithStudent(ID, cost, 6);
-                characterWithStudent.addStudents(game.getGameTable().getBag().drawStudents(6));
-                c.add(characterWithStudent);
-            } else {
-                c.add(new Character(ID, cost));
+            switch (ID) {
+                case 1:
+                    Monk c1 = new Monk(ID, cost, 4);
+                    c1.addStudents(game.getGameTable().getBag().drawStudents(4));
+                    c.add(c1);
+                    break;
+                case 3:
+                    Herald c3 = new Herald(ID, cost);
+                    c.add(c3);
+                    break;
+                case 4:
+                    Postman c4 = new Postman(ID, cost);
+                    c.add(c4);
+                    break;
+                case 6:
+                    Centur c6 = new Centur(ID, cost);
+                    c.add(c6);
+                    break;
+                case 7:
+                    Jester c7 = new Jester(ID, cost, 6);
+                    c7.addStudents(game.getGameTable().getBag().drawStudents(6));
+                    c.add(c7);
+                    break;
+                case 8:
+                    Knight c8 = new Knight(ID, cost);
+                    c.add(c8);
+                    break;
+                case 10:
+                    Minstrel c10 = new Minstrel(ID, cost);
+                    c.add(c10);
+                    break;
+                case 11:
+                    Princess c11 = new Princess(ID, cost, 4);
+                    c11.addStudents(game.getGameTable().getBag().drawStudents(4));
+                    c.add(c11);
+                    break;
+                case 12:
+                    Thief c12 = new Thief(ID, cost);
+                    c.add(c12);
+                    break;
             }
         }
 

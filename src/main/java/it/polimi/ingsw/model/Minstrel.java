@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.exception.OutOfBoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character10 extends Character{
+public class Minstrel extends Character{
 
     private int entranceIndex;
     private PawnColor pawnColor;
@@ -21,7 +21,7 @@ public class Character10 extends Character{
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public Character10(int id, int cost) {
+    public Minstrel(int id, int cost) {
         super(id, cost);
         setRoundState(5);
         canSwitch = 0;

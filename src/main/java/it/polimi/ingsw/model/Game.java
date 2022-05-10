@@ -9,14 +9,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends Observable<Game> {
+public class Game extends Observable<Game> implements Serializable {
 
     private final int numberOfPlayers;
     private GameTable gameTable;
     private List<Assistant>[] assistants;
     private Player[] players;
     private Round round;
-
+    private boolean victory;
+    private boolean draw;
+    private TowerColor winner;
     public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
     public Game(int numberOfPlayers, List<String> nicknames) {
@@ -35,10 +37,67 @@ public class Game extends Observable<Game> {
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player(nicknames.get(i), i, assistantsList);
             players[i].addSchoolBoard(gameTable.getSchoolBoards()[i]);
+            players[i].addGameTable(gameTable);
         }
 
         round = startRound();
 
+        victory = false;
+        draw = false;
+        winner = null;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public GameTable getGameTable() {
+        return gameTable;
+    }
+
+    public void setGameTable(GameTable gameTable) {
+        this.gameTable = gameTable;
+    }
+
+    public Player getPlayer(int playerId) {
+        try {
+            if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
+        } catch (InvalidIndexException e) {
+            System.out.println(e);
+        }
+        return this.players[playerId];
+    }
+
+    public Round getRound() {
+        return round;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public boolean isDraw() {
+        return draw;
+    }
+
+    public void setVictory(){
+        victory=true;
+    }
+
+    public void setDraw(){
+        draw=true;
+    }
+
+    public TowerColor getWinner() {
+        return winner;
+    }
+
+    public void setWinner(TowerColor winner) {
+        this.winner = winner;
     }
 
     public GameTable createGameTable(int numberOfPlayers) {
@@ -75,10 +134,6 @@ public class Game extends Observable<Game> {
         return new GameTable(numberOfPlayers, schoolBoards, bag);
     }
 
-    public void setRound(Round round) {
-        this.round = round;
-    }
-
     public Bag createBag() {
         return new Bag();
     }
@@ -97,34 +152,10 @@ public class Game extends Observable<Game> {
         return l;
     }
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
-
-    public GameTable getGameTable() {
-        return gameTable;
-    }
-
-    public Player getPlayer(int playerId) {
-        try {
-            if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
-        } catch (InvalidIndexException e) {
-            System.out.println(e);
-        }
-        return this.players[playerId];
-    }
-
-    public void setGameTable(GameTable gameTable) {
-        this.gameTable = gameTable;
-    }
-
+    ///////potrebbe essere in più
     public boolean isAValidPositionForMotherNature(int position) {
         if (0 <= position && position < gameTable.getIslands().size()) return true;
         return false;
-    }
-
-    public Round getRound() {
-        return round;
     }
 
     public Round startRound() {
@@ -132,7 +163,7 @@ public class Game extends Observable<Game> {
         try {
             gameTable.addStudentsOnClouds();
         } catch (EmptyBagException e) {
-            // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
+            round = new Round(this);
         }
         return round;
     }
@@ -142,17 +173,26 @@ public class Game extends Observable<Game> {
         try {
             gameTable.addStudentsOnClouds();
         } catch (EmptyBagException e) {
-            // Va gestita ad hoc perché deve cambiare il funzionamento di gioco
+            round = new Round(this, playerOrder);
         }
+        sendGame();
         return round;
     }
 
-    public void endRound() {
+    /**
+     * Chech if the game is ended or not
+     * @return true, if the game has to end, due to different causes; false, if the game must continue
+     */
+    public boolean isGameEnded() {
+        if (isVictory() || isDraw()) return true;
+        return false;
     }
 
-    public boolean checkEndgame() {
-        if (gameTable.isVictory() || gameTable.isDraw()) return true;
-        return false;
+    /**
+     * Does the operations related to the end of the game
+     */
+    public void endTheMatch() {
+
     }
 
     public void activateEffect(int playerIndex, int indexCard) {
