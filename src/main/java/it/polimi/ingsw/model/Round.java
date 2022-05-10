@@ -293,11 +293,13 @@ public class Round implements Serializable {
                 if (assistantToPlay.equals(playedAssistants[i].getAssistant())) {
                     if (!assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())) {
                         game.getPlayer(playerId).setPlayerMessage("Someone has already choose that assistant. Select a different one");
+                        game.sendGame();
                         return;
                     }
                 }
             }
         }
+        game.getPlayer(playerId).setPlayerMessage("Assistant played");
         assistantToPlay = game.getPlayer(playerId).removeAssistant(assistantPosition);
         playedAssistants[playerId] = new PlayedAssistant(playerId, assistantToPlay);
         alreadyPlayedAssistants[playerId] = true;
@@ -309,7 +311,7 @@ public class Round implements Serializable {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(0);
             removeAssistant(playerId, assistantPosition);
-            calculateNextPlayer();
+            if (!game.getPlayer(playerId).getPlayerMessage().equals("Someone has already choose that assistant. Select a different one")) calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {

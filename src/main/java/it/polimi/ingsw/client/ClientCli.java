@@ -51,9 +51,10 @@ public class ClientCli {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
                             }
-                            if (actualBoard != null)
+                            if (actualBoard != null) {
                                 actualBoard.printDefaultOnCli();
-                            actualBoard.printStateOnCli();
+                                actualBoard.printStateOnCli();
+                            }
                             //stamp(actualBoard.getModel());
                         } else {
                             throw new IllegalArgumentException();
@@ -121,6 +122,7 @@ public class ClientCli {
                                 System.out.println("You insert something wrong");
                         }
                         socketOut.flush();
+                        socketOut.reset();
                     }
                 } catch(Exception e) {
                     setActive(false);
