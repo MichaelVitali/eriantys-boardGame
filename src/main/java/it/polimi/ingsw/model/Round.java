@@ -393,7 +393,8 @@ public class Round {
                     if (playedAssistants[i].playerIndex == playerId) break;
                     i++;
                 }
-                if(!isANewAllowedPositionForMotherNature(playedAssistants[i].getAssistant(), islandIndex)) throw new TooFarIslandException();
+                if(!isANewAllowedPositionForMotherNature(playedAssistants[i].getAssistant(), islandIndex))
+                    throw new TooFarIslandException();
                 game.getGameTable().changeMotherNaturePosition(islandIndex);
                 int[] influenceValues = game.getGameTable().calculateInfluenceValuesGivenByStudents();
                 for(i = 0; i < influenceValues.length; i++)
@@ -405,7 +406,7 @@ public class Round {
             } catch (InvalidIndexException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
             }
-            calculateNextPlayer();
+            //calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {

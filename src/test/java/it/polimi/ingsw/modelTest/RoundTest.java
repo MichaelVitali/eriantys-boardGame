@@ -504,12 +504,10 @@ public class RoundTest {
         assertEquals(expectedPosition, game2p.getGameTable().getMotherNaturePosition());
 
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
-        assertEquals("You are not the current player",game2p.getPlayer(playerId).getErrorMessage());
-        /*
-        
-        Problema con i messaggi: l'eccezione viene catchata correttamente ma il messaggio di errore non viene displayato
+        game2p.getRound().setRoundState(2);
+        assertEquals("You are not the current player",game2p.getPlayer((playerId+1)%2).getErrorMessage());
 
-        playerId=game2p.getRound().getIndexOfPlayerOnTurn();
+        playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex+game2p.getRound().getPlayedAssistants()[playerId].getAssistant().getMotherNatureMoves()+1);
         assertEquals("You cannot put mother nature in the chosen island", game2p.getPlayer(playerId).getErrorMessage());
@@ -518,7 +516,6 @@ public class RoundTest {
         islandIndex=2;
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
         assertEquals("You cannot move mother nature now", game2p.getPlayer(playerId).getErrorMessage());
-        */
     }
 
     @Test
