@@ -205,7 +205,7 @@ public class GameTableTest {
     }
 
     @Test
-    public void testAddStudentOnTableFromEntrance() throws FullTableException {
+    public void testAddStudentOnTableFromEntrance() throws FullTableException, InvalidIndexException {
         Student[] entranceSchoolBoard = gameTable.getSchoolBoards()[0].getStudentsFromEntrance();
         gameTable.addStudentOnTableFromEntrance(0,0);
         assertEquals(1, gameTable.getSchoolBoards()[0].getNumberOfStudentsOnTable(entranceSchoolBoard[0].getColor()));

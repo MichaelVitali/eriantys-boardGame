@@ -372,7 +372,7 @@ public class GameTable implements Serializable {
      * @param schoolBoardIndex
      * @throws FullTableException if there isn't much space on the table
      */
-    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) throws FullTableException {
+    public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) throws FullTableException, InvalidIndexException {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
     }
 

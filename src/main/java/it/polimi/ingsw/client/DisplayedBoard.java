@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameTable;
 
 import java.io.Serializable;
 
@@ -35,6 +34,7 @@ public class DisplayedBoard implements Serializable {
     public Game getModel() { return model;}
 
     public void printDefaultOnCli() {
+        System.out.println("Use comand 'board' to show you board");
         System.out.println(playerMessage);
     }
 
