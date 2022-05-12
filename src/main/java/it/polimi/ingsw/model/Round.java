@@ -22,7 +22,7 @@ public class Round implements Serializable {
     public Round(Game game) {
         indexOfPlayerOnTurn = 0;
         playerOrder = new int[game.getNumberOfPlayers()];
-        playerOrder[0] = calculateFirstPlayer();
+        playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++)
             playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
         roundState = 0;
@@ -128,9 +128,9 @@ public class Round implements Serializable {
         this.alreadyPlayedCharacter = alreadyPlayedCharacter;
     }
 
-    public int calculateFirstPlayer(){
-        //Random generator = new Random();
-        int firstPlayer = 0;//generator.nextInt(game.getNumberOfPlayers());
+    public int calculateFirstPlayer(int numberOfPlayers){
+        Random generator = new Random();
+        int firstPlayer = generator.nextInt(numberOfPlayers);
         return firstPlayer;
     }
 

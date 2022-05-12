@@ -98,7 +98,7 @@ public class ClientCli {
                                     else printCloud(actualBoard.getModel().getGameTable().getClouds());
                                     System.out.print("\n");
                                     actualBoard.printDefaultOnCli();
-                                    actualBoard.printStateOnCli();
+                                    //actualBoard.printStateOnCli();
                                 } else {
                                     int playerParameter = Integer.parseInt(playerInput);
                                     switch (actualBoard.getState()) {

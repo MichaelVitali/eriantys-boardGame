@@ -35,7 +35,7 @@ public class RoundTest {
     @Test
     public void testCalculateFirstPlayerPianificationPhase(){ //Ho messo PianificationPhase public da private, altrimenti non avrei potuto testarne i metodi
         game2p.startRound();
-        int fp = game2p.getRound().calculateFirstPlayer();
+        int fp = game2p.getRound().calculateFirstPlayer(        game2p.getNumberOfPlayers());
         assertTrue(fp >= 0 && fp < game2p.getNumberOfPlayers());
     }
 
