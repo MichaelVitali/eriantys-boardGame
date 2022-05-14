@@ -134,7 +134,7 @@ public class ExpertGame extends Game {
     }
 
     @Override
-    public void activateEffect(int playerId, int indexCard) {
+    public void activateEffect(int playerId, int indexCard) throws EffectCannotBeActivatedException {
         GameTable gameTable = game.getGameTable();
         //SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {

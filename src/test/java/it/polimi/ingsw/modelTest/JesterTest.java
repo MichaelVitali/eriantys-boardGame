@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Jester;
 import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Round;
 import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class JesterTest {
     }
 
     @Test
-    public void testDoYourJob() throws EmptyBagException, InvalidIndexException {
+    public void testDoYourJob() throws EmptyBagException, InvalidIndexException, EffectCannotBeActivatedException {
         character.addStudents(round.getGame().getGameTable().getBag().drawStudents(6));
         character.activateEffect(0, round);
         character.getRound().getGame().getGameTable().getSchoolBoards()[0].addStudentsOnEntrance(character.getRound().getGame().getGameTable().getBag().drawStudents(8));
@@ -49,7 +50,7 @@ public class JesterTest {
     }
 
     @Test
-    public void testActivateEffect() {
+    public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
         assertEquals(0, character.getRound().getRoundState());
     }

@@ -21,7 +21,7 @@ public class ClientCli {
     private int playerId = 0;
     private DisplayedBoard actualBoard;
 
-    public ClientCli(String ip, int port){
+    public ClientCli(String ip, int port) {
         this.ip = ip;
         this.port = port;
     }

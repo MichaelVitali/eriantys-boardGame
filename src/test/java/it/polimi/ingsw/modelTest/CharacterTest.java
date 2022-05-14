@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Round;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,12 +51,12 @@ public class CharacterTest {
     }
 
     @Test
-    public void testActivateEffect() {
+    public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(c.activateEffect(0, round), c);
     }
 
     @Test
-    public void testDeactivateEffect() {
+    public void testDeactivateEffect() throws EffectCannotBeActivatedException {
         c.activateEffect(0, round);
         c.deactivateEffect();
         assertEquals(round, round.getGame().getRound());
@@ -71,7 +72,7 @@ public class CharacterTest {
     }
 
     @Test
-    public void testGetRound() {
+    public void testGetRound() throws EffectCannotBeActivatedException {
         assertNull(c.getRound());
         c.activateEffect(0, round);
         assertNotNull(c.getRound());

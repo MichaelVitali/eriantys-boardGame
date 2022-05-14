@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.exception.EmptyTableException;
-import it.polimi.ingsw.model.exception.FullTableException;
-import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.exception.OutOfBoundException;
+import it.polimi.ingsw.model.exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +20,6 @@ public class Minstrel extends Character{
      */
     public Minstrel(int id, int cost) {
         super(id, cost);
-        setRoundState(5);
         canSwitch = 0;
         wantToGoOn = 1;
         pawnColor = null;
@@ -35,7 +31,7 @@ public class Minstrel extends Character{
         Student tmpStudentEntrance = null;
         Student tmpStudentTable = null;
         if (canSwitch < 2 && wantToGoOn == 1) {
-            if (getRoundState() == 5) {
+            if (getRoundState() == 4) {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student from Table");
                 try {
                     if (parameter < 0 || parameter >= getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnEntrance())
@@ -45,8 +41,8 @@ public class Minstrel extends Character{
                 }catch (InvalidIndexException e) {
                     getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
                 }
-                setRoundState(6);
-            }else if(getRoundState() == 6) {
+                setRoundState(5);
+            }else if(getRoundState() == 5) {
 
                 try {
                     if (parameter < 0 || parameter > 4)
@@ -74,17 +70,17 @@ public class Minstrel extends Character{
                 }
 
                 if (canSwitch < 1)
-                    setRoundState(7);
+                    setRoundState(6);
                 else
                     deactivateEffect();
-            }else if (getRoundState() == 7) {
+            }else if (getRoundState() == 6) {
                 try {
                     if (parameter < 0 || parameter > 1)
                         throw new OutOfBoundException("The parameter must be 0 or 1");
                     wantToGoOn = parameter;
                     canSwitch++;
                     if(wantToGoOn == 1) {
-                        setRoundState(5);
+                        setRoundState(4);
                         getRound().getGame().getPlayer(playerId).setPlayerMessage("Select Student on entrance");
                     }
                     else
@@ -95,16 +91,16 @@ public class Minstrel extends Character{
     }
 
     @Override
-    public Round activateEffect (int playerID, Round round) {
+    public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("Select Student on entrance");
-        setRoundState(5);
+        setRoundState(4);
         return super.activateEffect(playerID, round);
     }
-
+/*
     @Override
     public void setRoundState(int state){
         if (state>=0 && state<8)
             this.roundState=state;
         else roundState = -1;
-    }
+    }*/
 }

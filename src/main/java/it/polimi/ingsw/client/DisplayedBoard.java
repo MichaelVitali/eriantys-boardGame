@@ -11,7 +11,6 @@ import java.util.List;
 public class DisplayedBoard implements Serializable {
     private static final long serialVersionUID = 100L;
     private int state;
-
     private int playerId;
     private String playerMessage;
     private GameTable gametable;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class ThiefTest {
     }
 
     @Test
-    public void testDoYourJob() throws FullTableException {
+    public void testDoYourJob() throws FullTableException, EffectCannotBeActivatedException {
         character.activateEffect(0, round);
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
@@ -39,7 +40,7 @@ public class ThiefTest {
     }
 
     @Test
-    public void testActivateEffect() {
+    public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
         assertEquals(0, character.getRound().getRoundState());
     }
