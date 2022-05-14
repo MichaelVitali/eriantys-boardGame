@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.NoMoreStudentsException;
@@ -31,11 +32,11 @@ public class Monk extends CharacterWithStudent {
     @Override
     public void doYourJob(int playerId, int parameter) {
         //problema a tornare nello stato vecchio
-        if (getRoundState() == 5) {
+        if (getRoundState() == 4) {
             getRound().getGame().getPlayer(playerId).setPlayerMessage("Select island");
             studentIndex = parameter;
-            setRoundState(6);
-        } else if (getRoundState() == 6) {
+            setRoundState(5);
+        } else if (getRoundState() == 5) {
             islandIndex = parameter;
             try {
                 List<Integer> indexStudentsOnCard = new ArrayList<>();
@@ -56,17 +57,17 @@ public class Monk extends CharacterWithStudent {
     }
 
     @Override
-    public Round activateEffect (int playerID, Round round) {
+    public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
-        setRoundState(5);
+        setRoundState(4);
         return super.activateEffect(playerID, round);
     }
-
+/*
     @Override
     public void setRoundState(int state){
         if (state>=0 && state<7)
             this.roundState=state;
         else roundState = -1;
     }
-
+*/
 }

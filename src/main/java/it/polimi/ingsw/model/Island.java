@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.IslandAlreadyForbiddenException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,9 +12,16 @@ public class Island implements Serializable {
      * index is the index/identifier of the island in the group of islands on the game table (in the beginning).
      *      The index is created at the beginning of the match and remains the same even the island merges itself to another one
      */
-    private final int index;
+    private int index;
     private Tower tower;
-    private final List<Student> students;
+    private List<Student> students;
+    private boolean prohibition;
+
+    /**
+     *Constructs an empty island
+     */
+    public Island() {
+    }
 
     /**
      * Creates an island which index is the index passed as parameter
@@ -89,5 +97,22 @@ public class Island implements Serializable {
      */
     public int getAggregation(){
         return 1;
+    }
+
+    /**
+     * Returns if there is a prohibition card on the island
+     * @return true, if the island has a prohibition card on it; false, if the island han not a prohibition card on it
+     */
+    public boolean isProhibition() {
+        return prohibition;
+    }
+
+    /**
+     * Puts, or remove, a prohibition card on the island
+     * @param prohibition true, if a prohibition card has to be put on the island; false, if the prohibition card has to be removed from the island
+     */
+    public void setProhibition(boolean prohibition) throws IslandAlreadyForbiddenException {
+        if (this.prohibition && prohibition) throw new IslandAlreadyForbiddenException();
+        this.prohibition = prohibition;
     }
 }

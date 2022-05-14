@@ -10,6 +10,7 @@ public class Character extends Round implements Serializable {
     private int cost;
     private boolean firstUse;
     private Round round;
+    private int oldState;
 
     /**
      * Creates a character card with the given two values
@@ -61,10 +62,19 @@ public class Character extends Round implements Serializable {
     }
 
     public void deactivateEffect() {
+        round.setRoundState(oldState);
         round.getGame().setRound(round);
     }
 
-    public Round activateEffect(int playerID, Round oldRound) {
+    /**
+     * It stores the old state value
+     * @param playerID
+     * @param oldRound
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
+    public Round activateEffect(int playerID, Round oldRound) throws EffectCannotBeActivatedException {
+        oldState = oldRound.getRoundState();
         round = oldRound;
         return this;
     }
@@ -99,6 +109,14 @@ public class Character extends Round implements Serializable {
     @Override
     public int getRoundState(){
         return roundState;
+    }
+
+    public int getOldState() {
+        return oldState;
+    }
+
+    public void setOldState(int oldState) {
+        this.oldState = oldState;
     }
 
     @Override

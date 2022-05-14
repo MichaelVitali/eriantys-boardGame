@@ -98,9 +98,7 @@ public class Round implements Serializable {
     }
 
     public void setRoundState(int state){
-        if (state>=0 && state<4)
-            this.roundState=state;
-        else roundState = -1;
+        this.roundState = state;
     }
 
     public int getRoundState(){
@@ -483,6 +481,8 @@ public class Round implements Serializable {
             setPlayerMessage(playerId, "You already played a character");
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
+        } catch (EffectCannotBeActivatedException e) {
+            setPlayerMessage(playerId, e.getMessage());
         }
     }
 

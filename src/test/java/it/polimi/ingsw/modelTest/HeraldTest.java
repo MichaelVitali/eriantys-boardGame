@@ -1,6 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class HeraldTest {
     }
 
     @Test
-    public void testDoYourJob() throws InvalidIndexException {
+    public void testDoYourJob() throws InvalidIndexException, EffectCannotBeActivatedException {
         int oldMotherNaturePosition = round.getGame().getGameTable().getMotherNaturePosition();
         round.getGame().getGameTable().addStudentOnIsland(new Student(PawnColor.RED), (round.getGame().getGameTable().getMotherNaturePosition()+6)%12);
         round.getGame().getGameTable().getSchoolBoards()[0].setProfessor(PawnColor.RED, true);
@@ -35,7 +36,7 @@ public class HeraldTest {
     }
 
     @Test
-    public void testActivateEffect() {
+    public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
         assertEquals(0, character.getRound().getRoundState());
     }

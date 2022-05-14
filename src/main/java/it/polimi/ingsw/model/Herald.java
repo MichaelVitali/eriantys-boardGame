@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.NoMoreTowersException;
 import it.polimi.ingsw.model.exception.ThreeOrLessIslandException;
@@ -17,7 +18,7 @@ public class Herald extends Character{
      */
     @Override
     public void doYourJob(int playerId, int parameter) {
-        if (getRoundState() == 5) {
+        if (getRoundState() == 4) {
             int islandIndex = parameter;
             int oldPosition = getRound().getGame().getGameTable().getMotherNaturePosition();
             try {
@@ -51,16 +52,16 @@ public class Herald extends Character{
     }
 
     @Override
-    public Round activateEffect (int playerID, Round round) {
+    public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("Select Island");
-        setRoundState(5);
+        setRoundState(4);
         return super.activateEffect(playerID, round);
     }
 
-    @Override
+    /*@Override
     public void setRoundState(int state){
         if (state>=0 && state<6)
             this.roundState=state;
         else roundState = -1;
-    }
+    }*/
 }

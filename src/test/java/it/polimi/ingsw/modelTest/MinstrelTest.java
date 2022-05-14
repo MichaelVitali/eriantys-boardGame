@@ -1,6 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyTableException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class MinstrelTest {
     }
 
     @Test
-    public void testDoYourJob() throws FullTableException, EmptyTableException {
+    public void testDoYourJob() throws FullTableException, EmptyTableException, EffectCannotBeActivatedException {
 
         Student entranceStudent = null;
 
@@ -62,7 +63,7 @@ public class MinstrelTest {
     }
 
     @Test
-    public void testActivateEffect() {
+    public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
         assertEquals(0, character.getRound().getRoundState());
     }
