@@ -38,17 +38,12 @@ public class MonkTest {
     }
 
     @Test
-    public void testActivateEffect() {
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(7);
-        assertEquals(-1, character.getRoundState());
-    }
-    @Test
-    public void testSetRoundState(){
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(7);
-        assertEquals(-1, character.getRoundState());
+    public void testActivateEffect(){
+        try {
+            character.activateEffect(0, round);
+            assertEquals(4, character.getRoundState());
+        } catch (EffectCannotBeActivatedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -24,7 +24,6 @@ public class Round implements Serializable {
         playerOrder = new int[game.getNumberOfPlayers()];
         playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++) playerOrder[i] = (playerOrder[i - 1] + 1) % game.getNumberOfPlayers();
-        for (int i = 0; i < game.getNumberOfPlayers(); i++) System.out.println(playerOrder[i]);
         roundState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
         for (int i = 0; i < game.getNumberOfPlayers(); i++)

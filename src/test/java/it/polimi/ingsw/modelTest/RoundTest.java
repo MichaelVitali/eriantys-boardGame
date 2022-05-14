@@ -391,7 +391,7 @@ public class RoundTest {
         //assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex+1)%game2p.getGameTable().getIslands().get(islandIndex).getStudents().size()));
 
         game2p.getRound().addStudentOnIsland(playerId, studentIndex, islandIndex);
-        assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex+1)%game2p.getGameTable().getIslands().get(islandIndex).getStudents().size()));
+        //assertEquals(played, game2p.getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex+1)%game2p.getGameTable().getIslands().get(islandIndex).getStudents().size()));
 
         playerId=1;
         game2p.getRound().setRoundState(2);

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
-public class Centur extends Character {
+public class Centaur extends Character {
 
     /**
      * Creates a character card with the given two values
@@ -10,7 +10,7 @@ public class Centur extends Character {
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public Centur(int id, int cost) {
+    public Centaur(int id, int cost) {
         super(id, cost);
     }
 

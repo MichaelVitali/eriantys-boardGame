@@ -27,8 +27,9 @@ public class Healer extends Character {
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         if (prohibition <= 0) throw new EffectCannotBeActivatedException("The healer cannot be activated: there are no prohibition cards");
         round.getGame().getPlayer(playerID).setPlayerMessage("Select an island, where you want to put the prohibition card");
+        super.activateEffect(playerID, round);
         setRoundState(4);
-        return super.activateEffect(playerID, round);
+        return this;
     }
 
     @Override

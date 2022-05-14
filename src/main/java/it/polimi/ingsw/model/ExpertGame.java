@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -63,7 +62,7 @@ public class ExpertGame extends Game {
                     c.add(c4);
                     break;
                 case 6:
-                    Centur c6 = new Centur(ID, cost);
+                    Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
                 case 7:

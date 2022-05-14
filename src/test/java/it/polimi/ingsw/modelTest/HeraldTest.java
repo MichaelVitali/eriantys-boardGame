@@ -38,13 +38,6 @@ public class HeraldTest {
     @Test
     public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
-        assertEquals(0, character.getRound().getRoundState());
-    }
-    @Test
-    public void testSetRoundState(){
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(6);
-        assertEquals(-1, character.getRoundState());
+        assertEquals(4, character.getRound().getRoundState());
     }
 }

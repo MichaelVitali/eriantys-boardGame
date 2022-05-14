@@ -41,7 +41,7 @@ public class MinstrelTest {
         assertEquals(entranceStudent, character.getGame().getGameTable().getSchoolBoards()[1].removeStudentFromTable(entranceStudent.getColor()));
         assertEquals(PawnColor.BLUE, character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[3].getColor());
         character.doYourJob(1, 1);
-        assertEquals(5, character.getRoundState());
+        assertEquals(4, character.getRoundState());
         character.doYourJob(1, 5);
         entranceStudent = character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[5];
         character.doYourJob(1, 0);
@@ -65,14 +65,6 @@ public class MinstrelTest {
     @Test
     public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
-        assertEquals(0, character.getRound().getRoundState());
-    }
-
-    @Test
-    public void testSetRoundState(){
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(9);
-        assertEquals(-1, character.getRoundState());
+        assertEquals(4, character.getRound().getRoundState());
     }
 }
