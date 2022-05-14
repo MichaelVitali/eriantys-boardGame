@@ -23,11 +23,16 @@ public class ThiefTest {
         nicknames.add("mike");
         nicknames.add("enri");
         round = new Round(new ExpertGame(2, nicknames));
+
     }
 
     @Test
     public void testDoYourJob() throws FullTableException, EffectCannotBeActivatedException {
-        character.activateEffect(0, round);
+        List<String> nicknames = new ArrayList<>();
+        nicknames.add("mike");
+        nicknames.add("enri");
+        round = new Round(new ExpertGame(2,nicknames));
+        round = character.activateEffect(0, round);
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));

@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 
 import java.util.Arrays;
 
-public class Thief extends Character{
+public class Thief extends Character {
 
     private PawnColor pawnColor;
 
