@@ -153,7 +153,7 @@ public class Round implements Serializable {
         }
     }
 
-    private String getStateMessage() {
+    String getStateMessage() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";

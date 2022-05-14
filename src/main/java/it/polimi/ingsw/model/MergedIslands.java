@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.IslandAlreadyForbiddenException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,5 +103,33 @@ public class MergedIslands extends Island {
     @Override
     public int getAggregation(){
         return firstIsland.getAggregation() + secondIsland.getAggregation();
+    }
+
+    /**
+     * Returns if there is a prohibition card on the merged island
+     * @return true, if the island has a prohibition card on it; false, if the island han not a prohibition card on it
+     */
+    @Override
+    public boolean isForbidden() {
+        return firstIsland.isForbidden() || secondIsland.isForbidden();
+    }
+
+    /**
+     * Puts a prohibition card on the island
+     */
+    @Override
+    public void setProhibition() throws IslandAlreadyForbiddenException {
+        if (firstIsland.isForbidden() || secondIsland.isForbidden()) throw new IslandAlreadyForbiddenException();
+        firstIsland.setProhibition();
+        secondIsland.setProhibition();
+    }
+
+    /**
+     * Removes the prohibition card placed on the island
+     */
+    @Override
+    public void resetProhibition() {
+        firstIsland.resetProhibition();
+        secondIsland.resetProhibition();
     }
 }

@@ -103,16 +103,22 @@ public class Island implements Serializable {
      * Returns if there is a prohibition card on the island
      * @return true, if the island has a prohibition card on it; false, if the island han not a prohibition card on it
      */
-    public boolean isProhibition() {
+    public boolean isForbidden() {
         return prohibition;
     }
 
     /**
-     * Puts, or remove, a prohibition card on the island
-     * @param prohibition true, if a prohibition card has to be put on the island; false, if the prohibition card has to be removed from the island
+     * Puts a prohibition card on the island
      */
-    public void setProhibition(boolean prohibition) throws IslandAlreadyForbiddenException {
-        if (this.prohibition && prohibition) throw new IslandAlreadyForbiddenException();
-        this.prohibition = prohibition;
+    public void setProhibition() throws IslandAlreadyForbiddenException {
+        if (this.prohibition) throw new IslandAlreadyForbiddenException();
+        this.prohibition = true;
+    }
+
+    /**
+     * Removes the prohibition card placed on the island
+     */
+    public void resetProhibition() {
+        prohibition = false;
     }
 }
