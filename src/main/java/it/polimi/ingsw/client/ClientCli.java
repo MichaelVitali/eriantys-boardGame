@@ -83,51 +83,69 @@ public class ClientCli {
                             PlayerMessage playerMessage = null;
                             try {
                                 if (playerInput.equals("board")) {
-                                    String choose = null;
                                     int parameter = 0;
-                                    do{
+                                    do {
                                         System.out.println("Which part do you want to show:\n1:Schoolboard\n2:Islands\n3:Mother nature position\n4:Assistants\n5:Clouds");
-                                        choose = stdin.nextLine();
-                                        choose.replace("\n", "");
-                                        parameter = Integer.parseInt(choose);
+                                        parameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
                                     } while (parameter < 1 || parameter > 5);
-                                    if (parameter == 1) printSchoolboard(actualBoard.getModel().getGameTable().getSchoolBoards()[playerId]);
-                                    else if (parameter == 2) printIslands(actualBoard.getModel().getGameTable().getIslands());
-                                    else if (parameter == 3) System.out.println("Mother nature is in the island number: " + actualBoard.getModel().getGameTable().getMotherNaturePosition());
-                                    else if (parameter == 4) printAssistants(actualBoard.getModel().getPlayerAssistant(playerId));
-                                    else printCloud(actualBoard.getModel().getGameTable().getClouds());
+                                    if (parameter == 1)
+                                        printSchoolboard(actualBoard.getGametable().getSchoolBoards()[playerId]);
+                                    else if (parameter == 2) printIslands(actualBoard.getGametable().getIslands());
+                                    else if (parameter == 3)
+                                        System.out.println("Mother nature is in the island number: " + actualBoard.getGametable().getMotherNaturePosition());
+                                    else if (parameter == 4) printAssistants(actualBoard.getAssistants());
+                                    else printCloud(actualBoard.getGametable().getClouds());
                                     System.out.print("\n");
                                     actualBoard.printDefaultOnCli();
                                     actualBoard.printStateOnCli();
-                                } else {
-                                    int playerParameter = Integer.parseInt(playerInput);
-                                    switch (actualBoard.getState()) {
-                                        case 0:
-                                            playerMessage = new PlayAssistantMessage(playerId, playerParameter);
-                                            break;
-                                        case 1:
-                                            if (playerParameter == 1) {
-                                                System.out.println("Select the index of the student");
-                                                playerParameter = readLineAndParseInteger(stdin);
-                                                playerMessage = new AddStudentOnTableMessage(playerId, playerParameter);
-                                            } else if (playerParameter == 2) {
-                                                System.out.println("Select the index of the student");
-                                                int targetStudent = readLineAndParseInteger(stdin);
-                                                System.out.println("Select the index of the island");
-                                                int targetIsland = readLineAndParseInteger(stdin);
-                                                playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
-                                            } else {
-                                                System.out.println("Make your move:");
-                                                System.out.println("1 : Move a student from entrance to table");
-                                                System.out.println("2 : Move a student from entrance to an island");
-                                            }
-                                            break;
-                                        case 2:
-                                            playerMessage = new ChangeMotherNaturePositionMessage(playerId, playerParameter);
-                                            break;
-                                        case 3:
-                                            playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
-                                            break;
+                                }else if(playerInput.equals("show others")) {
+                                    int indexPLayer;
+                                    do {
+                                        System.out.println("Which player do you want yo show: ");
+                                        indexPLayer = Integer.parseInt(stdin.nextLine().replace("\n", ""));
+                                    } while (indexPLayer == playerId || indexPLayer >= actualBoard.getNumberOfPLayer());
+                                    printSchoolboard(actualBoard.getGametable().getSchoolBoards()[indexPLayer]);
+                                    System.out.print("\n");
+                                    actualBoard.printDefaultOnCli();
+                                    actualBoard.printStateOnCli();
+                                } else if (playerId == actualBoard.getPlayerOnTurn()) {
+                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() != GameMode.EXPERT) {
+                                        int cardIndex;
+                                        do {
+                                            System.out.println("Which character do you want to play: ");
+                                            cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
+                                        } while (cardIndex < 0 || cardIndex >= 3);
+                                        playerMessage = new ActivateEffectMessage(playerId, cardIndex);
+                                    } else {
+                                        int playerParameter = Integer.parseInt(playerInput);
+                                        switch (actualBoard.getState()) {
+                                            case 0:
+                                                playerMessage = new PlayAssistantMessage(playerId, playerParameter);
+                                                break;
+                                            case 1:
+                                                if (playerParameter == 1) {
+                                                    System.out.println("Select the index of the student");
+                                                    playerParameter = readLineAndParseInteger(stdin);
+                                                    playerMessage = new AddStudentOnTableMessage(playerId, playerParameter);
+                                                } else if (playerParameter == 2) {
+                                                    System.out.println("Select the index of the student");
+                                                    int targetStudent = readLineAndParseInteger(stdin);
+                                                    System.out.println("Select the index of the island");
+                                                    int targetIsland = readLineAndParseInteger(stdin);
+                                                    playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
+                                                } else {
+                                                    System.out.println("Make your move:");
+                                                    System.out.println("1 : Move a student from entrance to table");
+                                                    System.out.println("2 : Move a student from entrance to an island");
+                                                }
+                                                break;
+                                            case 2:
+                                                playerMessage = new ChangeMotherNaturePositionMessage(playerId, playerParameter);
+                                                break;
+                                            case 3:
+                                                playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
+                                                break;
+                                        }
                                     }
                                 }
                             } catch (NumberFormatException e) {
@@ -136,7 +154,7 @@ public class ClientCli {
                             }
                             if(playerMessage != null)
                                 socketOut.writeObject(playerMessage);
-                            else if (!playerInput.equals("board"))
+                            else if (!playerInput.equals("board") && !playerInput.equals("show others"))
                                 System.out.println("You insert something wrong");
                         }
                         socketOut.flush();

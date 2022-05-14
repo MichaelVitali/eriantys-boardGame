@@ -8,20 +8,10 @@ import java.util.List;
 public class ActivateEffectMessage extends PlayerMessage implements Serializable {
     private static final long serialVersionUID = 6L;
     private int indexCard;
-    private List<Integer> studentsIndex;
-    private List<Integer> studentsIndexEntrance;
-    private int islandIndex;
-    private List<Integer> indexTable;
-    private String color;
 
-    public ActivateEffectMessage(int playerId, int indexCard, List<Integer> studentsIndex, List<Integer> studentsIndexEntrance, int islandIndex, List<Integer> indexTable, String color) {
+    public ActivateEffectMessage(int playerId, int indexCard) {
         super(playerId);
         this.indexCard = indexCard;
-        this.studentsIndex = studentsIndex;
-        this.studentsIndexEntrance = studentsIndexEntrance;
-        this.islandIndex = islandIndex;
-        this.indexTable = indexTable;
-        this.color = color;
     }
 
     @Override
