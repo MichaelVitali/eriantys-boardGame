@@ -43,6 +43,8 @@ public class Round implements Serializable {
         setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant");
     }
 
+    public int getPlayerOnTurn() { return playerOrder[indexOfPlayerOnTurn]; }
+
     public Round(Game game, int[] playerOrder) {
         this(game);
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
@@ -487,5 +489,9 @@ public class Round implements Serializable {
     }
 
     public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
+
+    public boolean getAlreadyPLayedCharacter() {
+        return alreadyPlayedCharacter;
+    }
 }
 
