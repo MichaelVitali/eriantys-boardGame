@@ -75,7 +75,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMoveStudentOnTable() throws FullTableException {
+    public void testMoveStudentOnTable() throws FullTableException, InvalidIndexException {
         player.moveStudentOnTable(0);
     }
 

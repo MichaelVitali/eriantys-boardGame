@@ -13,7 +13,7 @@ public class SchoolBoardTest {
     private Bag bag = new Bag();
 
     @Test
-    public void testAddStudentOnTable() throws FullTableException, EmptyBagException {
+    public void testAddStudentOnTable() throws FullTableException, EmptyBagException, InvalidIndexException {
         schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];
@@ -140,7 +140,7 @@ public class SchoolBoardTest {
     }
 
     @Test
-    public void testGetNumberOfStudentsOnTable() throws FullTableException, EmptyBagException {
+    public void testGetNumberOfStudentsOnTable() throws FullTableException, EmptyBagException, InvalidIndexException {
         schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
         int[] numberOfStudentsForColor = new int[5];

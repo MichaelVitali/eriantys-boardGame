@@ -51,10 +51,10 @@ public class ClientCli {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
                             }
-                            if (actualBoard != null)
+                            if (actualBoard != null) {
                                 actualBoard.printDefaultOnCli();
-                            actualBoard.printStateOnCli();
-                            //stamp(actualBoard.getModel());
+                                actualBoard.printStateOnCli();
+                            }
                         } else {
                             throw new IllegalArgumentException();
                         }
@@ -82,8 +82,26 @@ public class ClientCli {
                         } else {
                             PlayerMessage playerMessage = null;
                             try {
-                                int playerParameter = Integer.parseInt(playerInput);
-                                    switch(actualBoard.getState()) {
+                                if (playerInput.equals("board")) {
+                                    String choose = null;
+                                    int parameter = 0;
+                                    do{
+                                        System.out.println("Which part do you want to show:\n1:Schoolboard\n2:Islands\n3:Mother nature position\n4:Assistants\n5:Clouds");
+                                        choose = stdin.nextLine();
+                                        choose.replace("\n", "");
+                                        parameter = Integer.parseInt(choose);
+                                    } while (parameter < 1 || parameter > 5);
+                                    if (parameter == 1) printSchoolboard(actualBoard.getModel().getGameTable().getSchoolBoards()[playerId]);
+                                    else if (parameter == 2) printIslands(actualBoard.getModel().getGameTable().getIslands());
+                                    else if (parameter == 3) System.out.println("Mother nature is in the island number: " + actualBoard.getModel().getGameTable().getMotherNaturePosition());
+                                    else if (parameter == 4) printAssistants(actualBoard.getModel().getPlayerAssistant(playerId));
+                                    else printCloud(actualBoard.getModel().getGameTable().getClouds());
+                                    System.out.print("\n");
+                                    actualBoard.printDefaultOnCli();
+                                    //actualBoard.printStateOnCli();
+                                } else {
+                                    int playerParameter = Integer.parseInt(playerInput);
+                                    switch (actualBoard.getState()) {
                                         case 0:
                                             playerMessage = new PlayAssistantMessage(playerId, playerParameter);
                                             break;
@@ -111,16 +129,18 @@ public class ClientCli {
                                             playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                             break;
                                     }
+                                }
                             } catch (NumberFormatException e) {
                                 System.out.println("You insert a wrong formatted input, insert only numbers");
                                 actualBoard.printDefaultOnCli();
                             }
                             if(playerMessage != null)
                                 socketOut.writeObject(playerMessage);
-                            else
+                            else if (!playerInput.equals("board"))
                                 System.out.println("You insert something wrong");
                         }
                         socketOut.flush();
+                        socketOut.reset();
                     }
                 } catch(Exception e) {
                     setActive(false);
@@ -169,14 +189,6 @@ public class ClientCli {
         return parameter;
     }
 
-    public void stamp(Game game) {
-        printIslands(game.getGameTable().getIslands());
-        System.out.println("Mother nature position: " + game.getGameTable().getMotherNaturePosition());
-        printSchoolboard(game.getGameTable().getSchoolBoards()[playerId]);
-        printAssistants(game.getPlayerAssistant(playerId));
-        printCloud(game.getGameTable().getClouds());
-    }
-
     void printIslands(List<Island> islands) {
         for (int i = 0; i < islands.size(); i++) {
             Island island = islands.get(i);
@@ -194,8 +206,9 @@ public class ClientCli {
             if(student != null)
                 System.out.print(student.getColor() + "\t");
             else
-                System.out.print("void" + "\t");
+                System.out.print("x" + "\t");
         }
+        System.out.print("\n");
         for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + " has " + schoolBoard.getNumberOfStudentsOnTable(color) + " students; " + (schoolBoard.getProfessors().contains(color) ? "There is the professor" : "There isn't the professor"));
         System.out.println("You have " + schoolBoard.getTowers().size() + " towers remaining");
     }

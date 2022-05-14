@@ -59,7 +59,7 @@ public class Player implements Serializable {
         return this.assistants.remove(position);
     }
 
-    public void moveStudentOnTable(int pos) throws FullTableException {
+    public void moveStudentOnTable(int pos) throws FullTableException, InvalidIndexException {
         this.schoolBoard.addStudentOnTable(pos);
     }
 

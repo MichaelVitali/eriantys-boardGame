@@ -22,7 +22,7 @@ public class Round implements Serializable {
     public Round(Game game) {
         indexOfPlayerOnTurn = 0;
         playerOrder = new int[game.getNumberOfPlayers()];
-        playerOrder[0] = calculateFirstPlayer();
+        playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++)
             playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
         roundState = 0;
@@ -128,9 +128,9 @@ public class Round implements Serializable {
         this.alreadyPlayedCharacter = alreadyPlayedCharacter;
     }
 
-    public int calculateFirstPlayer(){
-        //Random generator = new Random();
-        int firstPlayer = 0;//generator.nextInt(game.getNumberOfPlayers());
+    public int calculateFirstPlayer(int numberOfPlayers){
+        Random generator = new Random();
+        int firstPlayer = generator.nextInt(numberOfPlayers);
         return firstPlayer;
     }
 
@@ -157,7 +157,7 @@ public class Round implements Serializable {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
-        else if (roundState == 2) message = "Select an island where mother nature has to move";
+        else if (roundState == 2) message = "Mother nature position: " + game.getGameTable().getMotherNaturePosition() + "\nSelect an island where mother nature has to move: ";
         else if (roundState == 3) message = "Select a cloud";
         return message;
     }
@@ -291,13 +291,11 @@ public class Round implements Serializable {
         for (int i = 0; i < playedAssistants.length; i++) {
             if (alreadyPlayedAssistants[i] == true && i != playerId) {
                 if (assistantToPlay.equals(playedAssistants[i].getAssistant())) {
-                    if (!assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())) {
-                        game.getPlayer(playerId).setPlayerMessage("Someone has already choose that assistant. Select a different one");
-                        return;
-                    }
+                    if (!assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())) throw new InvalidIndexException("Someone has already choose that assistant. Select a different one");
                 }
             }
         }
+        game.getPlayer(playerId).setPlayerMessage("Assistant played");
         assistantToPlay = game.getPlayer(playerId).removeAssistant(assistantPosition);
         playedAssistants[playerId] = new PlayedAssistant(playerId, assistantToPlay);
         alreadyPlayedAssistants[playerId] = true;
@@ -318,6 +316,7 @@ public class Round implements Serializable {
             setPlayerMessage(playerId,"You can't choose that assistant");
         } catch (InvalidIndexException e) {
             setPlayerMessage(playerId, e.getMessage());
+            game.sendGame();
         }
     }
 
@@ -346,12 +345,14 @@ public class Round implements Serializable {
             checkStatusAndMethod(1);
             checkNumberOfMoves(playerId);
             System.out.println("Player: " + playerId + " number of  moves: " + movesCounter[playerId]);
+            PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             if (game instanceof ExpertGame){
                 PawnColor studentColor = game.getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
                 if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(studentColor) % 3 == 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
             }
             movesCounter[playerId]++;
+            game.getGameTable().moveProfessorToTheRightPosition(color);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
@@ -363,18 +364,22 @@ public class Round implements Serializable {
             setPlayerMessage(playerId, "You can't move that student, his table has no more free seats");
         } catch (NotEnoughCoins e) {
             setPlayerMessage(playerId, "You can't take a coin from a table");
+        } catch (InvalidIndexException e) {
+            String s = e.getMessage() + "\n" + getStateMessage();
+            setPlayerMessage(playerId, s);
+            game.sendGame();
         }
     }
 
     public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) {
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         int numberOfIsland = game.getGameTable().getNumberOfIslands();
-        if(islandIndex < motherNaturePosition)
-            if((numberOfIsland - motherNaturePosition + islandIndex) <= assistant.getMotherNatureMoves())
+        if (islandIndex < motherNaturePosition) {
+            if ((numberOfIsland - motherNaturePosition + islandIndex) <= assistant.getMotherNatureMoves())
                 return true;
             else
                 return false;
-        else {
+        } else {
             if ((islandIndex - motherNaturePosition) <= assistant.getMotherNatureMoves())
                 return true;
             else
@@ -435,7 +440,9 @@ public class Round implements Serializable {
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
-                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");
+                String message = "You cannot put mother nature in the chosen island\n" + getStateMessage();
+                setPlayerMessage(playerId, message);
+                game.sendGame();
             } catch (InvalidIndexException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
             }
