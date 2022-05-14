@@ -7,12 +7,14 @@ import java.util.Random;
 
 public class ExpertGame extends Game {
     private Game game;
+    private GameMode gameMode;
     private Character[] characters;
     private int coinsOfTheTable;
     private int[] playersCoins;
 
     public ExpertGame(int numberOfPlayers, List<String> nicknames) {
         super(numberOfPlayers, nicknames);
+        gameMode = GameMode.EXPERT;
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
@@ -25,6 +27,7 @@ public class ExpertGame extends Game {
         }
     }
 
+    public GameMode getGameMode() { return gameMode; }
     public Character[] getCharacters(){
         return characters;
     }

@@ -13,6 +13,7 @@ import java.util.List;
 public class Game extends Observable<Game> implements Serializable {
 
     private final int numberOfPlayers;
+    private GameMode gameMode;
     private GameTable gameTable;
     private List<Assistant>[] assistants;
     private Player[] players;
@@ -24,7 +25,7 @@ public class Game extends Observable<Game> implements Serializable {
 
     public Game(int numberOfPlayers, List<String> nicknames) {
         this.numberOfPlayers = numberOfPlayers;
-
+        gameMode = GameMode.NORMAL;
         gameTable = createGameTable(numberOfPlayers);
 
         assistants = new ArrayList[numberOfPlayers];
@@ -47,6 +48,8 @@ public class Game extends Observable<Game> implements Serializable {
         draw = false;
         winner = null;
     }
+
+    public GameMode getGameMode() { return gameMode; }
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
