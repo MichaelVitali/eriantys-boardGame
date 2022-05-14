@@ -53,7 +53,6 @@ public class ClientCli {
                             }
                             if (actualBoard != null) {
                                 actualBoard.printDefaultOnCli();
-                                actualBoard.printStateOnCli();
                             }
                         } else {
                             throw new IllegalArgumentException();
@@ -107,17 +106,17 @@ public class ClientCli {
                                     printSchoolboard(actualBoard.getGametable().getSchoolBoards()[indexPLayer]);
                                     System.out.print("\n");
                                     actualBoard.printDefaultOnCli();
-                                    actualBoard.printStateOnCli();
                                 } else if (playerId == actualBoard.getPlayerOnTurn()) {
-                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() != GameMode.EXPERT) {
+                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
                                         int cardIndex;
                                         do {
                                             System.out.println("Which character do you want to play: ");
                                             cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
                                         } while (cardIndex < 0 || cardIndex >= 3);
                                         playerMessage = new ActivateEffectMessage(playerId, cardIndex);
-                                    } else {
-                                        int playerParameter = Integer.parseInt(playerInput);
+                                    } else if (playerInput.equals("do action")){
+                                        System.out.println(actualBoard.getPlayerMessage());
+                                        int playerParameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
                                         switch (actualBoard.getState()) {
                                             case 0:
                                                 playerMessage = new PlayAssistantMessage(playerId, playerParameter);
@@ -145,6 +144,9 @@ public class ClientCli {
                                             case 3:
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                                 break;
+                                            case 5:
+                                                System.out.println("Ho attivato l'effetto!");
+                                                break;
                                         }
                                     }
                                 }
@@ -154,7 +156,7 @@ public class ClientCli {
                             }
                             if(playerMessage != null)
                                 socketOut.writeObject(playerMessage);
-                            else if (!playerInput.equals("board") && !playerInput.equals("show others"))
+                            else if (!playerInput.equals("board") && !playerInput.equals("show others") && !playerInput.equals("do action") && !playerInput.equals("character"))
                                 System.out.println("You insert something wrong");
                         }
                         socketOut.flush();

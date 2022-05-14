@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -134,7 +136,7 @@ public class ExpertGame extends Game {
     @Override
     public void activateEffect(int playerId, int indexCard) {
         GameTable gameTable = game.getGameTable();
-        SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
+        //SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {
             //int id = getIdCharacter(indexCard);
             int cost = getCostCharacter(indexCard);
@@ -144,6 +146,7 @@ public class ExpertGame extends Game {
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
             setRound(characters[indexCard].activateEffect(playerId, getRound()));
+            this.sendGame();
         } catch (InvalidIndexException e) {
             e.printStackTrace(); // Non esiste quell'indice
         } catch (NotEnoughCoins e) {

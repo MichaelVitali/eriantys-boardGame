@@ -59,7 +59,8 @@ public class DisplayedBoard implements Serializable {
         System.out.println("Use comand 'board' to show you board");
         System.out.println("Use command 'Show other' to show other schoolboard");
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
-        System.out.println(playerMessage);
+        if (playerId == playerOnTurn) System.out.println("Use command 'do action' to do the next possible action");
+        else System.out.println("You're not the player on turn... Wait for other player!");
     }
 
     public int getNumberOfPLayer() {
