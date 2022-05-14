@@ -23,8 +23,7 @@ public class Round implements Serializable {
         indexOfPlayerOnTurn = 0;
         playerOrder = new int[game.getNumberOfPlayers()];
         playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
-        for (int i = 1; i < game.getNumberOfPlayers(); i++)
-            playerOrder[i] = (playerOrder[i - 1] + 1) % 4;
+        for (int i = 1; i < game.getNumberOfPlayers(); i++) playerOrder[i] = (playerOrder[i - 1] + 1) % game.getNumberOfPlayers();
         roundState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
         for (int i = 0; i < game.getNumberOfPlayers(); i++)
@@ -100,9 +99,7 @@ public class Round implements Serializable {
     }
 
     public void setRoundState(int state){
-        if (state>=0 && state<4)
-            this.roundState=state;
-        else roundState = -1;
+        this.roundState = state;
     }
 
     public int getRoundState(){
@@ -155,7 +152,7 @@ public class Round implements Serializable {
         }
     }
 
-    private String getStateMessage() {
+    String getStateMessage() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
@@ -485,6 +482,8 @@ public class Round implements Serializable {
             setPlayerMessage(playerId, "You already played a character");
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
+        } catch (EffectCannotBeActivatedException e) {
+            setPlayerMessage(playerId, e.getMessage());
         }
     }
 

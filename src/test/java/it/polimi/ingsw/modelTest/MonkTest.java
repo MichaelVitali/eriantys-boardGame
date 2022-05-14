@@ -1,6 +1,7 @@
 package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class MonkTest {
     }
 
     @Test
-    public void testDoYourJob() throws InvalidIndexException, EmptyBagException {
+    public void testDoYourJob() throws InvalidIndexException, EmptyBagException, EffectCannotBeActivatedException {
         character.addStudents(round.getGame().getGameTable().getBag().drawStudents(4));
         character.activateEffect(0, round);
         character.doYourJob(0, 2);
@@ -37,17 +38,12 @@ public class MonkTest {
     }
 
     @Test
-    public void testActivateEffect() {
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(7);
-        assertEquals(-1, character.getRoundState());
-    }
-    @Test
-    public void testSetRoundState(){
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(7);
-        assertEquals(-1, character.getRoundState());
+    public void testActivateEffect(){
+        try {
+            character.activateEffect(0, round);
+            assertEquals(4, character.getRoundState());
+        } catch (EffectCannotBeActivatedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

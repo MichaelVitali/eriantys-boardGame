@@ -117,6 +117,18 @@ public class GameTable implements Serializable {
     }
 
     /**
+     *
+     * @param indexOfIsland
+     */
+    public Island getIslandByIndex(int indexOfIsland) {
+        Island returnedIsland = null;
+        for (Island island : islands) {
+            if (island.getIndex().contains(indexOfIsland)) returnedIsland = island;
+        }
+        return returnedIsland;
+    }
+
+    /**
      * Takes new students from the bag and adds the students on the clouds. The number of students change with the number of players
      * @throws EmptyBagException if there are no more students on the bag
      */

@@ -22,7 +22,7 @@ public class Knight extends Character {
      * @param oldRound round to decorate
      * @return the decorated round
      */
-    public Round activateEffect(int playerID, Round oldRound) {
+    public Round activateEffect(int playerID, Round oldRound) throws EffectCannotBeActivatedException {
         teamWithTwoMorePoints = super.getGame().getNumberOfPlayers() == 3 ? playerID : playerID % 2;
         return super.activateEffect(playerID, oldRound);
     }

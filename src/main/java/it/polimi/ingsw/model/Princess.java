@@ -16,7 +16,7 @@ public class Princess extends CharacterWithStudent{
     @Override
     public void doYourJob(int playerId, int parameter){
 
-        if (getRoundState() == 5) {
+        if (getRoundState() == 4) {
             studentIndex = parameter;
             try{
 
@@ -44,17 +44,10 @@ public class Princess extends CharacterWithStudent{
     }
 
     @Override
-    public Round activateEffect (int playerID, Round round) {
+    public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("Select student");
-        setRoundState(5);
-        return super.activateEffect(playerID, round);
+        super.activateEffect(playerID, round);
+        setRoundState(4);
+        return this;
     }
-
-    @Override
-    public void setRoundState(int state){
-        if (state>=0 && state<7)
-            this.roundState=state;
-        else roundState = -1;
-    }
-
 }

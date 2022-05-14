@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Jester;
 import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Round;
 import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class JesterTest {
     }
 
     @Test
-    public void testDoYourJob() throws EmptyBagException, InvalidIndexException {
+    public void testDoYourJob() throws EmptyBagException, InvalidIndexException, EffectCannotBeActivatedException {
         character.addStudents(round.getGame().getGameTable().getBag().drawStudents(6));
         character.activateEffect(0, round);
         character.getRound().getGame().getGameTable().getSchoolBoards()[0].addStudentsOnEntrance(character.getRound().getGame().getGameTable().getBag().drawStudents(8));
@@ -36,10 +37,10 @@ public class JesterTest {
         Student[] studentsOnCard = character.getStudentsOnCard();
         //number of student to change
         character.doYourJob(0, 3);
-        assertEquals(6, character.getRoundState());
+        assertEquals(5, character.getRoundState());
         //index student on card
         for (int i = 0; i < 3; i++) character.doYourJob(0, i);
-        assertEquals(7, character.getRoundState());
+        assertEquals(6, character.getRoundState());
         //index student on entrance
         for (int i = 0; i < 3; i++) character.doYourJob(0, i);
 
@@ -49,15 +50,8 @@ public class JesterTest {
     }
 
     @Test
-    public void testActivateEffect() {
+    public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
-        assertEquals(0, character.getRound().getRoundState());
-    }
-    @Test
-    public void testSetRoundState(){
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(8);
-        assertEquals(-1, character.getRoundState());
+        assertEquals(4, character.getRound().getRoundState());
     }
 }
