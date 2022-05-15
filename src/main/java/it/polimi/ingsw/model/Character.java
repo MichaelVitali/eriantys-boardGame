@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class Character extends Round implements Serializable {
@@ -61,23 +62,8 @@ public class Character extends Round implements Serializable {
         cost++;
     }
 
-    public void deactivateEffect() {
-        round.setRoundState(oldState);
-        round.getGame().setRound(round);
-    }
-
-    /**
-     * It stores the old state value
-     * @param playerID
-     * @param oldRound
-     * @return
-     * @throws EffectCannotBeActivatedException
-     */
-    public Round activateEffect(int playerID, Round oldRound) throws EffectCannotBeActivatedException {
-        oldState = oldRound.getRoundState();
-        round = oldRound;
-        return this;
-    }
+    @Override
+    public int getPlayerOnTurn() { return round.getPlayerOnTurn(); }
 
     @Override
     public Round getRound() {
@@ -88,9 +74,6 @@ public class Character extends Round implements Serializable {
     public Game getGame() {
         return round.getGame();
     }
-
-    @Override
-    public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
 
     @Override
     public Round.PlayedAssistant[] getPlayedAssistants(){
@@ -111,21 +94,13 @@ public class Character extends Round implements Serializable {
         return round.getRoundState();
     }
 
-    public int getOldState() {
+    /*public int getOldState() {
         return oldState;
-    }
+    }*/
 
-    public void setOldState(int oldState) {
+    /*public void setOldState(int oldState) {
         this.oldState = oldState;
-    }
-
-    @Override
-    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { checkStatusAndMethod(methodId); }
-
-    @Override
-    public void setMovesCounter(int playerId, int moves){
-        round.setMovesCounter(playerId, moves);
-    }
+    }*/
 
     @Override
     public int[] getMovesCounter(){
@@ -133,10 +108,9 @@ public class Character extends Round implements Serializable {
     }
 
     @Override
-    public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
-
-    @Override
-    public void setPlayerMessage(int playerId, String message) { round.setPlayerMessage(playerId, message); }
+    public void setMovesCounter(int playerId, int moves){
+        round.setMovesCounter(playerId, moves);
+    }
 
     @Override
     public void setIndexOfPlayerOnTurn(int index)  { round.setIndexOfPlayerOnTurn(index); }
@@ -147,10 +121,34 @@ public class Character extends Round implements Serializable {
     }
 
     @Override
+    public void setAlreadyPlayedCharacter(boolean alreadyPlayedCharacter) { round.setAlreadyPlayedCharacter(alreadyPlayedCharacter); }
+
+    @Override
+    public int calculateFirstPlayer(int numberOfPlayers) { return round.calculateFirstPlayer(numberOfPlayers); }
+
+    @Override
+    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { checkStatusAndMethod(methodId); }
+
+    @Override
+    public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
+
+    @Override
+    public void setPlayerMessage(int playerId, String message) { round.setPlayerMessage(playerId, message); }
+
+    @Override
+    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) { round.setMessageToAPlayerAndWaitingMessageForOthers(playerId, message); }
+
+    @Override
+    public String getStateMessage() { return round.getStateMessage(); }
+
+    @Override
     public boolean isPianificationPhaseEnded() { return round.isPianificationPhaseEnded(); }
 
     @Override
     public boolean isActionPhaseEnded() { return round.isActionPhaseEnded(); }
+
+    @Override
+    public boolean isTimeToChooseTheNextStudent() { return round.isTimeToChooseTheNextStudent(); }
 
     @Override
     public boolean isTimeToMoveMotherNature() { return round.isTimeToMoveMotherNature(); }
@@ -160,6 +158,9 @@ public class Character extends Round implements Serializable {
 
     @Override
     public boolean cloudHasBeenChosen() { return round.cloudHasBeenChosen(); }
+
+    @Override
+    public boolean isTheGameEnded() { return round.isTheGameEnded(); }
 
     @Override
     public void setPianificationPhaseOrder() { round.setPianificationPhaseOrder(); }
@@ -177,6 +178,12 @@ public class Character extends Round implements Serializable {
     public void calculateNextPlayer() { round.calculateNextPlayer(); }
 
     @Override
+    public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) { return round.assistantNoChoice(outer, inner); }
+
+    @Override
+    public void removeAssistant(int playerId, int assistantPosition) throws InvalidIndexException { round.removeAssistant(playerId, assistantPosition); }
+
+    @Override
     public void playAssistant(int playerId, int assistantPosition) { round.playAssistant(playerId, assistantPosition); }
 
     @Override
@@ -189,6 +196,9 @@ public class Character extends Round implements Serializable {
     public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) { return round.isANewAllowedPositionForMotherNature(assistant, islandIndex); }
 
     @Override
+    public void checkEndgameAndSetTheWinner() { round.checkEndgameAndSetTheWinner(); }
+
+    @Override
     /**
      * Changes mother nature position, calculate the influences of the players on the island and puts or changes the tower on the island
      * @param playerId player ID of the player which want to make the move
@@ -198,4 +208,30 @@ public class Character extends Round implements Serializable {
 
     @Override
     public void getStudentsFromCloud(int playerId, int cloudIndex) { round.getStudentsFromCloud(playerId, cloudIndex); }
+
+    /**
+     * It stores the old state value
+     * @param playerID
+     * @param oldRound
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
+    public Round activateEffect(int playerID, Round oldRound) throws EffectCannotBeActivatedException {
+        oldState = oldRound.getRoundState();
+        round = oldRound;
+        return this;
+    }
+
+    public void deactivateEffect() {
+        round.setRoundState(oldState);
+        round.getGame().setRound(round);
+    }
+
+    @Override
+    public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
+
+    @Override
+    public boolean getAlreadyPLayedCharacter() {
+        return round.getAlreadyPLayedCharacter();
+    }
 }

@@ -145,14 +145,14 @@ public class Round implements Serializable {
         game.getPlayer(playerId).setPlayerMessage(message);
     }
 
-    private void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
+    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
         setPlayerMessage(playerId, message);
         for (int i = 0; i < game.getNumberOfPlayers(); i++) {
             if (i != playerId) setPlayerMessage(i, "The player on turn is " + game.getPlayer(playerId).getNickname());
         }
     }
 
-    String getStateMessage() {
+    public String getStateMessage() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
@@ -472,7 +472,7 @@ public class Round implements Serializable {
     public void activateEffect(int playerId, int indexCard) {
         try {
             checkPlayerOnTurn(playerId);
-            if (roundState == 0) throw new InvalidMethodException();
+            if (roundState <= 0 || roundState >= 4) throw new InvalidMethodException();
             if (alreadyPlayedCharacter) throw new AlreadyPlayedCharcaterException();
             game.activateEffect(playerId, indexCard);
             alreadyPlayedCharacter = true;

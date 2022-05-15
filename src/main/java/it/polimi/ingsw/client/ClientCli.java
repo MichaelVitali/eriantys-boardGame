@@ -17,7 +17,6 @@ public class ClientCli {
     private int port;
     private boolean configurationDone = false;
     private boolean active = true;
-
     private int playerId = 0;
     private DisplayedBoard actualBoard;
 
@@ -98,7 +97,7 @@ public class ClientCli {
                                     else printCloud(actualBoard.getGametable().getClouds());
                                     System.out.print("\n");
                                     actualBoard.printDefaultOnCli();
-                                }else if(playerInput.equals("show others")) {
+                                } else if(playerInput.equals("show others")) {
                                     int indexPLayer;
                                     do {
                                         System.out.println("Which player do you want yo show: ");
