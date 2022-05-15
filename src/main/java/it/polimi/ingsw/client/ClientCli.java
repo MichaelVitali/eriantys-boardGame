@@ -53,7 +53,9 @@ public class ClientCli {
                             }
                             if (actualBoard != null) {
                                 actualBoard.printDefaultOnCli();
+                                if (actualBoard.getState() == 4) System.out.println("Attivato il character");
                             }
+
                         } else {
                             throw new IllegalArgumentException();
                         }
@@ -96,7 +98,6 @@ public class ClientCli {
                                     else printCloud(actualBoard.getGametable().getClouds());
                                     System.out.print("\n");
                                     actualBoard.printDefaultOnCli();
-                                    actualBoard.printStateOnCli();
                                 }else if(playerInput.equals("show others")) {
                                     int indexPLayer;
                                     do {
@@ -143,9 +144,6 @@ public class ClientCli {
                                                 break;
                                             case 3:
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
-                                                break;
-                                            case 5:
-                                                System.out.println("Ho attivato l'effetto!");
                                                 break;
                                         }
                                     }
