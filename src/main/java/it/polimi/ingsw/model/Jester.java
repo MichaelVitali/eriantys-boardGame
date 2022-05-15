@@ -61,8 +61,8 @@ public class Jester extends CharacterWithStudent{
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("How many Students do you want to change");
-        super.activateEffect(playerID, round);
+        Round r = super.activateEffect(playerID, round);
         setRoundState(4);
-        return this;
+        return r;
     }
 }

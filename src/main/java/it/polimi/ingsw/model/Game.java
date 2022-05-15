@@ -200,7 +200,6 @@ public class Game extends Observable<Game> implements Serializable {
     }
 
     public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException {
-        return;
     }
 
     public void sendGame() {

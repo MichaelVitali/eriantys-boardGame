@@ -109,7 +109,7 @@ public class ClientCli {
                                     actualBoard.printDefaultOnCli();
                                 } else if (playerId == actualBoard.getPlayerOnTurn()) {
                                     if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
-                                        int cardIndex;
+                                        int cardIndex = -1;
                                         do {
                                             System.out.println("Which character do you want to play: ");
                                             cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
@@ -133,10 +133,6 @@ public class ClientCli {
                                                     System.out.println("Select the index of the island");
                                                     int targetIsland = readLineAndParseInteger(stdin);
                                                     playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
-                                                } else {
-                                                    System.out.println("Make your move:");
-                                                    System.out.println("1 : Move a student from entrance to table");
-                                                    System.out.println("2 : Move a student from entrance to an island");
                                                 }
                                                 break;
                                             case 2:

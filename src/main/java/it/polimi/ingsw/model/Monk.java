@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.model.exception.NoMoreStudentsException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

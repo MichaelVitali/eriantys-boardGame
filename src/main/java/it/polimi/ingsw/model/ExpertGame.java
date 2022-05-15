@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +20,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
         try {
             characters = new Character[3];
             createCharacters();
@@ -89,13 +90,16 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-
+/*
         Random rnd = new Random();
         int numberOfCharacter = 8;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }
+        }*/
+        this.characters[0] = c.remove(7);
+        this.characters[1] = c.remove(6);
+        this.characters[2] = c.remove(0);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
@@ -134,10 +138,7 @@ public class ExpertGame extends Game {
 
     @Override
     public void activateEffect(int playerId, int indexCard) throws EffectCannotBeActivatedException {
-        GameTable gameTable = game.getGameTable();
-        //SchoolBoard[] schoolBoards = gameTable.getSchoolBoards();
         try {
-            //int id = getIdCharacter(indexCard);
             int cost = getCostCharacter(indexCard);
 
             if (playersCoins[playerId] < cost) throw new NotEnoughCoins(); //se ho abbastanza coin per la carta eseguo l'effetto
@@ -145,11 +146,14 @@ public class ExpertGame extends Game {
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
             setRound(characters[indexCard].activateEffect(playerId, getRound()));
-            this.sendGame();
+            System.out.println("SONO ENTRATO");
+            sendGame();
+            System.out.println("HO SPEDITO");
         } catch (InvalidIndexException e) {
             e.printStackTrace(); // Non esiste quell'indice
         } catch (NotEnoughCoins e) {
-            // Il giocatore non ha abbastanza soldi
+            game.getPlayer(playerId).setPlayerMessage("Not enough coins to play this character");
+            sendGame();
         }
     }
 

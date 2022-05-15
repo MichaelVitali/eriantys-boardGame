@@ -54,8 +54,8 @@ public class Herald extends Character{
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("Select Island");
-        super.activateEffect(playerID, round);
+        Round r = super.activateEffect(playerID, round);
         setRoundState(4);
-        return this;
+        return r;
     }
 }
