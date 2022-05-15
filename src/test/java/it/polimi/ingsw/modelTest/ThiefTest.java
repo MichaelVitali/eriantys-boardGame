@@ -23,17 +23,18 @@ public class ThiefTest {
         nicknames.add("mike");
         nicknames.add("enri");
         round = new Round(new ExpertGame(2, nicknames));
+
     }
 
     @Test
     public void testDoYourJob() throws FullTableException, EffectCannotBeActivatedException {
-        character.activateEffect(0, round);
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
         round.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
+        round = character.activateEffect(0, round);
         character.doYourJob(0, 0);
         assertEquals(1, round.getGame().getGameTable().getSchoolBoards()[0].getNumberOfStudentsOnTable(PawnColor.YELLOW));
         assertEquals(0, round.getGame().getGameTable().getSchoolBoards()[1].getNumberOfStudentsOnTable(PawnColor.YELLOW));
@@ -42,14 +43,6 @@ public class ThiefTest {
     @Test
     public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
-        assertEquals(0, character.getRound().getRoundState());
-    }
-
-    @Test
-    public void testSetRoundState() {
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(6);
-        assertEquals(-1, character.getRoundState());
+        assertEquals(4, character.getRound().getRoundState());
     }
 }

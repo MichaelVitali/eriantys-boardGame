@@ -108,7 +108,7 @@ public class Character extends Round implements Serializable {
 
     @Override
     public int getRoundState(){
-        return roundState;
+        return round.getRoundState();
     }
 
     public int getOldState() {

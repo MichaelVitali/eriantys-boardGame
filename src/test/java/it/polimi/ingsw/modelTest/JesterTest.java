@@ -37,10 +37,10 @@ public class JesterTest {
         Student[] studentsOnCard = character.getStudentsOnCard();
         //number of student to change
         character.doYourJob(0, 3);
-        assertEquals(6, character.getRoundState());
+        assertEquals(5, character.getRoundState());
         //index student on card
         for (int i = 0; i < 3; i++) character.doYourJob(0, i);
-        assertEquals(7, character.getRoundState());
+        assertEquals(6, character.getRoundState());
         //index student on entrance
         for (int i = 0; i < 3; i++) character.doYourJob(0, i);
 
@@ -52,13 +52,6 @@ public class JesterTest {
     @Test
     public void testActivateEffect() throws EffectCannotBeActivatedException {
         assertEquals(character.activateEffect(0, round), character);
-        assertEquals(0, character.getRound().getRoundState());
-    }
-    @Test
-    public void testSetRoundState(){
-        character.setRoundState(1);
-        assertEquals(1, character.getRoundState());
-        character.setRoundState(8);
-        assertEquals(-1, character.getRoundState());
+        assertEquals(4, character.getRound().getRoundState());
     }
 }

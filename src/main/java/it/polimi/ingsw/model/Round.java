@@ -24,7 +24,6 @@ public class Round implements Serializable {
         playerOrder = new int[game.getNumberOfPlayers()];
         playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++) playerOrder[i] = (playerOrder[i - 1] + 1) % game.getNumberOfPlayers();
-        for (int i = 0; i < game.getNumberOfPlayers(); i++) System.out.println(playerOrder[i]);
         roundState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
         for (int i = 0; i < game.getNumberOfPlayers(); i++)
@@ -153,7 +152,7 @@ public class Round implements Serializable {
         }
     }
 
-    private String getStateMessage() {
+    String getStateMessage() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";

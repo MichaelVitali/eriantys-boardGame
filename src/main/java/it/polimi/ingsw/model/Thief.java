@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 
 import java.util.Arrays;
 
-public class Thief extends Character{
+public class Thief extends Character {
 
     private PawnColor pawnColor;
 
@@ -41,14 +41,8 @@ public class Thief extends Character{
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("Select pawn color");
+        super.activateEffect(playerID, round);
         setRoundState(4);
-        return super.activateEffect(playerID, round);
+        return this;
     }
-/*
-    @Override
-    public void setRoundState(int state){
-        if (state>=0 && state<6)
-            this.roundState=state;
-        else roundState = -1;
-    }*/
 }
