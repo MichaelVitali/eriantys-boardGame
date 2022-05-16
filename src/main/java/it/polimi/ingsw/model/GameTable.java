@@ -326,7 +326,7 @@ public class GameTable implements Serializable {
     public List<Student> getStudentsOnCloud(int cloudIndex) throws EmptyCloudException, InvalidIndexException {
         if(clouds[cloudIndex].isEmpty()) throw new EmptyCloudException();
         List<Student> studentsOnTheCloud = new ArrayList<>();
-        if(cloudIndex < 0 && cloudIndex >= clouds.length) throw new InvalidIndexException("The chosen cloud doesn't exist");
+        if(cloudIndex < 0 || cloudIndex >= clouds.length) throw new InvalidIndexException("The chosen cloud doesn't exist");
         studentsOnTheCloud.addAll(clouds[cloudIndex].removeStudents());
         return studentsOnTheCloud;
     }

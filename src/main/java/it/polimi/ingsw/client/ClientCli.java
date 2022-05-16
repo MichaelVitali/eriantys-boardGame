@@ -17,6 +17,7 @@ public class ClientCli {
     private int port;
     private boolean configurationDone = false;
     private boolean active = true;
+    private int lastState;
 
     private int playerId = 0;
     private DisplayedBoard actualBoard;
@@ -24,6 +25,7 @@ public class ClientCli {
     public ClientCli(String ip, int port) {
         this.ip = ip;
         this.port = port;
+        lastState = 0;
     }
 
     public synchronized boolean isActive(){
@@ -53,7 +55,6 @@ public class ClientCli {
                             }
                             if (actualBoard != null) {
                                 actualBoard.printDefaultOnCli();
-                                if (actualBoard.getState() == 4) System.out.println("Attivato il character");
                             }
 
                         } else {
@@ -115,7 +116,7 @@ public class ClientCli {
                                             cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
                                         } while (cardIndex < 0 || cardIndex >= 3);
                                         playerMessage = new ActivateEffectMessage(playerId, cardIndex);
-                                    } else if (playerInput.equals("do action")){
+                                    } else if (playerInput.equals("do action")) {
                                         System.out.println(actualBoard.getPlayerMessage());
                                         int playerParameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
                                         switch (actualBoard.getState()) {
