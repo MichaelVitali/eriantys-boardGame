@@ -67,7 +67,7 @@ public class Game extends Observable<Game> implements Serializable {
         try {
             if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
         } catch (InvalidIndexException e) {
-            System.out.println(e);
+            return null;
         }
         return this.players[playerId];
     }
