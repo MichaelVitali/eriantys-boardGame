@@ -86,7 +86,7 @@ public class DisplayedBoard implements Serializable {
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
-            System.out.print(" /  10\uD83D\uDD34   \\   ");
+            System.out.print(" /  10\uD83D\uDD34  \\   ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
