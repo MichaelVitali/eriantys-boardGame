@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.ClientCli;
+import it.polimi.ingsw.client.ClientGui;
 
 import java.io.IOException;
 public class ClientApp {
@@ -15,7 +16,13 @@ public class ClientApp {
                     e.printStackTrace();
                 }
             } else if (args[0].equals("gui")) {
-                // We launch the java fx app
+                ClientGui client = new ClientGui("127.0.0.1", 50001);
+                try {
+                    ClientGui.main(args);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    e.printStackTrace();
+                }
             } else {
                 System.out.println("The option is not valid. Input format : ./file.class MODE\nMODE : { CLI to play by command line - GUI to play by graphic user interface }");
             }
