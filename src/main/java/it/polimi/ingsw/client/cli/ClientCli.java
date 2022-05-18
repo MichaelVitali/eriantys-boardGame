@@ -1,5 +1,6 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.client.cli;
 
+import it.polimi.ingsw.client.DisplayedBoard;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 

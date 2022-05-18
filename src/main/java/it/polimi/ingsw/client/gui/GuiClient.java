@@ -1,18 +1,27 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.client.gui;
 
-import it.polimi.ingsw.controller.message.*;
-import it.polimi.ingsw.model.GameMode;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.NoSuchElementException;
 
-public class ClientGui extends Application {
+public class GuiClient extends Application {
+/*
+    private String ip;
+    private int port;
+    private boolean configurationDone = false;
+    private boolean active = true;
+    private int playerId = 0;
+    private DisplayedBoard actualBoard;
+
+    public GuiClient(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
+    }
 
     /*
     private String ip;
@@ -103,9 +112,14 @@ public class ClientGui extends Application {
         }
     }
     */
+
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Hello!");
+        Parent root = FXMLLoader.load(getClass().getResource("/home/enrico/IdeaProjects/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/src/main/java/it/polimi/ingsw/client/gui/startingWindow.fxml"));
+        stage.setTitle("Eriantys");
+
+        stage.setScene(new Scene(root, 500, 600));
         stage.show();
     }
+    public static void main(String[] args) { launch(); }
 }
