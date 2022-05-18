@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 
 public class ClientGui extends Application {
 
-
+    /*
     private String ip;
     private int port;
     private boolean configurationDone = false;
@@ -102,14 +102,10 @@ public class ClientGui extends Application {
             socket.close();
         }
     }
-
+    */
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Hello!");
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
