@@ -132,4 +132,9 @@ public class MergedIslands extends Island {
         firstIsland.resetProhibition();
         secondIsland.resetProhibition();
     }
+    @Override
+    public int getNumberOfStudentsForColor(PawnColor color) {
+        return (firstIsland.getNumberOfStudentsForColor(color) + secondIsland.getNumberOfStudentsForColor(color));
+    }
+
 }

@@ -76,29 +76,39 @@ public class DisplayedBoard implements Serializable {
 
 
     void printIslands(List<Island> islands) {
-        /*System.out.println("");
+        System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             System.out.print("   ______     ");
-        }*/
-        System.out.println("");
-        for (int i = 0; i < islands.size(); i++) {
-            System.out.print("  /\u203E\u203E\u203E\u203E\u203E\u203E\\    ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
-            System.out.print(" /  10\uD83D\uDD34  \\   ");
+            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.YELLOW);
+            if (numeberOfStudents < 10) System.out.print("  / 0" + numeberOfStudents + "\uD83D\uDFE1 \\    ");
+            else System.out.print("  / " + numeberOfStudents + "\uD83D\uDFE1   \\  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
-            System.out.print("/          \\  ");
+            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.RED);
+            if (numeberOfStudents < 10) System.out.print(" /  0" + numeberOfStudents + "\uD83D\uDD34  \\   ");
+            else System.out.print(" /  " + numeberOfStudents + "\uD83D\uDD34  \\   ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
-            System.out.print("\\          /  ");
+            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.BLUE);
+            if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + "\uD83D\uDD35   \\  ");
+            else System.out.print("/   " + numeberOfStudents + "\uD83D\uDD35   \\  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
-            System.out.print(" \\        /   ");
+            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.GREEN);
+            if (numeberOfStudents < 10) System.out.print("\\   0" + numeberOfStudents + "\uD83D\uDFE2   /  ");
+            else System.out.print("\\    " + numeberOfStudents + "\uD83D\uDFE2   /  ");
+        }
+        System.out.println("");
+        for (int i = 0; i < islands.size(); i++) {
+            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.PINK);
+            if (numeberOfStudents < 10) System.out.print(" \\  0" + numeberOfStudents + "\uD83D\uDFE3  /   ");
+            else System.out.print(" \\  " + numeberOfStudents +"\uD83D\uDFE3  /   ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
