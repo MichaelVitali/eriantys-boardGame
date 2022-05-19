@@ -53,6 +53,7 @@ public class DisplayedBoard implements Serializable {
 
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
+        if (playerOnTurn == playerId && state == 0) printAssistants(assistants);
         System.out.println("Use comand 'board' to show you board");
         System.out.println("Use command 'Show other' to show other schoolboard");
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
@@ -76,15 +77,10 @@ public class DisplayedBoard implements Serializable {
 
 
     void printIslands(List<Island> islands) {
+
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
-            System.out.print("   ______     ");
-        }
-        System.out.println("");
-        for (int i = 0; i < islands.size(); i++) {
-            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.YELLOW);
-            if (numeberOfStudents < 10) System.out.print("  / 0" + numeberOfStudents + "\uD83D\uDFE1 \\    ");
-            else System.out.print("  / " + numeberOfStudents + "\uD83D\uDFE1   \\  ");
+            System.out.print("  /\u203E\u203E\u203E\u203E\u203E\u203E\\    ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
@@ -97,6 +93,12 @@ public class DisplayedBoard implements Serializable {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.BLUE);
             if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + "\uD83D\uDD35   \\  ");
             else System.out.print("/   " + numeberOfStudents + "\uD83D\uDD35   \\  ");
+        }
+        System.out.println("");
+        for (int i = 0; i < islands.size(); i++) {
+            int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.YELLOW);
+            if (numeberOfStudents < 10) System.out.print("\u258F   0" + numeberOfStudents + "\uD83D\uDFE1   \u2595  ");
+            else System.out.print("\u258F   " + numeberOfStudents + "\uD83D\uDFE1   \u2595  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
@@ -114,19 +116,6 @@ public class DisplayedBoard implements Serializable {
         for (int i = 0; i < islands.size(); i++) {
             System.out.print("  \\\u005F\u005F\u005F\u005F\u005F\u005F/    ");
         }
-        System.out.println("");
-        /*
-            System.out.println("\t\\          /");
-            System.out.println("\t \\        /");
-            System.out.println("\t  \\      /");
-            System.out.println("\t   ------");
-            Island island = islands.get(i);
-            System.out.println("Island number " + i);
-            for (PawnColor color : PawnColor.values()) {
-                long numberOfStudents = island.getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + " students is " + numberOfStudents);
-            }*/
-        //}
     }
 
     void printSchoolboard(SchoolBoard schoolBoard) {
@@ -143,8 +132,25 @@ public class DisplayedBoard implements Serializable {
     }
 
     void printAssistants(List<Assistant> assistants) {
-        System.out.println("List of remaining assistants");
-        for (Assistant a : assistants) System.out.println("Card value: " + a.getCardValue() + " mother nature moves: " + a.getMotherNatureMoves());
+        System.out.println("\n\nAssistants:");
+        for (Assistant a : assistants) {
+            System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
+        }
+        System.out.println("");
+        for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
+        System.out.println("");
+        for (Assistant a : assistants) {
+            if (a.getCardValue() < 10) System.out.print("\u258F CV:" + a.getCardValue() +   " \u2595     ");
+            else System.out.print("\u258F CV:" + a.getCardValue() +   "\u2595     ");
+        }
+        System.out.println("");
+        for (Assistant a : assistants) System.out.print("\u258F MV:" + a.getMotherNatureMoves() + " \u2595     ");
+        System.out.println("");
+        for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
+        System.out.println("");
+        for (Assistant a : assistants) {
+            System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");
+        }
     }
 
     void printCloud(Cloud[] clouds) {
