@@ -28,25 +28,22 @@ public class VillagerTest {
     @Test
     public void testDoYourJob() throws InvalidIndexException, EffectCannotBeActivatedException {
 
-        round.setIndexOfPlayerOnTurn(0);
-        round.setRoundState(1);
+        round.getGame().getGameTable().addStudentOnIsland(new Student(PawnColor.YELLOW), 0);
+        round.getGame().getGameTable().addStudentOnIsland(new Student(PawnColor.YELLOW), 0);
+        round.getGame().getGameTable().addStudentOnIsland(new Student(PawnColor.BLUE), 0);
+        round.getGame().getGameTable().getSchoolBoards()[0].setProfessor(PawnColor.YELLOW, true);
+        round.getGame().getGameTable().getSchoolBoards()[1].setProfessor(PawnColor.BLUE, true);
 
-        for (int i = 0; i < 4; i++) {
-            round.addStudentOnIsland(round.getPlayerOnTurn(), i, 0);
-            round.setRoundState(1);
-        }
-        round.setIndexOfPlayerOnTurn(1);
-        for (int i = 0; i < 4; i++) {
-            round.addStudentOnIsland(round.getPlayerOnTurn(), i, 0);
-            round.setRoundState(1);
-        }
         round.getGame().getGameTable().changeMotherNaturePosition(0);
+        
+        int[] influences = round.getGame().getGameTable().calculateInfluenceValuesGivenByStudentsExceptOne( PawnColor.YELLOW );
 
-        character.activateEffect(0, round);
-        assertEquals(4, round.getRoundState());
-        character.doYourJob(round.getPlayerOnTurn(), 0);
-
-        assertEquals(1, round.getRoundState());
+        int[] influencesFromTowers = round.getGame().getGameTable().calculateInfluenceValuesGivenByTowers();
+        for (int i = 0; i < influences.length; i++) {
+            influences[i] += influencesFromTowers[i];
+            System.out.println(influences[i]);
+        }
+        assertTrue(influences[0] < influences[1]);
     }
 
     @Test
