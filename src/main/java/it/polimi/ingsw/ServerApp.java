@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.Server;
 import java.io.IOException;
 
 public class ServerApp {
+    /*
     public static void main( String[] args ) {
         Server server;
         try {
@@ -13,5 +14,5 @@ public class ServerApp {
         } catch (IOException e) {
             System.err.println("Impossible to start the server: " + e.getMessage() + "!");
         }
-    }
+    }*/
 }
