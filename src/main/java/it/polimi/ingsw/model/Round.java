@@ -145,14 +145,14 @@ public class Round implements Serializable {
         game.getPlayer(playerId).setPlayerMessage(message);
     }
 
-    private void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
+    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
         setPlayerMessage(playerId, message);
         for (int i = 0; i < game.getNumberOfPlayers(); i++) {
             if (i != playerId) setPlayerMessage(i, "The player on turn is " + game.getPlayer(playerId).getNickname());
         }
     }
 
-    String getStateMessage() {
+    public String getStateMessage() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
@@ -312,9 +312,10 @@ public class Round implements Serializable {
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You cannot play any assistant now");
         } catch (IndexOutOfBoundsException e) {
-            setPlayerMessage(playerId,"You can't choose that assistant");
+            setPlayerMessage(playerId,"You can't choose that assistant\n" + getStateMessage());
+            game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage());
+            setPlayerMessage(playerId, e.getMessage() + getStateMessage());
             game.sendGame();
         }
     }
@@ -334,7 +335,8 @@ public class Round implements Serializable {
         } catch (TooManyMovesException e) {
             setPlayerMessage(playerId, "You can move no more students");
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage());
+            setPlayerMessage(playerId, e.getMessage() + getStateMessage());
+            game.sendGame();
         }
     }
 
@@ -344,12 +346,12 @@ public class Round implements Serializable {
             checkStatusAndMethod(1);
             checkNumberOfMoves(playerId);
             System.out.println("Player: " + playerId + " number of  moves: " + movesCounter[playerId]);
+            if (getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex] == null) throw new InvalidIndexException("There isn't a student in this position");
             PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
-            game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             if (game instanceof ExpertGame){
-                PawnColor studentColor = game.getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
-                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(studentColor) % 3 == 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
+                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
             }
+            game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             movesCounter[playerId]++;
             game.getGameTable().moveProfessorToTheRightPosition(color);
             calculateNextPlayer();
@@ -364,8 +366,7 @@ public class Round implements Serializable {
         } catch (NotEnoughCoins e) {
             setPlayerMessage(playerId, "You can't take a coin from a table");
         } catch (InvalidIndexException e) {
-            String s = e.getMessage() + "\n" + getStateMessage();
-            setPlayerMessage(playerId, s);
+            setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
             game.sendGame();
         }
     }
@@ -464,6 +465,7 @@ public class Round implements Serializable {
             setPlayerMessage(playerId, "You cannot get students from cloud now");
         } catch (InvalidIndexException e) {
             setPlayerMessage(playerId, e.getMessage());
+            game.sendGame();
         } catch (EmptyCloudException e)  {
             setPlayerMessage(playerId, "The chosen cloud is empty. Chose another one!");
         }
@@ -472,7 +474,7 @@ public class Round implements Serializable {
     public void activateEffect(int playerId, int indexCard) {
         try {
             checkPlayerOnTurn(playerId);
-            if (roundState == 0) throw new InvalidMethodException();
+            if (roundState <= 0 || roundState >= 4) throw new InvalidMethodException();
             if (alreadyPlayedCharacter) throw new AlreadyPlayedCharcaterException();
             game.activateEffect(playerId, indexCard);
             alreadyPlayedCharacter = true;

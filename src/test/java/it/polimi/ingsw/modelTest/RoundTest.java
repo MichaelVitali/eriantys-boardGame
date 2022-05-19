@@ -366,7 +366,7 @@ public class RoundTest {
 
         game2p.getRound().setRoundState(0);
         game2p.getRound().playAssistant(1, 11);
-        assertEquals("You can't choose that assistant", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("You can't choose that assistant\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessage());
     }
 
     @Test

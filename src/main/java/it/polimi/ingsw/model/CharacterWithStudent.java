@@ -2,10 +2,11 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterWithStudent extends Character {
+public class CharacterWithStudent extends Character implements Serializable {
     private final Student[] students;
 
     /**

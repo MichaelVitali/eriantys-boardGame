@@ -1,5 +1,6 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.client.cli;
 
+import it.polimi.ingsw.client.DisplayedBoard;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 
@@ -53,7 +54,9 @@ public class ClientCli {
                             }
                             if (actualBoard != null) {
                                 actualBoard.printDefaultOnCli();
+                                if (actualBoard.getState() == 4) System.out.println("Attivato il character");
                             }
+
                         } else {
                             throw new IllegalArgumentException();
                         }
@@ -96,7 +99,6 @@ public class ClientCli {
                                     else printCloud(actualBoard.getGametable().getClouds());
                                     System.out.print("\n");
                                     actualBoard.printDefaultOnCli();
-                                    actualBoard.printStateOnCli();
                                 }else if(playerInput.equals("show others")) {
                                     int indexPLayer;
                                     do {
@@ -108,7 +110,7 @@ public class ClientCli {
                                     actualBoard.printDefaultOnCli();
                                 } else if (playerId == actualBoard.getPlayerOnTurn()) {
                                     if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
-                                        int cardIndex;
+                                        int cardIndex = -1;
                                         do {
                                             System.out.println("Which character do you want to play: ");
                                             cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
@@ -132,10 +134,6 @@ public class ClientCli {
                                                     System.out.println("Select the index of the island");
                                                     int targetIsland = readLineAndParseInteger(stdin);
                                                     playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
-                                                } else {
-                                                    System.out.println("Make your move:");
-                                                    System.out.println("1 : Move a student from entrance to table");
-                                                    System.out.println("2 : Move a student from entrance to an island");
                                                 }
                                                 break;
                                             case 2:
@@ -143,9 +141,6 @@ public class ClientCli {
                                                 break;
                                             case 3:
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
-                                                break;
-                                            case 5:
-                                                System.out.println("Ho attivato l'effetto!");
                                                 break;
                                         }
                                     }
