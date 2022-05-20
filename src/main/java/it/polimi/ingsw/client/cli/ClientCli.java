@@ -25,6 +25,18 @@ public class ClientCli {
     public ClientCli(String ip, int port) {
         this.ip = ip;
         this.port = port;
+        printLogo();
+    }
+
+    public void printLogo() {
+        int a = 3;
+        int b = 6;
+        System.out.print("▉▉▉▉▉▉ ▉▉▉▉▉  ▉▉   ▉▉   ▉▉   ▉▉ ▉▉▉▉▉▉ ▉▉  ▉▉ ▉▉▉▉▉\n" +
+                         "▉▉     ▉▉  ▉▉ ▉▉  ▉▉▉▉  ▉▉▉  ▉▉   ▉▉   ▉▉  ▉▉ ▉▉   \n" +
+                         "▉▉▉▉   ▉▉▉▉▉▉ ▉▉ ▉▉  ▉▉ ▉▉ ▉ ▉▉   ▉▉   ▉▉▉▉▉▉ ▉▉▉▉▉\n" +
+                         "▉▉     ▉▉ ▉▉  ▉▉ ▉▉▉▉▉▉ ▉▉  ▉▉▉   ▉▉     ▉▉      ▉▉\n" +
+                         "▉▉▉▉▉▉ ▉▉  ▉▉ ▉▉ ▉▉  ▉▉ ▉▉   ▉▉   ▉▉     ▉▉   ▉▉▉▉▉\n\n\n");
+        System.out.println("Welcome to the magical world of Eriantys\nTry to win the game and become the king of Eriantys\nPress Enter to continue...");
     }
 
     public synchronized boolean isActive(){
@@ -45,6 +57,7 @@ public class ClientCli {
                         Object inputObject = socketIn.readObject();
                         if(inputObject instanceof String) {
                             // initial configuration
+                            clearAll();
                             System.out.println((String)inputObject);
                         } else if (inputObject instanceof DisplayedBoard){
                             actualBoard = ((DisplayedBoard) inputObject);
@@ -53,6 +66,7 @@ public class ClientCli {
                                 playerId = actualBoard.getPlayerId();
                             }
                             if (actualBoard != null) {
+                                clearAll();
                                 actualBoard.printDefaultOnCli();
                                 if (actualBoard.getState() == 4) System.out.println("Attivato il character");
                             }
@@ -241,5 +255,9 @@ public class ClientCli {
                 System.out.println("Number of " + color + " students is " + numberOfStudents);
             }
         }
+    }
+    public void clearAll() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
