@@ -45,9 +45,10 @@ public class Table implements Serializable {
      */
     public int getNumberOfStudents() {
         int i;
-        for (i = 0; i < NUMBEROFSEATS ; i++)
-            if (students[i] == null) break;
-        return i;
+        for (i = 0; i < NUMBEROFSEATS ; i++) {
+            if (students[i] == null) return i;
+        }
+        return 0;
     }
 
     /**

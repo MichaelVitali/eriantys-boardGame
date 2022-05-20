@@ -1,9 +1,14 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.FullTableException;
 
+import java.awt.desktop.SystemEventListener;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+
+import static java.time.Clock.system;
 
 public class DisplayedBoard implements Serializable {
     private static final long serialVersionUID = 100L;
@@ -16,7 +21,7 @@ public class DisplayedBoard implements Serializable {
     private int numberOfPLayer;
     private GameMode gameMode;
     private boolean alreadyPlayedCharacter;
-
+    private SchoolBoard[] schoolBoards;
     public DisplayedBoard(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
@@ -27,6 +32,7 @@ public class DisplayedBoard implements Serializable {
         numberOfPLayer = model.getNumberOfPlayers();
         gameMode = model.getGameMode();
         alreadyPlayedCharacter = model.getRound().getAlreadyPLayedCharacter();
+        schoolBoards = model.getGameTable().getSchoolBoards();
     }
 
     public GameTable getGametable() {
@@ -53,7 +59,8 @@ public class DisplayedBoard implements Serializable {
 
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
-        if (playerOnTurn == playerId && state == 0) printAssistants(assistants);
+        printAssistants(assistants);
+        printAllSchoolboards();
         System.out.println("Use comand 'board' to show you board");
         System.out.println("Use command 'Show other' to show other schoolboard");
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
@@ -85,32 +92,37 @@ public class DisplayedBoard implements Serializable {
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.RED);
-            if (numeberOfStudents < 10) System.out.print(" /  0" + numeberOfStudents + "\uD83D\uDD34  \\   ");
-            else System.out.print(" /  " + numeberOfStudents + "\uD83D\uDD34  \\   ");
+            String circle = returnCircleUnicodeForColor(PawnColor.RED);
+            if (numeberOfStudents < 10) System.out.print(" /  0" + numeberOfStudents + circle +  "  \\   ");
+            else System.out.print(" /  " + numeberOfStudents + circle + "  \\   ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.BLUE);
-            if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + "\uD83D\uDD35   \\  ");
-            else System.out.print("/   " + numeberOfStudents + "\uD83D\uDD35   \\  ");
+            String circle = returnCircleUnicodeForColor(PawnColor.BLUE);
+            if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + circle + "   \\  ");
+            else System.out.print("/   " + numeberOfStudents + circle + "   \\  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.YELLOW);
-            if (numeberOfStudents < 10) System.out.print("\u258F   0" + numeberOfStudents + "\uD83D\uDFE1   \u2595  ");
-            else System.out.print("\u258F   " + numeberOfStudents + "\uD83D\uDFE1   \u2595  ");
+            String circle = returnCircleUnicodeForColor(PawnColor.YELLOW);
+            if (numeberOfStudents < 10) System.out.print("\u258F   0" + numeberOfStudents + circle + "   \u2595  ");
+            else System.out.print("\u258F   " + numeberOfStudents + circle + "   \u2595  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.GREEN);
-            if (numeberOfStudents < 10) System.out.print("\\   0" + numeberOfStudents + "\uD83D\uDFE2   /  ");
-            else System.out.print("\\    " + numeberOfStudents + "\uD83D\uDFE2   /  ");
+            String circle = returnCircleUnicodeForColor(PawnColor.GREEN);
+            if (numeberOfStudents < 10) System.out.print("\\   0" + numeberOfStudents + circle + "   /  ");
+            else System.out.print("\\    " + numeberOfStudents + circle + "   /  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.PINK);
-            if (numeberOfStudents < 10) System.out.print(" \\  0" + numeberOfStudents + "\uD83D\uDFE3  /   ");
-            else System.out.print(" \\  " + numeberOfStudents +"\uD83D\uDFE3  /   ");
+            String circle = returnCircleUnicodeForColor(PawnColor.PINK);
+            if (numeberOfStudents < 10) System.out.print(" \\  0" + numeberOfStudents + circle + "  /   ");
+            else System.out.print(" \\  " + numeberOfStudents + circle + "  /   ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
@@ -161,5 +173,68 @@ public class DisplayedBoard implements Serializable {
                 System.out.println("Number of " + color + " students is " + numberOfStudents);
             }
         }
+    }
+
+    void printAllSchoolboards () {
+        System.out.print("\n");
+        if (schoolBoards.length == 2) {
+            printSchoolboard(0);
+            printSchoolboard(1);
+        } else if (schoolBoards.length == 3) {
+            printSchoolboard(0);
+            printSchoolboard(1);
+            System.out.print("\n");
+            printSchoolboard(2);
+        } else {
+            printSchoolboard(0);
+            printSchoolboard(1);
+            System.out.print("\n");
+            printSchoolboard(2);
+            printSchoolboard(3);
+        }
+    }
+
+    void printSchoolboard (int playerId) {
+        SchoolBoard s = schoolBoards[playerId];
+        Student[] entrance = schoolBoards[playerId].getStudentsFromEntrance();
+        PawnColor[] color = new PawnColor[entrance.length];
+        for (int i = 0; i < entrance.length; i++) {
+            if (entrance[i] != null) color[i] = entrance[i].getColor();
+        }
+        System.out.println(s.getNumberOfStudentsOnTable(PawnColor.YELLOW));
+        if (numberOfPLayer == 3) {
+            System.out.print("╔════════╦═══════════════════════════════════════════════╗\n" +
+                             "║ " + ((color[0] != null) ? returnCircleUnicodeForColor(color[0]) : "  ") + "  " + ((color[1] != null) ? returnCircleUnicodeForColor(color[1]) : "  ") + " ║ " + ((1 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : " ") +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "") + "                                             ║\n" +
+                             "║ " + ((color[2] != null) ? returnCircleUnicodeForColor(color[2]) : "  ") + "  " + ((color[3] != null) ? returnCircleUnicodeForColor(color[3]) : "  ") + " ║                                               ║\n" +
+                             "║ " + ((color[4] != null) ? returnCircleUnicodeForColor(color[4]) : "  ") + "  " + ((color[5] != null) ? returnCircleUnicodeForColor(color[5]) : "  ") + " ║                                               ║\n" +
+                             "║ " + ((color[6] != null) ? returnCircleUnicodeForColor(color[6]) : "  ") + "  " + ((color[7] != null) ? returnCircleUnicodeForColor(color[7]) : "  ") + " ║                                               ║\n" +
+                             "║ " + ((color[8] != null) ? returnCircleUnicodeForColor(color[8]) : "  ") + "   ║                                               ║\n" +
+                             "╚════════╩═══════════════════════════════════════════════╝\n");
+        } else {
+            System.out.print("╔════════╦═══════════════════════════════════════════════╗\n" +
+                             "║ " + ((color[0] != null) ? returnCircleUnicodeForColor(color[0]) : "  ") + "  " + ((color[1] != null) ? returnCircleUnicodeForColor(color[1]) : "  ") + " ║ " + ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + "                ║\n" +
+                             "║ " + ((color[2] != null) ? returnCircleUnicodeForColor(color[2]) : "  ") + "  " + ((color[3] != null) ? returnCircleUnicodeForColor(color[3]) : "  ") + " ║ " +  ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : " ") + "  " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.BLUE)) ? returnCircleUnicodeForColor(PawnColor.BLUE) : "  ") + " " + "                ║\n" +
+                             "║ " + ((color[4] != null) ? returnCircleUnicodeForColor(color[4]) : "  ") + "  " + ((color[5] != null) ? returnCircleUnicodeForColor(color[5]) : "  ") + " ║ " +  ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.GREEN)) ? returnCircleUnicodeForColor(PawnColor.GREEN) : "  ") + " " + "                ║\n" +
+                             "║ " + ((color[6] != null) ? returnCircleUnicodeForColor(color[6]) : "  ") + "     ║ " + ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.RED)) ? returnCircleUnicodeForColor(PawnColor.RED) : "  ") + " " + "                ║\n" +
+                             "║        ║ " +  ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + "                ║\n" +
+                             "╚════════╩═══════════════════════════════════════════════╝\n");
+        }
+
+    }
+
+    private String returnCircleUnicodeForColor (PawnColor color) {
+        switch (color.getIndex()) {
+            case 0:
+                return "\uD83D\uDFE1";
+            case 1:
+                return "\uD83D\uDD35";
+            case 2:
+                return "\uD83D\uDFE2";
+            case 3:
+                return "\uD83D\uDD34";
+            case 4:
+                return "\uD83D\uDFE3";
+        }
+        return "";
     }
 }
