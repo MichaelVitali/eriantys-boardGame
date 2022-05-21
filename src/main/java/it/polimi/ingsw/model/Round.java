@@ -288,7 +288,7 @@ public class Round implements Serializable {
         Assistant assistantToPlay = game.getPlayer(playerId).getAssistant(assistantPosition);
 
         for (int i = 0; i < playedAssistants.length; i++) {
-            if (alreadyPlayedAssistants[i] == true && i != playerId) {
+            if (alreadyPlayedAssistants[i] && i != playerId) {
                 if (assistantToPlay.equals(playedAssistants[i].getAssistant())) {
                     if (!assistantNoChoice(playedAssistantsPF, game.getPlayer(playerId).getAssistants())) throw new InvalidIndexException("Someone has already choose that assistant. Select a different one");
                 }

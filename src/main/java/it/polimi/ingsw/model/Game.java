@@ -207,6 +207,6 @@ public class Game extends Observable<Game> implements Serializable {
     }
 
     public List<Assistant> getPlayerAssistant(int playerIndex) {
-        return assistants[playerIndex];
+        return players[playerIndex].getAssistants();
     }
 }
