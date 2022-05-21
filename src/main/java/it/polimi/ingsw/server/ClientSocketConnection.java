@@ -2,6 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.model.GameMode;
 import it.polimi.ingsw.controller.message.PlayerMessage;
+import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
@@ -115,8 +117,22 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                     send("Error : you are not sending the correct information");
                 }
             } while (playerNickname.equals(""));
+            int wizard = -1;
+            send("Choose a Wizard: { 0 - Green Wizard ; 1 - Yellow Wizard; 2 - Purple Wizard ; 3 - Blue Wizard");
+            do {
+                try {
+                    buffer = in.readObject();
+                    if (buffer instanceof String) {
+                        wizard = Integer.parseInt((String) buffer);
+                        System.out.println("The wizard choose is " + Wizard.associateIndexToWizard(wizard).toString());
+                    }
+                } catch (Exception e) {
+                    send("Error : you are not sending the correct information");
+                }
+            } while (wizard == -1);
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
-            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
+
+            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, Wizard.associateIndexToWizard(wizard), this);
 
             while (isActive()) {
                 buffer = in.readObject();
@@ -136,6 +152,8 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
         } catch (IOException | NoSuchElementException e) {
             System.err.println("Error! " + e.getMessage());
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvalidIndexException e) {
             e.printStackTrace();
         } finally {
             close();

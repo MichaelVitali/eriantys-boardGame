@@ -35,7 +35,7 @@ public class VillagerTest {
         round.getGame().getGameTable().getSchoolBoards()[1].setProfessor(PawnColor.BLUE, true);
 
         round.getGame().getGameTable().changeMotherNaturePosition(0);
-        
+
         int[] influences = round.getGame().getGameTable().calculateInfluenceValuesGivenByStudentsExceptOne( PawnColor.YELLOW );
 
         int[] influencesFromTowers = round.getGame().getGameTable().calculateInfluenceValuesGivenByTowers();

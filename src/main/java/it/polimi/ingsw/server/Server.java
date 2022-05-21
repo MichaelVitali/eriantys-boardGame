@@ -54,14 +54,14 @@ public class Server {
      * @param numberOfPlayers
      * @param gameMode
      */
-    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) {
+    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, Wizard wizard, ClientConnection clientConnection) {
         Match match = searchForMatch(gameMode, numberOfPlayers);
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
-            pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
+            pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection, wizard));
             clientConnection.send("Waiting for a match. Get ready to play...");
         } else {
-            match.addPlayer(clientConnection, playerNickname);
+            match.addPlayer(clientConnection, playerNickname );
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
 
                 View[] playerView = new RemoteView[match.getNumberOfPlayers()];
