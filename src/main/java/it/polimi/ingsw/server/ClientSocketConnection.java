@@ -3,7 +3,9 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.model.GameMode;
 import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.exception.AlreadyChosenWizardException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
@@ -117,22 +119,48 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                     send("Error : you are not sending the correct information");
                 }
             } while (playerNickname.equals(""));
-            int wizard = -1;
-            send("Choose a Wizard: { 0 - Green Wizard ; 1 - Yellow Wizard; 2 - Purple Wizard ; 3 - Blue Wizard");
+            /*int wizard = -1;
+            Match possibleMatch = server.searchForMatch((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers);
+            send("Choose a Wizard {");
+            if (possibleMatch != null) {
+                for (int i = 0; i < Wizard.values().length - possibleMatch.getChosenWizards().size() + 1; i++) {
+                    if (possibleMatch.assertValidWizard(Wizard.associateIndexToWizard(i)))
+                        send(" " + i + " - " + Wizard.associateIndexToWizard(i).toString() + " ; ");
+                }
+                send("} :");
+            }
+            else
+                send(" 0 - GREEN_WIZARD ;\n 1 - YELLOW_WIZARD ;\n 2 - PURPLE_WIZARD ;\n 3 - PURPLE_WIZARD\n} : ");
             do {
                 try {
                     buffer = in.readObject();
                     if (buffer instanceof String) {
                         wizard = Integer.parseInt((String) buffer);
-                        System.out.println("The wizard choose is " + Wizard.associateIndexToWizard(wizard).toString());
+                        if (possibleMatch != null) {
+                            if (possibleMatch.assertValidWizard(Wizard.associateIndexToWizard(wizard))) {
+                                System.out.println("The wizard choose is " + Wizard.associateIndexToWizard(wizard).toString());
+                            } else {
+                                wizard = -1;
+                                send("Somebody has already chosen that mo'fucka, choose another ni**a {");
+                                for (int i = 0; i < Wizard.values().length - possibleMatch.getChosenWizards().size() + 1; i++) {
+                                    if (possibleMatch.assertValidWizard(Wizard.associateIndexToWizard(i)))
+                                        send(" " + i + " - " + Wizard.associateIndexToWizard(i).toString() + " ; ");
+                                }
+                                send("} :");
+                            }
+                        }
+                        else
+                            System.out.println("The wizard choose is " + Wizard.associateIndexToWizard(wizard).toString());
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     send("Error : you are not sending the correct information");
                 }
             } while (wizard == -1);
+            */
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
 
-            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, Wizard.associateIndexToWizard(wizard), this);
+            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname/*, Wizard.associateIndexToWizard(wizard)*/, this);
 
             while (isActive()) {
                 buffer = in.readObject();
@@ -153,7 +181,9 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             System.err.println("Error! " + e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (InvalidIndexException e) {
+        /*} catch (InvalidIndexException e) {
+            e.printStackTrace();*/
+        } catch (TooManyMovesException e) {
             e.printStackTrace();
         } finally {
             close();
