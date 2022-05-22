@@ -59,8 +59,9 @@ public class DisplayedBoard implements Serializable {
 
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
-        printAssistants(assistants);
+        if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
         printAllSchoolboards();
+        if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
         System.out.println("Use comand 'board' to show you board");
         System.out.println("Use command 'Show other' to show other schoolboard");
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
@@ -84,7 +85,10 @@ public class DisplayedBoard implements Serializable {
 
 
     void printIslands(List<Island> islands) {
-
+        System.out.println("");
+        for (int i = 0; i < islands.size(); i++) {
+            System.out.print("   " + i + "          ");
+        }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             System.out.print("  /\u203E\u203E\u203E\u203E\u203E\u203E\\    ");
@@ -130,19 +134,6 @@ public class DisplayedBoard implements Serializable {
         }
     }
 
-    void printSchoolboard(SchoolBoard schoolBoard) {
-        System.out.println("Schoolboard");
-        for (Student student : schoolBoard.getStudentsFromEntrance()) {
-            if(student != null)
-                System.out.print(student.getColor() + "\t");
-            else
-                System.out.print("x" + "\t");
-        }
-        System.out.print("\n");
-        for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + " has " + schoolBoard.getNumberOfStudentsOnTable(color) + " students; " + (schoolBoard.getProfessors().contains(color) ? "There is the professor" : "There isn't the professor"));
-        System.out.println("You have " + schoolBoard.getTowers().size() + " towers remaining");
-    }
-
     void printAssistants(List<Assistant> assistants) {
         System.out.println("\n\nAssistants:");
         for (Assistant a : assistants) {
@@ -166,12 +157,52 @@ public class DisplayedBoard implements Serializable {
     }
 
     void printCloud(Cloud[] clouds) {
+        System.out.println("");
         for (int i = 0; i < clouds.length; i++) {
-            System.out.println("Cloud number " + i);
-            for (PawnColor color : PawnColor.values()) {
-                long numberOfStudents = clouds[i].getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + " students is " + numberOfStudents);
-            }
+            System.out.print("   Cloud " + i + "    ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            System.out.print("  /\u203E\u203E\u203E\u203E\u203E\u203E\\    ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            int numeberOfStudents = clouds[i].getNumberOfStudentsForColor(PawnColor.RED);
+            String circle = returnCircleUnicodeForColor(PawnColor.RED);
+            if (numeberOfStudents < 10) System.out.print(" /  0" + numeberOfStudents + circle +  "  \\   ");
+            else System.out.print(" /  " + numeberOfStudents + circle + "  \\   ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            int numeberOfStudents = clouds[i].getNumberOfStudentsForColor(PawnColor.BLUE);
+            String circle = returnCircleUnicodeForColor(PawnColor.BLUE);
+            if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + circle + "   \\  ");
+            else System.out.print("/   " + numeberOfStudents + circle + "   \\  ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            int numeberOfStudents = clouds[i].getNumberOfStudentsForColor(PawnColor.YELLOW);
+            String circle = returnCircleUnicodeForColor(PawnColor.YELLOW);
+            if (numeberOfStudents < 10) System.out.print("\u258F   0" + numeberOfStudents + circle + "   \u2595  ");
+            else System.out.print("\u258F   " + numeberOfStudents + circle + "   \u2595  ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            int numeberOfStudents = clouds[i].getNumberOfStudentsForColor(PawnColor.GREEN);
+            String circle = returnCircleUnicodeForColor(PawnColor.GREEN);
+            if (numeberOfStudents < 10) System.out.print("\\   0" + numeberOfStudents + circle + "   /  ");
+            else System.out.print("\\    " + numeberOfStudents + circle + "   /  ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            int numeberOfStudents = clouds[i].getNumberOfStudentsForColor(PawnColor.PINK);
+            String circle = returnCircleUnicodeForColor(PawnColor.PINK);
+            if (numeberOfStudents < 10) System.out.print(" \\  0" + numeberOfStudents + circle + "  /   ");
+            else System.out.print(" \\  " + numeberOfStudents + circle + "  /   ");
+        }
+        System.out.println("");
+        for (int i = 0; i < clouds.length; i++) {
+            System.out.print("  \\\u005F\u005F\u005F\u005F\u005F\u005F/    ");
         }
     }
 
@@ -183,12 +214,10 @@ public class DisplayedBoard implements Serializable {
         } else if (schoolBoards.length == 3) {
             printSchoolboard(0);
             printSchoolboard(1);
-            System.out.print("\n");
             printSchoolboard(2);
         } else {
             printSchoolboard(0);
             printSchoolboard(1);
-            System.out.print("\n");
             printSchoolboard(2);
             printSchoolboard(3);
         }
@@ -203,6 +232,7 @@ public class DisplayedBoard implements Serializable {
         }
         TowerColor towerColor = s.getTowersColor();
         String unicodeTower = returnCircleUnicodeFromColor(towerColor);
+        System.out.println("Player: " + playerId);
         if (numberOfPLayer == 3) {
             System.out.print("╔════════╦═════════════════════════════════╦════╦═══════╗\n" +
                     "║ " + ((color[0] != null) ? returnCircleUnicodeForColor(color[0]) : "  ") + "  " + ((color[1] != null) ? returnCircleUnicodeForColor(color[1]) : "  ") + " ║ " + ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + "  ║ " + (s.getProfessors().contains(PawnColor.YELLOW) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " ║ " + (1 <= s.getTowers().size() ? unicodeTower : " ") + " " + (2 <= s.getTowers().size() ? unicodeTower : " ") + "   ║\n" +
@@ -219,10 +249,9 @@ public class DisplayedBoard implements Serializable {
                              "║        ║ " +  ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.PINK)) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " " + "  ║ " + (s.getProfessors().contains(PawnColor.PINK) ? returnCircleUnicodeForColor(PawnColor.PINK) : "  ") + " ║       ║\n" +
                              "╚════════╩═════════════════════════════════╩════╩═══════╝\n");
         }
-
     }
 
-    private String returnCircleUnicodeForColor (PawnColor color) {
+    String returnCircleUnicodeForColor (PawnColor color) {
         switch (color.getIndex()) {
             case 0:
                 return "\uD83D\uDFE1";
@@ -238,7 +267,7 @@ public class DisplayedBoard implements Serializable {
         return "";
     }
 
-    private String returnCircleUnicodeFromColor (TowerColor color) {
+    String returnCircleUnicodeFromColor (TowerColor color) {
         switch (color.getIndex()) {
             case 0:
                 return "\u26AA";
@@ -249,4 +278,13 @@ public class DisplayedBoard implements Serializable {
         }
         return "";
     }
+
+    /*String toStringIslandIndex (List<Integer> indexes) {
+        if (indexes.size() == 1) return indexes.remove(0).toString();
+        else {
+            StringBuilder s = new StringBuilder();
+            for (Integer i : indexes) s.append(i.toString()).append(" ");
+            return s.toString();
+        }
+    }*/
 }
