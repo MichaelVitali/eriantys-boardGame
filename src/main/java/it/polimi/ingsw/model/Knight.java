@@ -12,7 +12,7 @@ public class Knight extends Character {
      * @param cost amount of money needed to activate the card effect
      */
     public Knight(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Knight");
     }
 
     @Override

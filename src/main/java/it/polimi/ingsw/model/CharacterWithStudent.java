@@ -15,8 +15,8 @@ public class CharacterWithStudent extends Character implements Serializable {
      * @param cost amount of money needed to activate the card effect
      * @param numberOfStudent maximum number of students the card can contain
      */
-    public CharacterWithStudent(int id, int cost, int numberOfStudent) {
-        super(id, cost);
+    public CharacterWithStudent(int id, int cost, int numberOfStudent, String name) {
+        super(id, cost, name);
         students = new Student[numberOfStudent];
     }
 

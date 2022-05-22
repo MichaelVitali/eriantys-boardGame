@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletionService;
 
 public class ExpertGame extends Game {
     private Game game;
@@ -47,7 +48,7 @@ public class ExpertGame extends Game {
             String[] character = s.split(",");
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
-
+            System.out.println(ID + " " + cost);
             switch (ID) {
                 case 1:
                     Monk c1 = new Monk(ID, cost, 4);
@@ -90,16 +91,16 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-/*
+        /*
         Random rnd = new Random();
         int numberOfCharacter = 8;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.remove(1);
-        this.characters[1] = c.remove(6);
-        this.characters[2] = c.remove(0);
+        this.characters[0] = c.get(0);
+        this.characters[1] = c.get(1);
+        this.characters[2] = c.get(2);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

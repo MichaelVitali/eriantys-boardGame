@@ -1,14 +1,10 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.exception.FullTableException;
+import it.polimi.ingsw.model.Character;
 
-import java.awt.desktop.SystemEventListener;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-
-import static java.time.Clock.system;
 
 public class DisplayedBoard implements Serializable {
     private static final long serialVersionUID = 100L;
@@ -22,6 +18,7 @@ public class DisplayedBoard implements Serializable {
     private GameMode gameMode;
     private boolean alreadyPlayedCharacter;
     private SchoolBoard[] schoolBoards;
+    private Character[] characters;
     public DisplayedBoard(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
@@ -33,6 +30,8 @@ public class DisplayedBoard implements Serializable {
         gameMode = model.getGameMode();
         alreadyPlayedCharacter = model.getRound().getAlreadyPLayedCharacter();
         schoolBoards = model.getGameTable().getSchoolBoards();
+        if (gameMode == GameMode.EXPERT) characters = ((ExpertGame) model).getCharacters();
+        else characters = null;
     }
 
     public GameTable getGametable() {
@@ -60,15 +59,13 @@ public class DisplayedBoard implements Serializable {
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
         if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
+        if (gameMode == GameMode.EXPERT) printCharacter(characters);
         printAllSchoolboards();
         if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
-        System.out.println("Use comand 'board' to show you board");
-        System.out.println("Use command 'Show other' to show other schoolboard");
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
-        if (playerId == playerOnTurn) System.out.println("Use command 'do action' to do the next possible action");
+        if (playerId == playerOnTurn) System.out.println(playerMessage);
         else System.out.println("You're not the player on turn... Wait for other player!");
     }
-
     public int getNumberOfPLayer() {
         return numberOfPLayer;
     }
@@ -95,17 +92,21 @@ public class DisplayedBoard implements Serializable {
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
+            System.out.print(" /  " + ((gametable.getMotherNaturePosition() == i) ? "\uD83D\uDCA9" : "  ") + (islands.get(i).getTowers().size() != 0 ? (" " + returnCircleUnicodeFromColor(islands.get(i).getTowers().get(0).getColor())) : "  ") +"  \\   ");
+        }
+        System.out.println("");
+        for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.RED);
             String circle = returnCircleUnicodeForColor(PawnColor.RED);
-            if (numeberOfStudents < 10) System.out.print(" /  0" + numeberOfStudents + circle +  "  \\   ");
-            else System.out.print(" /  " + numeberOfStudents + circle + "  \\   ");
+            if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + circle + "   \\  ");
+            else System.out.print("/   " + numeberOfStudents + circle + "   \\  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             int numeberOfStudents = islands.get(i).getNumberOfStudentsForColor(PawnColor.BLUE);
             String circle = returnCircleUnicodeForColor(PawnColor.BLUE);
-            if (numeberOfStudents < 10) System.out.print("/   0" + numeberOfStudents + circle + "   \\  ");
-            else System.out.print("/   " + numeberOfStudents + circle + "   \\  ");
+            if (numeberOfStudents < 10) System.out.print("\u258F   0" + numeberOfStudents + circle + "   \u2595  ");
+            else System.out.print("\u258F   " + numeberOfStudents + circle + "   \u2595  ");
         }
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
@@ -204,6 +205,7 @@ public class DisplayedBoard implements Serializable {
         for (int i = 0; i < clouds.length; i++) {
             System.out.print("  \\\u005F\u005F\u005F\u005F\u005F\u005F/    ");
         }
+        System.out.println("");
     }
 
     void printAllSchoolboards () {
@@ -252,6 +254,30 @@ public class DisplayedBoard implements Serializable {
         }
     }
 
+    void printCharacter(Character[] characters) {
+        System.out.println("\n\nCharacters:");
+        for (Character c : characters) {
+            System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
+        }
+        System.out.println("");
+        for (Character c : characters){
+            System.out.print("\u258F" + c.getName());
+            int count = (8 - c.getName().length());
+            for (int i = 0; i < count; i++) System.out.print(" ");
+            System.out.print("\u2595     ");
+        }
+        System.out.println("");
+        for (Character c : characters) {
+            System.out.print("\u258FCost:" + c.getCost() +   "  \u2595     ");
+        }
+        System.out.println("");
+        for (Character c : characters) System.out.print("\u258F        \u2595     ");
+        System.out.println("");
+        for (Character c : characters) {
+            System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");
+        }
+    }
+
     String returnCircleUnicodeForColor (PawnColor color) {
         switch (color.getIndex()) {
             case 0:
@@ -280,12 +306,4 @@ public class DisplayedBoard implements Serializable {
         return "";
     }
 
-    /*String toStringIslandIndex (List<Integer> indexes) {
-        if (indexes.size() == 1) return indexes.remove(0).toString();
-        else {
-            StringBuilder s = new StringBuilder();
-            for (Integer i : indexes) s.append(i.toString()).append(" ");
-            return s.toString();
-        }
-    }*/
 }
