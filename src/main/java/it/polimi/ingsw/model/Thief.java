@@ -34,7 +34,7 @@ public class Thief extends Character {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             }
 
-            deactivateEffect();
+            deactivateEffect(true);
         }
     }
 

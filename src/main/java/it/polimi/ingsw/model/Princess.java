@@ -40,7 +40,7 @@ public class Princess extends CharacterWithStudent  {
             } catch (EmptyBagException e) {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             }
-            deactivateEffect();
+            deactivateEffect(true);
         }
     }
 

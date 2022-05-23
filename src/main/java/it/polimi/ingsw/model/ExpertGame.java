@@ -14,6 +14,11 @@ public class ExpertGame extends Game {
     private int coinsOfTheTable;
     private int[] playersCoins;
 
+    /**
+     * Creates an expert mode game instance.
+     * @param numberOfPlayers number of players that will play the match
+     * @param nicknames nicknames of the players in the match
+     */
     public ExpertGame(int numberOfPlayers, List<String> nicknames) {
         super(numberOfPlayers, nicknames);
         gameMode = GameMode.EXPERT;
@@ -29,15 +34,25 @@ public class ExpertGame extends Game {
         }
     }
 
-    public GameMode getGameMode() { return gameMode; }
     public Character[] getCharacters(){
         return characters;
     }
 
     public void setCharacters(Character[] characters){
-        this.characters=characters;
+        this.characters = characters;
     }
 
+    /**
+     * Sets a single character of the expert mode match. If the index is not valid the method doesn't do anything
+     * @param character character to be set
+     * @param position index of the character, in the 3 character array, that has to be associated to the given one
+     */
+    public void setASingleCharacter(Character character, int position) { characters[position] = character; }
+
+    /**
+     * Creates the instances of the three characters of the current match, choosing three random characters of the deck
+     * @throws EmptyBagException if a character, which has students placed on it, tries to draw a student from an empty bag
+     */
     public void createCharacters() throws EmptyBagException {
         List<Character> c = new ArrayList<>();
 
@@ -90,16 +105,13 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-/*
+
         Random rnd = new Random();
         int numberOfCharacter = 8;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }*/
-        this.characters[0] = c.remove(1);
-        this.characters[1] = c.remove(6);
-        this.characters[2] = c.remove(0);
+        }
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

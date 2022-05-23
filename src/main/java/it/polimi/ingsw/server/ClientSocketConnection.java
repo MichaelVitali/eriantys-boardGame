@@ -75,8 +75,21 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             int gameMode = -1;
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
+            String playerNickname = "";
+            send("Insert a nickname");
             do {
-                send("Welcome!\nChoose game mode { 0 : normal mode - 1 : expert mode } :");
+                try {
+                    buffer = in.readObject();
+                    if (buffer instanceof String) {
+                        playerNickname = (String) buffer;
+                        System.out.println("The player choose is " + playerNickname);
+                    }
+                } catch (Exception e) {
+                    send("Error : you are not sending the correct information");
+                }
+            } while (playerNickname.equals(""));
+            do {
+                send("Welcome " + playerNickname +"!\nChoose game mode { 0 : normal mode - 1 : expert mode } :");
                 try {
                     buffer = in.readObject();
                     if(buffer instanceof String) {
@@ -102,19 +115,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                 }
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
             System.out.println("The player with socket " + toString() + " choose " + numberOfPlayers + " players mode");
-            String playerNickname = "";
-            send("Insert a nickname");
-            do {
-                try {
-                    buffer = in.readObject();
-                    if (buffer instanceof String) {
-                        playerNickname = (String) buffer;
-                        System.out.println("The player choose is " + playerNickname);
-                    }
-                } catch (Exception e) {
-                    send("Error : you are not sending the correct information");
-                }
-            } while (playerNickname.equals(""));
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
             server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
 

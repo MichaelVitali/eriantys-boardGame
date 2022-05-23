@@ -44,7 +44,7 @@ public class Herald extends Character{
                     }
                 }
                 getRound().getGame().getGameTable().changeMotherNaturePosition(oldPosition);
-                deactivateEffect();
+                deactivateEffect(true);
             } catch (InvalidIndexException e) {
                 System.out.println("Invalid island index");
             }

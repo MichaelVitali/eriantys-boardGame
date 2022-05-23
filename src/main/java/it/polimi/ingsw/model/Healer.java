@@ -3,11 +3,11 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 
 public class Healer extends Character {
-    public int prohibition;
+    private int prohibition;
 
     public Healer(int id, int cost) {
         super(id, cost);
-        this.prohibition = 4;
+        prohibition = 4;
     }
 
     @Override

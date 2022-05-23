@@ -3,13 +3,14 @@ package it.polimi.ingsw.client.gui;
 import javafx.application.Application;
 //import javafx.fxml.FXMLLoader;
 //import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -122,14 +123,14 @@ public class GuiClient extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        /*Parent root = FXMLLoader.load(getClass().getResource("/home/enrico/IdeaProjects/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/ing-sw-2022-Vitali-Tacca-Simionato/src/main/java/it/polimi/ingsw/client/gui/startingWindow.fxml"));*/
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginScene.fxml"));
 
 
         Scene scene = getStartingScene();
 
         stage.setTitle("Eriantys");
 
-        stage.setScene(scene);
+        stage.setScene(new Scene(root) /*scene*/);
         stage.show();
     }
     public static void main(String[] args) { launch(); }
@@ -149,7 +150,7 @@ public class GuiClient extends Application {
         centerBox.setAlignment(Pos.CENTER);
         root.setCenter(centerBox);
         Scene scene = new Scene(root, 500, 600);
-        //scene.getStylesheets().addAll(this.getClass().getResource("startingBackground.css").toExternalForm());
+        //scene.getStylesheets().addAll(this.getClass().getResource("/css/startingWindowBackground.css").toExternalForm());
         return scene;
     }
 }

@@ -50,7 +50,7 @@ public class Jester extends CharacterWithStudent{
                         newStudentsOnCard.add(getRound().getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(i));
                     addStudents(newStudentsOnCard);
                     getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
-                    deactivateEffect();
+                    deactivateEffect(true);
                 } catch (InvalidIndexException e) {
                     setPlayerMessage(playerId, e.getMessage()); // non penso sia da mostrare al player tale errore, magari chiediamo di nuovo l'inserimento
                 }

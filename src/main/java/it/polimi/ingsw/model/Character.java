@@ -15,7 +15,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Creates a character card with the given two values
-     *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
@@ -29,7 +28,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns the identifier of the character card
-     *
      * @return the identifier of the character card
      */
     public int getID() {
@@ -38,7 +36,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns the cost of activation of the card
-     *
      * @return the cost of activavtion of the card
      */
     public int getCost() {
@@ -47,7 +44,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns true if the character card has been used one or more times and returns false if its effect hasn't been activated yet
-     *
      * @return the value of usage of the character card - false if it hasn't been used yet
      */
     public boolean getFirstUse() {
@@ -93,14 +89,6 @@ public class Character extends Round implements Serializable {
     public int getRoundState(){
         return round.getRoundState();
     }
-
-    /*public int getOldState() {
-        return oldState;
-    }*/
-
-    /*public void setOldState(int oldState) {
-        this.oldState = oldState;
-    }*/
 
     @Override
     public int[] getMovesCounter(){
@@ -222,8 +210,8 @@ public class Character extends Round implements Serializable {
         return this;
     }
 
-    public void deactivateEffect() {
-        round.setRoundState(oldState);
+    public void deactivateEffect(boolean resetState) {
+        if(resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
     }
 

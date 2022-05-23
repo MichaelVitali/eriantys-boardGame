@@ -6,7 +6,6 @@ public class Centaur extends Character {
 
     /**
      * Creates a character card with the given two values
-     *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
@@ -14,6 +13,11 @@ public class Centaur extends Character {
         super(id, cost);
     }
 
+    /**
+     * Implements a different logic for the influence computation. When the centaur is active and the influence has to be computed, the towers will be ignored
+     * @param playerId player ID of the player which want to make the move
+     * @param islandIndex index of the island on which the player wants to move mother nature
+     */
     @Override
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
@@ -41,6 +45,7 @@ public class Centaur extends Character {
                     roundState = 100;
                     getRound().getGame().endTheMatch();
                 }
+                deactivateEffect(false);
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");

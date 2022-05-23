@@ -46,7 +46,7 @@ public class Monk extends CharacterWithStudent {
                 if (studentsOnCard.size() <= 0) throw new NoMoreStudentsException();
                 getRound().getGame().getGameTable().addStudentOnIsland(studentsOnCard.remove(0), islandIndex);
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
-                deactivateEffect();
+                deactivateEffect(true);
             } catch (NoMoreStudentsException e) {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
             } catch (InvalidIndexException e) {
