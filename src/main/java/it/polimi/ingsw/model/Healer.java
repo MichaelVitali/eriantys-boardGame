@@ -6,7 +6,7 @@ public class Healer extends Character {
     public int prohibition;
 
     public Healer(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Healer");
         this.prohibition = 4;
     }
 

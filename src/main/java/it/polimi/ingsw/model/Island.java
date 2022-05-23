@@ -121,4 +121,13 @@ public class Island implements Serializable {
     public void resetProhibition() {
         prohibition = false;
     }
+
+
+    public int getNumberOfStudentsForColor(PawnColor color) {
+        int count = 0;
+        for (Student s : students) {
+            if (s.getColor() == color) count++;
+        }
+        return count;
+    }
 }

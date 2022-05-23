@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class CharacterWithStudentTest {
-    private CharacterWithStudent c = new CharacterWithStudent(1, 2, 4);
+    private CharacterWithStudent c = new CharacterWithStudent(1, 2, 4, "Name");
     private Bag bag = new Bag();
     @Test
     public void testAddStudents() throws EmptyBagException, InvalidIndexException {

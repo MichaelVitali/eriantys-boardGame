@@ -56,7 +56,7 @@ public class Player implements Serializable {
 
     public Assistant removeAssistant(int position) throws InvalidIndexException{
         if(position < 0 && position >= assistants.size()) throw new InvalidIndexException("Choose a valid assistant");
-        return this.assistants.remove(position);
+        return assistants.remove(position);
     }
 
     public void moveStudentOnTable(int pos) throws FullTableException, InvalidIndexException {
