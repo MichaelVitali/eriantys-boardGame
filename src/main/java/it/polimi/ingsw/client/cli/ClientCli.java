@@ -68,7 +68,6 @@ public class ClientCli {
                             if (actualBoard != null) {
                                 clearAll();
                                 actualBoard.printDefaultOnCli();
-                                if (actualBoard.getState() == 4) System.out.println("Attivato il character");
                             }
 
                         } else {
@@ -98,31 +97,7 @@ public class ClientCli {
                         } else {
                             PlayerMessage playerMessage = null;
                             try {
-                                if (playerInput.equals("board")) {
-                                    int parameter = 0;
-                                    do {
-                                        System.out.println("Which part do you want to show:\n1:Schoolboard\n2:Islands\n3:Mother nature position\n4:Assistants\n5:Clouds");
-                                        parameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
-                                    } while (parameter < 1 || parameter > 5);
-                                    if (parameter == 1)
-                                        printSchoolboard(actualBoard.getGametable().getSchoolBoards()[playerId]);
-                                    else if (parameter == 2) printIslands(actualBoard.getGametable().getIslands());
-                                    else if (parameter == 3)
-                                        System.out.println("Mother nature is in the island number: " + actualBoard.getGametable().getMotherNaturePosition());
-                                    else if (parameter == 4) printAssistants(actualBoard.getAssistants());
-                                    else printCloud(actualBoard.getGametable().getClouds());
-                                    System.out.print("\n");
-                                    actualBoard.printDefaultOnCli();
-                                }else if(playerInput.equals("show others")) {
-                                    int indexPLayer;
-                                    do {
-                                        System.out.println("Which player do you want yo show: ");
-                                        indexPLayer = Integer.parseInt(stdin.nextLine().replace("\n", ""));
-                                    } while (indexPLayer == playerId || indexPLayer >= actualBoard.getNumberOfPLayer());
-                                    printSchoolboard(actualBoard.getGametable().getSchoolBoards()[indexPLayer]);
-                                    System.out.print("\n");
-                                    actualBoard.printDefaultOnCli();
-                                } else if (playerId == actualBoard.getPlayerOnTurn()) {
+                                if (playerId == actualBoard.getPlayerOnTurn()) {
                                     if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
                                         int cardIndex = -1;
                                         do {
@@ -130,9 +105,8 @@ public class ClientCli {
                                             cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
                                         } while (cardIndex < 0 || cardIndex >= 3);
                                         playerMessage = new ActivateEffectMessage(playerId, cardIndex);
-                                    } else if (playerInput.equals("do action")){
-                                        System.out.println(actualBoard.getPlayerMessage());
-                                        int playerParameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
+                                    } else {
+                                        int playerParameter = Integer.parseInt(playerInput);
                                         switch (actualBoard.getState()) {
                                             case 0:
                                                 playerMessage = new PlayAssistantMessage(playerId, playerParameter);
@@ -155,6 +129,8 @@ public class ClientCli {
                                                 break;
                                             case 3:
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
+                                                break;
+                                            case 4:
                                                 break;
                                         }
                                     }
@@ -216,45 +192,6 @@ public class ClientCli {
             }
         } while(!isParameterSet);
         return parameter;
-    }
-
-    void printIslands(List<Island> islands) {
-        for (int i = 0; i < islands.size(); i++) {
-            Island island = islands.get(i);
-            System.out.println("Island number " + i);
-            for (PawnColor color : PawnColor.values()) {
-                long numberOfStudents = island.getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + " students is " + numberOfStudents);
-            }
-        }
-    }
-
-    void printSchoolboard(SchoolBoard schoolBoard) {
-        System.out.println("Schoolboard");
-        for (Student student : schoolBoard.getStudentsFromEntrance()) {
-            if(student != null)
-                System.out.print(student.getColor() + "\t");
-            else
-                System.out.print("x" + "\t");
-        }
-        System.out.print("\n");
-        for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + " has " + schoolBoard.getNumberOfStudentsOnTable(color) + " students; " + (schoolBoard.getProfessors().contains(color) ? "There is the professor" : "There isn't the professor"));
-        System.out.println("You have " + schoolBoard.getTowers().size() + " towers remaining");
-    }
-
-    void printAssistants(List<Assistant> assistants) {
-        System.out.println("List of remaining assistants");
-        for (Assistant a : assistants) System.out.println("Card value: " + a.getCardValue() + " mother nature moves: " + a.getMotherNatureMoves());
-    }
-
-    void printCloud(Cloud[] clouds) {
-        for (int i = 0; i < clouds.length; i++) {
-            System.out.println("Cloud number " + i);
-            for (PawnColor color : PawnColor.values()) {
-                long numberOfStudents = clouds[i].getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + " students is " + numberOfStudents);
-            }
-        }
     }
     public void clearAll() {
         System.out.print("\033[H\033[2J");

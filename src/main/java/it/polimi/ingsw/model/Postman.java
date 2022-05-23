@@ -9,7 +9,7 @@ public class Postman extends Character {
      * @param cost amount of money needed to activate the card effect
      */
     public Postman(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Postman");
     }
 
     /**

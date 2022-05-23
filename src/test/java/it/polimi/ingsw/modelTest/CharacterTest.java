@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class CharacterTest {
 
-    private Character c = new Character(1, 2);
+    private Character c = new Character(1, 2, "Name");
     private Round round;
 
     @Before
@@ -83,5 +83,10 @@ public class CharacterTest {
         assertNull(c.getRound());
         c.activateEffect(0, round);
         assertNotNull(c.getRound());
+    }
+
+    @Test
+    public void testGetName(){
+        assertEquals("Name", c.getName());
     }
 }

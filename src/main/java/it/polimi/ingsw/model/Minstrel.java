@@ -20,7 +20,7 @@ public class Minstrel extends Character  {
      * @param cost amount of money needed to activate the card effect
      */
     public Minstrel(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Minsterl");
         canSwitch = 0;
         wantToGoOn = 1;
         pawnColor = null;

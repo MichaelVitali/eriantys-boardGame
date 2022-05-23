@@ -464,10 +464,11 @@ public class Round implements Serializable {
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You cannot get students from cloud now");
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage());
+            setPlayerMessage(playerId, e.getMessage() + getStateMessage());
             game.sendGame();
         } catch (EmptyCloudException e)  {
             setPlayerMessage(playerId, "The chosen cloud is empty. Chose another one!");
+            game.sendGame();
         }
     }
 

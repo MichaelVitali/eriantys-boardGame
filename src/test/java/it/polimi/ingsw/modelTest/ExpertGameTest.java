@@ -24,14 +24,14 @@ public class ExpertGameTest {
 
     @Test
     public void testGetCharacters(){
-        Character[] cs=new Character[]{new Character(6,3)};
+        Character[] cs=new Character[]{new Character(6,3, "Name")};
         exp_game2p.setCharacters(cs);
         for (int i = 0; i < cs.length; i++) assertEquals(cs[i], exp_game2p.getCharacters()[i]);
     }
 
     @Test
     public void testSetCharacters(){
-        Character[] cs = new Character[]{new Character(6,3)};
+        Character[] cs = new Character[]{new Character(6,3, "Name")};
         exp_game2p.setCharacters(cs);
         for (int i = 0; i < cs.length; i++) assertEquals(cs[i], exp_game2p.getCharacters()[i]);
     }
@@ -125,7 +125,7 @@ public class ExpertGameTest {
         List<Integer> students = new ArrayList<>();
         students.add(1);
 
-        CharacterWithStudent expected = new CharacterWithStudent(11, 2, 4);
+        CharacterWithStudent expected = new CharacterWithStudent(11, 2, 4, "Name");
         Character[] testCharacter={expected};
         exp_game2p.setCharacters(testCharacter);
 
@@ -203,5 +203,6 @@ public class ExpertGameTest {
         exp_game2p.removeCoinFromTheTable();
         assertEquals(tmp-1, exp_game2p.getCoinsOfTheTable());
     }
+
 
 }

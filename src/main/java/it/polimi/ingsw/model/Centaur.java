@@ -10,7 +10,7 @@ public class Centaur extends Character {
      * @param cost amount of money needed to activate the card effect
      */
     public Centaur(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Centaur");
     }
 
     /**

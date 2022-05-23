@@ -6,8 +6,8 @@ public class Healer extends Character {
     private int prohibition;
 
     public Healer(int id, int cost) {
-        super(id, cost);
-        prohibition = 4;
+        super(id, cost, "Healer");
+        this.prohibition = 4;
     }
 
     @Override

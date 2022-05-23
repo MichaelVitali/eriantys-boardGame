@@ -11,7 +11,7 @@ public class Princess extends CharacterWithStudent  {
     private int studentIndex;
 
     public Princess(int id, int cost, int numberOfStudent){
-        super(id, cost, numberOfStudent);
+        super(id, cost, numberOfStudent, "Princess");
     }
 
     @Override

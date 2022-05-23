@@ -22,13 +22,9 @@ public class Monk extends CharacterWithStudent {
      * @param numberOfStudent maximum number of students the card can contain
      */
     public Monk(int id, int cost, int numberOfStudent) {
-        super(id, cost, numberOfStudent);
+        super(id, cost, numberOfStudent, "Monk");
     }
 
-    /*@Override
-    public void calculateNextPlayer() {
-
-    }*/
 
     @Override
     public void doYourJob(int playerId, int parameter) {

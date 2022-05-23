@@ -12,18 +12,20 @@ public class Character extends Round implements Serializable {
     private boolean firstUse;
     private Round round;
     private int oldState;
+    private String name;
 
     /**
      * Creates a character card with the given two values
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public Character(int id, int cost) {
+    public Character(int id, int cost, String name) {
         super();
         this.ID = id;
         this.cost = cost;
         firstUse = false;
         round = null;
+        this.name = name;
     }
 
     /**
@@ -32,6 +34,10 @@ public class Character extends Round implements Serializable {
      */
     public int getID() {
         return ID;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**

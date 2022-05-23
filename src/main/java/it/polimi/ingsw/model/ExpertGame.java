@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletionService;
 
 public class ExpertGame extends Game {
     private Game game;
@@ -62,7 +63,7 @@ public class ExpertGame extends Game {
             String[] character = s.split(",");
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
-
+            System.out.println(ID + " " + cost);
             switch (ID) {
                 case 1:
                     Monk c1 = new Monk(ID, cost, 4);

@@ -14,7 +14,7 @@ public class Jester extends CharacterWithStudent{
     private int countEntrance;
 
     public Jester(int id, int cost, int numberOfStudent) {
-        super(id, cost, numberOfStudent);
+        super(id, cost, numberOfStudent, "Jester");
         studentsIndexOnCard = new ArrayList<>();
         studentsIndexOnEntrance = new ArrayList<>();
     }

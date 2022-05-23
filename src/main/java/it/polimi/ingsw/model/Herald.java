@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.exception.ThreeOrLessIslandException;
 public class Herald extends Character{
 
     public Herald(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Herald");
     }
 
     /**
