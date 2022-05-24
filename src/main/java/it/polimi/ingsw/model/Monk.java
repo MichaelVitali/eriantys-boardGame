@@ -22,13 +22,9 @@ public class Monk extends CharacterWithStudent {
      * @param numberOfStudent maximum number of students the card can contain
      */
     public Monk(int id, int cost, int numberOfStudent) {
-        super(id, cost, numberOfStudent);
+        super(id, cost, numberOfStudent, "Monk");
     }
 
-    /*@Override
-    public void calculateNextPlayer() {
-
-    }*/
 
     @Override
     public void doYourJob(int playerId, int parameter) {
@@ -46,7 +42,7 @@ public class Monk extends CharacterWithStudent {
                 if (studentsOnCard.size() <= 0) throw new NoMoreStudentsException();
                 getRound().getGame().getGameTable().addStudentOnIsland(studentsOnCard.remove(0), islandIndex);
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
-                deactivateEffect();
+                deactivateEffect(true);
             } catch (NoMoreStudentsException e) {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
             } catch (InvalidIndexException e) {

@@ -11,7 +11,7 @@ public class Thief extends Character {
     private PawnColor pawnColor;
 
     public Thief(int id, int cost){
-        super(id, cost);
+        super(id, cost, "Thief");
         pawnColor = null;
     }
 
@@ -34,7 +34,7 @@ public class Thief extends Character {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
             }
 
-            deactivateEffect();
+            deactivateEffect(true);
         }
     }
 

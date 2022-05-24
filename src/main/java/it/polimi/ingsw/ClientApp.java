@@ -9,10 +9,15 @@ import java.util.Scanner;
 
 public class ClientApp {
 
+    public final static String ip = "127.0.0.1";
+    public final static int port = 50002;
+
     public static void main(String[] args){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         if (args.length >= 1) {
             if (args[0].equals("cli")) {
-                ClientCli client = new ClientCli("127.0.0.1", 50001);
+                ClientCli client = new ClientCli(ip, port);
                 Scanner stdin = new Scanner(System.in);
                 String input = stdin.nextLine();
                 while(input.equals("\n")) {
@@ -29,9 +34,7 @@ public class ClientApp {
                     //e.printStackTrace();
                 }
             } else if (args[0].equals("gui")) {
-                /*ClientGui client = new ClientGui("127.0.0.1", 50001);
-                Application.launch(client);
-                Application.launch(GuiClient.class);*/
+                Application.launch(GuiClient.class);
             } else {
                 System.out.println("The option is not valid. Input format : ./file.class MODE\nMODE : { CLI to play by command line - GUI to play by graphic user interface }");
             }

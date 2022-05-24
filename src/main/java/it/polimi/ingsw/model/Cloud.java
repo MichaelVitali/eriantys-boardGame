@@ -58,4 +58,12 @@ public class Cloud implements Serializable {
     public void addStudents(List<Student> newStudents) {
         students.addAll(newStudents);
     }
+
+    public int getNumberOfStudentsForColor(PawnColor color) {
+        int count = 0;
+        for (Student s : students) {
+            if (s.getColor() == color) count++;
+        }
+        return count;
+    }
 }

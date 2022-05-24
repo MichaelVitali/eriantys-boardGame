@@ -12,33 +12,36 @@ public class Character extends Round implements Serializable {
     private boolean firstUse;
     private Round round;
     private int oldState;
+    private String name;
 
     /**
      * Creates a character card with the given two values
-     *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public Character(int id, int cost) {
+    public Character(int id, int cost, String name) {
         super();
         this.ID = id;
         this.cost = cost;
         firstUse = false;
         round = null;
+        this.name = name;
     }
 
     /**
      * Returns the identifier of the character card
-     *
      * @return the identifier of the character card
      */
     public int getID() {
         return ID;
     }
 
+    public String getName() {
+        return name;
+    }
+
     /**
      * Returns the cost of activation of the card
-     *
      * @return the cost of activavtion of the card
      */
     public int getCost() {
@@ -47,7 +50,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns true if the character card has been used one or more times and returns false if its effect hasn't been activated yet
-     *
      * @return the value of usage of the character card - false if it hasn't been used yet
      */
     public boolean getFirstUse() {
@@ -93,14 +95,6 @@ public class Character extends Round implements Serializable {
     public int getRoundState(){
         return round.getRoundState();
     }
-
-    /*public int getOldState() {
-        return oldState;
-    }*/
-
-    /*public void setOldState(int oldState) {
-        this.oldState = oldState;
-    }*/
 
     @Override
     public int[] getMovesCounter(){
@@ -222,8 +216,8 @@ public class Character extends Round implements Serializable {
         return this;
     }
 
-    public void deactivateEffect() {
-        round.setRoundState(oldState);
+    public void deactivateEffect(boolean resetState) {
+        if(resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
     }
 

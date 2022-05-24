@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.exception.ThreeOrLessIslandException;
 public class Herald extends Character{
 
     public Herald(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Herald");
     }
 
     /**
@@ -44,7 +44,7 @@ public class Herald extends Character{
                     }
                 }
                 getRound().getGame().getGameTable().changeMotherNaturePosition(oldPosition);
-                deactivateEffect();
+                deactivateEffect(true);
             } catch (InvalidIndexException e) {
                 System.out.println("Invalid island index");
             }

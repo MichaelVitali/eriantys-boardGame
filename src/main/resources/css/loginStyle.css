@@ -1,0 +1,13 @@
+#loginTitle {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-alignment: "center";
+    -fx-font-size: 50;
+}
+#nicknameMessage {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-alignment: "center";
+    -fx-font-size: 20;
+}
+#loginPane {
+    -fx-background-image: "/background.png";
+}

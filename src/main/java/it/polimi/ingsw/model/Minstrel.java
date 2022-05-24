@@ -20,7 +20,7 @@ public class Minstrel extends Character  {
      * @param cost amount of money needed to activate the card effect
      */
     public Minstrel(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Minsterl");
         canSwitch = 0;
         wantToGoOn = 1;
         pawnColor = null;
@@ -73,7 +73,7 @@ public class Minstrel extends Character  {
                 if (canSwitch < 1)
                     setRoundState(6);
                 else
-                    deactivateEffect();
+                    deactivateEffect(true);
             }else if (getRoundState() == 6) {
                 try {
                     if (parameter < 0 || parameter > 1)
@@ -85,7 +85,7 @@ public class Minstrel extends Character  {
                         getRound().getGame().getPlayer(playerId).setPlayerMessage("Select Student on entrance");
                     }
                     else
-                        deactivateEffect();
+                        deactivateEffect(true);
                 }catch (OutOfBoundException e){}
             }
         }

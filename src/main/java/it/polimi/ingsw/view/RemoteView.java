@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.client.DisplayedBoard;
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.Observer;
@@ -30,7 +30,7 @@ public class RemoteView extends View {
 
     @Override
     public void update(Game model) {
-        DisplayedBoard board = new DisplayedBoard(model, super.getPlayerId());
+        GameMessage board = new GameMessage(model, super.getPlayerId());
         clientConnection.asyncSend(board);
     }
 

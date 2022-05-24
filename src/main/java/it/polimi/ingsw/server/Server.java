@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.client.DisplayedBoard;
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.AlreadyChosenWizardException;
@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT = 50001;
+    private static final int PORT = 50002;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private int nextMatchId;
@@ -86,7 +86,7 @@ public class Server {
                     /*model.getPlayer(i).setWizard(wizard);*/
                     model.addObserver(playerView[i]);
                     playerView[i].addObserver(controller);
-                    DisplayedBoard displayedBoard = new DisplayedBoard(model, i);
+                    GameMessage displayedBoard = new GameMessage(model, i);
                     match.getSockets().get(i).send(displayedBoard);
                 }
 

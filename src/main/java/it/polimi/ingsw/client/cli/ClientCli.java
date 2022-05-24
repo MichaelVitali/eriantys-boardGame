@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.cli;
 
-import it.polimi.ingsw.client.DisplayedBoard;
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 
@@ -20,7 +20,7 @@ public class ClientCli {
     private boolean active = true;
 
     private int playerId = 0;
-    private DisplayedBoard actualBoard;
+    private GameMessage actualBoard;
 
     public ClientCli(String ip, int port) {
         this.ip = ip;
@@ -59,8 +59,8 @@ public class ClientCli {
                             // initial configuration
                             clearAll();
                             System.out.println((String)inputObject);
-                        } else if (inputObject instanceof DisplayedBoard){
-                            actualBoard = ((DisplayedBoard) inputObject);
+                        } else if (inputObject instanceof GameMessage){
+                            actualBoard = ((GameMessage) inputObject);
                             if(!configurationDone) {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
@@ -68,7 +68,6 @@ public class ClientCli {
                             if (actualBoard != null) {
                                 clearAll();
                                 actualBoard.printDefaultOnCli();
-                                if (actualBoard.getState() == 4) System.out.println("Attivato il character");
                             }
 
                         } else {
@@ -86,94 +85,71 @@ public class ClientCli {
     }
 
     public Thread asyncWriteToSocket(final Scanner stdin, final ObjectOutputStream socketOut){
-        Thread thread = new Thread(() -> {
-            try {
-                while (isActive()) {
-                    String playerInput = stdin.nextLine();
-                    playerInput.replace("\n", "");
-                    if (!configurationDone) {
-                        socketOut.writeObject(playerInput);
-                    } else {
-                        PlayerMessage playerMessage = null;
-                        try {
-                            if (playerInput.equals("board")) {
-                                int parameter = 0;
-                                do {
-                                    System.out.println("Which part do you want to show:\n1:Schoolboard\n2:Islands\n3:Mother nature position\n4:Assistants\n5:Clouds");
-                                    parameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
-                                } while (parameter < 1 || parameter > 5);
-                                if (parameter == 1)
-                                    printSchoolboard(actualBoard.getGametable().getSchoolBoards()[playerId]);
-                                else if (parameter == 2) printIslands(actualBoard.getGametable().getIslands());
-                                else if (parameter == 3)
-                                    System.out.println("Mother nature is in the island number: " + actualBoard.getGametable().getMotherNaturePosition());
-                                else if (parameter == 4) printAssistants(actualBoard.getAssistants());
-                                else printCloud(actualBoard.getGametable().getClouds());
-                                System.out.print("\n");
-                                actualBoard.printDefaultOnCli();
-                            }else if(playerInput.equals("show others")) {
-                                int indexPLayer;
-                                do {
-                                    System.out.println("Which player do you want to show: ");
-                                    indexPLayer = Integer.parseInt(stdin.nextLine().replace("\n", ""));
-                                } while (indexPLayer == playerId || indexPLayer >= actualBoard.getNumberOfPLayer());
-                                printSchoolboard(actualBoard.getGametable().getSchoolBoards()[indexPLayer]);
-                                System.out.print("\n");
-                                actualBoard.printDefaultOnCli();
-                            } else if (playerId == actualBoard.getPlayerOnTurn()) {
-                                if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
-                                    int cardIndex = -1;
-                                    do {
-                                        System.out.println("Which character do you want to play: ");
-                                        cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
-                                    } while (cardIndex < 0 || cardIndex >= 3);
-                                    playerMessage = new ActivateEffectMessage(playerId, cardIndex);
-                                } else if (playerInput.equals("do action")){
-                                    System.out.println(actualBoard.getPlayerMessage());
-                                    int playerParameter = Integer.parseInt(stdin.nextLine().replace("\n", ""));
-                                    switch (actualBoard.getState()) {
-                                        case 0:
-                                            playerMessage = new PlayAssistantMessage(playerId, playerParameter);
-                                            break;
-                                        case 1:
-                                            if (playerParameter == 1) {
-                                                System.out.println("Select the index of the student");
-                                                playerParameter = readLineAndParseInteger(stdin);
-                                                playerMessage = new AddStudentOnTableMessage(playerId, playerParameter);
-                                            } else if (playerParameter == 2) {
-                                                System.out.println("Select the index of the student");
-                                                int targetStudent = readLineAndParseInteger(stdin);
-                                                System.out.println("Select the index of the island");
-                                                int targetIsland = readLineAndParseInteger(stdin);
-                                                playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
-                                            }
-                                            break;
-                                        case 2:
-                                            playerMessage = new ChangeMotherNaturePositionMessage(playerId, playerParameter);
-                                            break;
-                                        case 3:
-                                            playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
-                                            break;
-                                        case 10:
-                                            playerMessage = new ChooseWizardMessage(playerId, playerParameter);
-                                            break;
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (isActive()) {
+                        String playerInput = stdin.nextLine();
+                        playerInput.replace("\n", "");
+                        if (!configurationDone) {
+                            socketOut.writeObject(playerInput);
+                        } else {
+                            PlayerMessage playerMessage = null;
+                            try {
+                                if (playerId == actualBoard.getPlayerOnTurn()) {
+                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
+                                        int cardIndex = -1;
+                                        do {
+                                            System.out.println("Which character do you want to play: ");
+                                            cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
+                                        } while (cardIndex < 0 || cardIndex >= 3);
+                                        playerMessage = new ActivateEffectMessage(playerId, cardIndex);
+                                    } else {
+                                        int playerParameter = Integer.parseInt(playerInput);
+                                        switch (actualBoard.getState()) {
+                                            case 0:
+                                                playerMessage = new PlayAssistantMessage(playerId, playerParameter);
+                                                break;
+                                            case 1:
+                                                if (playerParameter == 1) {
+                                                    System.out.println("Select the index of the student");
+                                                    playerParameter = readLineAndParseInteger(stdin);
+                                                    playerMessage = new AddStudentOnTableMessage(playerId, playerParameter);
+                                                } else if (playerParameter == 2) {
+                                                    System.out.println("Select the index of the student");
+                                                    int targetStudent = readLineAndParseInteger(stdin);
+                                                    System.out.println("Select the index of the island");
+                                                    int targetIsland = readLineAndParseInteger(stdin);
+                                                    playerMessage = new AddStudentOnIslandMessage(playerId, targetStudent, targetIsland);
+                                                }
+                                                break;
+                                            case 2:
+                                                playerMessage = new ChangeMotherNaturePositionMessage(playerId, playerParameter);
+                                                break;
+                                            case 3:
+                                                playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
+                                                break;
+                                            case 4:
+                                                break;
+                                        }
                                     }
                                 }
+                            } catch (NumberFormatException e) {
+                                System.out.println("You insert a wrong formatted input, insert only numbers");
+                                actualBoard.printDefaultOnCli();
                             }
-                        } catch (NumberFormatException e) {
-                            System.out.println("You insert a wrong formatted input, insert only numbers");
-                            actualBoard.printDefaultOnCli();
+                            if(playerMessage != null)
+                                socketOut.writeObject(playerMessage);
+                            else if (!playerInput.equals("board") && !playerInput.equals("show others") && !playerInput.equals("do action") && !playerInput.equals("character"))
+                                System.out.println("You insert something wrong");
                         }
-                        if(playerMessage != null)
-                            socketOut.writeObject(playerMessage);
-                        else if (!playerInput.equals("board") && !playerInput.equals("show others") && !playerInput.equals("do action") && !playerInput.equals("character"))
-                            System.out.println("You insert something wrong");
+                        socketOut.flush();
+                        socketOut.reset();
                     }
-                    socketOut.flush();
-                    socketOut.reset();
+                } catch(Exception e) {
+                    setActive(false);
                 }
-            } catch(Exception e) {
-                setActive(false);
             }
         });
         thread.start();
@@ -218,44 +194,9 @@ public class ClientCli {
         return parameter;
     }
 
-    void printIslands(List<Island> islands) {
-        for (int i = 0; i < islands.size(); i++) {
-            Island island = islands.get(i);
-            System.out.println("Island number " + i);
-            for (PawnColor color : PawnColor.values()) {
-                long numberOfStudents = island.getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + " students is " + numberOfStudents);
-            }
-        }
-    }
-
-    void printSchoolboard(SchoolBoard schoolBoard) {
-        System.out.println("Schoolboard");
-        for (Student student : schoolBoard.getStudentsFromEntrance()) {
-            if(student != null)
-                System.out.print(student.getColor() + "\t");
-            else
-                System.out.print("x" + "\t");
-        }
-        System.out.print("\n");
-        for (PawnColor color : PawnColor.values()) System.out.println("Table " + color + " has " + schoolBoard.getNumberOfStudentsOnTable(color) + " students; " + (schoolBoard.getProfessors().contains(color) ? "There is the professor" : "There isn't the professor"));
-        System.out.println("You have " + schoolBoard.getTowers().size() + " towers remaining");
-    }
-
-    void printAssistants(List<Assistant> assistants) {
-        System.out.println("List of remaining assistants");
-        for (Assistant a : assistants) System.out.println("Card value: " + a.getCardValue() + " mother nature moves: " + a.getMotherNatureMoves());
-    }
-
-    void printCloud(Cloud[] clouds) {
-        for (int i = 0; i < clouds.length; i++) {
-            System.out.println("Cloud number " + i);
-            for (PawnColor color : PawnColor.values()) {
-                long numberOfStudents = clouds[i].getStudents().stream().filter(s -> (s.getColor() == color)).count();
-                System.out.println("Number of " + color + " students is " + numberOfStudents);
-            }
-        }
-    }
+    /**
+     * Clears the part of command line the players can see, so the players will always see the drawings of the board in the upper part of the cli
+     */
     public void clearAll() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
