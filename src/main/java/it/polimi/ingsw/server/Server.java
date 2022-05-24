@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.controller.message.ConnectionState;
 import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.message.SetupMessage;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.*;
 
@@ -59,7 +61,7 @@ public class Server {
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
             pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
-            clientConnection.send("Waiting for a match. Get ready to play...");
+            clientConnection.send(new SetupMessage(ConnectionState.SUCCESS, "Waiting for a match. Get ready to play..."));
         } else {
             match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
@@ -92,7 +94,7 @@ public class Server {
                 runningMatches.add(match);
                 pendingMatches.remove(match);
             } else {
-                clientConnection.send("The configuration is done. Get ready to play...");
+                clientConnection.send(new SetupMessage(ConnectionState.SUCCESS, "The configuration is done. Get ready to play..."));
             }
         }
     }
