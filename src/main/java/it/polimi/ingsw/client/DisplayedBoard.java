@@ -17,6 +17,7 @@ public class DisplayedBoard implements Serializable {
     private String playerMessage;
     private GameTable gametable;
     private List<Assistant> assistants;
+    //private List<Wizard> wizards;
     private int playerOnTurn;
     private int numberOfPLayer;
     private GameMode gameMode;
@@ -28,6 +29,7 @@ public class DisplayedBoard implements Serializable {
         playerMessage = model.getPlayer(playerId).getPlayerMessage();
         gametable = model.getGameTable();
         assistants = model.getPlayerAssistant(playerId);
+        //wizards = model.getAlreadyChosenWizards();
         playerOnTurn = model.getRound().getPlayerOnTurn();
         numberOfPLayer = model.getNumberOfPlayers();
         gameMode = model.getGameMode();
@@ -55,7 +57,7 @@ public class DisplayedBoard implements Serializable {
         return playerMessage;
     }
 
-
+    //public List<Wizard> getWizards(){ return wizards; }
 
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());

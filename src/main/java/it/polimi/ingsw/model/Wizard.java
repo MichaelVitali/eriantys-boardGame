@@ -17,21 +17,21 @@ public enum Wizard implements Serializable {
     public static Wizard associateIndexToWizard(int index) throws InvalidIndexException {
         Wizard w = null;
 
-        if(index<0 || index>4)
+        if (index<0 || index>4)
             throw new InvalidIndexException("There is no such wizard");
 
-        switch (index){
+        switch (index) {
             case 0:
-                w=Wizard.GREEN_WIZARD;
+                w = Wizard.GREEN_WIZARD;
                 break;
             case 1:
-                w=Wizard.YELLOW_WIZARD;
+                w = Wizard.YELLOW_WIZARD;
                 break;
             case 2:
-                w=Wizard.PURPLE_WIZARD;
+                w = Wizard.PURPLE_WIZARD;
                 break;
             case 3:
-                w=Wizard.BLUE_WIZARD;
+                w = Wizard.BLUE_WIZARD;
                 break;
         }
 
