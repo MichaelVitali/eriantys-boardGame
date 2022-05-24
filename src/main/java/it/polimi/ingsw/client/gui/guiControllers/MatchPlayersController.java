@@ -1,19 +1,19 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
 import it.polimi.ingsw.controller.message.Message;
-import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EndgameController extends GuiController {
+public class MatchPlayersController extends GuiController{
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void update(Message message) {
 
     }
 
     @Override
-    public void update(Message message) {
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 }

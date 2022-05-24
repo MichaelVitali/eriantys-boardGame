@@ -1,3 +1,3 @@
 package it.polimi.ingsw.controller.message;
 
-public enum ConnectionState { LOGIN, MATCHSELECTION, MATCHTYPE, WIZARDCOLOR }
+public enum ConnectionState { LOGIN, MATCHSELECTION, MATCHMODE, NUMBEROFPLAYERS, WIZARDCOLOR }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.cli;
 
-import it.polimi.ingsw.client.DisplayedBoard;
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -20,7 +19,7 @@ public class ClientCli {
     private boolean active = true;
 
     private int playerId = 0;
-    private DisplayedBoard actualBoard;
+    private GameMessage actualBoard;
 
     public ClientCli(String ip, int port) {
         this.ip = ip;
@@ -59,8 +58,8 @@ public class ClientCli {
                             // initial configuration
                             clearAll();
                             System.out.println((String)inputObject);
-                        } else if (inputObject instanceof DisplayedBoard){
-                            actualBoard = ((DisplayedBoard) inputObject);
+                        } else if (inputObject instanceof GameMessage){
+                            actualBoard = ((GameMessage) inputObject);
                             if(!configurationDone) {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
@@ -193,6 +192,10 @@ public class ClientCli {
         } while(!isParameterSet);
         return parameter;
     }
+
+    /**
+     * Clears the part of command line the players can see, so the players will always see the drawings of the board in the upper part of the cli
+     */
     public void clearAll() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

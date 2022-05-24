@@ -1,6 +1,12 @@
 package it.polimi.ingsw.controller.message;
 
-public class SetupMessage {
+import java.io.Serializable;
+
+/**
+ * This message can be sent from client either from the server
+ * The message is used to exchange setup information, the meaning of the message information is given by the connection state
+ */
+public class SetupMessage extends Message implements Serializable {
     private ConnectionState connectionState;
     private String playerMessage;
 

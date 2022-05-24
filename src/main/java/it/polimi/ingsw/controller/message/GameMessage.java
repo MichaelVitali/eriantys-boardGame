@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.controller.message;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Character;
@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Character;
 import java.io.Serializable;
 import java.util.List;
 
-public class DisplayedBoard implements Serializable {
+public class GameMessage extends Message implements Serializable {
     private static final long serialVersionUID = 100L;
     private int state;
     private int playerId;
@@ -19,7 +19,7 @@ public class DisplayedBoard implements Serializable {
     private boolean alreadyPlayedCharacter;
     private SchoolBoard[] schoolBoards;
     private Character[] characters;
-    public DisplayedBoard(Game model, int playerId) {
+    public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
         playerMessage = model.getPlayer(playerId).getPlayerMessage();
