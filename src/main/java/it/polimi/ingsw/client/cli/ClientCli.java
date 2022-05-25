@@ -99,7 +99,7 @@ public class ClientCli {
                             PlayerMessage playerMessage = null;
                             try {
                                 if (playerId == actualBoard.getPlayerOnTurn()) {
-                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
+                                    if (playerInput.equals("character") && actualBoard.getState() != 0 &&  actualBoard.getGameMode() == GameMode.EXPERT) {
                                         int cardIndex = -1;
                                         do {
                                             System.out.println("Which character do you want to play: ");
@@ -134,7 +134,7 @@ public class ClientCli {
                                             case 4:
                                             case 5:
                                             case 6:
-
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
                                                 break;
                                         }
                                     }

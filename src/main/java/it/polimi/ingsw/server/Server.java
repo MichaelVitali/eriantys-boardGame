@@ -74,7 +74,7 @@ public class Server {
                 for (int i = 0; i < match.getNumberOfPlayers(); i++) {
                     System.out.println("Player : " + i + " " + match.getPlayerNicknames().get(i) + " " + match.getSockets().get(i).toString());
                 }
-
+                System.out.println(match.getGameMode());
                 Game model;
                 if (match.getGameMode() == GameMode.NORMAL)
                     model = new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());

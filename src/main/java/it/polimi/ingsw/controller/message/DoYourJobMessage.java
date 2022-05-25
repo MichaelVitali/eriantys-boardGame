@@ -3,12 +3,12 @@ package it.polimi.ingsw.controller.message;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 
-public class DoYoutJobMessage extends PlayerMessage{
+public class DoYourJobMessage extends PlayerMessage{
     private int parameter;
 
-    public DoYoutJobMessage(int playerId, int indexCard) {
+    public DoYourJobMessage(int playerId, int parameter) {
         super(playerId);
-        this.parameter = indexCard;
+        this.parameter = parameter;
     }
 
     @Override
