@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    private Player player = new Player("Mike", 1, new ArrayList<Assistant>());
+    private Player player = new Player("Mike", 1, new ArrayList<>());
     private GameTable gameTable;
 
     @Test
@@ -28,6 +28,22 @@ public class PlayerTest {
     @Test
     public void testGetNickName(){
         assertEquals("Mike", player.getNickname());
+    }
+
+    @Test
+    public void testSetWizard(){
+        Wizard w = Wizard.BLUE_WIZARD;
+        player.setWizard(w);
+
+        assertEquals(Wizard.BLUE_WIZARD, player.getWizard());
+    }
+
+    @Test
+    public void testGetWizard(){
+        Wizard w = Wizard.BLUE_WIZARD;
+        player.setWizard(w);
+
+        assertEquals(Wizard.BLUE_WIZARD, player.getWizard());
     }
 
     @Test

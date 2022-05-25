@@ -3,6 +3,8 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.AlreadyChosenWizardException;
+import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.view.*;
 
 import java.io.IOException;
@@ -54,14 +56,14 @@ public class Server {
      * @param numberOfPlayers
      * @param gameMode
      */
-    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) {
+    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname,/* Wizard wizard,*/ ClientConnection clientConnection) throws TooManyMovesException {
         Match match = searchForMatch(gameMode, numberOfPlayers);
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
-            pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection));
+            pendingMatches.add(new Match(nextMatchId++, gameMode, numberOfPlayers, playerNickname, clientConnection/*, wizard*/));
             clientConnection.send("Waiting for a match. Get ready to play...");
         } else {
-            match.addPlayer(clientConnection, playerNickname);
+            match.addPlayer(clientConnection, playerNickname );
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
 
                 View[] playerView = new RemoteView[match.getNumberOfPlayers()];
@@ -81,6 +83,7 @@ public class Server {
                 Controller controller = new Controller(model);
 
                 for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+                    /*model.getPlayer(i).setWizard(wizard);*/
                     model.addObserver(playerView[i]);
                     playerView[i].addObserver(controller);
                     GameMessage displayedBoard = new GameMessage(model, i);
@@ -103,7 +106,7 @@ public class Server {
      * @param numberOfPlayers
      * @return
      */
-    private Match searchForMatch(GameMode gameMode, int numberOfPlayers) {
+    public Match searchForMatch(GameMode gameMode, int numberOfPlayers) {
         if(pendingMatches.size() == 0) return null;
         for (Match match : pendingMatches) {
             if (match.getGameMode() == gameMode && match.getNumberOfPlayers() == numberOfPlayers)
