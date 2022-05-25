@@ -5,11 +5,13 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 import java.io.Serializable;
 
 public enum Wizard implements Serializable {
-    GREEN_WIZARD(0), YELLOW_WIZARD(1), PURPLE_WIZARD(2), BLUE_WIZARD(3);
+    GREEN_WIZARD(0, "green"), YELLOW_WIZARD(1, "yellow"), PURPLE_WIZARD(2, "purple"), BLUE_WIZARD(3, "blue");
     private final int index;
+    private final String printedValue;
 
-    Wizard(int index){
+    Wizard(int index, String printedValue) {
         this.index = index;
+        this.printedValue = printedValue;
     }
 
     public int getIndex() { return index; }
@@ -36,5 +38,24 @@ public enum Wizard implements Serializable {
         }
 
         return w;
+    }
+
+    @Override
+    public String toString() {
+        return printedValue;
+    }
+
+    public static Wizard getWizardFromString(String wizard) {
+        switch (wizard) {
+            case "green":
+                return Wizard.GREEN_WIZARD;
+            case "yellow":
+                return Wizard.YELLOW_WIZARD;
+            case "purple":
+                return Wizard.PURPLE_WIZARD;
+            case "blue":
+                return Wizard.BLUE_WIZARD;
+        }
+        return null;
     }
 }

@@ -1,8 +1,11 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.controller.message.ConnectionState;
 import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.message.SetupMessage;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.view.*;
 
 import java.io.IOException;
@@ -54,7 +57,7 @@ public class Server {
      * @param numberOfPlayers
      * @param gameMode
      */
-    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname,/* Wizard wizard,*/ ClientConnection clientConnection) throws TooManyMovesException {
+    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) throws TooManyMovesException {
         Match match = searchForMatch(gameMode, numberOfPlayers);
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
@@ -80,10 +83,28 @@ public class Server {
 
                 Controller controller = new Controller(model);
 
+                List<Wizard> wizards = new ArrayList();
+                for(Wizard wizard : Wizard.values()) {
+                    wizards.add(wizard);
+                    System.out.println(wizard);
+                }
                 for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-                    /*model.getPlayer(i).setWizard(wizard);*/
                     model.addObserver(playerView[i]);
                     playerView[i].addObserver(controller);
+                    String wizardString = "";
+                    for(Wizard wizard : wizards)
+                        wizardString += (wizard.toString() + " ");
+                    /*boolean hasWizardbeenChosen = false;
+                    do {
+                        match.getSockets().get(i).send(new SetupMessage(ConnectionState.WIZARDS, "Choose your wizard to play Eriantys\nEnter the color : " + wizardString));
+                        Object buffer = match.getSockets().get(i).receive();
+                        if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.WIZARDS && Wizard.getWizardFromString(((SetupMessage) buffer).getMessage()) != null) {
+                            model.getPlayer(i).setWizard(Wizard.getWizardFromString(((SetupMessage) buffer).getMessage()));
+                            wizards.remove(Wizard.getWizardFromString(((SetupMessage) buffer).getMessage()));
+                            hasWizardbeenChosen = true;
+                            System.out.println("Ciao");
+                        }
+                    } while(!hasWizardbeenChosen);*/
                     GameMessage displayedBoard = new GameMessage(model, i);
                     match.getSockets().get(i).send(displayedBoard);
                 }
