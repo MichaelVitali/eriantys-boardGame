@@ -130,6 +130,9 @@ public class ClientCli {
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                                 break;
                                             case 4:
+                                            case 5:
+                                            case 6:
+
                                                 break;
                                         }
                                     }
