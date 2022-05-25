@@ -231,4 +231,7 @@ public class Character extends Round implements Serializable {
     public boolean getAlreadyPLayedCharacter() {
         return round.getAlreadyPLayedCharacter();
     }
+
+    public int getOldState() {return oldState;}
+
 }

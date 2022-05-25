@@ -20,7 +20,8 @@ public class Postman extends Character {
      */
     @Override
     public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) {
-            return super.isANewAllowedPositionForMotherNature(assistant, (islandIndex + super.getGame().getGameTable().getNumberOfIslands() - 2) % super.getGame().getGameTable().getNumberOfIslands()) ||
-                    super.isANewAllowedPositionForMotherNature(assistant, (islandIndex + super.getGame().getGameTable().getNumberOfIslands() - 1) % super.getGame().getGameTable().getNumberOfIslands());
+        return super.isANewAllowedPositionForMotherNature(assistant, (islandIndex + super.getGame().getGameTable().getNumberOfIslands() - 2) % super.getGame().getGameTable().getNumberOfIslands()) ||
+                super.isANewAllowedPositionForMotherNature(assistant, (islandIndex + super.getGame().getGameTable().getNumberOfIslands() - 1) % super.getGame().getGameTable().getNumberOfIslands());
     }
+
 }

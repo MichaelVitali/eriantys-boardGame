@@ -87,6 +87,7 @@ public class Table implements Serializable {
             if (students[i] == null) {
                 removedStudent = students[--i];
                 students[i] = null;
+                if (i == 0) setProfessor(false);
                 break;
             }
         }

@@ -23,7 +23,7 @@ public class Knight extends Character {
      * @return the decorated round
      */
     public Round activateEffect(int playerID, Round oldRound) throws EffectCannotBeActivatedException {
-        teamWithTwoMorePoints = super.getGame().getNumberOfPlayers() == 3 ? playerID : playerID % 2;
+        teamWithTwoMorePoints = ((super.getGame().getNumberOfPlayers() == 3) ? playerID : playerID % 2);
         return super.activateEffect(playerID, oldRound);
     }
 
@@ -65,6 +65,7 @@ public class Knight extends Character {
                 // Stato di errore sarà da togliere dal codice
             }
             calculateNextPlayer();
+            deactivateEffect(true);
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {

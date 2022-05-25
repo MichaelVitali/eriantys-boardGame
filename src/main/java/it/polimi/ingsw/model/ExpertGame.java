@@ -72,15 +72,19 @@ public class ExpertGame extends Game {
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
-                case 3:
+                case 3: //OK
                     Herald c3 = new Herald(ID, cost);
                     c.add(c3);
                     break;
-                case 4:
+                case 4: //NO
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 6:
+                case 5: //NO
+                    Healer c5 = new Healer(ID, cost);
+                    c.add(c5);
+                    break;
+                case 6: //NO
                     Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
@@ -89,7 +93,7 @@ public class ExpertGame extends Game {
                     c7.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(c7);
                     break;
-                case 8:
+                case 8: //NO
                     Knight c8 = new Knight(ID, cost);
                     c.add(c8);
                     break;
@@ -102,7 +106,7 @@ public class ExpertGame extends Game {
                     c11.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c11);
                     break;
-                case 12:
+                case 12:    //OK
                     Thief c12 = new Thief(ID, cost);
                     c.add(c12);
                     break;
@@ -115,9 +119,9 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(0);
-        this.characters[1] = c.get(4);
-        this.characters[2] = c.get(7);
+        this.characters[0] = c.get(2);
+        this.characters[1] = c.get(3);
+        this.characters[2] = c.get(5);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
