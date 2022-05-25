@@ -122,7 +122,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                 }
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
             System.out.println("The player with socket " + toString() + " choose " + numberOfPlayers + " players mode");
-            String playerNickname = "";
             send("Insert a nickname");
             do {
                 try {
@@ -175,7 +174,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             } while (wizard == -1);
             */
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
-
             server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname/*, Wizard.associateIndexToWizard(wizard)*/, this);
 
             while (isActive()) {

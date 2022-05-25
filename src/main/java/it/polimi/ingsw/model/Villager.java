@@ -11,7 +11,7 @@ public class Villager extends Character {
      * @param cost amount of money needed to activate the card effect
      */
     public Villager(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "Villager");
         studentColor = null;
     }
 
@@ -26,7 +26,7 @@ public class Villager extends Character {
             } catch (InvalidIndexException e) {
                 setPlayerMessage(playerId, e.getMessage());
             }
-            deactivateEffect();
+            deactivateEffect(true);
         }
     }
 

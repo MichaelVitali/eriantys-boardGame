@@ -11,14 +11,14 @@ public class InnKeeper extends Character{
      * @param cost amount of money needed to activate the card effect
      */
     public InnKeeper(int id, int cost) {
-        super(id, cost);
+        super(id, cost, "InnKeeper");
     }
 
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 5) {
             changeProfessorEffect(playerId);
-            deactivateEffect();
+            deactivateEffect(false);
         }
     }
 
