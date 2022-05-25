@@ -15,6 +15,6 @@ public class ChooseWizardMessage extends PlayerMessage implements Serializable {
 
     @Override
     public void performMove(Game game) {
-        game.getRound().chooseWizard(getPlayerId(), wizardChoose);
+        //game.getRound().chooseWizard(getPlayerId(), wizardChoose);
     }
 }

@@ -17,6 +17,7 @@ public class ClientCli {
     private String ip;
     private int port;
     private boolean configurationDone = false;
+    private ConnectionState connectionState;
     private boolean active = true;
 
     private int playerId = 0;
@@ -55,10 +56,10 @@ public class ClientCli {
                 try {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof String) {
-                            // initial configuration
+                        if(inputObject instanceof SetupMessage) {
                             clearAll();
-                            System.out.println((String)inputObject);
+                            connectionState = ((SetupMessage)inputObject).getConnectionState();
+                            System.out.println(((SetupMessage)inputObject).getMessage());
                         } else if (inputObject instanceof GameMessage){
                             actualBoard = ((GameMessage) inputObject);
                             if(!configurationDone) {
@@ -93,7 +94,7 @@ public class ClientCli {
                         String playerInput = stdin.nextLine();
                         playerInput.replace("\n", "");
                         if (!configurationDone) {
-                            socketOut.writeObject(playerInput);
+                            socketOut.writeObject(new SetupMessage(connectionState, playerInput));
                         } else {
                             PlayerMessage playerMessage = null;
                             try {

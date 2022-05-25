@@ -13,7 +13,7 @@ public class Match {
     private int numberOfPlayers;
     private final List<String> playerNicknames = new ArrayList<>();
     private final List<ClientConnection> sockets = new ArrayList<>();
-    /*private final List<Wizard> alreadyChosenWizards = new ArrayList<>();*/
+    /*private final List<Wizard> availableWizard= new ArrayList<>();*/
 
     /**
      * Creates a match instance - maybe to manage reconnection and related issues
