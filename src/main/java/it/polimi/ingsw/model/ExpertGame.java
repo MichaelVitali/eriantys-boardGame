@@ -106,13 +106,14 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-
+        /*
         Random rnd = new Random();
         int numberOfCharacter = 8;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }
+        }*/
+        this.characters[0] = c.remove(3);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

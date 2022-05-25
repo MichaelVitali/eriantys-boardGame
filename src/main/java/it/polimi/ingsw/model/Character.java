@@ -169,7 +169,9 @@ public class Character extends Round implements Serializable {
     public void switchToActionPhase() { round.switchToActionPhase(); }
 
     @Override
-    public void calculateNextPlayer() { round.calculateNextPlayer(); }
+    public void calculateNextPlayer() {
+        round.calculateNextPlayer();
+    }
 
     @Override
     public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) { return round.assistantNoChoice(outer, inner); }
