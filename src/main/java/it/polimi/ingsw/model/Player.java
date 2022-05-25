@@ -14,12 +14,22 @@ public class Player implements Serializable {
     private final int playerId;
     private List<Assistant> assistants;
     private String message;
+    private Wizard wizard;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
         this.nickName = nickName;
         this.playerId = playerId;
         this.assistants = new ArrayList<>();
         this.assistants.addAll(assistants);
+        this.wizard = null;
+    }
+
+    public void setWizard(Wizard wizard){
+        this.wizard = wizard;
+    }
+
+    public Wizard getWizard(){
+        return this.wizard;
     }
 
     public String getNickname(){

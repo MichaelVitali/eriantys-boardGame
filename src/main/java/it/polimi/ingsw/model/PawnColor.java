@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exception.InvalidIndexException;
+
 import java.io.Serializable;
 
 public enum PawnColor implements Serializable {
@@ -18,9 +20,12 @@ public enum PawnColor implements Serializable {
      */
     public int getIndex() { return index; }
 
-    public static PawnColor associateIndexToPawnColor(int index){
+    public static PawnColor associateIndexToPawnColor(int index) throws InvalidIndexException {
 
         PawnColor pc = null;
+
+        if(index<0 || index>4)
+            throw new InvalidIndexException("There is no such pawn color");
 
         switch (index){
             case 0:
