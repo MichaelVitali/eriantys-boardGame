@@ -113,7 +113,7 @@ public class RoundTest {
         int rightPlayer = playerOrder[0];
 
         game2p.getRound().checkPlayerOnTurn(rightPlayer);
-        assertEquals("Select an assistant", game2p.getPlayer(rightPlayer).getPlayerMessage());
+        assertEquals("Choose your wizard", game2p.getPlayer(rightPlayer).getPlayerMessage());
 
         try {
             game2p.getRound().checkPlayerOnTurn(wrongPlayer);
