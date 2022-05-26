@@ -28,6 +28,7 @@ public class Character extends Round implements Serializable {
         this.name = name;
     }
 
+
     /**
      * Returns the identifier of the character card
      * @return the identifier of the character card

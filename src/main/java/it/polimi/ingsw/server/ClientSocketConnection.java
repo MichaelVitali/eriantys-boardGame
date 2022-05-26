@@ -122,19 +122,7 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                 }
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
             System.out.println("The player with socket " + toString() + " choose " + numberOfPlayers + " players mode");
-            String playerNickname = "";
-            send("Insert a nickname");
-            do {
-                try {
-                    buffer = in.readObject();
-                    if (buffer instanceof String) {
-                        playerNickname = (String) buffer;
-                        System.out.println("The player choose is " + playerNickname);
-                    }
-                } catch (Exception e) {
-                    send("Error : you are not sending the correct information");
-                }
-            } while (playerNickname.equals(""));
+
             /*int wizard = -1;
             Match possibleMatch = server.searchForMatch((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers);
             send("Choose a Wizard {");

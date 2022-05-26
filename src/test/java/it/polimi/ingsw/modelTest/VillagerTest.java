@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class VillagerTest {
 
-    private Villager character = new Villager(1,0);
+    private Villager character = new Villager(1, 0, "Villager");
     private Round round;
 
     @Before

@@ -132,6 +132,9 @@ public class ClientCli {
                                                 break;
                                             case 4:
                                                 break;
+                                            case 10:
+                                                playerMessage = new ChooseWizardMessage(playerId, playerParameter);
+                                                break;
                                         }
                                     }
                                 }
