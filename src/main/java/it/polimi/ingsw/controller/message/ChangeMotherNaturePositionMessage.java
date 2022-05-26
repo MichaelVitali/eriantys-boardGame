@@ -15,4 +15,5 @@ public class ChangeMotherNaturePositionMessage extends PlayerMessage implements 
 
     @Override
     public void performMove(Game game) { game.getRound().changeMotherNaturePosition(getPlayerId(), islandIndex); }
+
 }

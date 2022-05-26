@@ -121,7 +121,7 @@ public class Character extends Round implements Serializable {
     public int calculateFirstPlayer(int numberOfPlayers) { return round.calculateFirstPlayer(numberOfPlayers); }
 
     @Override
-    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { checkStatusAndMethod(methodId); }
+    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { round.checkStatusAndMethod(methodId); }
 
     @Override
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }

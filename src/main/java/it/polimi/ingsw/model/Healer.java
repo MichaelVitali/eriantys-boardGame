@@ -33,6 +33,19 @@ public class Healer extends Character {
         return this;
     }
 
+   /* @Override
+    /*public void switchToPianificationPhase() {
+        System.out.println("Abbiamo eseguito la switch to pianification phase");
+        setPianificationPhaseOrder();
+        getGame().setRound(this);
+        try {
+            getGame().getGameTable().addStudentsOnClouds();
+        } catch (EmptyBagException e) {
+            round = new Round(this, getPlayerOrder(), true);
+        }
+        getGame().sendGame();
+    }*/
+
     @Override
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
