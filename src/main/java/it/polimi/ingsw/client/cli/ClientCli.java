@@ -103,7 +103,7 @@ public class ClientCli {
                                         int cardIndex = -1;
                                         do {
                                             System.out.println("Which character do you want to play: ");
-                                            cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
+                                            cardIndex = readLineAndParseInteger(stdin);
                                         } while (cardIndex < 0 || cardIndex >= 3);
                                         playerMessage = new ActivateEffectMessage(playerId, cardIndex);
                                     } else {
@@ -132,7 +132,11 @@ public class ClientCli {
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                                 break;
                                             case 4:
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
+                                                break;
                                             case 5:
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
+                                                break;
                                             case 6:
                                                 playerMessage = new DoYourJobMessage(playerId, playerParameter);
                                                 break;

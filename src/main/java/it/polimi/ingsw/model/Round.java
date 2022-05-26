@@ -486,8 +486,10 @@ public class Round implements Serializable {
             game.sendGame();
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
+            getGame().sendGame();
         } catch (EffectCannotBeActivatedException e) {
             setPlayerMessage(playerId, e.getMessage());
+            getGame().sendGame();
         }
     }
 

@@ -30,6 +30,12 @@ public class ExpertGame extends Game {
         try {
             characters = new Character[3];
             createCharacters();
+            for (int i = 0; i < 3; i++) {
+                if (characters[i].getID() == 5) {
+                    characters[i].setRound(this.getRound());
+                    setRound(characters[i]);
+                }
+            }
         } catch (EmptyBagException e) {
             e.printStackTrace();
         }
@@ -84,7 +90,7 @@ public class ExpertGame extends Game {
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 5: //NO
+                case 5: // QUASI - forse c'è un errore sul cambio di turno, o sulla doppia chiamata all'healer
                     Healer c5 = new Healer(ID, cost);
                     c.add(c5);
                     break;
@@ -127,7 +133,7 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(2);
+        this.characters[0] = c.get(5);
         this.characters[1] = c.get(3);
         this.characters[2] = c.get(6);
     }
