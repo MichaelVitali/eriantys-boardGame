@@ -170,7 +170,9 @@ public class Character extends Round implements Serializable {
     public void switchToActionPhase() { round.switchToActionPhase(); }
 
     @Override
-    public void calculateNextPlayer() { round.calculateNextPlayer(); }
+    public void calculateNextPlayer() {
+        round.calculateNextPlayer();
+    }
 
     @Override
     public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) { return round.assistantNoChoice(outer, inner); }
@@ -220,6 +222,7 @@ public class Character extends Round implements Serializable {
     public void deactivateEffect(boolean resetState) {
         if(resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
+        round.setPlayerMessage(getPlayerOnTurn(), getStateMessage());
     }
 
     @Override
@@ -229,4 +232,7 @@ public class Character extends Round implements Serializable {
     public boolean getAlreadyPLayedCharacter() {
         return round.getAlreadyPLayedCharacter();
     }
+
+    public int getOldState() {return oldState;}
+
 }

@@ -10,8 +10,8 @@ public class InnKeeper extends Character{
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
-    public InnKeeper(int id, int cost, String name) {
-        super(id, cost, name);
+    public InnKeeper(int id, int cost) {
+        super(id, cost, "Innkeeper");
     }
 
     @Override

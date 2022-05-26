@@ -26,7 +26,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
         try {
             characters = new Character[3];
             createCharacters();
@@ -38,6 +38,8 @@ public class ExpertGame extends Game {
     public Character[] getCharacters(){
         return characters;
     }
+
+    public GameMode getGameMode() {return gameMode;}
 
     public void setCharacters(Character[] characters){
         this.characters = characters;
@@ -65,29 +67,33 @@ public class ExpertGame extends Game {
             int cost = Integer.parseInt(character[1]);
             System.out.println(ID + " " + cost);
             switch (ID) {
-                case 1:
+                case 1: //OK
                     Monk c1 = new Monk(ID, cost, 4);
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
-                case 3:
+                case 3: //OK
                     Herald c3 = new Herald(ID, cost);
                     c.add(c3);
                     break;
-                case 4:
+                case 4: //NO
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 6:
+                case 5: //NO
+                    Healer c5 = new Healer(ID, cost);
+                    c.add(c5);
+                    break;
+                case 6: //NO
                     Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
-                case 7:
+                case 7: //OK
                     Jester c7 = new Jester(ID, cost, 6);
                     c7.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(c7);
                     break;
-                case 8:
+                case 8: //NO
                     Knight c8 = new Knight(ID, cost);
                     c.add(c8);
                     break;
@@ -95,24 +101,27 @@ public class ExpertGame extends Game {
                     Minstrel c10 = new Minstrel(ID, cost);
                     c.add(c10);
                     break;
-                case 11:
+                case 11:    //OK
                     Princess c11 = new Princess(ID, cost, 4);
                     c11.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c11);
                     break;
-                case 12:
+                case 12:    //OK
                     Thief c12 = new Thief(ID, cost);
                     c.add(c12);
                     break;
             }
         }
-
+        /*
         Random rnd = new Random();
         int numberOfCharacter = 8;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }
+        }*/
+        this.characters[0] = c.get(2);
+        this.characters[1] = c.get(3);
+        this.characters[2] = c.get(5);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
@@ -159,9 +168,7 @@ public class ExpertGame extends Game {
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
             setRound(characters[indexCard].activateEffect(playerId, getRound()));
-            System.out.println("SONO ENTRATO");
             sendGame();
-            System.out.println("HO SPEDITO");
         } catch (InvalidIndexException e) {
             e.printStackTrace(); // Non esiste quell'indice
         } catch (NotEnoughCoins e) {

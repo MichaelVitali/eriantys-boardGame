@@ -11,5 +11,7 @@ public interface ClientConnection {
 
     public void send(Object message);
 
+    public Object receive();
+
     void asyncSend(Object message);
 }

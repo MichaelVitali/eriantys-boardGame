@@ -9,18 +9,11 @@ public class Villager extends Character {
      *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
-     * @param name
      */
-    public Villager(int id, int cost, String name) {
-        super(id, cost, name);
+    public Villager(int id, int cost) {
+        super(id, cost, "Villager");
+        studentColor = null;
     }
-
-    /**
-     * Creates a character card with the given two values
-     *
-     * @param id   integer that identifies the character card
-     */
-
 
     @Override
     public void doYourJob(int playerId, int parameter) {

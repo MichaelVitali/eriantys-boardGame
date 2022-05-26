@@ -24,7 +24,7 @@ public class Round implements Serializable {
         playerOrder = new int[game.getNumberOfPlayers()];
         playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++) playerOrder[i] = (playerOrder[i - 1] + 1) % game.getNumberOfPlayers();
-        roundState = 10; //roundState = 0; //////////////////////////////////////////////
+        /*roundState = 10;*/roundState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
         for (int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
@@ -38,7 +38,7 @@ public class Round implements Serializable {
         playedAssistantsPF = new ArrayList<>();
 
 
-        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Choose your wizard"); //////////////////////////////////
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant"); //////////////////////////////////
     }
 
     public int getPlayerOnTurn() { return playerOrder[indexOfPlayerOnTurn]; }
@@ -153,8 +153,8 @@ public class Round implements Serializable {
 
     public String getStateMessage() {
         String message = null;
-        if (roundState == 10) message = "Choose a wizard"; ///////////////////////////////////////////////////////////////
-        else if (roundState == 0) message = "Select an assistant"; // if (roundState == 0) message = "Select an assistant"; //////////////////////////////////////////////////////////
+        //if (roundState == 10) message = "Choose a wizard"; ///////////////////////////////////////////////////////////////
+        /*else */if (roundState == 0) message = "Select an assistant"; // if (roundState == 0) message = "Select an assistant"; //////////////////////////////////////////////////////////
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
         else if (roundState == 2) message = "Mother nature position: " + game.getGameTable().getMotherNaturePosition() + "\nSelect an island where mother nature has to move: ";
         else if (roundState == 3) message = "Select a cloud";
@@ -200,12 +200,12 @@ public class Round implements Serializable {
         if(roundState == 100) return true;
         return false;
     }
-
+/*
     public boolean wizardsHasBeenChosen(){ ///////////////////////////////////////////////////
         if (roundState == 10 && game.getAlreadyChosenWizards().size() == game.getNumberOfPlayers())
             return true;
         return false;
-    } //Da testare
+    } //Da testare*/
 
     public void setPianificationPhaseOrder() {
         int minimumAssistantValue = 11;
@@ -266,9 +266,9 @@ public class Round implements Serializable {
                 roundState = 100;
                 game.endTheMatch();
             }
-        } else if (wizardsHasBeenChosen()){
+        /*} else if (wizardsHasBeenChosen()){
             roundState = 0;
-        } else if (isTimeToMoveMotherNature()) {
+        */} else if (isTimeToMoveMotherNature()) {
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
             roundState = 3;
@@ -310,7 +310,7 @@ public class Round implements Serializable {
         playedAssistantsPF.add(assistantToPlay);
     }
 
-    public void chooseWizard(int playerId, int wizard) { /////////////////////////////////////////////
+    /*public void chooseWizard(int playerId, int wizard) { /////////////////////////////////////////////
 
         try {
             checkPlayerOnTurn(playerId);
@@ -335,7 +335,7 @@ public class Round implements Serializable {
             setPlayerMessage(playerId, "That wizard has already been chosen");
             game.sendGame();
         }
-    } //Da testare
+    } //Da testare*/
 
     public void playAssistant(int playerId, int assistantPosition) {
         try {
@@ -385,7 +385,7 @@ public class Round implements Serializable {
             if (getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex] == null) throw new InvalidIndexException("There isn't a student in this position");
             PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
             if (game instanceof ExpertGame){
-                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
+                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0 && game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) != 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
             }
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             movesCounter[playerId]++;
@@ -518,7 +518,8 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (AlreadyPlayedCharcaterException e) {
-            setPlayerMessage(playerId, "You already played a character");
+            setPlayerMessage(playerId, "You already played a character\n" + getStateMessage());
+            game.sendGame();
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
         } catch (EffectCannotBeActivatedException e) {

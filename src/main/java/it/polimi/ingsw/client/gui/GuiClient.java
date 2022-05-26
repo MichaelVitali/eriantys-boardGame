@@ -27,7 +27,6 @@ public class GuiClient extends Application {
     public void start(Stage stage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/loginScene.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginScene.fxml"));
         Parent root = loader.load();
         System.out.println("Ciao");
         stage.setTitle("Eriantys");

@@ -17,16 +17,17 @@ public class Healer extends Character {
                 if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist");
                 getGame().getGameTable().getIslandByIndex(parameter).setProhibition();
                 prohibition--;
-            } catch (InvalidIndexException e) {
+                setRoundState(getOldState());
+                setPlayerMessage(playerId, getStateMessage());
+            } catch (InvalidIndexException | IslandAlreadyForbiddenException e) {
                 setPlayerMessage(playerId, e.getMessage());
-            } catch (IslandAlreadyForbiddenException e) {
-                setPlayerMessage(playerId, e.getMessage());
+                getGame().sendGame();
             }
         }
     }
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         if (prohibition <= 0) throw new EffectCannotBeActivatedException("The healer cannot be activated: there are no prohibition cards");
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select an island, where you want to put the prohibition card");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select an island where you want to put the prohibition card");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

@@ -19,6 +19,7 @@ public class GameMessage extends Message implements Serializable {
     private boolean alreadyPlayedCharacter;
     private SchoolBoard[] schoolBoards;
     private Character[] characters;
+    private int[] playersCoins;
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
@@ -30,7 +31,10 @@ public class GameMessage extends Message implements Serializable {
         gameMode = model.getGameMode();
         alreadyPlayedCharacter = model.getRound().getAlreadyPLayedCharacter();
         schoolBoards = model.getGameTable().getSchoolBoards();
-        if (gameMode == GameMode.EXPERT) characters = ((ExpertGame) model).getCharacters();
+        if (gameMode == GameMode.EXPERT) {
+            characters = ((ExpertGame) model).getCharacters();
+            playersCoins = ((ExpertGame) model).getPlayersCoins();
+        }
         else characters = null;
     }
 
@@ -150,6 +154,8 @@ public class GameMessage extends Message implements Serializable {
         System.out.println("");
         for (Assistant a : assistants) System.out.print("\u258F MV:" + a.getMotherNatureMoves() + " \u2595     ");
         System.out.println("");
+        for (Assistant a : assistants)  System.out.print("\u258F      \u2595     ");
+        System.out.println("");
         for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
         System.out.println("");
         for (Assistant a : assistants) {
@@ -234,7 +240,7 @@ public class GameMessage extends Message implements Serializable {
         }
         TowerColor towerColor = s.getTowersColor();
         String unicodeTower = returnCircleUnicodeFromColor(towerColor);
-        System.out.println("Player: " + playerId);
+        System.out.println("Player: " + playerId + "\t" + playersCoins[playerId] + "\uD83E\uDE99");
         if (numberOfPLayer == 3) {
             System.out.print("      ╔════════╦═════════════════════════════════╦════╦═══════╗\n" +
                              "0 - 1 ║ " + ((color[0] != null) ? returnCircleUnicodeForColor(color[0]) : "  ") + "  " + ((color[1] != null) ? returnCircleUnicodeForColor(color[1]) : "  ") + " ║ " + ((1 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " +  ((2 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((3 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((4 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((5 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((6 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((7 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((8 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((9 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((10 <=  s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + "  ║ " + (s.getProfessors().contains(PawnColor.YELLOW) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " ║ " + (1 <= s.getTowers().size() ? unicodeTower : " ") + " " + (2 <= s.getTowers().size() ? unicodeTower : " ") + "   ║\n" +
@@ -256,6 +262,7 @@ public class GameMessage extends Message implements Serializable {
 
     void printCharacter(Character[] characters) {
         System.out.println("\n\nCharacters:");
+        System.out.println("    0              1              2");
         for (Character c : characters) {
             System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
         }
@@ -271,7 +278,17 @@ public class GameMessage extends Message implements Serializable {
             System.out.print("\u258FCost:" + c.getCost() +   "  \u2595     ");
         }
         System.out.println("");
-        for (Character c : characters) System.out.print("\u258F        \u2595     ");
+        for (Character c : characters) {
+            if (c instanceof Monk || c instanceof Princess) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[0] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[0].getColor()) : "  ") + "    " + ((((CharacterWithStudent) c).getStudentsOnCard()[1] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[1].getColor()) : "  ") +"\u2595     ");
+            else if (c instanceof Jester) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[0] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[0].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[1] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[1].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[2] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[2].getColor()) : "  ") +"\u2595     ");
+            else System.out.print("\u258F        \u2595     ");
+        }
+        System.out.println("");
+        for (Character c : characters) {
+            if (c instanceof Monk || c instanceof Princess) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[2] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[2].getColor()) : "  ") + "    " + ((((CharacterWithStudent) c).getStudentsOnCard()[3] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[3].getColor()) : "  ") +"\u2595     ");
+            else if (c instanceof Jester) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[3] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[3].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[4] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[4].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[5] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[5].getColor()) : "  ") +"\u2595     ");
+            else System.out.print("\u258F        \u2595     ");
+        }
         System.out.println("");
         for (Character c : characters) {
             System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");

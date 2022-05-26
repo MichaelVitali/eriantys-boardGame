@@ -19,9 +19,10 @@ public class Herald extends Character{
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
-            int islandIndex = parameter;
-            int oldPosition = getRound().getGame().getGameTable().getMotherNaturePosition();
             try {
+                if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist!\nChoose another one: ");
+                int islandIndex = parameter;
+                int oldPosition = getRound().getGame().getGameTable().getMotherNaturePosition();
                 if (getRound().getGame().isAValidPositionForMotherNature(islandIndex)) {
                     getRound().getGame().getGameTable().changeMotherNaturePosition(islandIndex);
                     int[] influences = getRound().getGame().getGameTable().calculateInfluenceValuesGivenByStudents();
@@ -46,7 +47,8 @@ public class Herald extends Character{
                 getRound().getGame().getGameTable().changeMotherNaturePosition(oldPosition);
                 deactivateEffect(true);
             } catch (InvalidIndexException e) {
-                System.out.println("Invalid island index");
+                setPlayerMessage(playerId, e.getMessage());
+                getGame().sendGame();
             }
         }
     }

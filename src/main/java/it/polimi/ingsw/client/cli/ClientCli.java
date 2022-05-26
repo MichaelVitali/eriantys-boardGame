@@ -17,6 +17,7 @@ public class ClientCli {
     private String ip;
     private int port;
     private boolean configurationDone = false;
+    private ConnectionState connectionState;
     private boolean active = true;
 
     private int playerId = 0;
@@ -55,10 +56,10 @@ public class ClientCli {
                 try {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof String) {
-                            // initial configuration
+                        if(inputObject instanceof SetupMessage) {
                             clearAll();
-                            System.out.println((String)inputObject);
+                            connectionState = ((SetupMessage)inputObject).getConnectionState();
+                            System.out.println(((SetupMessage)inputObject).getMessage());
                         } else if (inputObject instanceof GameMessage){
                             actualBoard = ((GameMessage) inputObject);
                             if(!configurationDone) {
@@ -93,12 +94,12 @@ public class ClientCli {
                         String playerInput = stdin.nextLine();
                         playerInput.replace("\n", "");
                         if (!configurationDone) {
-                            socketOut.writeObject(playerInput);
+                            socketOut.writeObject(new SetupMessage(connectionState, playerInput));
                         } else {
                             PlayerMessage playerMessage = null;
                             try {
                                 if (playerId == actualBoard.getPlayerOnTurn()) {
-                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
+                                    if (playerInput.equals("character") && actualBoard.getState() != 0 &&  actualBoard.getGameMode() == GameMode.EXPERT) {
                                         int cardIndex = -1;
                                         do {
                                             System.out.println("Which character do you want to play: ");
@@ -131,6 +132,9 @@ public class ClientCli {
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                                 break;
                                             case 4:
+                                            case 5:
+                                            case 6:
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
                                                 break;
                                             case 10:
                                                 playerMessage = new ChooseWizardMessage(playerId, playerParameter);

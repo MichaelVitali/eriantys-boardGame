@@ -15,11 +15,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class ClientSocketConnection extends Observable<PlayerMessage> implements ClientConnection, Runnable {
 
     private Socket socket;
     private ObjectOutputStream out;
+    private ObjectInputStream in;
     private Server server;
     private boolean active = true;
 
@@ -41,7 +43,19 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
         } catch(IOException e){
             System.err.println(e.getMessage());
         }
+    }
 
+    @Override
+    public synchronized Object receive() {
+        Object buffer = null;
+        try {
+            buffer = in.readObject();
+        } catch(IOException e){
+            System.err.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        return buffer;
     }
 
     @Override
@@ -75,7 +89,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
 
     @Override
     public void run() {
-        ObjectInputStream in;
         try{
             Object buffer = null;
 
@@ -123,61 +136,23 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
             System.out.println("The player with socket " + toString() + " choose " + numberOfPlayers + " players mode");
 
-            /*int wizard = -1;
-            Match possibleMatch = server.searchForMatch((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers);
-            send("Choose a Wizard {");
-            if (possibleMatch != null) {
-                for (int i = 0; i < Wizard.values().length - possibleMatch.getChosenWizards().size() + 1; i++) {
-                    if (possibleMatch.assertValidWizard(Wizard.associateIndexToWizard(i)))
-                        send(" " + i + " - " + Wizard.associateIndexToWizard(i).toString() + " ; ");
-                }
-                send("} :");
-            }
-            else
-                send(" 0 - GREEN_WIZARD ;\n 1 - YELLOW_WIZARD ;\n 2 - PURPLE_WIZARD ;\n 3 - PURPLE_WIZARD\n} : ");
-            do {
-                try {
-                    buffer = in.readObject();
-                    if (buffer instanceof String) {
-                        wizard = Integer.parseInt((String) buffer);
-                        if (possibleMatch != null) {
-                            if (possibleMatch.assertValidWizard(Wizard.associateIndexToWizard(wizard))) {
-                                System.out.println("The wizard choose is " + Wizard.associateIndexToWizard(wizard).toString());
-                            } else {
-                                wizard = -1;
-                                send("Somebody has already chosen that mo'fucka, choose another ni**a {");
-                                for (int i = 0; i < Wizard.values().length - possibleMatch.getChosenWizards().size() + 1; i++) {
-                                    if (possibleMatch.assertValidWizard(Wizard.associateIndexToWizard(i)))
-                                        send(" " + i + " - " + Wizard.associateIndexToWizard(i).toString() + " ; ");
-                                }
-                                send("} :");
-                            }
-                        }
-                        else
-                            System.out.println("The wizard choose is " + Wizard.associateIndexToWizard(wizard).toString());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    send("Error : you are not sending the correct information");
-                }
-            } while (wizard == -1);
-            */
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
 
-            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname/*, Wizard.associateIndexToWizard(wizard)*/, this);
+            server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
 
             while (isActive()) {
                 buffer = in.readObject();
-                if (buffer instanceof String) {
-                    System.out.println("The player " + server.getMyId(this) + " of match " + server.getMyMatch(this) +  " sends "+ (String) buffer);
+                if (buffer instanceof SetupMessage) {
+                    //Magari per parlare a fine partita
                 } else if (buffer instanceof PlayerMessage) {
                     PlayerMessage clientMessage = (PlayerMessage) buffer;
                     if (server.getMyId(this) == clientMessage.getPlayerId())
                         notify(clientMessage);
                     else
-                        // invia l'errore al client
+                        //Invia l'errore al client
                         System.out.println(toString() + " is sending a message with an other's player id");
                 } else {
+                    //Manda un oggetto sbagliato
                     System.out.println(toString() + " is sending a wrong object");
                 }
             }
@@ -185,8 +160,6 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             System.err.println("Error! " + e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        /*} catch (InvalidIndexException e) {
-            e.printStackTrace();*/
         } catch (TooManyMovesException e) {
             e.printStackTrace();
         } finally {
