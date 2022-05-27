@@ -23,7 +23,7 @@ public class Knight extends Character {
      * @return the decorated round
      */
     public Round activateEffect(int playerID, Round oldRound) throws EffectCannotBeActivatedException {
-        teamWithTwoMorePoints = ((super.getGame().getNumberOfPlayers() == 3) ? playerID : playerID % 2);
+        teamWithTwoMorePoints = ((oldRound.getGame().getNumberOfPlayers() == 3) ? playerID : (playerID % 2));
         return super.activateEffect(playerID, oldRound);
     }
 
@@ -59,6 +59,7 @@ public class Knight extends Character {
                     getRound().getGame().endTheMatch();
                 }
                 calculateNextPlayer();
+                deactivateEffect(false);
             } catch (TooFarIslandException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {

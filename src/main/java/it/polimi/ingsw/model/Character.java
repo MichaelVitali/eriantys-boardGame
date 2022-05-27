@@ -122,7 +122,7 @@ public class Character extends Round implements Serializable {
     public int calculateFirstPlayer(int numberOfPlayers) { return round.calculateFirstPlayer(numberOfPlayers); }
 
     @Override
-    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { checkStatusAndMethod(methodId); }
+    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { round.checkStatusAndMethod(methodId); }
 
     @Override
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
@@ -233,6 +233,15 @@ public class Character extends Round implements Serializable {
         return round.getAlreadyPLayedCharacter();
     }
 
-    public int getOldState() {return oldState;}
+    public int getOldState() {
+        return oldState;
+    }
 
+    public void setOldState(int oldState) {
+        this.oldState = oldState;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
 }

@@ -45,8 +45,8 @@ public class Centaur extends Character {
                     roundState = 100;
                     getRound().getGame().endTheMatch();
                 }
-                deactivateEffect(false);
                 calculateNextPlayer();
+                deactivateEffect(false);
             } catch (TooFarIslandException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island");
             } catch (InvalidIndexException e) {

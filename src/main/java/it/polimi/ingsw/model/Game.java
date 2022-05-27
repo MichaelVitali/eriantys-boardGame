@@ -180,18 +180,10 @@ public class Game extends Observable<Game> implements Serializable {
         try {
             gameTable.addStudentsOnClouds();
         } catch (EmptyBagException e) {
-            round = new Round(this, playerOrder);
+            round = new LastRound(this, playerOrder, true);
         }
         sendGame();
         return round;
-    }
-
-    public List<Wizard> getAlreadyChosenWizards(){ /////////////////////////////////////////////////////
-        return alreadyChosenWizards.stream().collect(Collectors.toList());
-    }
-
-    public void setNewWizard(Wizard wizard){
-        alreadyChosenWizards.add(wizard);
     }
 
     /**

@@ -30,6 +30,12 @@ public class ExpertGame extends Game {
         try {
             characters = new Character[3];
             createCharacters();
+            for (int i = 0; i < 3; i++) {
+                if (characters[i].getID() == 5) {
+                    characters[i].setRound(this.getRound());
+                    setRound(characters[i]);
+                }
+            }
         } catch (EmptyBagException e) {
             e.printStackTrace();
         }
@@ -72,19 +78,23 @@ public class ExpertGame extends Game {
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
+                case 2:
+                    InnKeeper c2 = new InnKeeper(ID, cost);
+                    c.add(c2);
+                    break;
                 case 3: //OK
                     Herald c3 = new Herald(ID, cost);
                     c.add(c3);
                     break;
-                case 4: //NO
+                case 4: //OK
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 5: //NO
+                case 5: // QUASI - forse c'è un errore sul cambio di turno, o sulla doppia chiamata all'healer
                     Healer c5 = new Healer(ID, cost);
                     c.add(c5);
                     break;
-                case 6: //NO
+                case 6: //OK
                     Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
@@ -93,9 +103,13 @@ public class ExpertGame extends Game {
                     c7.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(c7);
                     break;
-                case 8: //NO
+                case 8: //OK
                     Knight c8 = new Knight(ID, cost);
                     c.add(c8);
+                    break;
+                case 9:
+                    Villager c9 = new Villager(ID, cost);
+                    c.add(c9);
                     break;
                 case 10:
                     Minstrel c10 = new Minstrel(ID, cost);
@@ -119,9 +133,9 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(2);
+        this.characters[0] = c.get(5);
         this.characters[1] = c.get(3);
-        this.characters[2] = c.get(5);
+        this.characters[2] = c.get(6);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

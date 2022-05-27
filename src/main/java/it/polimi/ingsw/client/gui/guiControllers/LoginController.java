@@ -40,7 +40,13 @@ public class LoginController extends GuiController {
         if(message instanceof SetupMessage) {
             SetupMessage setupMessage = (SetupMessage) message;
             if (setupMessage.getConnectionState() == ConnectionState.LOGIN) {
-                nicknameMessage.setText(setupMessage.getMessage());
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        nicknameMessage.setText(setupMessage.getMessage());
+                    }
+                }
+                );
             } else if (setupMessage.getConnectionState() == ConnectionState.MATCHMODE) {
                 Platform.runLater(new Runnable() {
                     @Override
