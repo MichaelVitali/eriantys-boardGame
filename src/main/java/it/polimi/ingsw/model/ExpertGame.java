@@ -111,7 +111,7 @@ public class ExpertGame extends Game {
                     Villager c9 = new Villager(ID, cost);
                     c.add(c9);
                     break;
-                case 10:
+                case 10: //OK
                     Minstrel c10 = new Minstrel(ID, cost);
                     c.add(c10);
                     break;
@@ -135,7 +135,7 @@ public class ExpertGame extends Game {
         }*/
         this.characters[0] = c.get(5);
         this.characters[1] = c.get(3);
-        this.characters[2] = c.get(6);
+        this.characters[2] = c.get(8);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

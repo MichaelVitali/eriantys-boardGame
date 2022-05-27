@@ -172,6 +172,10 @@ public class SchoolBoard implements Serializable {
         return tables[tableColor.getIndex()].getNumberOfStudents();
     }
 
+    public int getNumberOfStudentsOnTable(int index) {
+        return tables[index].getNumberOfStudents();
+    }
+
     /**
      * @return the tower color on the schoolBoard
      */

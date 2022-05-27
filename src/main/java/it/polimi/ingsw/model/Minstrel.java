@@ -8,10 +8,11 @@ import java.util.List;
 
 public class Minstrel extends Character  {
 
-    private int entranceIndex;
-    private PawnColor pawnColor;
-    private int canSwitch;
+    private int countEntrance;
+    private int countTable;
     private int wantToGoOn;
+    private List<Integer> entranceIndexes;
+    private List<Integer> tableIndexes;
 
     /**
      * Creates a character card with the given two values
@@ -21,79 +22,79 @@ public class Minstrel extends Character  {
      */
     public Minstrel(int id, int cost) {
         super(id, cost, "Minsterl");
-        canSwitch = 0;
-        wantToGoOn = 1;
-        pawnColor = null;
+        countTable = 0;
+        countEntrance = 0;
+        entranceIndexes = new ArrayList<>();
+        tableIndexes = new ArrayList<>();
     }
 
     @Override
     public void doYourJob(int playerId, int parameter) {
-
-        Student tmpStudentEntrance = null;
-        Student tmpStudentTable = null;
-        if (canSwitch < 2 && wantToGoOn == 1) {
-            if (getRoundState() == 4) {
-                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student from Table");
-                try {
-                    if (parameter < 0 || parameter >= getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnEntrance())
-                        throw new InvalidIndexException("Error effect 10: invalid index on entrance");
-
-                    entranceIndex = parameter;
-                }catch (InvalidIndexException e) {
-                    getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
-                }
+        if (getRoundState() == 4) {
+            try {
+                if (parameter > 2 || parameter < 0) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2}");
+                setPlayerMessage(playerId,"Select an index for a student on entrance:");
+                countTable = parameter;
+                countEntrance = parameter;
                 setRoundState(5);
-            }else if(getRoundState() == 5) {
-
+            } catch (InvalidIndexException e){
+                setPlayerMessage(playerId, e.getMessage());
+            }
+        } else if (getRoundState() == 5) {
+            if (countEntrance > 0) {
                 try {
-                    if (parameter < 0 || parameter > 4)
-                        throw new InvalidIndexException("Error effect 10: invalid table choice");
-
-                    pawnColor = PawnColor.associateIndexToPawnColor(parameter);
-
-                    if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(pawnColor) == 0)
-                        throw new EmptyTableException();
-
-                    tmpStudentEntrance=getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(entranceIndex);
-                    tmpStudentTable=getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromTable(pawnColor);
-                    List<Student> tst = new ArrayList<Student>();
-                    tst.add(tmpStudentTable);
-
-                    getGame().getGameTable().getSchoolBoards()[playerId].addStudentOnTable(tmpStudentEntrance);
-                    getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(tst);
-
-                }catch (EmptyTableException e){
-                    getGame().getPlayer(playerId).setPlayerMessage("Error effect 10: the table you've chosen is empty");
-                }catch (InvalidIndexException e){
-                    getGame().getPlayer(playerId).setPlayerMessage("Error effect 10: the index of the table is not correct");
-                }catch (FullTableException e){
-                    /////////////
+                    if (parameter < 0 || (parameter > 6 && getGame().getNumberOfPlayers() == 2) || (parameter > 6 && getGame().getNumberOfPlayers() == 4) || (parameter > 8 && getGame().getNumberOfPlayers() == 3) || getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[parameter] == null) throw new InvalidIndexException("The student doesn't exists\n Chose another one: ");
+                    if (entranceIndexes.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one: ");
+                    entranceIndexes.add(parameter);
+                    countEntrance -= 1;
+                    setPlayerMessage(playerId,"Select an index for a student on entrance:");
+                } catch (InvalidIndexException e) {
+                    setPlayerMessage(playerId, e.getMessage());
                 }
-
-                if (canSwitch < 1)
-                    setRoundState(6);
-                else
-                    deactivateEffect(true);
-            }else if (getRoundState() == 6) {
+            }
+            if(countEntrance == 0) {
+                setRoundState(6);
+                setPlayerMessage(playerId,"Select index for a table to switch:");
+            }
+        } else if (getRoundState() == 6) {
+            if (countTable > 0) {
+                try{
+                    if (parameter < 0 || parameter > 5) throw new InvalidIndexException("The table doesn't exists\n Chose another one: ");
+                    if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(parameter) == 10) throw new InvalidIndexException("The table is full, choose another one!");
+                    if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(parameter) == 0) throw new InvalidIndexException("The table is empty, choose another one");
+                    tableIndexes.add(parameter);
+                    countTable -= 1;
+                    setPlayerMessage(playerId,"Select index for a table to switch:");
+                } catch (InvalidIndexException e) {
+                    setPlayerMessage(playerId, e.getMessage());
+                }
+            }
+            if(countTable == 0){
                 try {
-                    if (parameter < 0 || parameter > 1)
-                        throw new OutOfBoundException("The parameter must be 0 or 1");
-                    wantToGoOn = parameter;
-                    canSwitch++;
-                    if(wantToGoOn == 1) {
-                        setRoundState(4);
-                        getRound().getGame().getPlayer(playerId).setPlayerMessage("Select Student on entrance");
+                    List<Student> newStudentsTable = new ArrayList<>();
+                    List<Student> newStudentsOnEntrance = new ArrayList<>();
+                    for (Integer i : entranceIndexes) newStudentsTable.add(getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(i));
+                    for (Integer i : tableIndexes) newStudentsOnEntrance.add(getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromTable(i));
+                    for (Student s : newStudentsTable) {
+                        getGame().getGameTable().getSchoolBoards()[playerId].addStudentOnTable(s);
+                        getGame().getGameTable().moveProfessorToTheRightPosition(s.getColor());
                     }
-                    else
-                        deactivateEffect(true);
-                }catch (OutOfBoundException e){}
+                    getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
+                    deactivateEffect(true);
+                } catch (InvalidIndexException e) {
+                    setPlayerMessage(playerId, e.getMessage());
+                } catch (EmptyTableException e) {
+                    setPlayerMessage(playerId, "The table is empty, choose another one");
+                } catch (FullTableException e) {
+                    setPlayerMessage(playerId, "The table is full, choose another one");
+                }
             }
         }
     }
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student on entrance");
+        round.getGame().getPlayer(playerID).setPlayerMessage("How many Students do you want to change");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

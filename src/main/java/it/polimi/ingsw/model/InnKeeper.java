@@ -15,17 +15,18 @@ public class InnKeeper extends Character{
     }
 
     @Override
-    public void doYourJob(int playerId, int parameter) {
+    /*public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 5) {
             changeProfessorEffect(playerId);
             deactivateEffect(true);
         }
-    }
+    }*/
 
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("InnKeeper activated");
         super.activateEffect(playerID, round);
-        setRoundState(5);
+        changeProfessorEffect(playerID);
+        //setRoundState(5);
         return this;
     }
 
