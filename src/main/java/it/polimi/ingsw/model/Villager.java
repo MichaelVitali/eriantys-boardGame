@@ -19,19 +19,18 @@ public class Villager extends Character {
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
             try {
-                if (parameter < 0 || parameter > 4)
-                    throw new InvalidIndexException("The chosen student color doesn't exist");
-
+                if (parameter < 0 || parameter > 4) throw new InvalidIndexException("The chosen student color doesn't exist");
+                getGame().getRound().setRoundState(getOldState());
+                setPlayerMessage(playerId, getStateMessage());
                 studentColor = PawnColor.associateIndexToPawnColor(parameter);
             } catch (InvalidIndexException e) {
                 setPlayerMessage(playerId, e.getMessage());
             }
-            deactivateEffect(true);
         }
     }
 
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select a student color");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select a student color { 0:YELLOW - 1:BLUE - 2:GREEN - 3:RED - 4:PINK}");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;
@@ -70,6 +69,7 @@ public class Villager extends Character {
                     getGame().endTheMatch();
                 }
                 calculateNextPlayer();
+                deactivateEffect(false);
             } catch (TooFarIslandException e) {
                 String message = "You cannot put mother nature in the chosen island\n" + getStateMessage();
                 setPlayerMessage(playerId, message);

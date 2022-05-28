@@ -26,7 +26,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
         try {
             characters = new Character[3];
             createCharacters();
@@ -71,14 +71,13 @@ public class ExpertGame extends Game {
             String[] character = s.split(",");
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
-            System.out.println(ID + " " + cost);
             switch (ID) {
                 case 1: //OK
                     Monk c1 = new Monk(ID, cost, 4);
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
-                case 2:
+                case 2: //NON TORNA ALLO STATO INZIALE
                     InnKeeper c2 = new InnKeeper(ID, cost);
                     c.add(c2);
                     break;
@@ -107,11 +106,11 @@ public class ExpertGame extends Game {
                     Knight c8 = new Knight(ID, cost);
                     c.add(c8);
                     break;
-                case 9:
+                case 9:  //OK
                     Villager c9 = new Villager(ID, cost);
                     c.add(c9);
                     break;
-                case 10:
+                case 10: //OK
                     Minstrel c10 = new Minstrel(ID, cost);
                     c.add(c10);
                     break;
@@ -133,9 +132,9 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(5);
+        this.characters[0] = c.get(1);
         this.characters[1] = c.get(3);
-        this.characters[2] = c.get(6);
+        this.characters[2] = c.get(8);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

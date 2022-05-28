@@ -39,7 +39,7 @@ public class MatchPlayersController extends GuiController{
                 Platform.runLater(new Runnable() {
                                       @Override
                                       public void run() {
-                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardScene.fxml"));
+                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardSceneTwoPlayers.fxml"));
                                           try {
                                               Parent root = loader.load();
                                               GuiController boardController = loader.getController();
