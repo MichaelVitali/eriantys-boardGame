@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyTableException;
 import it.polimi.ingsw.model.exception.FullTableException;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class MinstrelTest {
 
     @Before
     public void setUp() throws Exception {
-        character = new Minstrel(10, 0);
+        character = new Minstrel(10, 1);
         List<String> nicknames = new ArrayList<>();
         nicknames.add("mike");
         nicknames.add("enri");
@@ -27,38 +28,31 @@ public class MinstrelTest {
     }
 
     @Test
-    public void testDoYourJob() throws FullTableException, EmptyTableException, EffectCannotBeActivatedException {
+    public void testDoYourJob() throws FullTableException, EmptyTableException, EffectCannotBeActivatedException, InvalidIndexException {
 
-        Student entranceStudent = null;
-
+        List<Student> newStudentsOnEntrance = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            round.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.associateIndexToPawnColor(i)));
+            newStudentsOnEntrance.add(new Student(PawnColor.associateIndexToPawnColor(i)));
+        }
         character.activateEffect(1, round);
-        for (PawnColor pc : PawnColor.values())
-            for (int i = 0; i < 3; i++)
-                character.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(pc));
+        for (int i = 0; i < 3; i++) character.getGame().getGameTable().getSchoolBoards()[1].removeStudentFromEntrance(i);
+        character.getGame().getGameTable().getSchoolBoards()[1].addStudentsOnEntrance(newStudentsOnEntrance);
+        Student[] entrance = character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance();
         character.doYourJob(1, 3);
-        entranceStudent = character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[3];
+        character.doYourJob(1,0);
         character.doYourJob(1,1);
-        assertEquals(entranceStudent, character.getGame().getGameTable().getSchoolBoards()[1].removeStudentFromTable(entranceStudent.getColor()));
-        assertEquals(PawnColor.BLUE, character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[3].getColor());
-        character.doYourJob(1, 1);
-        assertEquals(4, character.getRoundState());
-        character.doYourJob(1, 5);
-        entranceStudent = character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[5];
-        character.doYourJob(1, 0);
-        assertEquals(entranceStudent, character.getGame().getGameTable().getSchoolBoards()[1].removeStudentFromTable(entranceStudent.getColor()));
-        assertEquals(PawnColor.YELLOW, character.getGame().getGameTable().getSchoolBoards()[1].getStudentsFromEntrance()[5].getColor());
+        character.doYourJob(1,2);
+        character.doYourJob(1,0);
+        character.doYourJob(1,1);
+        character.doYourJob(1,2);
 
-        character.activateEffect(0, round);
-        for (PawnColor pc : PawnColor.values())
-            for (int i = 0; i < 3; i++)
-                character.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(pc));
-        character.doYourJob(0, 2);
-        entranceStudent = round.getGame().getGameTable().getSchoolBoards()[0].getStudentsFromEntrance()[2];
-        character.doYourJob(0, 0);
-        assertEquals(entranceStudent, round.getGame().getGameTable().getSchoolBoards()[0].removeStudentFromTable(entranceStudent.getColor().getIndex()));
-        assertEquals(PawnColor.YELLOW, round.getGame().getGameTable().getSchoolBoards()[0].getStudentsFromEntrance()[2].getColor());
-        character.doYourJob(0,0);
-        assertNotEquals(7, round.getRoundState());
+        assertEquals(entrance[0].getColor(), PawnColor.YELLOW);
+        assertEquals(entrance[1].getColor(), PawnColor.BLUE);
+        assertEquals(entrance[2].getColor(), PawnColor.GREEN);
+        for (int i = 0; i < 3; i++) {
+            assertEquals(character.getGame().getGameTable().getSchoolBoards()[1].getNumberOfStudentsOnTable(i), 1);
+        }
 
     }
 

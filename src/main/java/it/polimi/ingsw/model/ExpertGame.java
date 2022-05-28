@@ -132,9 +132,9 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(1);
-        this.characters[1] = c.get(3);
-        this.characters[2] = c.get(8);
+        this.characters[0] = c.get(0);
+        this.characters[1] = c.get(11);
+        this.characters[2] = c.get(6);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
