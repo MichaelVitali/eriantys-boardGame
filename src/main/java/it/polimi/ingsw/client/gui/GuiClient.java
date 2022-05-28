@@ -32,6 +32,7 @@ public class GuiClient extends Application {
         stage.setTitle("Eriantys");
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setFullScreen(true);
         GuiController loginController = loader.getController();
         loginController.setStage(stage);
         loginController.setScene(scene);
