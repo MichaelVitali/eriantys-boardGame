@@ -16,7 +16,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Creates a character card with the given two values
-     *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
@@ -31,7 +30,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns the identifier of the character card
-     *
      * @return the identifier of the character card
      */
     public int getID() {
@@ -44,7 +42,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns the cost of activation of the card
-     *
      * @return the cost of activavtion of the card
      */
     public int getCost() {
@@ -53,7 +50,6 @@ public class Character extends Round implements Serializable {
 
     /**
      * Returns true if the character card has been used one or more times and returns false if its effect hasn't been activated yet
-     *
      * @return the value of usage of the character card - false if it hasn't been used yet
      */
     public boolean getFirstUse() {
@@ -100,14 +96,6 @@ public class Character extends Round implements Serializable {
         return round.getRoundState();
     }
 
-    /*public int getOldState() {
-        return oldState;
-    }*/
-
-    /*public void setOldState(int oldState) {
-        this.oldState = oldState;
-    }*/
-
     @Override
     public int[] getMovesCounter(){
         return round.getMovesCounter();
@@ -133,7 +121,7 @@ public class Character extends Round implements Serializable {
     public int calculateFirstPlayer(int numberOfPlayers) { return round.calculateFirstPlayer(numberOfPlayers); }
 
     @Override
-    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { checkStatusAndMethod(methodId); }
+    public void checkStatusAndMethod(int methodId) throws InvalidMethodException { round.checkStatusAndMethod(methodId); }
 
     @Override
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
@@ -181,7 +169,9 @@ public class Character extends Round implements Serializable {
     public void switchToActionPhase() { round.switchToActionPhase(); }
 
     @Override
-    public void calculateNextPlayer() { round.calculateNextPlayer(); }
+    public void calculateNextPlayer() {
+        round.calculateNextPlayer();
+    }
 
     @Override
     public boolean assistantNoChoice(List<Assistant> outer, List<Assistant> inner) { return round.assistantNoChoice(outer, inner); }
@@ -228,9 +218,10 @@ public class Character extends Round implements Serializable {
         return this;
     }
 
-    public void deactivateEffect() {
-        round.setRoundState(oldState);
+    public void deactivateEffect(boolean resetState) {
+        if(resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
+        round.setPlayerMessage(getPlayerOnTurn(), getStateMessage());
     }
 
     @Override
@@ -239,5 +230,17 @@ public class Character extends Round implements Serializable {
     @Override
     public boolean getAlreadyPLayedCharacter() {
         return round.getAlreadyPLayedCharacter();
+    }
+
+    public int getOldState() {
+        return oldState;
+    }
+
+    public void setOldState(int oldState) {
+        this.oldState = oldState;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
     }
 }

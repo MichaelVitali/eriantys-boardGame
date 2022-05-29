@@ -20,7 +20,7 @@ public class Princess extends CharacterWithStudent  {
         if (getRoundState() == 4) {
             studentIndex = parameter;
             try{
-
+                if (parameter < 0 || parameter > 3) throw new InvalidIndexException("The chosen student doesn't exists\n Chose another one: ");
                 List<Integer> indexStudentsOnCard = new ArrayList<>();
                 indexStudentsOnCard.add(studentIndex);
                 List<Student> studentsOnCard = new ArrayList<>(getStudents(indexStudentsOnCard));
@@ -29,18 +29,19 @@ public class Princess extends CharacterWithStudent  {
                     throw new NoMoreStudentsException();
 
                 getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentOnTable(studentsOnCard.get(0));
+                getGame().getGameTable().moveProfessorToTheRightPosition(studentsOnCard.get(0).getColor());
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
-
-            }catch (InvalidIndexException e){
+                deactivateEffect(true);
+            }catch (InvalidIndexException | EmptyBagException e){
                 getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
+                getGame().sendGame();
             }catch (NoMoreStudentsException e){
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
+                getGame().sendGame();
             } catch (FullTableException e) {
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't add the chosen student on table because it is full");
-            } catch (EmptyBagException e) {
-                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
+                getGame().sendGame();
             }
-            deactivateEffect();
         }
     }
 

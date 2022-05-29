@@ -89,6 +89,7 @@ public class SchoolBoard implements Serializable {
         for(int entranceIndex = 0; entranceIndex < entrance.length; entranceIndex++){
             if(entrance[entranceIndex] == null){
                 entrance[entranceIndex] = newStudents.remove(0);
+                if (newStudents.size() == 0) break;
             }
         }
     }
@@ -169,6 +170,10 @@ public class SchoolBoard implements Serializable {
      */
     public int getNumberOfStudentsOnTable(PawnColor tableColor) {
         return tables[tableColor.getIndex()].getNumberOfStudents();
+    }
+
+    public int getNumberOfStudentsOnTable(int index) {
+        return tables[index].getNumberOfStudents();
     }
 
     /**

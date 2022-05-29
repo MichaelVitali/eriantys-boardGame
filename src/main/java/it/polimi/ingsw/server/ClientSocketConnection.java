@@ -1,7 +1,13 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.controller.message.ConnectionState;
+import it.polimi.ingsw.controller.message.SetupMessage;
 import it.polimi.ingsw.model.GameMode;
 import it.polimi.ingsw.controller.message.PlayerMessage;
+import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.exception.AlreadyChosenWizardException;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
@@ -9,11 +15,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class ClientSocketConnection extends Observable<PlayerMessage> implements ClientConnection, Runnable {
 
     private Socket socket;
     private ObjectOutputStream out;
+    private ObjectInputStream in;
     private Server server;
     private boolean active = true;
 
@@ -35,7 +43,19 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
         } catch(IOException e){
             System.err.println(e.getMessage());
         }
+    }
 
+    @Override
+    public synchronized Object receive() {
+        Object buffer = null;
+        try {
+            buffer = in.readObject();
+        } catch(IOException e){
+            System.err.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        return buffer;
     }
 
     @Override
@@ -69,73 +89,78 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
 
     @Override
     public void run() {
-        ObjectInputStream in;
         try{
             Object buffer = null;
-            int gameMode = -1;
+
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
+
+            send(new SetupMessage(ConnectionState.LOGIN, "Choose your nickname"));
+            String playerNickname = "";
             do {
-                send("Welcome!\nChoose game mode { 0 : normal mode - 1 : expert mode } :");
                 try {
                     buffer = in.readObject();
-                    if(buffer instanceof String) {
-                        gameMode = Integer.parseInt((String) buffer);
-                        //System.out.println("The player inserts " + gameMode);
-                    }
+                    if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.LOGIN && !((SetupMessage) buffer).getMessage().equals(""))
+                        playerNickname = ((SetupMessage) buffer).getMessage();
                 } catch (Exception e) {
-                    send("Error : you are not sending the correct information");
+                    send(new SetupMessage(ConnectionState.LOGIN, "Error : you are not sending the correct information\nChoose a nickname"));
+                }
+            } while (playerNickname.equals(""));
+            System.out.println("The player choose is " + playerNickname);
+
+            send(new SetupMessage(ConnectionState.MATCHMODE, "Welcome " + playerNickname + "\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
+            int gameMode = -1;
+            do {
+                try {
+                    buffer = in.readObject();
+                    if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.MATCHMODE && ((SetupMessage) buffer).getMessage() != null)
+                        gameMode = Integer.parseInt((String) ((SetupMessage) buffer).getMessage());
+                    else send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
+                } catch (Exception e) {
+                    send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
                 }
             } while (gameMode != 0 && gameMode != 1);
             System.out.println("The player with socket " + toString() + " choose " + (gameMode == 0 ? "normal" : "expert") + " mode");
+
+            send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Choose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :"));
             int numberOfPlayers = 0;
             do {
-                send("Choose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :");
                 try {
                     buffer = in.readObject();
-                    if(buffer instanceof String) {
-                        numberOfPlayers = Integer.parseInt((String) buffer);
-                        //System.out.println("The player in playing in a match with " + numberOfPlayers + " players");
-                    }
+                    if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.NUMBEROFPLAYERS)
+                        numberOfPlayers = Integer.parseInt((String) ((SetupMessage) buffer).getMessage());
+                    else send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Error : you are not sending the correct information\nChoose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :"));
                 } catch (Exception e) {
-                    send("Error : you are not sending the correct information");
+                    send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Error : you are not sending the correct information"));
                 }
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
             System.out.println("The player with socket " + toString() + " choose " + numberOfPlayers + " players mode");
-            String playerNickname = "";
-            send("Insert a nickname");
-            do {
-                try {
-                    buffer = in.readObject();
-                    if (buffer instanceof String) {
-                        playerNickname = (String) buffer;
-                        System.out.println("The player choose is " + playerNickname);
-                    }
-                } catch (Exception e) {
-                    send("Error : you are not sending the correct information");
-                }
-            } while (playerNickname.equals(""));
+
             System.out.println("Adding " + playerNickname + " into the lobby (player : " + toString() + ")");
+
             server.lobby((gameMode == 0 ? GameMode.NORMAL : GameMode.EXPERT), numberOfPlayers, playerNickname, this);
 
             while (isActive()) {
                 buffer = in.readObject();
-                if (buffer instanceof String) {
-                    System.out.println("The player " + server.getMyId(this) + " of match " + server.getMyMatch(this) +  " sends "+ (String) buffer);
+                if (buffer instanceof SetupMessage) {
+                    //Magari per parlare a fine partita
                 } else if (buffer instanceof PlayerMessage) {
                     PlayerMessage clientMessage = (PlayerMessage) buffer;
                     if (server.getMyId(this) == clientMessage.getPlayerId())
                         notify(clientMessage);
                     else
-                        // invia l'errore al client
+                        //Invia l'errore al client
                         System.out.println(toString() + " is sending a message with an other's player id");
                 } else {
+                    //Manda un oggetto sbagliato
                     System.out.println(toString() + " is sending a wrong object");
                 }
             }
         } catch (IOException | NoSuchElementException e) {
             System.err.println("Error! " + e.getMessage());
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (TooManyMovesException e) {
             e.printStackTrace();
         } finally {
             close();

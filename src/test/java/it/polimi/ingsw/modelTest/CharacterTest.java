@@ -57,8 +57,15 @@ public class CharacterTest {
 
     @Test
     public void testDeactivateEffect() throws EffectCannotBeActivatedException {
+        int state = round.getRoundState();
         c.activateEffect(0, round);
-        c.deactivateEffect();
+        c.deactivateEffect(false);
+        assertEquals(round.getGame().getRound().getRoundState(), state);
+        assertEquals(round, round.getGame().getRound());
+        state = round.getRoundState();
+        c.activateEffect(0, round);
+        c.deactivateEffect(true);
+        assertEquals(round.getGame().getRound().getRoundState(), state);
         assertEquals(round, round.getGame().getRound());
     }
 

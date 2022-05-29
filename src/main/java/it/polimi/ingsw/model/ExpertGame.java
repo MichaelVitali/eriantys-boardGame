@@ -15,6 +15,11 @@ public class ExpertGame extends Game {
     private int coinsOfTheTable;
     private int[] playersCoins;
 
+    /**
+     * Creates an expert mode game instance.
+     * @param numberOfPlayers number of players that will play the match
+     * @param nicknames nicknames of the players in the match
+     */
     public ExpertGame(int numberOfPlayers, List<String> nicknames) {
         super(numberOfPlayers, nicknames);
         gameMode = GameMode.EXPERT;
@@ -25,20 +30,38 @@ public class ExpertGame extends Game {
         try {
             characters = new Character[3];
             createCharacters();
+            for (int i = 0; i < 3; i++) {
+                if (characters[i].getID() == 5) {
+                    characters[i].setRound(this.getRound());
+                    setRound(characters[i]);
+                }
+            }
         } catch (EmptyBagException e) {
             e.printStackTrace();
         }
     }
 
-    public GameMode getGameMode() { return gameMode; }
     public Character[] getCharacters(){
         return characters;
     }
 
+    public GameMode getGameMode() {return gameMode;}
+
     public void setCharacters(Character[] characters){
-        this.characters=characters;
+        this.characters = characters;
     }
 
+    /**
+     * Sets a single character of the expert mode match. If the index is not valid the method doesn't do anything
+     * @param character character to be set
+     * @param position index of the character, in the 3 character array, that has to be associated to the given one
+     */
+    public void setASingleCharacter(Character character, int position) { characters[position] = character; }
+
+    /**
+     * Creates the instances of the three characters of the current match, choosing three random characters of the deck
+     * @throws EmptyBagException if a character, which has students placed on it, tries to draw a student from an empty bag
+     */
     public void createCharacters() throws EmptyBagException {
         List<Character> c = new ArrayList<>();
 
@@ -48,44 +71,55 @@ public class ExpertGame extends Game {
             String[] character = s.split(",");
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
-            System.out.println(ID + " " + cost);
             switch (ID) {
-                case 1:
+                case 1: //OK
                     Monk c1 = new Monk(ID, cost, 4);
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
-                case 3:
+                case 2: //NON TORNA ALLO STATO INZIALE
+                    InnKeeper c2 = new InnKeeper(ID, cost);
+                    c.add(c2);
+                    break;
+                case 3: //OK
                     Herald c3 = new Herald(ID, cost);
                     c.add(c3);
                     break;
-                case 4:
+                case 4: //OK
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 6:
+                case 5: // QUASI - forse c'è un errore sul cambio di turno, o sulla doppia chiamata all'healer
+                    Healer c5 = new Healer(ID, cost);
+                    c.add(c5);
+                    break;
+                case 6: //OK
                     Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
-                case 7:
+                case 7: //OK
                     Jester c7 = new Jester(ID, cost, 6);
                     c7.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(c7);
                     break;
-                case 8:
+                case 8: //OK
                     Knight c8 = new Knight(ID, cost);
                     c.add(c8);
                     break;
-                case 10:
+                case 9:  //OK
+                    Villager c9 = new Villager(ID, cost);
+                    c.add(c9);
+                    break;
+                case 10: //OK
                     Minstrel c10 = new Minstrel(ID, cost);
                     c.add(c10);
                     break;
-                case 11:
+                case 11:    //OK
                     Princess c11 = new Princess(ID, cost, 4);
                     c11.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c11);
                     break;
-                case 12:
+                case 12:    //OK
                     Thief c12 = new Thief(ID, cost);
                     c.add(c12);
                     break;
@@ -99,8 +133,8 @@ public class ExpertGame extends Game {
             numberOfCharacter--;
         }*/
         this.characters[0] = c.get(0);
-        this.characters[1] = c.get(1);
-        this.characters[2] = c.get(2);
+        this.characters[1] = c.get(11);
+        this.characters[2] = c.get(6);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
@@ -147,9 +181,7 @@ public class ExpertGame extends Game {
             addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
             setRound(characters[indexCard].activateEffect(playerId, getRound()));
-            System.out.println("SONO ENTRATO");
             sendGame();
-            System.out.println("HO SPEDITO");
         } catch (InvalidIndexException e) {
             e.printStackTrace(); // Non esiste quell'indice
         } catch (NotEnoughCoins e) {

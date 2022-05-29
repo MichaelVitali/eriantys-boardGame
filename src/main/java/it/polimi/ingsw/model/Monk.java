@@ -28,25 +28,33 @@ public class Monk extends CharacterWithStudent {
 
     @Override
     public void doYourJob(int playerId, int parameter) {
-        //problema a tornare nello stato vecchio
         if (getRoundState() == 4) {
-            getRound().getGame().getPlayer(playerId).setPlayerMessage("Select island");
-            studentIndex = parameter;
-            setRoundState(5);
-        } else if (getRoundState() == 5) {
-            islandIndex = parameter;
             try {
+                if (parameter < 0 || parameter > 3) throw new InvalidIndexException("The student doesn't exists\nChose another one:");
+                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select island");
+                studentIndex = parameter;
+                setRoundState(5);
+            } catch (InvalidIndexException e) {
+                setPlayerMessage(playerId, e.getMessage());
+                getGame().sendGame();
+            }
+        } else if (getRoundState() == 5) {
+            try {
+                if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exists\nChose another one:");
+                islandIndex = parameter;
                 List<Integer> indexStudentsOnCard = new ArrayList<>();
                 indexStudentsOnCard.add(studentIndex);
                 List<Student> studentsOnCard = new ArrayList<>(getStudents(indexStudentsOnCard));
                 if (studentsOnCard.size() <= 0) throw new NoMoreStudentsException();
                 getRound().getGame().getGameTable().addStudentOnIsland(studentsOnCard.remove(0), islandIndex);
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
-                deactivateEffect();
+                deactivateEffect(true);
             } catch (NoMoreStudentsException e) {
-                getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
+                setPlayerMessage(playerId,"You can't play this card because there are no students");
+                getGame().sendGame();
             } catch (InvalidIndexException e) {
-                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
+                setPlayerMessage(playerId, e.getMessage());
+                getGame().sendGame();
             } catch (EmptyBagException e) {
                 //Non aggiunge nessuno studente sulla carta
             }
@@ -55,7 +63,7 @@ public class Monk extends CharacterWithStudent {
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student on card");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

@@ -162,6 +162,19 @@ public class GameTableTest {
             influences2[i] += influencesFromTowers2[i];
         }
         assertEquals(influences2[0], influences2[1]);
+
+        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), gameTable.getMotherNaturePosition());
+        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), gameTable.getMotherNaturePosition());
+        gameTable.addStudentOnIsland(new Student(PawnColor.BLUE), gameTable.getMotherNaturePosition());
+
+        gameTable.getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.BLUE));
+        gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
+        gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
+        gameTable.moveProfessorToTheRightPosition(PawnColor.YELLOW);
+        assertEquals(PawnColor.YELLOW, gameTable.getSchoolBoards()[1].getProfessors().get(0));
+        int[] influences3 = gameTable.calculateInfluenceValuesGivenByStudentsExceptOne(PawnColor.YELLOW);
+
+        assertTrue(influences3[0] > influences3[1]);
     }
 
     @Test

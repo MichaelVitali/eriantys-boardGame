@@ -32,7 +32,6 @@ public class Round implements Serializable {
         this.game = game;
         alreadyPlayedCharacter = false;
 
-
         alreadyPlayedAssistants = new boolean[game.getNumberOfPlayers()];
         for (int i = 0; i < alreadyPlayedAssistants.length; i++)
             alreadyPlayedAssistants[i] = false;
@@ -234,7 +233,7 @@ public class Round implements Serializable {
     }
 
     public void switchToPianificationPhase() {
-        System.out.println("Abbiamo eseguito la switch to action phase");
+        System.out.println("Abbiamo eseguito la switch to pianification phase");
         setPianificationPhaseOrder();
         game.startRound(playerOrder);
     }
@@ -248,6 +247,7 @@ public class Round implements Serializable {
     public void calculateNextPlayer() {
         boolean roundEnded = false;
         if (isTheGameEnded()) {
+            //nothing
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isTimeToChooseTheNextStudent()) {
@@ -255,7 +255,7 @@ public class Round implements Serializable {
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
             roundEnded = true;
-            if(game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
+            if (game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
                 roundState = 100;
                 game.endTheMatch();
             }
@@ -349,7 +349,7 @@ public class Round implements Serializable {
             if (getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex] == null) throw new InvalidIndexException("There isn't a student in this position");
             PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
             if (game instanceof ExpertGame){
-                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
+                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0 && game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) != 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
             }
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             movesCounter[playerId]++;
@@ -482,11 +482,14 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (AlreadyPlayedCharcaterException e) {
-            setPlayerMessage(playerId, "You already played a character");
+            setPlayerMessage(playerId, "You already played a character\n" + getStateMessage());
+            game.sendGame();
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
+            getGame().sendGame();
         } catch (EffectCannotBeActivatedException e) {
             setPlayerMessage(playerId, e.getMessage());
+            getGame().sendGame();
         }
     }
 

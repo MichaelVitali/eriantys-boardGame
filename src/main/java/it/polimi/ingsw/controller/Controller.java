@@ -11,7 +11,7 @@ public class Controller implements Observer<PlayerMessage> {
         this.model = model;
     }
 
-    private void performMove(PlayerMessage playerMessage) {
+    public void performMove(PlayerMessage playerMessage) {
         playerMessage.performMove(model);
     }
 

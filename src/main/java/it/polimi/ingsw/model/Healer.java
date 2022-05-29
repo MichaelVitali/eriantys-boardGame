@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 
 public class Healer extends Character {
-    public int prohibition;
+    private int prohibition;
 
     public Healer(int id, int cost) {
         super(id, cost, "Healer");
@@ -17,19 +17,57 @@ public class Healer extends Character {
                 if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist");
                 getGame().getGameTable().getIslandByIndex(parameter).setProhibition();
                 prohibition--;
-            } catch (InvalidIndexException e) {
+                setRoundState(getOldState());
+                setPlayerMessage(playerId, getStateMessage());
+            } catch (InvalidIndexException | IslandAlreadyForbiddenException e) {
                 setPlayerMessage(playerId, e.getMessage());
-            } catch (IslandAlreadyForbiddenException e) {
-                setPlayerMessage(playerId, e.getMessage());
+                getGame().sendGame();
             }
         }
     }
+
+    @Override
+    public void activateEffect(int playerId, int indexCard) {
+        try {
+            checkPlayerOnTurn(playerId);
+            if (getRoundState() <= 0 || getRoundState() >= 4) throw new InvalidMethodException();
+            if (getAlreadyPLayedCharacter()) throw new AlreadyPlayedCharcaterException();
+            setOldState(getRoundState());
+            getGame().activateEffect(playerId, indexCard);
+            setAlreadyPlayedCharacter(true);
+        } catch (PlayerNotOnTurnException e) {
+            // The player is not the current player so the round tate doesn't change
+        } catch (AlreadyPlayedCharcaterException e) {
+            setPlayerMessage(playerId, "You already played a character\n" + getStateMessage());
+            getGame().sendGame();
+        } catch (InvalidMethodException e) {
+            setPlayerMessage(playerId, "You can't play a character during the pianification phase");
+            getGame().sendGame();
+        } catch (EffectCannotBeActivatedException e) {
+            setPlayerMessage(playerId, e.getMessage());
+            getGame().sendGame();
+        }
+    }
+
+    @Override
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         if (prohibition <= 0) throw new EffectCannotBeActivatedException("The healer cannot be activated: there are no prohibition cards");
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select an island, where you want to put the prohibition card");
-        super.activateEffect(playerID, round);
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select an island where you want to put the prohibition card");
         setRoundState(4);
         return this;
+    }
+
+    @Override
+    public void switchToPianificationPhase() {
+        System.out.println("Abbiamo eseguito la switch to pianification phase");
+        setPianificationPhaseOrder();
+        try {
+            getGame().getGameTable().addStudentsOnClouds();
+            setRound(new Round(getGame(), getPlayerOrder()));
+        } catch (EmptyBagException e) {
+            setRound(new LastRound(getGame(), getPlayerOrder(), true));
+        }
+        getGame().setRound(this);
     }
 
     @Override

@@ -22,37 +22,54 @@ public class Jester extends CharacterWithStudent{
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
+            try{
+                if (parameter < 0 || parameter > 3) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2, 3}");
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student on card");
                 countCard = parameter;
                 countEntrance = parameter;
                 setRoundState(5);
+            } catch (InvalidIndexException e) {
+                setPlayerMessage(playerId, e.getMessage());
+            }
         } else if (getRoundState() == 5) {
             if (countCard > 0) {
-                studentsIndexOnCard.add(parameter);
-                countCard -= 1;
+                try {
+                    if (parameter < 0 || parameter > 5) throw new InvalidIndexException("The student doesn't exists\n Chose another one: ");
+                    if (studentsIndexOnCard.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one: ");
+                    studentsIndexOnCard.add(parameter);
+                    countCard -= 1;
+                    setPlayerMessage(playerId,"Select student on card");
+                } catch (InvalidIndexException e) {
+                    setPlayerMessage(playerId, e.getMessage());
+                }
             }
             if(countCard == 0) {
                 setRoundState(6);
-                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student on entrance");
+                setPlayerMessage(playerId,"Select student on entrance");
             }
         } else if (getRoundState() == 6) {
             if (countEntrance > 0) {
-                studentsIndexOnEntrance.add(parameter);
-                countEntrance -= 1;
+                try{
+                    if (parameter < 0 || (parameter > 6 && getGame().getNumberOfPlayers() == 2) || (parameter > 6 && getGame().getNumberOfPlayers() == 4) || (parameter > 8 && getGame().getNumberOfPlayers() == 3) || getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[parameter] == null) throw new InvalidIndexException("The student doesn't exists\n Chose another one: ");
+                    if (studentsIndexOnEntrance.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one: ");
+                    studentsIndexOnEntrance.add(parameter);
+                    countEntrance -= 1;
+                    setPlayerMessage(playerId,"Select student on entrance");
+                } catch (InvalidIndexException e) {
+                    setPlayerMessage(playerId, e.getMessage());
+                }
             }
             if(countEntrance == 0){
                 try {
-                    if (studentsIndexOnEntrance.size() != studentsIndexOnCard.size())
-                        throw new InvalidIndexException("Error on index character 7");
-                    List<Student> newStudentsOnEntrance = new ArrayList<>(getStudents(studentsIndexOnCard));
                     List<Student> newStudentsOnCard = new ArrayList<>();
+                    List<Student> newStudentsOnEntrance = new ArrayList<>(getStudents(studentsIndexOnCard));
                     for (Integer i : studentsIndexOnEntrance)
                         newStudentsOnCard.add(getRound().getGame().getGameTable().getSchoolBoards()[playerId].removeStudentFromEntrance(i));
                     addStudents(newStudentsOnCard);
                     getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
-                    deactivateEffect();
+                    deactivateEffect(true);
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage()); // non penso sia da mostrare al player tale errore, magari chiediamo di nuovo l'inserimento
+                    setPlayerMessage(playerId, e.getMessage());
                 }
             }
         }

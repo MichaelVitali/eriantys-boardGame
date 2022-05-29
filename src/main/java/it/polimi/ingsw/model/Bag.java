@@ -10,6 +10,9 @@ import java.util.Random;
 public class Bag implements Serializable { //magari la bag potrebbe non essere serializzabile
     private final List<Student> students;
 
+    /**
+     * Creates a new bag instance. It is filled with 26 students for each color
+     */
     public Bag() {
         students = new ArrayList<>();
         for (int i = 0; i < 26 ; i++) {
@@ -21,6 +24,13 @@ public class Bag implements Serializable { //magari la bag potrebbe non essere s
         }
     }
 
+    /**
+     * Draws a certain amount of students from the bag so the bag removes the students from itself and returns them to the caller.
+     * The method doesn't throw an EmptyBagException because it is assumed that it is called just one time at the beginning, with a low numberOfStudents value
+     * @param numberOfStudents number of students to draw
+     * @param color color of the students that has to be drawn
+     * @return list of students required
+     */
     public List<Student> drawStudentsByColor(int numberOfStudents, PawnColor color) {
         List<Student> returnStudents = new ArrayList<>();
         for (int i = 0; i < numberOfStudents; i++) {

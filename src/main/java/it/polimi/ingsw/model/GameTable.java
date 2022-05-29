@@ -281,6 +281,28 @@ public class GameTable implements Serializable {
     }
 
     /**
+     * Calculate all the influences related to the players on the island where mother nature is moved based on just the students which each player controls except the one passed by parameter.
+     * @return an array with all the players influence
+     */
+    public int[] calculateInfluenceValuesGivenByStudentsExceptOne(PawnColor studentColor ){
+        int numberOfInfluenceValues = (numberOfPlayers == 4) ? 2 : numberOfPlayers;
+        int[] influenceValues = new int[numberOfInfluenceValues];
+        List<Student> studentsOnTheIslands = islands.get(motherNaturePosition).getStudents();
+        Arrays.fill(influenceValues, 0);
+        for(int i = 0; i < numberOfInfluenceValues; i++) {
+            List<PawnColor> professors = schoolBoards[i].getProfessors();
+            if (numberOfPlayers == 4) professors.addAll(schoolBoards[i + 2].getProfessors());
+            for (PawnColor professor : professors) {
+                if(professor != studentColor)
+                    for (Student student : studentsOnTheIslands)
+                        if (professor == student.getColor())
+                            influenceValues[i]++;
+            }
+        }
+        return influenceValues;
+    }
+
+    /**
      * Calculate all the influences related to the players on the island where mother nature is moved based on just the towers placed on the island.
      * @return an array with all the players influence
      */

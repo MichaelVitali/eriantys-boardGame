@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.client.DisplayedBoard;
 import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
@@ -9,6 +8,7 @@ import it.polimi.ingsw.observer.Observable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Game extends Observable<Game> implements Serializable {
 
@@ -16,6 +16,7 @@ public class Game extends Observable<Game> implements Serializable {
     private GameMode gameMode;
     private GameTable gameTable;
     private List<Assistant>[] assistants;
+    private List<Wizard> alreadyChosenWizards; /////////////////////////////////////////////
     private Player[] players;
     private Round round;
     private boolean victory;
@@ -27,6 +28,8 @@ public class Game extends Observable<Game> implements Serializable {
         this.numberOfPlayers = numberOfPlayers;
         gameMode = GameMode.NORMAL;
         gameTable = createGameTable(numberOfPlayers);
+
+        alreadyChosenWizards = new ArrayList<>(); //////////////////////////////////////////////////
 
         assistants = new ArrayList[numberOfPlayers];
         List<Assistant> assistantsList = createAssistants();
@@ -177,7 +180,7 @@ public class Game extends Observable<Game> implements Serializable {
         try {
             gameTable.addStudentsOnClouds();
         } catch (EmptyBagException e) {
-            round = new Round(this, playerOrder);
+            round = new LastRound(this, playerOrder, true);
         }
         sendGame();
         return round;

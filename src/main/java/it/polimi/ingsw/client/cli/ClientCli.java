@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.cli;
 
-import it.polimi.ingsw.client.DisplayedBoard;
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 
@@ -17,10 +17,11 @@ public class ClientCli {
     private String ip;
     private int port;
     private boolean configurationDone = false;
+    private ConnectionState connectionState;
     private boolean active = true;
 
     private int playerId = 0;
-    private DisplayedBoard actualBoard;
+    private GameMessage actualBoard;
 
     public ClientCli(String ip, int port) {
         this.ip = ip;
@@ -55,12 +56,12 @@ public class ClientCli {
                 try {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof String) {
-                            // initial configuration
+                        if(inputObject instanceof SetupMessage) {
                             clearAll();
-                            System.out.println((String)inputObject);
-                        } else if (inputObject instanceof DisplayedBoard){
-                            actualBoard = ((DisplayedBoard) inputObject);
+                            connectionState = ((SetupMessage)inputObject).getConnectionState();
+                            System.out.println(((SetupMessage)inputObject).getMessage());
+                        } else if (inputObject instanceof GameMessage){
+                            actualBoard = ((GameMessage) inputObject);
                             if(!configurationDone) {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
@@ -93,16 +94,16 @@ public class ClientCli {
                         String playerInput = stdin.nextLine();
                         playerInput.replace("\n", "");
                         if (!configurationDone) {
-                            socketOut.writeObject(playerInput);
+                            socketOut.writeObject(new SetupMessage(connectionState, playerInput));
                         } else {
                             PlayerMessage playerMessage = null;
                             try {
                                 if (playerId == actualBoard.getPlayerOnTurn()) {
-                                    if (playerInput.equals("character") && actualBoard.getState() != 0 && !actualBoard.getAlreadyPLayedCharacter() && actualBoard.getGameMode() == GameMode.EXPERT) {
+                                    if (playerInput.equals("character") && actualBoard.getState() != 0 &&  actualBoard.getGameMode() == GameMode.EXPERT) {
                                         int cardIndex = -1;
                                         do {
                                             System.out.println("Which character do you want to play: ");
-                                            cardIndex = Integer.parseInt(stdin.nextLine().replace("\n", ""));
+                                            cardIndex = readLineAndParseInteger(stdin);
                                         } while (cardIndex < 0 || cardIndex >= 3);
                                         playerMessage = new ActivateEffectMessage(playerId, cardIndex);
                                     } else {
@@ -131,6 +132,13 @@ public class ClientCli {
                                                 playerMessage = new GetStudentsFromCloudsMessage(playerId, playerParameter);
                                                 break;
                                             case 4:
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
+                                                break;
+                                            case 5:
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
+                                                break;
+                                            case 6:
+                                                playerMessage = new DoYourJobMessage(playerId, playerParameter);
                                                 break;
                                         }
                                     }
@@ -193,6 +201,10 @@ public class ClientCli {
         } while(!isParameterSet);
         return parameter;
     }
+
+    /**
+     * Clears the part of command line the players can see, so the players will always see the drawings of the board in the upper part of the cli
+     */
     public void clearAll() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
