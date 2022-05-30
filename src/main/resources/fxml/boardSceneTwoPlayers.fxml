@@ -7,16 +7,16 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.guiControllers.BoardController">
    <center>
-      <AnchorPane  fx:id="boardPane" prefHeight="850.0" prefWidth="1100.0" stylesheets="@../css/boardStyle.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="boardPane" maxHeight="850.0" maxWidth="1460.0" prefHeight="850.0" prefWidth="1460.0" stylesheets="@../css/boardStyle.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="265.0" fitWidth="596.0" layoutX="-154.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+            <ImageView fitHeight="600.0" fitWidth="258.0" layoutX="1188.0" layoutY="125.0">
                <image>
-                  <Image url="@../images/Board/schoolboard.png" />
+                  <Image url="@../images/Board/schoolboardVertical.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="265.0" fitWidth="596.0" layoutX="1058.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+            <ImageView fitHeight="600.0" fitWidth="258.0" layoutX="14.0" layoutY="125.0">
                <image>
-                  <Image url="@../images/Board/schoolboard.png" />
+                  <Image url="@../images/Board/schoolboardVertical.png" />
                </image>
             </ImageView>
          </children>
