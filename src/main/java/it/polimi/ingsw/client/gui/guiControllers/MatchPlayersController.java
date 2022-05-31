@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,11 @@ public class MatchPlayersController extends GuiController{
 
     @FXML
     Label matchPlayersMessage;
+
+    @FXML
+    Circle entrance1;
+
+    private int studentMoved;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,7 +45,7 @@ public class MatchPlayersController extends GuiController{
                 Platform.runLater(new Runnable() {
                                       @Override
                                       public void run() {
-                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardSceneTwoPlayers.fxml"));
+                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/waitingPlayersScene.fxml"));
                                           try {
                                               Parent root = loader.load();
                                               GuiController boardController = loader.getController();
@@ -76,5 +82,9 @@ public class MatchPlayersController extends GuiController{
 
     public void fourPlayers() {
         getClient().asyncWriteToSocket(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "4"));
+    }
+
+    public void entrace1click() {
+        System.out.println("Cazzo");
     }
 }
