@@ -106,8 +106,4 @@ public class MatchPlayersController extends GuiController{
     public void fourPlayers() {
         getClient().asyncWriteToSocket(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "4"));
     }
-
-    public void entrace1click() {
-        System.out.println("Cazzo");
-    }
 }

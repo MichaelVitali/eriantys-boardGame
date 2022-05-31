@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane prefHeight="850.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.guiControllers.BoardController">
+<BorderPane centerShape="false" prefHeight="850.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.guiControllers.BoardController">
    <right>
       <ImageView fitHeight="600.0" fitWidth="258.0" BorderPane.alignment="CENTER">
          <image>
@@ -39,4 +39,20 @@
          </BorderPane.margin>
       </AnchorPane>
    </left>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Circle id="assistant0" fill="DODGERBLUE" layoutX="411.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant1" fill="DODGERBLUE" layoutX="491.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant2" fill="DODGERBLUE" layoutX="571.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant3" fill="DODGERBLUE" layoutX="651.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant4" fill="DODGERBLUE" layoutX="731.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant5" fill="DODGERBLUE" layoutX="811.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant6" fill="DODGERBLUE" layoutX="891.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant7" fill="DODGERBLUE" layoutX="971.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant8" fill="DODGERBLUE" layoutX="1051.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle id="assistant9" fill="DODGERBLUE" layoutX="1131.0" layoutY="130.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>
