@@ -209,6 +209,13 @@ public class Game extends Observable<Game> implements Serializable {
         notify(this);
     }
 
+    public String[] getPlayersNicknames() {
+        String[] nicknames = new String[numberOfPlayers];
+
+        for (int i = 0; i < numberOfPlayers; i++) nicknames[i] = getPlayer(i).getNickname();
+        return nicknames;
+    }
+
     public List<Assistant> getPlayerAssistant(int playerIndex) {
         return players[playerIndex].getAssistants();
     }

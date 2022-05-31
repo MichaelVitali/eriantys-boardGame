@@ -20,6 +20,7 @@ public class GameMessage extends Message implements Serializable {
     private SchoolBoard[] schoolBoards;
     private Character[] characters;
     private int[] playersCoins;
+    private String[] playersNicknames;
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
@@ -36,6 +37,7 @@ public class GameMessage extends Message implements Serializable {
             playersCoins = ((ExpertGame) model).getPlayersCoins();
         }
         else characters = null;
+        playersNicknames = model.getPlayersNicknames();
     }
 
     public GameTable getGametable() {
@@ -70,22 +72,13 @@ public class GameMessage extends Message implements Serializable {
         if (playerId == playerOnTurn) System.out.println(playerMessage);
         else System.out.println("You're not the player on turn... Wait for other player!");
     }
-    public int getNumberOfPLayer() {
-        return numberOfPLayer;
-    }
-
-    public boolean getAlreadyPLayedCharacter() {return alreadyPlayedCharacter; }
 
     public int getPlayerOnTurn() { return playerOnTurn; }
 
     public GameMode getGameMode() { return gameMode; }
 
-    public void printStateOnCli() {
-        System.out.println("The current round state is: " + state);
-    }
 
-
-    void printIslands(List<Island> islands) {
+    public void printIslands(List<Island> islands) {
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             System.out.print("   " + i + "          ");
@@ -140,7 +133,7 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
-    void printAssistants(List<Assistant> assistants) {
+    public void printAssistants(List<Assistant> assistants) {
         System.out.println("\n\nAssistants:");
         for (Assistant a : assistants) {
             System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
@@ -164,7 +157,7 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
-    void printCloud(Cloud[] clouds) {
+    public void printCloud(Cloud[] clouds) {
         System.out.println("");
         for (int i = 0; i < clouds.length; i++) {
             System.out.print("   Cloud " + i + "    ");
@@ -215,7 +208,7 @@ public class GameMessage extends Message implements Serializable {
         System.out.println("");
     }
 
-    void printAllSchoolboards () {
+    public void printAllSchoolboards () {
         System.out.print("\n");
         if (schoolBoards.length == 2) {
             printSchoolboard(0);
@@ -232,7 +225,7 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
-    void printSchoolboard (int playerId) {
+    public void printSchoolboard (int playerId) {
         SchoolBoard s = schoolBoards[playerId];
         Student[] entrance = schoolBoards[playerId].getStudentsFromEntrance();
         PawnColor[] color = new PawnColor[entrance.length];
@@ -241,8 +234,8 @@ public class GameMessage extends Message implements Serializable {
         }
         TowerColor towerColor = s.getTowersColor();
         String unicodeTower = returnCircleUnicodeFromColor(towerColor);
-        if (gameMode == GameMode.NORMAL) System.out.println("Player: " + playerId);
-        else System.out.println("Player: " + playerId + "\t" + playersCoins[playerId] + "\uD83E\uDE99");
+        if (gameMode == GameMode.NORMAL) System.out.println("Player: " + playersNicknames[playerId]);
+        else System.out.println("Player: " + playersNicknames[playerId] + "\t" + playersCoins[playerId] + "\uD83E\uDE99");
         if (numberOfPLayer == 3) {
             if (playerId == 2) {
                 System.out.print("      ╔════════╦═════════════════════════════════╦════╦═══════╗\n" +
@@ -272,7 +265,7 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
-    void printCharacter(Character[] characters) {
+    public void printCharacter(Character[] characters) {
         System.out.println("\n\nCharacters:");
         System.out.println("    0               1                2");
         for (Character c : characters) {
@@ -307,7 +300,7 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
-    String returnCircleUnicodeForColor (PawnColor color) {
+    public String returnCircleUnicodeForColor (PawnColor color) {
         switch (color.getIndex()) {
             case 0:
                 return "\uD83D\uDFE1";
@@ -323,7 +316,7 @@ public class GameMessage extends Message implements Serializable {
         return "";
     }
 
-    String returnCircleUnicodeFromColor (TowerColor color) {
+    public String returnCircleUnicodeFromColor (TowerColor color) {
         switch (color.getIndex()) {
             case 0:
                 return "\u26AA";
