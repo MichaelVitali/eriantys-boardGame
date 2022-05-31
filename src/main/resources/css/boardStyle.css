@@ -1,4 +1,4 @@
-#boardPane {
+.background {
     -fx-background-image: url("/images/sfondoEriantysTagliato.jpg");
     -fx-background-size: stretch;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);

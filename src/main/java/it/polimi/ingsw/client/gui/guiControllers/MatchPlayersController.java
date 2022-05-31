@@ -20,11 +20,6 @@ public class MatchPlayersController extends GuiController{
     @FXML
     Label matchPlayersMessage;
 
-    @FXML
-    Circle entrance1;
-
-    private int studentMoved;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -45,7 +40,7 @@ public class MatchPlayersController extends GuiController{
                 Platform.runLater(new Runnable() {
                                       @Override
                                       public void run() {
-                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/waitingPlayersScene.fxml"));
+                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardSceneTwoPlayers.fxml"));
                                           try {
                                               Parent root = loader.load();
                                               GuiController boardController = loader.getController();
