@@ -1,11 +1,12 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
-import it.polimi.ingsw.controller.message.GameMessage;
-import it.polimi.ingsw.controller.message.Message;
-import it.polimi.ingsw.controller.message.PlayAssistantMessage;
-import it.polimi.ingsw.controller.message.PlayerMessage;
+import it.polimi.ingsw.controller.message.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import jdk.jfr.Event;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,40 +79,97 @@ public class BoardTwoPlayersController extends GuiController {
         //getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId));
     }
 
-    public void myEntrance0click() {
-        studentMoved = 0;
-        state = 1;
+    public void assistantClick(ActionEvent event) {
+        switch(((AnchorPane) event.getSource()).getId()) {
+            case "myEntrance0":
+                studentMoved = 0;
+                state = 1;
+                break;
+            case "myEntrance1":
+                studentMoved = 1;
+                state = 1;
+                break;
+            case "myEntrance2":
+                studentMoved = 2;
+                state = 1;
+                break;
+            case "myEntrance3":
+                studentMoved = 3;
+                state = 1;
+                break;
+            case "myEntrance4":
+                studentMoved = 4;
+                state = 1;
+                break;
+            case "myEntrance5":
+                studentMoved = 5;
+                state = 1;
+                break;
+            case "myEntrance6":
+                studentMoved = 6;
+                state = 1;
+                break;
+            case "myEntrance7":
+                studentMoved = 7;
+                state = 1;
+                break;
+            case "myEntrance8":
+                studentMoved = 8;
+                state = 1;
+                break;
+        }
     }
-    public void myEntrance1click() {
-        studentMoved = 1;
-        state = 1;
-    }
-    public void myEntrance2click() {
-        studentMoved = 2;
-        state = 1;
-    }
-    public void myEntrance3click() {
-        studentMoved = 3;
-    }
-    public void myEntrance4click() {
-        studentMoved = 4;
-        state = 1;
-    }
-    public void myEntrance5click() {
-        studentMoved = 5;
-        state = 1;
-    }
-    public void myEntrance6click() {
-        studentMoved = 6;
-        state = 1;
-    }
-    public void myEntrance7click() {
-        studentMoved = 7;
-        state = 1;
-    }
-    public void myEntrance8click() {
-        studentMoved = 8;
-        state = 1;
+    public void myEntranceClick(ActionEvent event) {
+        switch(((Circle) event.getSource()).getId()) {
+            case "myEntrance0":
+                studentMoved = 0;
+                state = 1;
+                break;
+            case "myEntrance1":
+                studentMoved = 1;
+                state = 1;
+                break;
+            case "myEntrance2":
+                studentMoved = 2;
+                state = 1;
+                break;
+            case "myEntrance3":
+                studentMoved = 3;
+                state = 1;
+                break;
+            case "myEntrance4":
+                studentMoved = 4;
+                state = 1;
+                break;
+            case "myEntrance5":
+                studentMoved = 5;
+                state = 1;
+                break;
+            case "myEntrance6":
+                studentMoved = 6;
+                state = 1;
+                break;
+            case "myEntrance7":
+                studentMoved = 7;
+                state = 1;
+                break;
+            case "myEntrance8":
+                studentMoved = 8;
+                state = 1;
+                break;
+        }
     }
 
+    public void myTablesClick(ActionEvent event) {
+        if (state == 1) {
+            getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
+        }
+        state = 0;
+    }
+
+    public void islandClick(ActionEvent event) {
+        if (state == 1) {
+            getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
+        }
+    }
 }

@@ -71,6 +71,7 @@ public class MatchPlayersController extends GuiController{
                 //Errore server
             }
         } else if (message instanceof GameMessage) {
+            System.out.println("Pordca traodsfngaffnv");
             Platform.runLater(new Runnable() {
                                   @Override
                                   public void run() {

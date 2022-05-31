@@ -7,22 +7,24 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane prefHeight="850.0" prefWidth="1750.0" styleClass="background" stylesheets="@../css/boardStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.guiControllers.BoardTwoPlayersController">
+<BorderPane prefHeight="900" prefWidth="1400"  styleClass="background" stylesheets="@../css/boardStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.guiControllers.BoardTwoPlayersController">
    <right>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="258.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="600.0" fitWidth="258.0" styleClass="boards">
+            <ImageView fx:id="myBoard" fitHeight="600.0" fitWidth="258.0" styleClass="boards">
                <image>
                   <Image url="@../images/Board/schoolboardVertical.png" />
                </image>
             </ImageView>
-            <Circle fx:id="myEntrance1" fill="DODGERBLUE" layoutX="47.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="129.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="171.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="171.0" layoutY="532.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="532.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="129.0" layoutY="532.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance0" layoutX="46.0" layoutY="532.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance1" layoutX="88.0" layoutY="568.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance2" layoutX="129.0" layoutY="568.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance3" layoutX="171.0" layoutY="568.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance4" layoutX="171.0" layoutY="532.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance5" layoutX="88.0" layoutY="532.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance6" layoutX="129.0" layoutY="532.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance7" layoutX="215.0" layoutY="532.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="myEntrance8" layoutX="215.0" layoutY="568.0" radius="12.0" onMouseClicked="#myEntranceClick" stroke="BLACK" strokeType="INSIDE" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -30,20 +32,26 @@
       </AnchorPane>
    </right>
    <left>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="258.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="258.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="600.0" fitWidth="258.0" styleClass="boards">
+            <ImageView fitHeight="600.0" fitWidth="258.0" layoutY="34.0" styleClass="boards">
                <image>
                   <Image url="@../images/Board/schoolboardVertical.png" />
                </image>
             </ImageView>
-            <Circle fx:id="entrance1" fill="DODGERBLUE" layoutX="47.0" layoutY="568.0" onMouseClicked="#myEntrance1click" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="129.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="171.0" layoutY="568.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="171.0" layoutY="532.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="532.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="DODGERBLUE" layoutX="129.0" layoutY="532.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+            <AnchorPane layoutY="548.0" prefHeight="86.0" prefWidth="258.0">
+               <children>
+                  <Circle fx:id="entrance0" layoutX="45.0" layoutY="26.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance2" layoutX="87.0" layoutY="26.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance4" layoutX="129.0" layoutY="26.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance6" layoutX="171.0" layoutY="26.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance8" layoutX="213.0" layoutY="26.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance1" layoutX="87.0" layoutY="59.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance3" layoutX="129.0" layoutY="59.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance5" layoutX="171.0" layoutY="59.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="entrance7" layoutX="213.0" layoutY="59.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

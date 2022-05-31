@@ -23,13 +23,7 @@ public class WaitingController extends GuiController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            setClient(new Client(ClientApp.ip, ClientApp.port));
-            new Thread(getClient()).start();
-            getClient().addObserver(this);
-        } catch (Exception e) {
-            System.out.println("Unable to connect to the server");
-        }
+
     }
 
     @Override
