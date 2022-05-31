@@ -32,7 +32,6 @@ public class GuiClient extends Application {
         stage.setTitle("Eriantys");
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        //stage.setFullScreen(true);
         stage.setResizable(true);
         stage.getIcons().add(new Image("/images/BLLoghi.png"));
         GuiController loginController = loader.getController();

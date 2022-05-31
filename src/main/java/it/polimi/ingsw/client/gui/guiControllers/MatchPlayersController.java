@@ -15,7 +15,6 @@ import javafx.scene.shape.Circle;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class MatchPlayersController extends GuiController{
 
@@ -38,7 +37,8 @@ public class MatchPlayersController extends GuiController{
             if (setupMessage.getConnectionState() == ConnectionState.NUMBEROFPLAYERS) {
                 Platform.runLater(new Runnable() {
                                       @Override
-                                      public void run() {matchPlayersMessage.setText(setupMessage.getMessage());
+                                      public void run() {
+                                          matchPlayersMessage.setText(setupMessage.getMessage());
                                       }
                                   }
                 );
@@ -71,6 +71,7 @@ public class MatchPlayersController extends GuiController{
                 //Errore server
             }
         } else if (message instanceof GameMessage) {
+            System.out.println("Pordca traodsfngaffnv");
             Platform.runLater(new Runnable() {
                                   @Override
                                   public void run() {
