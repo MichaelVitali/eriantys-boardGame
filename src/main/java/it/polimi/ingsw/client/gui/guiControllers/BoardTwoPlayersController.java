@@ -3,11 +3,13 @@ package it.polimi.ingsw.client.gui.guiControllers;
 import it.polimi.ingsw.controller.message.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import jdk.jfr.Event;
 
+import javax.swing.*;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -52,6 +54,8 @@ public class BoardTwoPlayersController extends GuiController {
     Circle entrance7;
     @FXML
     Circle entrance8;
+
+    ImageView assistantImage;
 
     private int myPlayerId;
     private int studentMoved;
@@ -171,5 +175,13 @@ public class BoardTwoPlayersController extends GuiController {
         if (state == 1) {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
         }
+    }
+
+    public void showAssistant(ActionEvent event) {
+        /*String idAssistant = ((Circle) event.getSource()).getId();
+        String imagePath = "/images/Assistant/" + idAssistant;
+        System.out.println(imagePath);
+        Image assistantImage = new Image(imagePath);*/
+        //System.out.println("CIAO BELLO");
     }
 }
