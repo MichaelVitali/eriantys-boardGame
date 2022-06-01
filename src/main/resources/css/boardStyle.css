@@ -12,7 +12,13 @@
     /*-fx-shape: "M 600 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 600 300";*/
     -fx-background-radius: 12;
     -fx-border-radius: 10;
-    -fx-background-color: "red";
+    -fx-background-color: "gray";
+}
+
+.assistantButton {
+    -fx-background-radius: 12;
+    -fx-border-radius: 10;
+    -fx-background-color: "transparent";
 }
 
 .studentsImage {

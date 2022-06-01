@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -37,6 +38,8 @@ public class BoardTwoPlayersController extends GuiController {
     @FXML Button student41; @FXML Button student42; @FXML Button student43; @FXML Button student44; @FXML Button student45; @FXML Button student46; @FXML Button student47; @FXML Button student48; @FXML Button student49;
     @FXML Button island0; @FXML Button island1; @FXML Button island2; @FXML Button island3; @FXML Button island4; @FXML Button island5; @FXML Button island6; @FXML Button island7; @FXML Button island8; @FXML Button island9; @FXML Button island10; @FXML Button island11;
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
+    @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
+    @FXML ImageView assistantImage;
 
     private Map<String, ImageView> enemyTables;
     private Map<String, ImageView> enemyEntrance;
@@ -44,7 +47,7 @@ public class BoardTwoPlayersController extends GuiController {
     private Map<String, Button> myEntrance;
 
     private GameMessage board;
-
+/*
     @FXML
     Button myEntrance0;
     @FXML
@@ -85,7 +88,7 @@ public class BoardTwoPlayersController extends GuiController {
     Label entrance8;
 
     @FXML
-    Button island0;
+    Button island0;*/
     /*@FXML
     Button island1;
     @FXML
@@ -109,14 +112,12 @@ public class BoardTwoPlayersController extends GuiController {
     @FXML
     Button island11;*/
 
-    @FXML
+    /*@FXML
     Button player2;
     @FXML
     Button player3;
     @FXML
-    Button player4;
-
-    ImageView assistantImage;
+    Button player4;*/
 
     private int myPlayerId;
     private int studentMoved;
@@ -437,11 +438,57 @@ public class BoardTwoPlayersController extends GuiController {
         System.out.println("mano");
     }
 
-    public void showAssistant(ActionEvent event) {
-        /*String idAssistant = ((Circle) event.getSource()).getId();
-        String imagePath = "/images/Assistant/" + idAssistant;
-        System.out.println(imagePath);
-        Image assistantImage = new Image(imagePath);*/
-        //System.out.println("CIAO BELLO");
+    public void showAssistant(MouseEvent event) {
+        String idAssistant = ((Button) event.getSource()).getId();
+        String imagePath = "/images/Assistant/";
+        switch (idAssistant) {
+            case "assistant1":
+                imagePath += "assistant0.png";
+                break;
+            case "assistant2":
+                imagePath += "assistant1.png";
+                break;
+            case "assistant3":
+                imagePath += "assistant2.png";
+                break;
+            case "assistant4":
+                imagePath += "assistant3.png";
+                break;
+            case "assistant5":
+                imagePath += "assistant4.png";
+                break;
+            case "assistant6":
+                imagePath += "assistant5.png";
+                break;
+            case "assistant7":
+                imagePath += "assistant6.png";
+                break;
+            case "assistant8":
+                imagePath += "assistant7.png";
+                break;
+            case "assistant9":
+                imagePath += "assistant8.png";
+                break;
+            case "assistant10":
+                imagePath += "assistant9.png";
+                break;
+        }
+        Image imageAssistant = new Image(imagePath);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                assistantImage.setImage(imageAssistant);
+                assistantImage.setVisible(true);
+            }
+        });
     }
+    public void removeShowAssistant(MouseEvent event) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                assistantImage.setVisible(false);
+            }
+        });
+    }
+
 }
