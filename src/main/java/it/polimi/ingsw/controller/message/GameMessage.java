@@ -14,7 +14,7 @@ public class GameMessage extends Message implements Serializable {
     private GameTable gametable;
     private List<Assistant> assistants;
     private int playerOnTurn;
-    private int numberOfPLayer;
+    private int numberOfPLayers;
     private GameMode gameMode;
     private boolean alreadyPlayedCharacter;
     private SchoolBoard[] schoolBoards;
@@ -28,7 +28,7 @@ public class GameMessage extends Message implements Serializable {
         gametable = model.getGameTable();
         assistants = model.getPlayerAssistant(playerId);
         playerOnTurn = model.getRound().getPlayerOnTurn();
-        numberOfPLayer = model.getNumberOfPlayers();
+        numberOfPLayers = model.getNumberOfPlayers();
         gameMode = model.getGameMode();
         alreadyPlayedCharacter = model.getRound().getAlreadyPLayedCharacter();
         schoolBoards = model.getGameTable().getSchoolBoards();
@@ -38,6 +38,10 @@ public class GameMessage extends Message implements Serializable {
         }
         else characters = null;
         playersNicknames = model.getPlayersNicknames();
+    }
+
+    public int getNumberOfPLayers() {
+        return numberOfPLayers;
     }
 
     public GameTable getGametable() {
@@ -59,8 +63,6 @@ public class GameMessage extends Message implements Serializable {
     public String getPlayerMessage() {
         return playerMessage;
     }
-
-
 
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
@@ -236,7 +238,7 @@ public class GameMessage extends Message implements Serializable {
         String unicodeTower = returnCircleUnicodeFromColor(towerColor);
         if (gameMode == GameMode.NORMAL) System.out.println("Player: " + playersNicknames[playerId]);
         else System.out.println("Player: " + playersNicknames[playerId] + "\t" + playersCoins[playerId] + "\uD83E\uDE99");
-        if (numberOfPLayer == 3) {
+        if (numberOfPLayers == 3) {
             if (playerId == 2) {
                 System.out.print("      ╔════════╦═════════════════════════════════╦════╦═══════╗\n" +
                         "0 - 1 ║ " + ((color[0] != null) ? returnCircleUnicodeForColor(color[0]) : "  ") + "  " + ((color[1] != null) ? returnCircleUnicodeForColor(color[1]) : "  ") + " ║ " + ((1 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((2 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((3 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((4 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((5 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((6 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((7 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((8 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((9 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + ((10 <= s.getNumberOfStudentsOnTable(PawnColor.YELLOW)) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " " + "  ║ " + (s.getProfessors().contains(PawnColor.YELLOW) ? returnCircleUnicodeForColor(PawnColor.YELLOW) : "  ") + " ║ " + (1 <= s.getTowers().size() ? unicodeTower : " ") + "  " + (2 <= s.getTowers().size() ? unicodeTower : " ") + "  ║\n" +

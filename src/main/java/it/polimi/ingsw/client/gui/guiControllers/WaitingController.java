@@ -43,6 +43,8 @@ public class WaitingController extends GuiController {
                                           getClient().addObserver(boardController);
                                           boardController.setClient(getClient());
                                           boardController.getStage().setScene(boardController.getScene());
+                                          ((BoardTwoPlayersController) boardController).setBoard((GameMessage) message);
+                                          ((BoardTwoPlayersController) boardController).adaptSceneToPlayers();
                                           boardController.getStage().show();
                                       } catch(IOException e) {
                                           //Errore, spero non capiti
