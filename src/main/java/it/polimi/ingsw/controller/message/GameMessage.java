@@ -21,6 +21,7 @@ public class GameMessage extends Message implements Serializable {
     private Character[] characters;
     private int[] playersCoins;
     private String[] playersNicknames;
+
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
