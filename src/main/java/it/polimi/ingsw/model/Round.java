@@ -91,8 +91,10 @@ public class Round implements Serializable {
     }
 
     public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
+        System.out.println("messaggio da " + playerId);
         if(playerOrder[indexOfPlayerOnTurn] != playerId) {
             setPlayerMessage(playerId, "You are not the current player");
+            game.sendGame();
             throw new PlayerNotOnTurnException();
         }
     }
@@ -133,6 +135,7 @@ public class Round implements Serializable {
     }
 
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {
+        System.out.println("metodo chiamato indice " + methodId);
         if (methodId != roundState) throw new InvalidMethodException();
     }
 
