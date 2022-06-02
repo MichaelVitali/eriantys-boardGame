@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
 import it.polimi.ingsw.controller.message.*;
+import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.SchoolBoard;
 import it.polimi.ingsw.model.Student;
@@ -19,9 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class BoardController extends GuiController {
 
@@ -53,7 +52,7 @@ public class BoardController extends GuiController {
 
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
 
-    @FXML ImageView assistantImage;
+    @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
 
 
     private Map<String, Button> myTables;
@@ -316,11 +315,14 @@ public class BoardController extends GuiController {
 
     public void displayBoard(int playerOffset) {
         System.out.println("displayBoard");
+        System.out.println("Player: " + board.getPlayerOnTurn());
+        System.out.println(board.getPlayerMessage());
         System.out.println(playerOffset);
         displayEnemySchoolboard(playerOffset);
         displayMySchoolboard();
         displayIslands();
         displayClouds();
+        displayAssistants();
     }
 
     public void changeBoard(ActionEvent event) {
@@ -412,8 +414,40 @@ public class BoardController extends GuiController {
                 state = 1;
                 break;
         }*/
-
-        getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, myPlayerId));
+        int indexCard = 0;
+        switch(((Button) event.getSource()).getId()) {
+            case "assistant1":
+                indexCard = 0;
+                break;
+            case "assistant2":
+                indexCard = 1;
+                break;
+            case "assistant3":
+                indexCard = 2;
+                break;
+            case "assistant4":
+                indexCard = 3;
+                break;
+            case "assistant5":
+                indexCard = 4;
+                break;
+            case "assistant6":
+                indexCard = 5;
+                break;
+            case "assistant7":
+                indexCard = 6;
+                break;
+            case "assistant8":
+                indexCard = 7;
+                break;
+            case "assistant9":
+                indexCard = 8;
+                break;
+            case "assistant10":
+                indexCard = 9;
+                break;
+        }
+        getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
         System.out.println("Inviato messaggio PlayAssistantMessage");
     }
 
@@ -569,6 +603,129 @@ public class BoardController extends GuiController {
                 assistantImage.setVisible(false);
             }
         });
+    }
+
+    private void displayAssistants() {
+        List<Integer> assistantNotPlayed = new ArrayList<>();
+        for (Assistant as : board.getAssistants()) assistantNotPlayed.add(as.getCardValue());
+        for (int i = 1; i <= 10; i++) {
+            String imagePath = "/images/Assistant/buttonAssistantB&W";
+            Image imageBW;
+            if (!assistantNotPlayed.contains(i)) {
+                switch (i) {
+                    case 1:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant1Image.setImage(imageBW);
+                                assistant1.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 2:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant2Image.setImage(imageBW);
+                                assistant2.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 3:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant3Image.setImage(imageBW);
+                                assistant3.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 4:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant4Image.setImage(imageBW);
+                                assistant4.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 5:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant5Image.setImage(imageBW);
+                                assistant5.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 6:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant6Image.setImage(imageBW);
+                                assistant6.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 7:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant7Image.setImage(imageBW);
+                                assistant7.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 8:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant8Image.setImage(imageBW);
+                                assistant8.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 9:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant9Image.setImage(imageBW);
+                                assistant9.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                    case 10:
+                        imagePath += i + ".png";
+                        imageBW = new Image(imagePath);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                assistant10Image.setImage(imageBW);
+                                assistant10.setMouseTransparent(true);
+                            }
+                        });
+                        break;
+                }
+            }
+        }
     }
 
 }

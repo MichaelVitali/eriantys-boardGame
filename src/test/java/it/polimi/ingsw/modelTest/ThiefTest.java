@@ -36,8 +36,8 @@ public class ThiefTest {
         round.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
         round = character.activateEffect(0, round);
         character.doYourJob(0, 0);
-        assertEquals(1, round.getGame().getGameTable().getSchoolBoards()[0].getNumberOfStudentsOnTable(PawnColor.YELLOW));
-        assertEquals(0, round.getGame().getGameTable().getSchoolBoards()[1].getNumberOfStudentsOnTable(PawnColor.YELLOW));
+        assertEquals(4, round.getGame().getGameTable().getSchoolBoards()[0].getNumberOfStudentsOnTable(PawnColor.YELLOW));
+        assertEquals(2, round.getGame().getGameTable().getSchoolBoards()[1].getNumberOfStudentsOnTable(PawnColor.YELLOW));
     }
 
     @Test

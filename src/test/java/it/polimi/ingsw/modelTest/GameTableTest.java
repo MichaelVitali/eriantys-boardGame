@@ -97,7 +97,7 @@ public class GameTableTest {
 
         gameTable.getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.RED));
         gameTable.moveProfessorToTheRightPosition(PawnColor.RED);
-        assertEquals(gameTable.getSchoolBoards()[1].getProfessors().get(1), PawnColor.RED);
+        assertEquals(gameTable.getSchoolBoards()[1].getProfessors().get(1), PawnColor.YELLOW);
         assertEquals(2, gameTable.getSchoolBoards()[1].getProfessors().size());
     }
 

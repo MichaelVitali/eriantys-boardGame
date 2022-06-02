@@ -47,9 +47,9 @@ public class MinstrelTest {
         character.doYourJob(1,1);
         character.doYourJob(1,2);
 
-        assertEquals(entrance[0].getColor(), PawnColor.YELLOW);
-        assertEquals(entrance[1].getColor(), PawnColor.BLUE);
-        assertEquals(entrance[2].getColor(), PawnColor.GREEN);
+        assertEquals(entrance[0].getColor(), PawnColor.GREEN);
+        assertEquals(entrance[1].getColor(), PawnColor.RED);
+        assertEquals(entrance[2].getColor(), PawnColor.YELLOW);
         for (int i = 0; i < 3; i++) {
             assertEquals(character.getGame().getGameTable().getSchoolBoards()[1].getNumberOfStudentsOnTable(i), 1);
         }
