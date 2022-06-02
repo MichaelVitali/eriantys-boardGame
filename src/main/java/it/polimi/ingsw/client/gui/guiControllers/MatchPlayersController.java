@@ -74,7 +74,7 @@ public class MatchPlayersController extends GuiController{
             Platform.runLater(new Runnable() {
                                   @Override
                                   public void run() {
-                                      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardSceneTwoPlayers.fxml"));
+                                      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardPlayers.fxml"));
                                       try {
                                           Parent root = loader.load();
                                           GuiController boardController = loader.getController();
@@ -85,8 +85,8 @@ public class MatchPlayersController extends GuiController{
                                           getClient().addObserver(boardController);
                                           boardController.setClient(getClient());
                                           boardController.getStage().setScene(boardController.getScene());
-                                          ((BoardTwoPlayersController) boardController).setBoard((GameMessage) message);
-                                          ((BoardTwoPlayersController) boardController).adaptSceneToPlayers();
+                                          ((BoardController) boardController).setBoard((GameMessage) message);
+                                          ((BoardController) boardController).adaptSceneToPlayers();
                                           boardController.getStage().show();
                                       } catch(IOException e) {
                                           //Errore, spero non capiti

@@ -9,10 +9,9 @@
 }
 
 .studentsButton {
-    /*-fx-shape: "M 600 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 600 300";*/
     -fx-background-radius: 12;
     -fx-border-radius: 10;
-    -fx-background-color: "gray";
+    -fx-background-color: "transparent";
 }
 
 .assistantButton {
@@ -22,7 +21,6 @@
 }
 
 .studentsImage {
-    /*-fx-shape: "M 600 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 600 300";*/
     -fx-background-radius: 12;
     -fx-border-radius: 10;
 }
@@ -30,5 +28,5 @@
 .islands {
     -fx-background-radius: 12;
     -fx-border-radius: 10;
-    -fx-background-color: "green";
+    -fx-background-color: "transparent";
 }
