@@ -200,7 +200,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="21.0">
                      <image>
-                        <Image url="@../images/verde.jpg" />
+                        <Image url="@../images/verde.png" />
                      </image>
                   </ImageView>
                </graphic>
