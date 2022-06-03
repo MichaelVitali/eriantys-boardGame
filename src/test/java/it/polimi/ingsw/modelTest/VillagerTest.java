@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class VillagerTest {
 
-    private Villager character = new Villager(1, 0, "Villager");
+    private Villager character = new Villager(1, 0);
     private Round round;
 
     @Before
@@ -26,7 +26,7 @@ public class VillagerTest {
     }
 
     @Test
-    public void testDoYourJob() throws InvalidIndexException, EffectCannotBeActivatedException {
+    public void testDoYourJob() throws InvalidIndexException {
 
         round.getGame().getGameTable().addStudentOnIsland(new Student(PawnColor.YELLOW), 0);
         round.getGame().getGameTable().addStudentOnIsland(new Student(PawnColor.YELLOW), 0);

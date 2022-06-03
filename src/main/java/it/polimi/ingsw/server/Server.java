@@ -23,6 +23,7 @@ public class Server {
     private int nextMatchId;
     private List<Match> pendingMatches = new ArrayList<>();
     private List<Match> runningMatches = new ArrayList<>();
+    private boolean wizardsHasBeenChosen = false;
 
     /**
      * Creates a server instance with a server socket accepting connection on port 40000
@@ -51,6 +52,41 @@ public class Server {
         }
     }
 
+    private void startGame(Match match){
+
+        View[] playerView = new RemoteView[match.getNumberOfPlayers()];
+        for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+            playerView[i] = new RemoteView(i, match.getPlayerNicknames().get(i), match.getSockets().get(i));
+        }
+        for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+            System.out.println("Player : " + i + " " + match.getPlayerNicknames().get(i) + " " + match.getSockets().get(i).toString());
+        }
+        System.out.println(match.getGameMode());
+        Game model;
+        if (match.getGameMode() == GameMode.NORMAL)
+            model = new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());
+        else
+            model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
+
+        Controller controller = new Controller(model);
+
+        match.setModel(model);
+
+        for (int i = 0; i < match.getNumberOfPlayers(); i++) {
+            model.addObserver(playerView[i]);
+            playerView[i].addObserver(controller);
+
+            GameMessage displayedBoard = new GameMessage(model, i);
+            match.getSockets().get(i).send(displayedBoard);
+        }
+
+        System.out.println("The match " + match.getMatchId() + " starts");
+        System.out.println("The starting order of match " + match.getMatchId() + " is " + model.getRound().getPlayerOrder().toString());
+
+        runningMatches.add(match);
+        pendingMatches.remove(match);
+    }
+
     /**
      *
      * @param clientConnection
@@ -66,55 +102,40 @@ public class Server {
         } else {
             match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
-
-                View[] playerView = new RemoteView[match.getNumberOfPlayers()];
-                for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-                    playerView[i] = new RemoteView(i, match.getPlayerNicknames().get(i), match.getSockets().get(i));
+                String availableWizards = "Choose your Wizard: \n";
+                for (Wizard w : Wizard.values()) {
+                    if (!match.getAlreadyChosenWizards().contains(w))
+                        availableWizards += "- " + w.toString() + "\n";
                 }
-                for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-                    System.out.println("Player : " + i + " " + match.getPlayerNicknames().get(i) + " " + match.getSockets().get(i).toString());
-                }
-                System.out.println(match.getGameMode());
-                Game model;
-                if (match.getGameMode() == GameMode.NORMAL)
-                    model = new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());
-                else
-                    model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
+                match.getSockets().get(0).send(new SetupMessage(ConnectionState.WIZARDS, availableWizards));
 
-                Controller controller = new Controller(model);
-
-                List<Wizard> wizards = new ArrayList();
-                for(Wizard wizard : Wizard.values()) {
-                    wizards.add(wizard);
-                    System.out.println(wizard);
-                }
-                for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-                    model.addObserver(playerView[i]);
-                    playerView[i].addObserver(controller);
-                    String wizardString = "";
-                    for(Wizard wizard : wizards)
-                        wizardString += (wizard.toString() + " ");
-                    /*boolean hasWizardbeenChosen = false;
-                    do {
-                        match.getSockets().get(i).send(new SetupMessage(ConnectionState.WIZARDS, "Choose your wizard to play Eriantys\nEnter the color : " + wizardString));
-                        Object buffer = match.getSockets().get(i).receive();
-                        if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.WIZARDS && Wizard.getWizardFromString(((SetupMessage) buffer).getMessage()) != null) {
-                            model.getPlayer(i).setWizard(Wizard.getWizardFromString(((SetupMessage) buffer).getMessage()));
-                            wizards.remove(Wizard.getWizardFromString(((SetupMessage) buffer).getMessage()));
-                            hasWizardbeenChosen = true;
-                            System.out.println("Ciao");
-                        }
-                    } while(!hasWizardbeenChosen);*/
-                    GameMessage displayedBoard = new GameMessage(model, i);
-                    match.getSockets().get(i).send(displayedBoard);
-                }
-
-                System.out.println("The match " + match.getMatchId() + " starts");
-                System.out.println("The starting order of match " + match.getMatchId() + " is " + model.getRound().getPlayerOrder().toString());
-                runningMatches.add(match);
-                pendingMatches.remove(match);
             } else {
                 clientConnection.send(new SetupMessage(ConnectionState.SUCCESS, "The configuration is done. Get ready to play..."));
+            }
+        }
+    }
+
+    public synchronized void chooseWizard(SetupMessage message, ClientConnection clientConnection){
+        Match match = getMyMatch(clientConnection);
+        System.out.println("Sono in chooseWizard");
+        if (match.getAlreadyChosenWizards().size() == match.getNumberOfPlayers())
+            startGame(match);
+        else {
+            String availableWizards = "Choose your Wizard: \n";
+            if (match.assertValidWizard(Wizard.getWizardFromString(message.getMessage()))) {
+                    match.getAlreadyChosenWizards().add(Wizard.getWizardFromString(message.getMessage()));
+                for (Wizard w : Wizard.values()) {
+                    if (!match.getAlreadyChosenWizards().contains(w))
+                        availableWizards += "- " + w.toString() + "\n";
+                }
+
+                match.getSockets().get(match.getAlreadyChosenWizards().size()).send(new SetupMessage(ConnectionState.WIZARDS, availableWizards));
+            } else {
+                for (Wizard w : Wizard.values()) {
+                    if (!match.getAlreadyChosenWizards().contains(w))
+                        availableWizards += "- " + w.toString() + "\n";
+                }
+                match.getSockets().get(match.getAlreadyChosenWizards().size()).send(new SetupMessage(ConnectionState.WIZARDS, "Error : you are not sending the correct information. " + availableWizards));
             }
         }
     }
@@ -134,15 +155,15 @@ public class Server {
         return null;
     }
 
-    public int getMyMatch(ClientConnection clientSocketConnection) {
-        int matchId = -1;
-        for (Match match : runningMatches) {
-            if (match.getSockets().contains(clientSocketConnection)) {
-                matchId = match.getMatchId();
-            }
-        }
-        return matchId;
+
+    public Match getMyMatch(ClientConnection clientSocketConnection){
+        Match myMatch = null;
+        for (Match m : runningMatches)
+            if (m.getSockets().contains(clientSocketConnection))
+                myMatch = m.getMatch();
+        return myMatch;
     }
+
     public int getMyId(ClientConnection clientSocketConnection) {
         int playerId = -1;
         for (Match match : runningMatches) {

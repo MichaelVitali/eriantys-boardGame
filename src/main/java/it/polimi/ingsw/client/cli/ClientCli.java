@@ -140,9 +140,6 @@ public class ClientCli {
                                             case 6:
                                                 playerMessage = new DoYourJobMessage(playerId, playerParameter);
                                                 break;
-                                            case 10:
-                                                playerMessage = new ChooseWizardMessage(playerId, playerParameter);
-                                                break;
                                         }
                                     }
                                 }
