@@ -72,6 +72,6 @@ public class MatchModeController extends GuiController {
     }
 
     public void expertMode() {
-        getClient().asyncWriteToSocket(new SetupMessage(ConnectionState.MATCHMODE, "0"));
+        getClient().asyncWriteToSocket(new SetupMessage(ConnectionState.MATCHMODE, "1"));
     }
 }

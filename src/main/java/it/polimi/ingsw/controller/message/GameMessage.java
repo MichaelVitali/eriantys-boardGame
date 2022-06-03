@@ -36,9 +36,12 @@ public class GameMessage extends Message implements Serializable {
         if (gameMode == GameMode.EXPERT) {
             characters = ((ExpertGame) model).getCharacters();
             playersCoins = ((ExpertGame) model).getPlayersCoins();
-        }
-        else characters = null;
+        } else characters = null;
         playersNicknames = model.getPlayersNicknames();
+    }
+
+    public Character[] getCharacters() {
+        return characters;
     }
 
     public int getNumberOfPLayers() {

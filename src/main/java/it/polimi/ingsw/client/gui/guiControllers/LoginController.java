@@ -13,8 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +25,7 @@ public class LoginController extends GuiController {
     private Label nicknameMessage;
     @FXML
     private TextField nicknameBucket;
+    private Font labelFont;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

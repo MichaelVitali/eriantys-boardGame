@@ -372,7 +372,7 @@
                <ImageView fitHeight="60.0" fitWidth="55.0" layoutX="569.0" layoutY="367.0">
                   <Image url="@../images/island_prova.png" />
                </ImageView>
-                  <ImageView fx:id="motherNature" fitHeight="42.0" fitWidth="22.0" layoutX="145.0" layoutY="298.0" onMousePressed="#dragMotherNature" onMouseDragged="#moveMotherNature" onMouseReleased="#dropMotherNature" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="motherNature" fitHeight="42.0" fitWidth="22.0" layoutX="145.0" layoutY="298.0" onMouseDragged="#moveMotherNature" onMousePressed="#dragMotherNature" onMouseReleased="#dropMotherNature" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/BLLoghi.png" />
                      </image>
@@ -383,76 +383,97 @@
       </BorderPane>
    </center>
    <bottom>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="147.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="assistant1" layoutX="40.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="character1" layoutX="110.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
                <graphic>
-                  <ImageView fx:id="assistant1Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="110.0" layoutY="-55.0">
+                     <Image url="@../images/Personaggi/character1.jpg" />
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="character2" layoutX="320.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+                    <graphic>
+                       <ImageView fx:id="character2Image" fitHeight="125.0" fitWidth="100.0" layoutX="320.0" layoutY="-55.0">
+                          <Image url="@../images/Personaggi/character2.jpg" />
+                       </ImageView>
+                    </graphic>
+            </Button>
+            <Button fx:id="character3" layoutX="530.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+               <graphic>
+                  <ImageView fx:id="character3Image" fitHeight="125.0" fitWidth="100.0" layoutX="530.0" layoutY="-55.0">
+                     <Image url="@../images/Personaggi/character3.jpg" />
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="assistant1" layoutX="40.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+               <graphic>
+                  <ImageView fx:id="assistant1Image" fitHeight="60.0" fitWidth="55.0" layoutX="40.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant1.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant2" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant2" layoutX="110.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant2Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="assistant2Image" fitHeight="60.0" fitWidth="55.0" layoutX="110.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant2.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant3" layoutX="180.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant3" layoutX="180.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant3Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="assistant3Image" fitHeight="60.0" fitWidth="55.0" layoutX="180.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant3.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant4" layoutX="250.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant4" layoutX="250.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant4Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="assistant4Image" fitHeight="60.0" fitWidth="55.0" layoutX="250.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant4.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant5" layoutX="320.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant5" layoutX="320.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant5Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="assistant5Image" fitHeight="60.0" fitWidth="55.0" layoutX="320.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant5.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant6" layoutX="390.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant6" layoutX="390.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant6Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="assistant6Image" fitHeight="60.0" fitWidth="55.0" layoutX="390.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant6.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant7" layoutX="460.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant7" layoutX="460.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant7Image" fitHeight="60.0" fitWidth="55.0">
+                  <ImageView fx:id="assistant7Image" fitHeight="60.0" fitWidth="55.0" layoutX="460.0" layoutY="80.0">
                      <Image url="@../images/Assistant/buttonAssistant7.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant8" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant8" layoutX="530.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant8Image" fitHeight="60.0" fitWidth="55.0">
-                     <Image url="@../images/Assistant/buttonAssistant8.png" />
-                  </ImageView>
+               <ImageView fx:id="assistant8Image" fitHeight="60.0" fitWidth="55.0" layoutX="530.0" layoutY="80.0">
+                  <Image url="@../images/Assistant/buttonAssistant8.png" />
+               </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant9" layoutX="600.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant9" layoutX="600.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant9Image" fitHeight="60.0" fitWidth="55.0">
-                     <Image url="@../images/Assistant/buttonAssistant9.png" />
-                  </ImageView>
+               <ImageView fx:id="assistant9Image" fitHeight="60.0" fitWidth="55.0" layoutX="600.0" layoutY="80.0">
+                  <Image url="@../images/Assistant/buttonAssistant9.png" />
+               </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assistant10" layoutX="670.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
+            <Button fx:id="assistant10" layoutX="670.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#assistantClick" onMouseEntered="#showAssistant" onMouseExited="#removeShowAssistant" styleClass="assistantButton">
                <graphic>
-                  <ImageView fx:id="assistant10Image" fitHeight="60.0" fitWidth="55.0">
-                     <Image url="@../images/Assistant/buttonAssistant10.png" />
-                  </ImageView>
+               <ImageView fx:id="assistant10Image" fitHeight="60.0" fitWidth="55.0" layoutX="670.0" layoutY="80.0">
+                  <Image url="@../images/Assistant/buttonAssistant10.png" />
+               </ImageView>
                </graphic>
             </Button>
          </children>

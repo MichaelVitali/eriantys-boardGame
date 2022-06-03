@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
 import it.polimi.ingsw.controller.message.*;
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.SchoolBoard;
-import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -47,14 +44,11 @@ public class BoardController extends GuiController {
     @FXML ImageView studentImage40; @FXML ImageView studentImage41; @FXML ImageView studentImage42; @FXML ImageView studentImage43; @FXML ImageView studentImage44; @FXML ImageView studentImage45; @FXML ImageView studentImage46; @FXML ImageView studentImage47; @FXML ImageView studentImage48; @FXML ImageView studentImage49;
 
     @FXML Button island0; @FXML Button island1; @FXML Button island2; @FXML Button island3; @FXML Button island4; @FXML Button island5; @FXML Button island6; @FXML Button island7; @FXML Button island8; @FXML Button island9; @FXML Button island10; @FXML Button island11;
-
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
-
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
-
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
-
     @FXML ImageView motherNature;
+    @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
@@ -334,6 +328,7 @@ public class BoardController extends GuiController {
         displayIslands();
         displayClouds();
         displayAssistants();
+        displayCharacter();
         setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -753,4 +748,63 @@ public class BoardController extends GuiController {
         }
     }
 
+    private void displayCharacter() {
+        if (board.getGameMode() == GameMode.NORMAL) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    character1.setVisible(false);
+                    character1Image.setVisible(false);
+                    coin1.setVisible(false);
+                    character2.setVisible(false);
+                    character2Image.setVisible(false);
+                    coin2.setVisible(false);
+                    character2.setVisible(false);
+                    character2Image.setVisible(false);
+                    coin2.setVisible(false);
+                }
+            });
+        } else {
+            for (int i = 0; i < 3; i++) {
+                String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
+                Image image = new Image(path);
+                switch (i) {
+                    case 1:
+                        character1Image.setImage(image);
+                        break;
+                    case 2:
+                        character2Image.setImage(image);
+                        break;
+                    case 3:
+                        character3Image.setImage(image);
+                        break;
+                }
+            }
+        }
+    }
+
+    /*private void showCharacterEffect(MouseEvent event) {
+
+    }
+
+    private void removeShowCharacterEffect(MouseEvent event) {
+
+    }*/
+
+    public void playCharacter(MouseEvent event) {
+        int indexCard = 0;
+        switch(((Button) event.getSource()).getId()) {
+            case "character1":
+                indexCard = 0;
+                break;
+            case "character2":
+                indexCard = 1;
+                break;
+            case "character3":
+                indexCard = 2;
+                break;
+        }
+        getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
+        System.out.println("Character played");
+    }
 }
