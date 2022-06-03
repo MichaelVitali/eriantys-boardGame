@@ -54,24 +54,28 @@ public class BoardController extends GuiController {
 
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
 
+    @FXML ImageView motherNature;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
     private Map<String, ImageView> myEntranceImages;
     private Map<String, ImageView> myProfessors;
-
     private Map<String, ImageView> myTablesImages;
 
     private Map<String, ImageView> enemyEntrance;
     private Map<String, ImageView> enemyProfessors;
     private Map<String, ImageView> enemyTables;
 
+    private Map<String, Button> islands;
 
     private GameMessage board;
     private int myPlayerId;
     private int studentMoved;
     private int enemyBoardDisplayed;
     private int state;
+
+    private double motherNatureX;
+    private double motherNatureY;
 
     public GameMessage getBoard() {
         return board;
@@ -84,7 +88,7 @@ public class BoardController extends GuiController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Initialize");
+        //System.out.println("Initialize");
         myEntrance = new HashMap<>();
         myProfessors = new HashMap<>();
         myTables = new HashMap<>();
@@ -94,6 +98,8 @@ public class BoardController extends GuiController {
         enemyEntrance = new HashMap<>();
         enemyProfessors = new HashMap<>();
         enemyTables = new HashMap<>();
+
+        islands = new HashMap<>();
 
         myEntrance.put("myEntrance0", myEntrance0); myEntrance.put("myEntrance1", myEntrance1); myEntrance.put("myEntrance2", myEntrance2); myEntrance.put("myEntrance3", myEntrance3); myEntrance.put("myEntrance4", myEntrance4); myEntrance.put("myEntrance5", myEntrance5); myEntrance.put("myEntrance6", myEntrance6); myEntrance.put("myEntrance7", myEntrance7); myEntrance.put("myEntrance8", myEntrance8);
         myEntranceImages.put("myEntranceImage0", myEntranceImage0); myEntranceImages.put("myEntranceImage1", myEntranceImage1); myEntranceImages.put("myEntranceImage2", myEntranceImage2); myEntranceImages.put("myEntranceImage3", myEntranceImage3); myEntranceImages.put("myEntranceImage4", myEntranceImage4); myEntranceImages.put("myEntranceImage5", myEntranceImage5); myEntranceImages.put("myEntranceImage6", myEntranceImage6); myEntranceImages.put("myEntranceImage7", myEntranceImage7); myEntranceImages.put("myEntranceImage8", myEntranceImage8);
@@ -119,6 +125,11 @@ public class BoardController extends GuiController {
         enemyTables.put("enemyStudent20", enemyStudent20); enemyTables.put("enemyStudent21", enemyStudent21); enemyTables.put("enemyStudent22", enemyStudent22); enemyTables.put("enemyStudent23", enemyStudent23); enemyTables.put("enemyStudent21", enemyStudent24); enemyTables.put("enemyStudent25", enemyStudent25); enemyTables.put("enemyStudent26", enemyStudent26); enemyTables.put("enemyStudent27", enemyStudent27); enemyTables.put("enemyStudent28", enemyStudent28); enemyTables.put("enemyStudent29", enemyStudent29);
         enemyTables.put("enemyStudent30", enemyStudent30); enemyTables.put("enemyStudent31", enemyStudent31); enemyTables.put("enemyStudent32", enemyStudent32); enemyTables.put("enemyStudent33", enemyStudent33); enemyTables.put("enemyStudent31", enemyStudent34); enemyTables.put("enemyStudent35", enemyStudent35); enemyTables.put("enemyStudent36", enemyStudent36); enemyTables.put("enemyStudent37", enemyStudent37); enemyTables.put("enemyStudent38", enemyStudent38); enemyTables.put("enemyStudent39", enemyStudent39);
         enemyTables.put("enemyStudent40", enemyStudent40); enemyTables.put("enemyStudent41", enemyStudent41); enemyTables.put("enemyStudent42", enemyStudent42); enemyTables.put("enemyStudent43", enemyStudent43); enemyTables.put("enemyStudent41", enemyStudent44); enemyTables.put("enemyStudent45", enemyStudent45); enemyTables.put("enemyStudent46", enemyStudent46); enemyTables.put("enemyStudent47", enemyStudent47); enemyTables.put("enemyStudent48", enemyStudent48); enemyTables.put("enemyStudent49", enemyStudent49);
+
+        islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
+
+        motherNatureX = 0;
+        motherNatureY = 0;
 
         enemyBoardDisplayed = 1;
         //displayBoard(1);
@@ -240,7 +251,7 @@ public class BoardController extends GuiController {
     }
 
     public void displayEnemySchoolboard(int playerOffset) {
-        System.out.println("displayEnemySchoolboard");
+        //System.out.println("displayEnemySchoolboard");
         System.out.println(playerOffset + " " + board.getNumberOfPLayers());
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
@@ -269,13 +280,13 @@ public class BoardController extends GuiController {
                     }
                 }
                 /*for() {} parte sulle torri*/
-                System.out.println("Rendered the enemy schoolboard");
+                //System.out.println("Rendered the enemy schoolboard");
             }
         }
     }
 
     public void displayMySchoolboard() {
-        System.out.println("displayMySchoolboard");
+        //System.out.println("displayMySchoolboard");
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -304,25 +315,26 @@ public class BoardController extends GuiController {
     }
 
     public void displayIslands() {
-        System.out.println("displayIslands");
+        //System.out.println("displayIslands");
 
     }
 
     public void displayClouds() {
-        System.out.println("displayClouds");
+        //System.out.println("displayClouds");
 
     }
 
     public void displayBoard(int playerOffset) {
-        System.out.println("displayBoard");
-        System.out.println("Player: " + board.getPlayerOnTurn());
+        //System.out.println("displayBoard");
+        //System.out.println("Player: " + board.getPlayerOnTurn());
         System.out.println(board.getPlayerMessage());
-        System.out.println(playerOffset);
+        //System.out.println(playerOffset);
         displayEnemySchoolboard(playerOffset);
         displayMySchoolboard();
         displayIslands();
         displayClouds();
         displayAssistants();
+        setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
     public void changeBoard(ActionEvent event) {
@@ -340,9 +352,9 @@ public class BoardController extends GuiController {
     }
     @Override
     public void update(Message message) {
-        System.out.println("Arrivato un messaggio alla update");
+        //System.out.println("Arrivato un messaggio alla update");
         if(message instanceof GameMessage && message != null) {
-            System.out.println("Il messaggio arrivato è un GameMessage e non è nullo");
+            //System.out.println("Il messaggio arrivato è un GameMessage e non è nullo");
             board = (GameMessage) message;
             if (board.getState() == 100) {
                 Platform.runLater(new Runnable() {
@@ -376,44 +388,6 @@ public class BoardController extends GuiController {
 
     @FXML
     public void assistantClick(MouseEvent event) {
-        /*switch(((Button) event.getSource()).getId()) {
-            case "myEntrance0":
-                studentMoved = 0;
-                state = 1;
-                break;
-            case "myEntrance1":
-                studentMoved = 1;
-                state = 1;
-                break;
-            case "myEntrance2":
-                studentMoved = 2;
-                state = 1;
-                break;
-            case "myEntrance3":
-                studentMoved = 3;
-                state = 1;
-                break;
-            case "myEntrance4":
-                studentMoved = 4;
-                state = 1;
-                break;
-            case "myEntrance5":
-                studentMoved = 5;
-                state = 1;
-                break;
-            case "myEntrance6":
-                studentMoved = 6;
-                state = 1;
-                break;
-            case "myEntrance7":
-                studentMoved = 7;
-                state = 1;
-                break;
-            case "myEntrance8":
-                studentMoved = 8;
-                state = 1;
-                break;
-        }*/
         int indexCard = 0;
         switch(((Button) event.getSource()).getId()) {
             case "assistant1":
@@ -448,11 +422,11 @@ public class BoardController extends GuiController {
                 break;
         }
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
-        System.out.println("Inviato messaggio PlayAssistantMessage");
+        System.out.println("inviato messaggio PlayAssistantMessage");
     }
 
     public void myEntranceClick(ActionEvent event) {
-        System.out.println(((Button) event.getSource()).getId() + " pressed");
+        //System.out.println(((Button) event.getSource()).getId() + " pressed");
         switch(((Button) event.getSource()).getId()) {
             case "myEntrance0":
                 studentMoved = 0;
@@ -491,21 +465,19 @@ public class BoardController extends GuiController {
                 state = 1;
                 break;
         }
-
-        System.out.println("Student");
     }
 
     public void myTablesClick(ActionEvent event) {
         if (state == 1) {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
-            System.out.println("Inviato messaggio AddStudentOnTableMessage");
+            System.out.println("inviato messaggio AddStudentOnTableMessage");
             state = 0;
         }
     }
 
     public void islandClick(ActionEvent event) {
         int islandIndex = -1;
-        System.out.println(((Button) event.getSource()).getId() + " pressed");
+        //System.out.println(((Button) event.getSource()).getId() + " pressed");
         switch(((Button) event.getSource()).getId()) {
             case "island0":
                 islandIndex = 0;
@@ -513,43 +485,96 @@ public class BoardController extends GuiController {
             case "island1":
                 islandIndex = 1;
                 break;
-            case "myEntrance2":
+            case "island2":
                 islandIndex = 2;
                 break;
-            case "myEntrance3":
+            case "island3":
                 islandIndex = 3;
                 break;
-            case "myEntrance4":
+            case "island4":
                 islandIndex = 4;
                 break;
-            case "myEntrance5":
+            case "island5":
                 islandIndex = 5;
                 break;
-            case "myEntrance6":
+            case "island6":
                 islandIndex = 6;
                 break;
-            case "myEntrance7":
+            case "island7":
                 islandIndex = 7;
                 break;
-            case "myEntrance8":
+            case "island8":
                 islandIndex = 8;
                 break;
-            case "myEntrance9":
+            case "island9":
                 islandIndex = 9;
                 break;
-            case "myEntrance10":
+            case "island10":
                 islandIndex = 10;
                 break;
-            case "myEntrance11":
+            case "island11":
                 islandIndex = 11;
                 break;
         }
         if(islandIndex < 12 && islandIndex > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
-                System.out.println("Inviato messaggio AddStudentOnIslandMessage");
+                System.out.println("inviato messaggio AddStudentOnIslandMessage");
             }
         }
+    }
+
+    public void setMotherNatureIsland(int islandIndex) {
+        if(islandIndex < 12 && islandIndex > -1) {
+            String islandId = "island" + Integer.toString(islandIndex);
+            Button island = islands.get(islandId);
+            double buttonX = island.getTranslateX();
+            double buttonY = island.getTranslateY();
+            motherNature.setTranslateX(buttonX + 15 - motherNatureX);
+            motherNature.setTranslateY(buttonY + 15 - motherNatureY);
+            System.out.println("x - " + motherNature.getTranslateX() + " - x - " + motherNature.getX() + " - y - " + motherNature.getTranslateY() + " - y - " + motherNature.getY());
+            motherNatureX = motherNature.getTranslateX();
+            motherNatureY = motherNature.getTranslateY();
+        }
+    }
+    public void dragMotherNature(MouseEvent event) {
+        motherNatureX = event.getSceneX() - motherNature.getTranslateX();
+        motherNatureY = event.getSceneY() - motherNature.getTranslateY();
+    }
+
+    public void moveMotherNature(MouseEvent event) {
+        motherNature.setTranslateX(event.getSceneX() - motherNatureX);
+        motherNature.setTranslateY(event.getSceneY() - motherNatureY);
+    }
+
+    /**
+     * Da completareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+     * @param x
+     * @param y
+     * @return
+     * @throws NoIslandException
+     */
+    public int getIslandFromCoordinates(double x, double y) throws NoIslandException {
+        int islandIndex = board.getGametable().getMotherNaturePosition() + 1;
+        if (true) {
+
+        } else {
+            throw new NoIslandException();
+        }
+        return islandIndex;
+    }
+    public void dropMotherNature(MouseEvent event) {
+        try {
+            int islandIndex = getIslandFromCoordinates(event.getSceneX(), event.getSceneY());
+            getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
+            System.out.println("Inviato ChangeMotherNaturePositionMessage");
+        } catch (NoIslandException e) {
+            motherNature.setTranslateX(motherNatureX);
+            motherNature.setTranslateY(motherNatureY);
+
+        }
+        motherNature.setTranslateX(event.getSceneX() - motherNatureX);
+        motherNature.setTranslateY(event.getSceneY() - motherNatureY);
     }
 
     public void showAssistant(MouseEvent event) {
