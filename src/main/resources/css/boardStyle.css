@@ -1,0 +1,32 @@
+.background {
+    -fx-background-image: url("/images/sfondoEriantysTagliato.jpg");
+    -fx-background-size: stretch;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+.boards {
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+.studentsButton {
+    -fx-background-radius: 12;
+    -fx-border-radius: 10;
+    -fx-background-color: "transparent";
+}
+
+.assistantButton {
+    -fx-background-radius: 12;
+    -fx-border-radius: 10;
+    -fx-background-color: "transparent";
+}
+
+.studentsImage {
+    -fx-background-radius: 12;
+    -fx-border-radius: 10;
+}
+
+.islands {
+    -fx-background-radius: 12;
+    -fx-border-radius: 10;
+    -fx-background-color: "transparent";
+}

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,11 +29,11 @@ public class GuiClient extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/loginScene.fxml"));
         Parent root = loader.load();
-        System.out.println("Ciao");
         stage.setTitle("Eriantys");
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setResizable(true);
+        stage.getIcons().add(new Image("/images/BLLoghi.png"));
         GuiController loginController = loader.getController();
         loginController.setStage(stage);
         loginController.setScene(scene);

@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 import java.io.Serializable;
 
 public enum PawnColor implements Serializable {
-    YELLOW(0), BLUE(1), GREEN(2), RED(3), PINK(4);
+    GREEN(0),  RED(1), YELLOW(2), PINK(3), BLUE(4);
     private final int index;
 
     /**
@@ -29,19 +29,19 @@ public enum PawnColor implements Serializable {
 
         switch (index){
             case 0:
-                pc=PawnColor.YELLOW;
-                break;
-            case 1:
-                pc=PawnColor.BLUE;
-                break;
-            case 2:
                 pc=PawnColor.GREEN;
                 break;
-            case 3:
+            case 1:
                 pc=PawnColor.RED;
                 break;
-            case 4:
+            case 2:
+                pc=PawnColor.YELLOW;
+                break;
+            case 3:
                 pc=PawnColor.PINK;
+                break;
+            case 4:
+                pc=PawnColor.BLUE;
                 break;
         }
 

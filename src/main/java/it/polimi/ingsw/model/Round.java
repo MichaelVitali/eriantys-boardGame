@@ -91,8 +91,10 @@ public class Round implements Serializable {
     }
 
     public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
+        System.out.println("messaggio da " + playerId);
         if(playerOrder[indexOfPlayerOnTurn] != playerId) {
             setPlayerMessage(playerId, "You are not the current player");
+            game.sendGame();
             throw new PlayerNotOnTurnException();
         }
     }
@@ -133,6 +135,7 @@ public class Round implements Serializable {
     }
 
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {
+        System.out.println("metodo chiamato indice " + methodId);
         if (methodId != roundState) throw new InvalidMethodException();
     }
 
@@ -253,10 +256,6 @@ public class Round implements Serializable {
         } else if (isTimeToChooseTheNextStudent()) {
 
         } else if (isActionPhaseEnded()) {
-            /*if (getGame().getRound() instanceof InnKeeper) {
-                ((InnKeeper) getGame().getRound()).reverseProfessorEffect(indexOfPlayerOnTurn);
-                System.out.println("SONO ENTRATO");
-            }*/
             switchToPianificationPhase();
             roundEnded = true;
             if (game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
@@ -269,10 +268,6 @@ public class Round implements Serializable {
             roundState = 3;
         } else if (cloudHasBeenChosen()) {
             roundState = 1;
-            /*if (getGame().getRound() instanceof InnKeeper) {
-                ((InnKeeper) getGame().getRound()).reverseProfessorEffect(indexOfPlayerOnTurn);
-                System.out.println("SONO ENTRATO");
-            }*/
             indexOfPlayerOnTurn++;
             alreadyPlayedCharacter = false;
         } else {

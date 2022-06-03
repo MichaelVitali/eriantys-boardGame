@@ -4,8 +4,6 @@ import it.polimi.ingsw.model.exception.*;
 
 public class InnKeeper extends Character{
 
-    //private ArrayList<ArrayList<PawnColor>> playersProfessors;
-
     /**
      * Creates a character card with the given two values
      *
@@ -14,7 +12,6 @@ public class InnKeeper extends Character{
      */
     public InnKeeper(int id, int cost) {
         super(id, cost, "Innkeeper");
-        //playersProfessors = new ArrayList<ArrayList<PawnColor>>(4);
     }
 
     @Override
@@ -33,24 +30,10 @@ public class InnKeeper extends Character{
                     if (getGame().getGameTable().getSchoolBoards()[i].getNumberOfStudentsOnTable(professor) == getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(professor)){
                         getGame().getGameTable().getSchoolBoards()[i].setProfessor(professor, false);
                         getGame().getGameTable().getSchoolBoards()[playerId].setProfessor(professor, true);
-                        //playersProfessors.get(i).add(professor);
                     }
                 }
             }
         }
     }
-
-    /*public void reverseProfessorEffect( int playerId ){
-        for (int i = 0; i < getGame().getNumberOfPlayers(); i++) {
-            if (i != playerId) {
-                for (PawnColor professor : playersProfessors.get(i)) {
-                    if (getGame().getGameTable().getSchoolBoards()[i].getNumberOfStudentsOnTable(professor.getIndex()) == getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(professor.getIndex())) {
-                        getGame().getGameTable().getSchoolBoards()[i].setProfessor(professor, true);
-                        getGame().getGameTable().getSchoolBoards()[playerId].setProfessor(professor, false);
-                    }
-                }
-            }
-        }
-        deactivateEffect(false);
-    }*/
+    //override addOnTable
 }

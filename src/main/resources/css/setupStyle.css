@@ -1,0 +1,14 @@
+.root {
+    -fx-background-image: url("/images/sfondoEriantysTagliato.jpg");
+    -fx-background-size: stretch;
+}
+
+/*.loginTitle {
+    -fx-image: url("/images/scrittaEriantys.png");
+    -fx-alignment: "center";
+}*/
+#nicknameMessage {
+    -fx-font-family: "JetBrains Mono ExtraBold";
+    -fx-alignment: "center";
+    -fx-font-size: 20;
+}

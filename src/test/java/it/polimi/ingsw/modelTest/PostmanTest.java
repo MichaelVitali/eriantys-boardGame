@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.Centaur;
 import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Postman;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,8 @@ public class PostmanTest {
     }
 
     @Test
-    public void postmanTest1() {
+    public void postmanTest1() throws InvalidIndexException {
+        game.getGameTable().changeMotherNaturePosition(0);
         int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().playAssistant(currentPlayer, 0);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
@@ -42,7 +44,8 @@ public class PostmanTest {
     }
 
     @Test
-    public void postmanTest2() {
+    public void postmanTest2() throws InvalidIndexException {
+        game.getGameTable().changeMotherNaturePosition(0);
         int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().playAssistant(currentPlayer, 0);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
@@ -58,7 +61,8 @@ public class PostmanTest {
     }
 
     @Test
-    public void postmanTest3() {
+    public void postmanTest3() throws InvalidIndexException {
+        game.getGameTable().changeMotherNaturePosition(0);
         int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().playAssistant(currentPlayer, 0);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];

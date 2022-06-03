@@ -63,7 +63,7 @@ public class Monk extends CharacterWithStudent {
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student");
+        round.getGame().getPlayer(playerID).setPlayerMessage("Select Student on card");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

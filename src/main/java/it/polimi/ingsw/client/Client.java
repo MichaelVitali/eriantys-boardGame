@@ -63,13 +63,18 @@ public class Client extends Observable<Message> implements Runnable {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
                         if(inputObject instanceof SetupMessage) {
+                            //System.out.println("setup message arrivato al client");
                             if(inputObject  != null) {
                                 Client.this.notify((SetupMessage) inputObject); //////Vedere se va bene
                             }
                         } else if (inputObject instanceof GameMessage){
+
                             if(inputObject  != null) {
+                                //System.out.println("board arrivata client");
                                 actualBoard = ((GameMessage) inputObject);
                                 Client.this.notify(actualBoard);
+                            } else {
+                                //System.out.println("messaggio dal server nullo");
                             }
                         } else {
                             throw new IllegalArgumentException();
