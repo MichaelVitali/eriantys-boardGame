@@ -216,6 +216,15 @@
                <ImageView fx:id="myProfessor2" layoutX="129.0" layoutY="153.0" />
                <ImageView fx:id="myProfessor3" layoutX="171.0" layoutY="153.0" />
                <ImageView fx:id="myProfessor4" layoutX="213.0" layoutY="153.0" />
+               <ImageView fx:id="myTower0" layoutX="33.0" layoutY="30.0" />
+               <ImageView fx:id="myTower1" layoutX="33.0" layoutY="80.0" />
+               <ImageView fx:id="myTower2" layoutX="87.0" layoutY="30.0" />
+               <ImageView fx:id="myTower3" layoutX="87.0" layoutY="80.0" />
+               <ImageView fx:id="myTower4" layoutX="129.0" layoutY="30.0" />
+               <ImageView fx:id="myTower5" layoutX="129.0" layoutY="80.0" />
+               <ImageView fx:id="myTower6" layoutX="180.0" layoutY="30.0" />
+               <ImageView fx:id="myTower7" layoutX="180.0" layoutY="80.0" />
+
             </AnchorPane>
          </children>
          <BorderPane.margin>
@@ -311,6 +320,14 @@
                <ImageView fx:id="enemyProfessor2" layoutX="129.0" layoutY="153.0" />
                <ImageView fx:id="enemyProfessor3" layoutX="171.0" layoutY="153.0" />
                <ImageView fx:id="enemyProfessor4" layoutX="213.0" layoutY="153.0" />
+               <ImageView fx:id="enemyTower0" layoutX="33.0" layoutY="30.0" />
+               <ImageView fx:id="enemyTower1" layoutX="33.0" layoutY="80.0" />
+               <ImageView fx:id="enemyTower2" layoutX="87.0" layoutY="30.0" />
+               <ImageView fx:id="enemyTower3" layoutX="87.0" layoutY="80.0" />
+               <ImageView fx:id="enemyTower4" layoutX="129.0" layoutY="30.0" />
+               <ImageView fx:id="enemyTower5" layoutX="129.0" layoutY="80.0" />
+               <ImageView fx:id="enemyTower6" layoutX="180.0" layoutY="30.0" />
+               <ImageView fx:id="enemyTower7" layoutX="180.0" layoutY="80.0" />
             </AnchorPane>
          </children>
          <BorderPane.margin>
@@ -385,21 +402,21 @@
    <bottom>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="character1" layoutX="110.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+            <Button fx:id="character1" layoutX="110.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton">
                <graphic>
                   <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="110.0" layoutY="-55.0">
                      <Image url="@../images/Personaggi/character1.jpg" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="character2" layoutX="320.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+            <Button fx:id="character2" layoutX="320.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton">
                     <graphic>
                        <ImageView fx:id="character2Image" fitHeight="125.0" fitWidth="100.0" layoutX="320.0" layoutY="-55.0">
                           <Image url="@../images/Personaggi/character2.jpg" />
                        </ImageView>
                     </graphic>
             </Button>
-            <Button fx:id="character3" layoutX="530.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+            <Button fx:id="character3" layoutX="530.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton">
                <graphic>
                   <ImageView fx:id="character3Image" fitHeight="125.0" fitWidth="100.0" layoutX="530.0" layoutY="-55.0">
                      <Image url="@../images/Personaggi/character3.jpg" />
