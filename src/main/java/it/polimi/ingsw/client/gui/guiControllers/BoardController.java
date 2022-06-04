@@ -810,37 +810,31 @@ public class BoardController extends GuiController {
     }
 
     private void displayCharacter() {
-        if (board.getGameMode() == GameMode.NORMAL) {
+        if (board.getGameMode() == GameMode.EXPERT) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    character1.setVisible(false);
-                    character1Image.setVisible(false);
-                    //coin1.setVisible(false);
-                    character2.setVisible(false);
-                    character2Image.setVisible(false);
-                    //coin2.setVisible(false);
-                    character3.setVisible(false);
-                    character3Image.setVisible(false);
-                    //coin2.setVisible(false);
+                    character1.setVisible(true);
+                    character2.setVisible(true);
+                    character3.setVisible(true);
+
+                    for (int i = 0; i < 3; i++) {
+                        String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
+                        Image image = new Image(path);
+                        switch (i) {
+                            case 1:
+                                character1Image.setImage(image);
+                                break;
+                            case 2:
+                                character2Image.setImage(image);
+                                break;
+                            case 3:
+                                character3Image.setImage(image);
+                                break;
+                        }
+                    }
                 }
             });
-        } else {
-            for (int i = 0; i < 3; i++) {
-                String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
-                Image image = new Image(path);
-                switch (i) {
-                    case 1:
-                        character1Image.setImage(image);
-                        break;
-                    case 2:
-                        character2Image.setImage(image);
-                        break;
-                    case 3:
-                        character3Image.setImage(image);
-                        break;
-                }
-            }
         }
     }
 
