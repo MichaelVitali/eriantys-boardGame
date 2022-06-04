@@ -226,7 +226,7 @@ public class BoardController extends GuiController {
                 if (color != null) {
                     switch (color) {
                         case GREEN:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/green.png", 100,100, true, true));
+                            node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
                             node.setFitHeight(100);
                             break;
                         case RED:
@@ -244,8 +244,8 @@ public class BoardController extends GuiController {
                     }
                 } else {
                     node.setImage(new Image("/images/island_prova.png"));
-                    node.setFitHeight(24);
-                    node.setFitWidth(24);
+                    node.setFitHeight(60.0);
+                    node.setFitWidth(60.0);
                 }
                 node.setPreserveRatio(true);
             }

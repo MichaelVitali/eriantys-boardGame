@@ -212,11 +212,11 @@
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="184.0" prefWidth="258.0">
-               <ImageView fx:id="myProfessor0" layoutX="33.0" layoutY="153.0" />
-               <ImageView fx:id="myProfessor1" layoutX="87.0" layoutY="153.0" />
-               <ImageView fx:id="myProfessor2" layoutX="129.0" layoutY="153.0" />
-               <ImageView fx:id="myProfessor3" layoutX="171.0" layoutY="153.0" />
-               <ImageView fx:id="myProfessor4" layoutX="213.0" layoutY="153.0" />
+               <ImageView fx:id="myProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="142.0" />
+               <ImageView fx:id="myProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="62.0" layoutY="142.0" />
+               <ImageView fx:id="myProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="103.0" layoutY="142.0" />
+               <ImageView fx:id="myProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="145.0" layoutY="142.0" />
+               <ImageView fx:id="myProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="185.0" layoutY="142.0" />
                <ImageView fx:id="myTower0" layoutX="33.0" layoutY="30.0" />
                <ImageView fx:id="myTower1" layoutX="33.0" layoutY="80.0" />
                <ImageView fx:id="myTower2" layoutX="87.0" layoutY="30.0" />
@@ -316,11 +316,11 @@
                </children>
             </AnchorPane>
             <AnchorPane layoutY="35.0" prefHeight="184.0" prefWidth="258.0">
-               <ImageView fx:id="enemyProfessor0" layoutX="33.0" layoutY="153.0" />
-               <ImageView fx:id="enemyProfessor1" layoutX="87.0" layoutY="153.0" />
-               <ImageView fx:id="enemyProfessor2" layoutX="129.0" layoutY="153.0" />
-               <ImageView fx:id="enemyProfessor3" layoutX="171.0" layoutY="153.0" />
-               <ImageView fx:id="enemyProfessor4" layoutX="213.0" layoutY="153.0" />
+               <ImageView fx:id="enemyProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="142.0" />
+               <ImageView fx:id="enemyProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="62.0" layoutY="142.0" />
+               <ImageView fx:id="enemyProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="103.0" layoutY="142.0" />
+               <ImageView fx:id="enemyProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="145.0" layoutY="142.0" />
+               <ImageView fx:id="enemyProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="185.0" layoutY="142.0" />
                <ImageView fx:id="enemyTower0" layoutX="33.0" layoutY="30.0" />
                <ImageView fx:id="enemyTower1" layoutX="33.0" layoutY="80.0" />
                <ImageView fx:id="enemyTower2" layoutX="87.0" layoutY="30.0" />
@@ -341,13 +341,7 @@
          <center>
             <AnchorPane maxHeight="700.0" maxWidth="600.0" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="island0" layoutX="60.0" layoutY="327.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView>
-                           <Image url="@../images/Board/Islands/island1.png"/>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <Button fx:id="island0" layoutX="60.0" layoutY="327.0" onAction="#islandClick" styleClass="islands" />
                   <Button fx:id="island1" layoutX="218.0" layoutY="248.0" onAction="#islandClick" styleClass="islands" />
                   <Button fx:id="island3" layoutX="391.0" layoutY="162.0" onAction="#islandClick" styleClass="islands" />
                   <Button fx:id="island2" layoutX="307.0" layoutY="186.0" onAction="#islandClick" styleClass="islands" />
