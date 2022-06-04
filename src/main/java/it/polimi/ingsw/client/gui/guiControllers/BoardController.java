@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 //import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,6 +53,7 @@ public class BoardController extends GuiController {
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
     @FXML ImageView motherNature;
     @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; //@FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
+    @FXML Label labelGameMessage;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -373,6 +375,7 @@ public class BoardController extends GuiController {
         displayClouds();
         displayAssistants();
         displayCharacter();
+        showGameMessage();
         setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -840,6 +843,17 @@ public class BoardController extends GuiController {
     private void removeShowCharacterEffect(MouseEvent event) {
 
     }*/
+
+    public void showGameMessage(){
+        String playerMessage = board.getPlayerMessage();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                labelGameMessage.setText(playerMessage);
+            }
+        });
+
+    }
 
     public void playCharacter(MouseEvent event) {
         int indexCard = 0;

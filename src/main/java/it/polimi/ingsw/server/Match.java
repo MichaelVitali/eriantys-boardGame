@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMode;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Wizard;
 
 import java.util.ArrayList;
@@ -13,7 +15,8 @@ public class Match {
     private int numberOfPlayers;
     private final List<String> playerNicknames = new ArrayList<>();
     private final List<ClientConnection> sockets = new ArrayList<>();
-    /*private final List<Wizard> availableWizard= new ArrayList<>();*/
+    private final List<Wizard> alreadyChosenWizards = new ArrayList<>();
+    private Game model;
 
     /**
      * Creates a match instance - maybe to manage reconnection and related issues
@@ -23,15 +26,15 @@ public class Match {
      * @param socket first player' socket
      * /*@param wizard*/
 
-    public Match(int matchId, GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection socket/*, Wizard wizard*/) {
+    public Match(int matchId, GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection socket) {
         this.matchId = matchId;
         this.gameMode = gameMode;
         this.numberOfPlayers = numberOfPlayers;
         playerNicknames.add(playerNickname);
         sockets.add(socket);
-        /*alreadyChosenWizards.add(wizard);*/
+        model = null;
     }
-/*
+
     public boolean assertValidWizard(Wizard wizard){
         boolean result = true;
         for (Wizard w : alreadyChosenWizards)
@@ -42,12 +45,31 @@ public class Match {
 
         return result;
     }
-*/
+
+    public List<Wizard> getAlreadyChosenWizards() {
+        return alreadyChosenWizards;
+    }
+
+    public void setModel(Game model){
+        this.model = model;
+    }
+
+    public Game getModel(){
+        return model;
+    }
+
     /**
      * @return match id
      */
     public int getMatchId() {
         return matchId;
+    }
+
+    /**
+     * @return this match
+     */
+    public Match getMatch() {
+        return this;
     }
 
     /**
@@ -74,18 +96,15 @@ public class Match {
     /**
      * @return list containing the players' chosen wizards
      */
-/*
+
     public void setAlreadyChosenWizards(Wizard w){
         alreadyChosenWizards.add(w);
     }
 
-    public List<Integer> getChosenWizards() {
-        List<Integer> chosenWizards = new ArrayList<>();
-        for (Wizard w : alreadyChosenWizards)
-            chosenWizards.add( w.getIndex() );
-        return new ArrayList<>(chosenWizards);
+    public List<Wizard> getChosenWizards() {
+        return new ArrayList<>(alreadyChosenWizards);
     }
-*/
+
     /**
      * @return list containing the players' sockets
      */

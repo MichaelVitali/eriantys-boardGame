@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.message.ConnectionState;
 import it.polimi.ingsw.controller.message.SetupMessage;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMode;
 import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.model.Wizard;
@@ -11,9 +12,12 @@ import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -75,6 +79,28 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
         System.out.println("Done!");
     }
 
+    public void chooseWizards(Match match){
+        String availableWizards = "Choose your Wizard: \n";
+        for (Wizard w : Wizard.values()) {
+            if (!match.getAlreadyChosenWizards().contains(w))
+                availableWizards += "- " + w.toString() + "\n";
+        }
+        String choose = "";
+
+        send(new SetupMessage(ConnectionState.WIZARDS, availableWizards));
+        do {
+            try {
+                Object buffer = in.readObject();
+                if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.WIZARDS && ((SetupMessage) buffer).getMessage() != null)
+                    choose = (String) ((SetupMessage) buffer).getMessage();
+                else send(new SetupMessage(ConnectionState.WIZARDS, "Error : you are not sending the correct information\n"+availableWizards));
+            } catch (Exception e) {
+                send(new SetupMessage(ConnectionState.WIZARDS, "Error : you are not sending the correct information\n"+availableWizards));
+            }
+        } while (match.assertValidWizard(Wizard.getWizardFromString(choose)));
+
+        match.getAlreadyChosenWizards().add(Wizard.getWizardFromString(choose));
+    }
 
     //// da vedere
     @Override
@@ -143,7 +169,13 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             while (isActive()) {
                 buffer = in.readObject();
                 if (buffer instanceof SetupMessage) {
-                    //Magari per parlare a fine partita
+                    /*
+                    SetupMessage message = (SetupMessage) buffer;
+                    if (message.getConnectionState() == ConnectionState.WIZARDS){
+                        System.out.println("passo check su connectionState");
+                        server.chooseWizard(message, this);
+                    }
+                    */
                 } else if (buffer instanceof PlayerMessage) {
                     PlayerMessage clientMessage = (PlayerMessage) buffer;
                     if (server.getMyId(this) == clientMessage.getPlayerId())
