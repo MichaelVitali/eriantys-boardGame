@@ -383,23 +383,23 @@
       </BorderPane>
    </center>
    <bottom>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="250.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="character1" layoutX="110.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+            <Button fx:id="character1" layoutX="110.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton">
                <graphic>
                   <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="110.0" layoutY="-55.0">
                      <Image url="@../images/Personaggi/character1.jpg" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="character2" layoutX="320.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+            <Button fx:id="character2" layoutX="320.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton">
                     <graphic>
                        <ImageView fx:id="character2Image" fitHeight="125.0" fitWidth="100.0" layoutX="320.0" layoutY="-55.0">
                           <Image url="@../images/Personaggi/character2.jpg" />
                        </ImageView>
                     </graphic>
             </Button>
-            <Button fx:id="character3" layoutX="530.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton" >
+            <Button fx:id="character3" layoutX="530.0" layoutY="-55.0" mnemonicParsing="false" onMouseClicked="#playCharacter" styleClass="assistantButton">
                <graphic>
                   <ImageView fx:id="character3Image" fitHeight="125.0" fitWidth="100.0" layoutX="530.0" layoutY="-55.0">
                      <Image url="@../images/Personaggi/character3.jpg" />
@@ -476,6 +476,7 @@
                </ImageView>
                </graphic>
             </Button>
+            <Button layoutX="1201.0" layoutY="46.0" mnemonicParsing="false" text="Button" />
          </children>
       </AnchorPane>
    </bottom>
