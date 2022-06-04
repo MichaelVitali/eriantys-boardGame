@@ -224,29 +224,20 @@ public class BoardController extends GuiController {
                 if (color != null) {
                     switch (color) {
                         case GREEN:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Students/green.png", 100,100, true, true));
+                            node.setFitHeight(100);
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/red.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/yellow.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/pink.png"));
-                            node.setFitHeight(30);
-                            node.setFitWidth(44);
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/blue.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
                             break;
                     }
                 } else {
@@ -254,6 +245,7 @@ public class BoardController extends GuiController {
                     node.setFitHeight(24);
                     node.setFitWidth(24);
                 }
+                node.setPreserveRatio(true);
             }
         });
     }

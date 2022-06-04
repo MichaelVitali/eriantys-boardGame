@@ -327,7 +327,7 @@
                <ImageView fx:id="enemyTower4" layoutX="129.0" layoutY="30.0" />
                <ImageView fx:id="enemyTower5" layoutX="129.0" layoutY="80.0" />
                <ImageView fx:id="enemyTower6" layoutX="180.0" layoutY="30.0" />
-               <ImageView fx:id="enemyTower7" layoutX="180.0" layoutY="80.0" />
+               <ImageView fx:id="enemy100Tower7" layoutX="180.0" layoutY="80.0" />
             </AnchorPane>
          </children>
          <BorderPane.margin>
@@ -340,7 +340,13 @@
          <center>
             <AnchorPane maxHeight="700.0" maxWidth="600.0" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="island0" layoutX="60.0" layoutY="327.0" onAction="#islandClick" styleClass="islands" />
+                  <Button fx:id="island0" layoutX="60.0" layoutY="327.0" onAction="#islandClick" styleClass="islands">
+                     <graphic>
+                        <ImageView>
+                           <Image url="@../images/Board/Islands/island1.png"/>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="island1" layoutX="218.0" layoutY="248.0" onAction="#islandClick" styleClass="islands" />
                   <Button fx:id="island3" layoutX="391.0" layoutY="162.0" onAction="#islandClick" styleClass="islands" />
                   <Button fx:id="island2" layoutX="307.0" layoutY="186.0" onAction="#islandClick" styleClass="islands" />
