@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
 import it.polimi.ingsw.controller.message.*;
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.SchoolBoard;
-import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 //import javafx.scene.Node;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -31,6 +29,7 @@ public class BoardController extends GuiController {
     @FXML ImageView enemyStudent20; @FXML ImageView enemyStudent21; @FXML ImageView enemyStudent22; @FXML ImageView enemyStudent23; @FXML ImageView enemyStudent24; @FXML ImageView enemyStudent25; @FXML ImageView enemyStudent26; @FXML ImageView enemyStudent27; @FXML ImageView enemyStudent28; @FXML ImageView enemyStudent29;
     @FXML ImageView enemyStudent30; @FXML ImageView enemyStudent31; @FXML ImageView enemyStudent32; @FXML ImageView enemyStudent33; @FXML ImageView enemyStudent34; @FXML ImageView enemyStudent35; @FXML ImageView enemyStudent36; @FXML ImageView enemyStudent37; @FXML ImageView enemyStudent38; @FXML ImageView enemyStudent39;
     @FXML ImageView enemyStudent40; @FXML ImageView enemyStudent41; @FXML ImageView enemyStudent42; @FXML ImageView enemyStudent43; @FXML ImageView enemyStudent44; @FXML ImageView enemyStudent45; @FXML ImageView enemyStudent46; @FXML ImageView enemyStudent47; @FXML ImageView enemyStudent48; @FXML ImageView enemyStudent49;
+    @FXML ImageView enemyTower0; @FXML ImageView enemyTower1; @FXML ImageView enemyTower2; @FXML ImageView enemyTower3; @FXML ImageView enemyTower4; @FXML ImageView enemyTower5; @FXML ImageView enemyTower6; @FXML ImageView enemyTower7;
 
     @FXML Button myEntrance0; @FXML Button myEntrance1; @FXML Button myEntrance2; @FXML Button myEntrance3; @FXML Button myEntrance4; @FXML Button myEntrance5; @FXML Button myEntrance6; @FXML Button myEntrance7; @FXML Button myEntrance8;
     @FXML Button student00; @FXML Button student01; @FXML Button student02; @FXML Button student03; @FXML Button student04; @FXML Button student05; @FXML Button student06; @FXML Button student07; @FXML Button student08; @FXML Button student09;
@@ -45,26 +44,28 @@ public class BoardController extends GuiController {
     @FXML ImageView studentImage20; @FXML ImageView studentImage21; @FXML ImageView studentImage22; @FXML ImageView studentImage23; @FXML ImageView studentImage24; @FXML ImageView studentImage25; @FXML ImageView studentImage26; @FXML ImageView studentImage27; @FXML ImageView studentImage28; @FXML ImageView studentImage29;
     @FXML ImageView studentImage30; @FXML ImageView studentImage31; @FXML ImageView studentImage32; @FXML ImageView studentImage33; @FXML ImageView studentImage34; @FXML ImageView studentImage35; @FXML ImageView studentImage36; @FXML ImageView studentImage37; @FXML ImageView studentImage38; @FXML ImageView studentImage39;
     @FXML ImageView studentImage40; @FXML ImageView studentImage41; @FXML ImageView studentImage42; @FXML ImageView studentImage43; @FXML ImageView studentImage44; @FXML ImageView studentImage45; @FXML ImageView studentImage46; @FXML ImageView studentImage47; @FXML ImageView studentImage48; @FXML ImageView studentImage49;
+    @FXML ImageView myTower0; @FXML ImageView myTower1; @FXML ImageView myTower2; @FXML ImageView myTower3; @FXML ImageView myTower4; @FXML ImageView myTower5; @FXML ImageView myTower6; @FXML ImageView myTower7;
 
     @FXML Button island0; @FXML Button island1; @FXML Button island2; @FXML Button island3; @FXML Button island4; @FXML Button island5; @FXML Button island6; @FXML Button island7; @FXML Button island8; @FXML Button island9; @FXML Button island10; @FXML Button island11;
-
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
-
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
-
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
-
     @FXML ImageView motherNature;
+    @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; //@FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
+    ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
     private Map<String, ImageView> myEntranceImages;
     private Map<String, ImageView> myProfessors;
     private Map<String, ImageView> myTablesImages;
+    private Map<String, ImageView> myTowers;
 
     private Map<String, ImageView> enemyEntrance;
     private Map<String, ImageView> enemyProfessors;
     private Map<String, ImageView> enemyTables;
+    private Map<String, ImageView> enemyTowers;
+
 
     private Map<String, Button> islands;
 
@@ -94,19 +95,29 @@ public class BoardController extends GuiController {
         myTables = new HashMap<>();
         myEntranceImages = new HashMap<>();
         myTablesImages = new HashMap<>();
+        myTowers = new HashMap<>();
 
         enemyEntrance = new HashMap<>();
         enemyProfessors = new HashMap<>();
         enemyTables = new HashMap<>();
+        enemyTowers = new HashMap<>();
 
         islands = new HashMap<>();
 
-        myEntrance.put("myEntrance0", myEntrance0); myEntrance.put("myEntrance1", myEntrance1); myEntrance.put("myEntrance2", myEntrance2); myEntrance.put("myEntrance3", myEntrance3); myEntrance.put("myEntrance4", myEntrance4); myEntrance.put("myEntrance5", myEntrance5); myEntrance.put("myEntrance6", myEntrance6); myEntrance.put("myEntrance7", myEntrance7); myEntrance.put("myEntrance8", myEntrance8);
-        myEntranceImages.put("myEntranceImage0", myEntranceImage0); myEntranceImages.put("myEntranceImage1", myEntranceImage1); myEntranceImages.put("myEntranceImage2", myEntranceImage2); myEntranceImages.put("myEntranceImage3", myEntranceImage3); myEntranceImages.put("myEntranceImage4", myEntranceImage4); myEntranceImages.put("myEntranceImage5", myEntranceImage5); myEntranceImages.put("myEntranceImage6", myEntranceImage6); myEntranceImages.put("myEntranceImage7", myEntranceImage7); myEntranceImages.put("myEntranceImage8", myEntranceImage8);
+        enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
 
+        enemyTables.put("enemyStudent00", enemyStudent00); enemyTables.put("enemyStudent01", enemyStudent01); enemyTables.put("enemyStudent02", enemyStudent02); enemyTables.put("enemyStudent03", enemyStudent03); enemyTables.put("enemyStudent01", enemyStudent04); enemyTables.put("enemyStudent05", enemyStudent05); enemyTables.put("enemyStudent06", enemyStudent06); enemyTables.put("enemyStudent07", enemyStudent07); enemyTables.put("enemyStudent08", enemyStudent08); enemyTables.put("enemyStudent09", enemyStudent09);
+        enemyTables.put("enemyStudent10", enemyStudent10); enemyTables.put("enemyStudent11", enemyStudent11); enemyTables.put("enemyStudent12", enemyStudent12); enemyTables.put("enemyStudent13", enemyStudent13); enemyTables.put("enemyStudent11", enemyStudent14); enemyTables.put("enemyStudent15", enemyStudent15); enemyTables.put("enemyStudent16", enemyStudent16); enemyTables.put("enemyStudent17", enemyStudent17); enemyTables.put("enemyStudent18", enemyStudent18); enemyTables.put("enemyStudent19", enemyStudent19);
+        enemyTables.put("enemyStudent20", enemyStudent20); enemyTables.put("enemyStudent21", enemyStudent21); enemyTables.put("enemyStudent22", enemyStudent22); enemyTables.put("enemyStudent23", enemyStudent23); enemyTables.put("enemyStudent21", enemyStudent24); enemyTables.put("enemyStudent25", enemyStudent25); enemyTables.put("enemyStudent26", enemyStudent26); enemyTables.put("enemyStudent27", enemyStudent27); enemyTables.put("enemyStudent28", enemyStudent28); enemyTables.put("enemyStudent29", enemyStudent29);
+        enemyTables.put("enemyStudent30", enemyStudent30); enemyTables.put("enemyStudent31", enemyStudent31); enemyTables.put("enemyStudent32", enemyStudent32); enemyTables.put("enemyStudent33", enemyStudent33); enemyTables.put("enemyStudent31", enemyStudent34); enemyTables.put("enemyStudent35", enemyStudent35); enemyTables.put("enemyStudent36", enemyStudent36); enemyTables.put("enemyStudent37", enemyStudent37); enemyTables.put("enemyStudent38", enemyStudent38); enemyTables.put("enemyStudent39", enemyStudent39);
+        enemyTables.put("enemyStudent40", enemyStudent40); enemyTables.put("enemyStudent41", enemyStudent41); enemyTables.put("enemyStudent42", enemyStudent42); enemyTables.put("enemyStudent43", enemyStudent43); enemyTables.put("enemyStudent41", enemyStudent44); enemyTables.put("enemyStudent45", enemyStudent45); enemyTables.put("enemyStudent46", enemyStudent46); enemyTables.put("enemyStudent47", enemyStudent47); enemyTables.put("enemyStudent48", enemyStudent48); enemyTables.put("enemyStudent49", enemyStudent49);
+
+        enemyTowers.put("enemyTower0", enemyTower0); enemyTowers.put("enemyTower1", enemyTower1); enemyTowers.put("enemyTower2", enemyTower2); enemyTowers.put("enemyTower3", enemyTower3); enemyTowers.put("enemyTower4", enemyTower4); enemyTowers.put("enemyTower5", enemyTower5); enemyTowers.put("enemyTower6", enemyTower6); enemyTowers.put("enemyTower7", enemyTower7);
+
         myProfessors.put("myProfessor0", myProfessor0); myProfessors.put("myProfessor1", myProfessor1); myProfessors.put("myProfessor2", myProfessor2); myProfessors.put("myProfessor3", myProfessor3); myProfessors.put("myProfessor4", myProfessor4);
-        enemyProfessors.put("myProfessor0", myProfessor0); enemyProfessors.put("myProfessor1", myProfessor1); enemyProfessors.put("myProfessor2", myProfessor2); enemyProfessors.put("myProfessor3", myProfessor3); enemyProfessors.put("myProfessor4", myProfessor4);
+        myEntrance.put("myEntrance0", myEntrance0); myEntrance.put("myEntrance1", myEntrance1); myEntrance.put("myEntrance2", myEntrance2); myEntrance.put("myEntrance3", myEntrance3); myEntrance.put("myEntrance4", myEntrance4); myEntrance.put("myEntrance5", myEntrance5); myEntrance.put("myEntrance6", myEntrance6); myEntrance.put("myEntrance7", myEntrance7); myEntrance.put("myEntrance8", myEntrance8);
+        myEntranceImages.put("myEntranceImage0", myEntranceImage0); myEntranceImages.put("myEntranceImage1", myEntranceImage1); myEntranceImages.put("myEntranceImage2", myEntranceImage2); myEntranceImages.put("myEntranceImage3", myEntranceImage3); myEntranceImages.put("myEntranceImage4", myEntranceImage4); myEntranceImages.put("myEntranceImage5", myEntranceImage5); myEntranceImages.put("myEntranceImage6", myEntranceImage6); myEntranceImages.put("myEntranceImage7", myEntranceImage7); myEntranceImages.put("myEntranceImage8", myEntranceImage8);
 
         myTables.put("student00", student00); myTables.put("student01", student01); myTables.put("student02", student02); myTables.put("student03", student03); myTables.put("student01", student04); myTables.put("student05", student05); myTables.put("student06", student06); myTables.put("student07", student07); myTables.put("student08", student08); myTables.put("student09", student09);
         myTables.put("student10", student10); myTables.put("student11", student11); myTables.put("student12", student12); myTables.put("student13", student13); myTables.put("student11", student14); myTables.put("student15", student15); myTables.put("student16", student16); myTables.put("student17", student17); myTables.put("student18", student18); myTables.put("student19", student19);
@@ -120,11 +131,7 @@ public class BoardController extends GuiController {
         myTablesImages.put("studentImage30", studentImage30); myTablesImages.put("studentImage31", studentImage31); myTablesImages.put("studentImage32", studentImage32); myTablesImages.put("studentImage33", studentImage33); myTablesImages.put("studentImage31", studentImage34); myTablesImages.put("studentImage35", studentImage35); myTablesImages.put("studentImage36", studentImage36); myTablesImages.put("studentImage37", studentImage37); myTablesImages.put("studentImage38", studentImage38); myTablesImages.put("studentImage39", studentImage39);
         myTablesImages.put("studentImage40", studentImage40); myTablesImages.put("studentImage41", studentImage41); myTablesImages.put("studentImage42", studentImage42); myTablesImages.put("studentImage43", studentImage43); myTablesImages.put("studentImage41", studentImage44); myTablesImages.put("studentImage45", studentImage45); myTablesImages.put("studentImage46", studentImage46); myTablesImages.put("studentImage47", studentImage47); myTablesImages.put("studentImage48", studentImage48); myTablesImages.put("studentImage49", studentImage49);
 
-        enemyTables.put("enemyStudent00", enemyStudent00); enemyTables.put("enemyStudent01", enemyStudent01); enemyTables.put("enemyStudent02", enemyStudent02); enemyTables.put("enemyStudent03", enemyStudent03); enemyTables.put("enemyStudent01", enemyStudent04); enemyTables.put("enemyStudent05", enemyStudent05); enemyTables.put("enemyStudent06", enemyStudent06); enemyTables.put("enemyStudent07", enemyStudent07); enemyTables.put("enemyStudent08", enemyStudent08); enemyTables.put("enemyStudent09", enemyStudent09);
-        enemyTables.put("enemyStudent10", enemyStudent10); enemyTables.put("enemyStudent11", enemyStudent11); enemyTables.put("enemyStudent12", enemyStudent12); enemyTables.put("enemyStudent13", enemyStudent13); enemyTables.put("enemyStudent11", enemyStudent14); enemyTables.put("enemyStudent15", enemyStudent15); enemyTables.put("enemyStudent16", enemyStudent16); enemyTables.put("enemyStudent17", enemyStudent17); enemyTables.put("enemyStudent18", enemyStudent18); enemyTables.put("enemyStudent19", enemyStudent19);
-        enemyTables.put("enemyStudent20", enemyStudent20); enemyTables.put("enemyStudent21", enemyStudent21); enemyTables.put("enemyStudent22", enemyStudent22); enemyTables.put("enemyStudent23", enemyStudent23); enemyTables.put("enemyStudent21", enemyStudent24); enemyTables.put("enemyStudent25", enemyStudent25); enemyTables.put("enemyStudent26", enemyStudent26); enemyTables.put("enemyStudent27", enemyStudent27); enemyTables.put("enemyStudent28", enemyStudent28); enemyTables.put("enemyStudent29", enemyStudent29);
-        enemyTables.put("enemyStudent30", enemyStudent30); enemyTables.put("enemyStudent31", enemyStudent31); enemyTables.put("enemyStudent32", enemyStudent32); enemyTables.put("enemyStudent33", enemyStudent33); enemyTables.put("enemyStudent31", enemyStudent34); enemyTables.put("enemyStudent35", enemyStudent35); enemyTables.put("enemyStudent36", enemyStudent36); enemyTables.put("enemyStudent37", enemyStudent37); enemyTables.put("enemyStudent38", enemyStudent38); enemyTables.put("enemyStudent39", enemyStudent39);
-        enemyTables.put("enemyStudent40", enemyStudent40); enemyTables.put("enemyStudent41", enemyStudent41); enemyTables.put("enemyStudent42", enemyStudent42); enemyTables.put("enemyStudent43", enemyStudent43); enemyTables.put("enemyStudent41", enemyStudent44); enemyTables.put("enemyStudent45", enemyStudent45); enemyTables.put("enemyStudent46", enemyStudent46); enemyTables.put("enemyStudent47", enemyStudent47); enemyTables.put("enemyStudent48", enemyStudent48); enemyTables.put("enemyStudent49", enemyStudent49);
+        myTowers.put("myTower0", myTower0); myTowers.put("myTower1", myTower1); myTowers.put("myTower2", myTower2); myTowers.put("myTower3", myTower3); myTowers.put("myTower4", myTower4); myTowers.put("myTower5", myTower5); myTowers.put("myTower6", myTower6); myTowers.put("myTower7", myTower7);
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
 
@@ -147,6 +154,7 @@ public class BoardController extends GuiController {
                     myEntrance8.setVisible(false);
                 } else if (board.getNumberOfPLayers() == 3) {
                     player4.setVisible(false);
+                    // adattero le torri anche traslandole
                 } else if (board.getNumberOfPLayers() == 4) {
                     entrance7.setVisible(false);
                     entrance8.setVisible(false);
@@ -250,6 +258,36 @@ public class BoardController extends GuiController {
         });
     }
 
+    public void setTower(ImageView node, TowerColor color) {
+        Platform.runLater(() -> {
+            if(node != null) {
+                if (color != null) {
+                    switch (color) {
+                        case WHITE:
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/white.png"));
+                            node.setFitHeight(24);
+                            node.setFitWidth(24);
+                            break;
+                        case BLACK:
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/black.png"));
+                            node.setFitHeight(24);
+                            node.setFitWidth(24);
+                            break;
+                        case GREY:
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/gray.png"));
+                            node.setFitHeight(24);
+                            node.setFitWidth(24);
+                            break;
+                    }
+                } else {
+                    node.setImage(new Image("/images/island_prova.png"));
+                    node.setFitHeight(24);
+                    node.setFitWidth(24);
+                }
+            }
+        });
+    }
+
     public void displayEnemySchoolboard(int playerOffset) {
         //System.out.println("displayEnemySchoolboard");
         System.out.println(playerOffset + " " + board.getNumberOfPLayers());
@@ -262,8 +300,10 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                         try {
-                            setStudent(enemyTables.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                            System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
+                            setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
                         } catch (InvalidIndexException e) {
+                            e.printStackTrace();
                             System.out.println(e.getMessage());
                         }
                     }
@@ -271,15 +311,19 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     try {
                         if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
+                            System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
                         } else {
+                            System.out.println("Stampo prof enemy vuoto");
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
                         }
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
                 }
-                /*for() {} parte sulle torri*/
+                for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
+                    setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
+                }
                 //System.out.println("Rendered the enemy schoolboard");
             }
         }
@@ -295,7 +339,7 @@ public class BoardController extends GuiController {
             for (int i = 0; i < PawnColor.values().length; i++) {
                 for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                     try {
-                        setStudent(myTablesImages.get(("studentImages" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                        setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
@@ -310,7 +354,9 @@ public class BoardController extends GuiController {
                     System.out.println(e.getMessage());
                 }
             }
-            /*for() {} parte sulle torri*/
+            for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
+                setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
+            }
         }
     }
 
@@ -334,6 +380,7 @@ public class BoardController extends GuiController {
         displayIslands();
         displayClouds();
         displayAssistants();
+        displayCharacter();
         setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -465,12 +512,14 @@ public class BoardController extends GuiController {
                 state = 1;
                 break;
         }
+        myEntrance.get("myEntrance" + studentMoved).setEffect(new Glow(0.8));
     }
 
     public void myTablesClick(ActionEvent event) {
         if (state == 1) {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
             System.out.println("inviato messaggio AddStudentOnTableMessage");
+            myEntrance.get("myEntrance" + studentMoved).setEffect(null);
             state = 0;
         }
     }
@@ -525,17 +574,19 @@ public class BoardController extends GuiController {
     }
 
     public void setMotherNatureIsland(int islandIndex) {
-        if(islandIndex < 12 && islandIndex > -1) {
-            String islandId = "island" + Integer.toString(islandIndex);
-            Button island = islands.get(islandId);
-            double buttonX = island.getTranslateX();
-            double buttonY = island.getTranslateY();
-            motherNature.setTranslateX(buttonX + 15 - motherNatureX);
-            motherNature.setTranslateY(buttonY + 15 - motherNatureY);
-            System.out.println("x - " + motherNature.getTranslateX() + " - x - " + motherNature.getX() + " - y - " + motherNature.getTranslateY() + " - y - " + motherNature.getY());
-            motherNatureX = motherNature.getTranslateX();
-            motherNatureY = motherNature.getTranslateY();
-        }
+        Platform.runLater(() -> {
+            if(islandIndex < 12 && islandIndex > -1) {
+                String islandId = "island" + Integer.toString(islandIndex);
+                Button island = islands.get(islandId);
+                double buttonX = island.getTranslateX();
+                double buttonY = island.getTranslateY();
+                motherNature.setTranslateX(buttonX + 15 - motherNatureX);
+                motherNature.setTranslateY(buttonY + 15 - motherNatureY);
+                System.out.println("x - " + motherNature.getTranslateX() + " - x - " + motherNature.getX() + " - y - " + motherNature.getTranslateY() + " - y - " + motherNature.getY());
+                motherNatureX = motherNature.getTranslateX();
+                motherNatureY = motherNature.getTranslateY();
+            }
+        });
     }
     public void dragMotherNature(MouseEvent event) {
         motherNatureX = event.getSceneX() - motherNature.getTranslateX();
@@ -543,8 +594,10 @@ public class BoardController extends GuiController {
     }
 
     public void moveMotherNature(MouseEvent event) {
-        motherNature.setTranslateX(event.getSceneX() - motherNatureX);
-        motherNature.setTranslateY(event.getSceneY() - motherNatureY);
+        Platform.runLater(() -> {
+            motherNature.setTranslateX(event.getSceneX() - motherNatureX);
+            motherNature.setTranslateY(event.getSceneY() - motherNatureY);
+        });
     }
 
     /**
@@ -753,4 +806,63 @@ public class BoardController extends GuiController {
         }
     }
 
+    private void displayCharacter() {
+        if (board.getGameMode() == GameMode.NORMAL) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    character1.setVisible(false);
+                    character1Image.setVisible(false);
+                    //coin1.setVisible(false);
+                    character2.setVisible(false);
+                    character2Image.setVisible(false);
+                    //coin2.setVisible(false);
+                    character3.setVisible(false);
+                    character3Image.setVisible(false);
+                    //coin2.setVisible(false);
+                }
+            });
+        } else {
+            for (int i = 0; i < 3; i++) {
+                String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
+                Image image = new Image(path);
+                switch (i) {
+                    case 1:
+                        character1Image.setImage(image);
+                        break;
+                    case 2:
+                        character2Image.setImage(image);
+                        break;
+                    case 3:
+                        character3Image.setImage(image);
+                        break;
+                }
+            }
+        }
+    }
+
+    /*private void showCharacterEffect(MouseEvent event) {
+
+    }
+
+    private void removeShowCharacterEffect(MouseEvent event) {
+
+    }*/
+
+    public void playCharacter(MouseEvent event) {
+        int indexCard = 0;
+        switch(((Button) event.getSource()).getId()) {
+            case "character1":
+                indexCard = 0;
+                break;
+            case "character2":
+                indexCard = 1;
+                break;
+            case "character3":
+                indexCard = 2;
+                break;
+        }
+        getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
+        System.out.println("Character played");
+    }
 }

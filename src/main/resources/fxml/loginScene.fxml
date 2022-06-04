@@ -14,7 +14,7 @@
             <children>
                <TextField fx:id="nicknameBucket" alignment="CENTER" layoutX="110.0" layoutY="279.0" prefHeight="43.0" prefWidth="380.0" promptText="Nickname" />
                <Button layoutX="262.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="36.0" prefWidth="77.0" text="Confirm" textAlignment="CENTER" />
-               <Label fx:id="nicknameMessage" alignment="CENTER" layoutY="245.0" prefHeight="30.0" prefWidth="600.0" text="Insert your name to start playing" />
+               <Label id="nicknameMessage" fx:id="nicknameMessage" alignment="CENTER" layoutY="245.0" prefHeight="30.0" prefWidth="600.0" text="Insert your name to start playing" />
                <ImageView fitHeight="283.0" fitWidth="446.0" layoutX="95.0">
                   <image>
                      <Image url="@../images/scrittaEriantys.png" />

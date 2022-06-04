@@ -1,14 +1,36 @@
+@font-face {
+    font-family: 'Aclonica';
+    src: url('/fonts/Aclonica-Regular.ttf');
+}
+
 .root {
     -fx-background-image: url("/images/sfondoEriantysTagliato.jpg");
     -fx-background-size: stretch;
+    /*-fx-font-family: 'Aclonica', cursive;
+    -fx-font-size: 20;*/
 }
 
 /*.loginTitle {
     -fx-image: url("/images/scrittaEriantys.png");
     -fx-alignment: "center";
 }*/
-#nicknameMessage {
-    -fx-font-family: "JetBrains Mono ExtraBold";
+.label {
+    -fx-font-family: "Aclonica", cursive;
     -fx-alignment: "center";
-    -fx-font-size: 20;
+    -fx-font-size: 30;
+    -fx-text-fill: gray;
 }
+
+.button {
+    -fx-border-color: purple;
+    -fx-text-fill: black;
+    -fx-background-color: #FDD0FF;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.button:hover {
+    -fx-background-color: #FAA5FF;
+}
+
+
