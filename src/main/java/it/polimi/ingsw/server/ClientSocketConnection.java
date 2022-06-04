@@ -169,11 +169,13 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             while (isActive()) {
                 buffer = in.readObject();
                 if (buffer instanceof SetupMessage) {
+                    /*
                     SetupMessage message = (SetupMessage) buffer;
                     if (message.getConnectionState() == ConnectionState.WIZARDS){
                         System.out.println("passo check su connectionState");
                         server.chooseWizard(message, this);
                     }
+                    */
                 } else if (buffer instanceof PlayerMessage) {
                     PlayerMessage clientMessage = (PlayerMessage) buffer;
                     if (server.getMyId(this) == clientMessage.getPlayerId())
