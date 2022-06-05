@@ -141,7 +141,6 @@ public class BoardController extends GuiController {
         motherNatureY = 0;
 
         enemyBoardDisplayed = 1;
-        //displayBoard(1);
     }
 
     public void adaptSceneToPlayers() {
@@ -181,34 +180,34 @@ public class BoardController extends GuiController {
                     switch (student.getColor()) {
                         case GREEN:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/red.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/yellow.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/pink.png"));
                             node.setFitHeight(30);
-                            node.setFitWidth(44);
+                            node.setFitWidth(30);
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/blue.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                     }
                 } else {
-                    node.setImage(new Image("/images/island_prova.png"));
-                    node.setFitHeight(24);
-                    node.setFitWidth(24);
+                    node.setImage(new Image("/images/Board/Schoolboard/circle.png"));
+                    node.setFitHeight(30);
+                    node.setFitWidth(30);
                 }
             }
         });
@@ -226,24 +225,24 @@ public class BoardController extends GuiController {
                 if (color != null) {
                     switch (color) {
                         case GREEN:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/green.png"));
                             node.setFitHeight(100);
                             break;
                         case RED:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/red.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/red.png"));
                             break;
                         case YELLOW:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/yellow.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/yellow.png"));
                             break;
                         case PINK:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/pink.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/pink.png"));
                             break;
                         case BLUE:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/blue.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/blue.png"));
                             break;
                     }
                 } else {
-                    node.setImage(new Image("/images/island_prova.png"));
+                    node.setImage(new Image("/images/Board/Schoolboard/circle.png"));
                     node.setFitHeight(60.0);
                     node.setFitWidth(60.0);
                 }
@@ -274,7 +273,7 @@ public class BoardController extends GuiController {
                             break;
                     }
                 } else {
-                    node.setImage(new Image("/images/island_prova.png"));
+                    node.setImage(new Image("/images/Board/Schoolboard/circle.png"));
                     node.setFitHeight(24);
                     node.setFitWidth(24);
                 }
