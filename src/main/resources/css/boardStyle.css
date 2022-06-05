@@ -17,19 +17,20 @@
 
 .studentsButton {
     -fx-background-radius: 12;
-    -fx-border-radius: 10;
+    -fx-border-radius: 50;
     -fx-background-color: "transparent";
 }
 
 .assistantButton {
-    -fx-background-radius: 12;
-    -fx-border-radius: 10;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
     -fx-background-color: "transparent";
 }
 
 .studentsImage {
     -fx-background-radius: 12;
     -fx-border-radius: 10;
+    -fx-background-color: "black";
 }
 
 .islands {
