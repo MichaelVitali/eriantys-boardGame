@@ -17,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -54,6 +56,7 @@ public class BoardController extends GuiController {
     @FXML ImageView motherNature;
     @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; //@FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
     @FXML Label labelGameMessage;
+    @FXML AnchorPane paneClouds;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -165,6 +168,7 @@ public class BoardController extends GuiController {
                 }
                 displayBoard(1);
         });
+        adaptClouds();
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
     }
 
@@ -864,5 +868,125 @@ public class BoardController extends GuiController {
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         System.out.println("Character played");
+    }
+
+    private void adaptClouds() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (board.getNumberOfPLayers() == 2) {
+                    ImageView cloud1 = new ImageView();
+                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(146.0);
+                    paneCloud1.setLayoutY(0.0);
+                    cloud1.setImage(imageCloud1);
+                    cloud1.setX(25.0);
+                    cloud1.setY(25.0);
+                    cloud1.setFitHeight(500.0);
+                    cloud1.setFitWidth(500.0);
+                    paneCloud1.getChildren().add(cloud1);
+                    paneClouds.getChildren().add(paneCloud1);
+                    ImageView cloud2 = new ImageView();
+                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
+                    cloud2.setImage(imageCloud2);
+                    AnchorPane paneCloud2 = new AnchorPane();
+                    paneCloud2.setPrefSize(100.0, 100.0);
+                    paneCloud2.setLayoutX(530.0);
+                    paneCloud2.setLayoutY(0.0);
+                    cloud2.setX(25.0);
+                    cloud2.setY(20.0);
+                    cloud2.setFitHeight(500.0);
+                    cloud2.setFitWidth(500.0);
+                    paneCloud2.getChildren().add(cloud2);
+                    paneClouds.getChildren().add(paneCloud2);
+                } else if (board.getNumberOfPLayers() == 3) {
+                    ImageView cloud1 = new ImageView();
+                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(85.0);
+                    paneCloud1.setLayoutY(0.0);
+                    cloud1.setImage(imageCloud1);
+                    cloud1.setX(25.0);
+                    cloud1.setY(25.0);
+                    cloud1.setFitHeight(500.0);
+                    cloud1.setFitWidth(500.0);
+                    paneCloud1.getChildren().add(cloud1);
+                    paneClouds.getChildren().add(paneCloud1);
+
+                    ImageView cloud2 = new ImageView();
+                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
+                    cloud2.setImage(imageCloud2);
+                    AnchorPane paneCloud2 = new AnchorPane();
+                    paneCloud2.setPrefSize(100.0, 100.0);
+                    paneCloud2.setLayoutX(420.0);
+                    paneCloud2.setLayoutY(0.0);
+                    cloud2.setX(25.0);
+                    cloud2.setY(50.0);
+                    cloud2.setFitHeight(450.0);
+                    cloud2.setFitWidth(450.0);
+                    paneCloud2.getChildren().add(cloud2);
+                    paneClouds.getChildren().add(paneCloud2);
+
+                    ImageView cloud3 = new ImageView();
+                    Image imageCloud3 = new Image("/images/Cloud/cloud3.png");
+                    cloud3.setImage(imageCloud3);
+                    AnchorPane paneCloud3 = new AnchorPane();
+                    paneCloud3.setPrefSize(100.0, 100.0);
+                    paneCloud3.setLayoutX(620.0);
+                    paneCloud3.setLayoutY(0.0);
+                    cloud3.setX(25.0);
+                    cloud3.setY(18.0);
+                    cloud3.setFitHeight(500.0);
+                    cloud3.setFitWidth(500.0);
+                    paneCloud3.getChildren().add(cloud3);
+                    paneClouds.getChildren().add(paneCloud3);
+                } else if(board.getNumberOfPLayers() == 4) {
+                    ImageView cloud1 = new ImageView();
+                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(85.0);
+                    paneCloud1.setLayoutY(0.0);
+                    cloud1.setImage(imageCloud1);
+                    cloud1.setX(25.0);
+                    cloud1.setY(25.0);
+                    cloud1.setFitHeight(500.0);
+                    cloud1.setFitWidth(500.0);
+                    paneCloud1.getChildren().add(cloud1);
+                    paneClouds.getChildren().add(paneCloud1);
+
+                    ImageView cloud2 = new ImageView();
+                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
+                    cloud2.setImage(imageCloud2);
+                    AnchorPane paneCloud2 = new AnchorPane();
+                    paneCloud2.setPrefSize(100.0, 100.0);
+                    paneCloud2.setLayoutX(420.0);
+                    paneCloud2.setLayoutY(0.0);
+                    cloud2.setX(25.0);
+                    cloud2.setY(50.0);
+                    cloud2.setFitHeight(450.0);
+                    cloud2.setFitWidth(450.0);
+                    paneCloud2.getChildren().add(cloud2);
+                    paneClouds.getChildren().add(paneCloud2);
+
+                    ImageView cloud3 = new ImageView();
+                    Image imageCloud3 = new Image("/images/Cloud/cloud3.png");
+                    cloud3.setImage(imageCloud3);
+                    AnchorPane paneCloud3 = new AnchorPane();
+                    paneCloud3.setPrefSize(100.0, 100.0);
+                    paneCloud3.setLayoutX(620.0);
+                    paneCloud3.setLayoutY(0.0);
+                    cloud3.setX(25.0);
+                    cloud3.setY(18.0);
+                    cloud3.setFitHeight(500.0);
+                    cloud3.setFitWidth(500.0);
+                    paneCloud3.getChildren().add(cloud3);
+                    paneClouds.getChildren().add(paneCloud3);
+                }
+            }
+        });
     }
 }
