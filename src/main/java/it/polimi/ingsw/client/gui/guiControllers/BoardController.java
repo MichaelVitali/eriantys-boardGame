@@ -168,7 +168,7 @@ public class BoardController extends GuiController {
                 }
                 displayBoard(1);
         });
-        adaptClouds();
+        //adaptClouds();
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
     }
 
@@ -869,25 +869,41 @@ public class BoardController extends GuiController {
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         System.out.println("Character played");
     }
-
+/*
     private void adaptClouds() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 if (board.getNumberOfPLayers() == 2) {
+                    Button student1 = new Button();
+                    ImageView imageViewStudent1 = new ImageView();
+                    Image imageStudent1 = new Image("/images/Board/Schoolboards/Students/blue.png");
+                    imageViewStudent1.setFitWidth(60.0);
+                    imageViewStudent1.setFitHeight(60.0);
+                    imageViewStudent1.setImage(imageStudent1);
+                    student1.setGraphic(imageViewStudent1);
+                    student1.setLayoutX(146.0);
+                    student1.setLayoutY(35.0);
+                    student1.setMouseTransparent(true);
+
                     ImageView cloud1 = new ImageView();
                     Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
-                    AnchorPane paneCloud1 = new AnchorPane();
-                    paneCloud1.setPrefSize(100.0, 100.0);
-                    paneCloud1.setLayoutX(146.0);
-                    paneCloud1.setLayoutY(0.0);
                     cloud1.setImage(imageCloud1);
                     cloud1.setX(25.0);
                     cloud1.setY(25.0);
                     cloud1.setFitHeight(500.0);
                     cloud1.setFitWidth(500.0);
+
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(146.0);
+                    paneCloud1.setLayoutY(0.0);
                     paneCloud1.getChildren().add(cloud1);
+                    paneCloud1.getChildren().add(student1);
+                    paneCloud1.getChildren().add(student2);
+                    paneCloud1.getChildren().add(student3);
                     paneClouds.getChildren().add(paneCloud1);
+
                     ImageView cloud2 = new ImageView();
                     Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
                     cloud2.setImage(imageCloud2);
@@ -904,6 +920,7 @@ public class BoardController extends GuiController {
                 } else if (board.getNumberOfPLayers() == 3) {
                     ImageView cloud1 = new ImageView();
                     Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+
                     AnchorPane paneCloud1 = new AnchorPane();
                     paneCloud1.setPrefSize(100.0, 100.0);
                     paneCloud1.setLayoutX(85.0);
@@ -988,5 +1005,5 @@ public class BoardController extends GuiController {
                 }
             }
         });
-    }
+    }*/
 }
