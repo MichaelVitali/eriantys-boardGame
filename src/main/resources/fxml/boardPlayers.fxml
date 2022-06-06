@@ -13,7 +13,7 @@
       <BorderPane>
          <center>
             <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-               <Button text="MikeGay" alignment="CENTER">
+               <Button alignment="CENTER" text="MikeGay">
                </Button>
             </AnchorPane>
          </center>
@@ -264,9 +264,9 @@
                   <ImageView fx:id="entrance7" layoutX="213.0" layoutY="59.0" />
                </children>
             </AnchorPane>
-            <Button fx:id="player2" layoutY="-3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Player 2" />
-            <Button fx:id="player3" layoutX="86.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Player 3" />
-            <Button fx:id="player4" layoutX="172.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Player 4" />
+            <Button fx:id="player2" layoutY="-3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Player 2" onAction="#changeBoard"/>
+            <Button fx:id="player3" layoutX="86.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Player 3" onAction="#changeBoard"/>
+            <Button fx:id="player4" layoutX="172.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Player 4" onAction="#changeBoard"/>
             <AnchorPane layoutY="233.0" prefHeight="300.0" prefWidth="258.0">
                <children>
                   <ImageView fx:id="enemyStudent00" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" />
@@ -349,97 +349,75 @@
    <center>
       <BorderPane prefHeight="700.0" prefWidth="700.0">
          <center>
-            <AnchorPane maxHeight="700.0" maxWidth="600.0" prefHeight="700.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="700.0" maxWidth="714.0" prefHeight="700.0" prefWidth="714.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="island0" layoutX="60.0" layoutY="327.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="55.0" layoutX="42.0" layoutY="246.0" preserveRatio="true">
-                           <Image url="@../images/Board/Islands/island1.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island1" layoutX="218.0" layoutY="248.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="42.0" layoutY="367.0">
-                           <Image url="@../images/Board/Islands/island2.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island3" layoutX="391.0" layoutY="162.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="123.0" layoutY="168.0">
-                           <Image url="@../images/Board/Islands/island3.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island2" layoutX="307.0" layoutY="186.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="123.0" layoutY="471.0">
-                           <Image url="@../images/Board/Islands/island2.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island4" layoutX="495.0" layoutY="186.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="236.0" layoutY="541.0">
-                           <Image url="@../images/Board/Islands/island3.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island5" layoutX="591.0" layoutY="248.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="236.0" layoutY="79.0">
-                           <Image url="@../images/Board/Islands/island1.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island6" layoutX="629.0" layoutY="373.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="380.0" layoutY="542.0">
-                           <Image url="@../images/Board/Islands/island1.png" />
-                        </ImageView>
-                     </graphic></Button>
-                  <Button fx:id="island8" layoutX="513.0" layoutY="548.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="380.0" layoutY="79.0">
-                           <Image url="@../images/Board/Islands/island3.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island7" layoutX="573.0" layoutY="480.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="486.0" layoutY="471.0">
-                           <Image url="@../images/Board/Islands/island2.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island9" layoutX="430.0" layoutY="585.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="486.0" layoutY="168.0">
-                           <Image url="@../images/Board/Islands/island1.png" requestedHeight="40"/>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island11" layoutX="209.0" layoutY="504.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="573.0" layoutY="246.0">
-                           <Image url="@../images/Board/Islands/island2.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="island10" layoutX="332.0" layoutY="585.0" onAction="#islandClick" styleClass="islands">
-                     <graphic>
-                        <ImageView preserveRatio="true" fitHeight="60.0" fitWidth="55.0" layoutX="569.0" layoutY="367.0">
-                           <Image url="@../images/Board/Islands/island3.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <ImageView fx:id="assistantImage" fitHeight="232.0" fitWidth="180.0" layoutX="251.0" layoutY="235.0"/>
+                  <AnchorPane layoutX="60.0" layoutY="220.0">
+                     <ImageView fx:id="island0" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island1.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="153.0" layoutY="145.0">
+                     <ImageView fx:id="island1" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island2.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="255.0" layoutY="90.0">
+                     <ImageView fx:id="island2" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island3.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="357.0" layoutY="90.0">
+                     <ImageView fx:id="island3" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island2.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="459.0" layoutY="145.0">
+                     <ImageView fx:id="island4" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island3.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="552.0" layoutY="220.0">
+                     <ImageView fx:id="island5" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island1.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="552.0" layoutY="330.0">
+                     <ImageView fx:id="island6" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island3.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="153.0" layoutY="395.0">
+                     <ImageView fx:id="island7" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island2.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="255.0" layoutY="450.0">
+                     <ImageView fx:id="island8" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island1.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="357.0" layoutY="450.0">
+                     <ImageView fx:id="island9" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island2.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="459.0" layoutY="395.0">
+                     <ImageView fx:id="island10" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island3.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <AnchorPane layoutX="60.0" layoutY="330.0">
+                     <ImageView fx:id="island11" fitHeight="90.0" layoutX="0.0" layoutY="0.0"  onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                        <Image url="@../images/Board/Islands/island1.png" />
+                     </ImageView>
+                  </AnchorPane>
+                  <ImageView fx:id="assistantImage" fitHeight="232.0" fitWidth="180.0" layoutX="251.0" layoutY="235.0" />
                   <ImageView fx:id="motherNature" fitHeight="42.0" fitWidth="22.0" layoutX="145.0" layoutY="298.0" onMouseDragged="#moveMotherNature" onMousePressed="#dragMotherNature" onMouseReleased="#dropMotherNature" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/BLLoghi.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="labelGameMessage" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="714.0" text="PROVA" />
                </children>
             </AnchorPane>
          </center>
@@ -541,7 +519,6 @@
                      </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="labelGameMessage" layoutX="1146.0" layoutY="30.0" prefHeight="168.0" prefWidth="227.0" text="PROVA" />
                </children>
             </AnchorPane>
          </center>

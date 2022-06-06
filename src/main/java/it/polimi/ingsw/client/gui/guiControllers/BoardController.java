@@ -49,7 +49,7 @@ public class BoardController extends GuiController {
     @FXML ImageView studentImage40; @FXML ImageView studentImage41; @FXML ImageView studentImage42; @FXML ImageView studentImage43; @FXML ImageView studentImage44; @FXML ImageView studentImage45; @FXML ImageView studentImage46; @FXML ImageView studentImage47; @FXML ImageView studentImage48; @FXML ImageView studentImage49;
     @FXML ImageView myTower0; @FXML ImageView myTower1; @FXML ImageView myTower2; @FXML ImageView myTower3; @FXML ImageView myTower4; @FXML ImageView myTower5; @FXML ImageView myTower6; @FXML ImageView myTower7;
 
-    @FXML Button island0; @FXML Button island1; @FXML Button island2; @FXML Button island3; @FXML Button island4; @FXML Button island5; @FXML Button island6; @FXML Button island7; @FXML Button island8; @FXML Button island9; @FXML Button island10; @FXML Button island11;
+    @FXML ImageView island0; @FXML ImageView island1; @FXML ImageView island2; @FXML ImageView island3; @FXML ImageView island4; @FXML ImageView island5; @FXML ImageView island6; @FXML ImageView island7; @FXML ImageView island8; @FXML ImageView island9; @FXML ImageView island10; @FXML ImageView island11;
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
@@ -72,7 +72,7 @@ public class BoardController extends GuiController {
     private Map<String, ImageView> enemyTowers;
 
 
-    private Map<String, Button> islands;
+    private Map<String, ImageView> islands;
 
     private GameMessage board;
     private int myPlayerId;
@@ -94,7 +94,7 @@ public class BoardController extends GuiController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //System.out.println("Initialize");
+        System.out.println("Initialize");
         myEntrance = new HashMap<>();
         myProfessors = new HashMap<>();
         myTables = new HashMap<>();
@@ -321,8 +321,12 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                     setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
                 }
-                //System.out.println("Rendered the enemy schoolboard");
+                for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+                    setTower(myTowers.get(("enemyTower" + i)), null);
+                }
             }
+
+                //System.out.println("Rendered the enemy schoolboard");
         }
     }
 
@@ -353,6 +357,9 @@ public class BoardController extends GuiController {
             }
             for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                 setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
+            }
+            for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+                setTower(myTowers.get(("myTower" + i)), null);
             }
         }
     }
@@ -522,10 +529,10 @@ public class BoardController extends GuiController {
         }
     }
 
-    public void islandClick(ActionEvent event) {
+    public void islandClick(MouseEvent event) {
         int islandIndex = -1;
         //System.out.println(((Button) event.getSource()).getId() + " pressed");
-        switch(((Button) event.getSource()).getId()) {
+        switch(((ImageView) event.getSource()).getId()) {
             case "island0":
                 islandIndex = 0;
                 break;
@@ -575,7 +582,7 @@ public class BoardController extends GuiController {
         Platform.runLater(() -> {
             if(islandIndex < 12 && islandIndex > -1) {
                 String islandId = "island" + Integer.toString(islandIndex);
-                Button island = islands.get(islandId);
+                ImageView island = islands.get(islandId);
                 double buttonX = island.getTranslateX();
                 double buttonY = island.getTranslateY();
                 motherNature.setTranslateX(buttonX + 15 - motherNatureX);
@@ -870,7 +877,7 @@ public class BoardController extends GuiController {
     }
 
     private void adaptClouds() {
-        Platform.runLater(new Runnable() {
+        /*Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 if (board.getNumberOfPLayers() == 2) {
@@ -986,6 +993,6 @@ public class BoardController extends GuiController {
                     paneClouds.getChildren().add(paneCloud3);
                 }
             }
-        });
+        });*/
     }
 }
