@@ -54,7 +54,8 @@ public class BoardController extends GuiController {
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
     @FXML ImageView motherNature;
-    @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; //@FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
+    @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
+    @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
     @FXML Label labelGameMessage;
     @FXML AnchorPane paneClouds;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
@@ -930,21 +931,240 @@ public class BoardController extends GuiController {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    character1.setVisible(true);
-                    character2.setVisible(true);
-                    character3.setVisible(true);
+                    character1Image.setVisible(true);
+                    character2Image.setVisible(true);
+                    character3Image.setVisible(true);
 
                     for (int i = 0; i < 3; i++) {
                         String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
                         Image image = new Image(path);
                         switch (i) {
-                            case 1:
+                            case 0:
+                                if (board.getCharacters()[i] instanceof Princess || board.getCharacters()[i] instanceof Monk) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character1.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student3Character1.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student4Character1.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student6Character1.setGraphic(imageViewStudent4);
+
+                                    student1Character1.setVisible(true);
+                                    student3Character1.setVisible(true);
+                                    student4Character1.setVisible(true);
+                                    student6Character1.setVisible(true);
+                                } else if (board.getCharacters()[i] instanceof Jester) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character1.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student2Character1.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student3Character1.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student4Character1.setGraphic(imageViewStudent4);
+
+                                    Image student5 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[4].getColor()));
+                                    ImageView imageViewStudent5 = new ImageView(student5);
+                                    imageViewStudent5.setFitHeight(30);
+                                    imageViewStudent5.setFitWidth(30);
+                                    student5Character1.setGraphic(imageViewStudent5);
+
+                                    Image student6 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[5].getColor()));
+                                    ImageView imageViewStudent6 = new ImageView(student6);
+                                    imageViewStudent6.setFitHeight(30);
+                                    imageViewStudent6.setFitWidth(30);
+                                    student6Character1.setGraphic(imageViewStudent6);
+
+                                    student1Character1.setVisible(true);
+                                    student2Character1.setVisible(true);
+                                    student3Character1.setVisible(true);
+                                    student4Character1.setVisible(true);
+                                    student5Character1.setVisible(true);
+                                    student6Character1.setVisible(true);
+                                }
                                 character1Image.setImage(image);
                                 break;
-                            case 2:
+                            case 1:
+                                if (board.getCharacters()[i] instanceof Princess || board.getCharacters()[i] instanceof Monk) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character2.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student3Character2.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student4Character2.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student6Character2.setGraphic(imageViewStudent4);
+
+                                    student1Character2.setVisible(true);
+                                    student3Character2.setVisible(true);
+                                    student4Character2.setVisible(true);
+                                    student6Character2.setVisible(true);
+                                } else if (board.getCharacters()[i] instanceof Jester) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character2.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student2Character2.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student3Character2.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student4Character2.setGraphic(imageViewStudent4);
+
+                                    Image student5 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[4].getColor()));
+                                    ImageView imageViewStudent5 = new ImageView(student5);
+                                    imageViewStudent5.setFitHeight(30);
+                                    imageViewStudent5.setFitWidth(30);
+                                    student5Character2.setGraphic(imageViewStudent5);
+
+                                    Image student6 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[5].getColor()));
+                                    ImageView imageViewStudent6 = new ImageView(student6);
+                                    imageViewStudent6.setFitHeight(30);
+                                    imageViewStudent6.setFitWidth(30);
+                                    student6Character2.setGraphic(imageViewStudent6);
+
+                                    student1Character2.setVisible(true);
+                                    student2Character2.setVisible(true);
+                                    student3Character2.setVisible(true);
+                                    student4Character2.setVisible(true);
+                                    student5Character2.setVisible(true);
+                                    student6Character2.setVisible(true);
+                                }
                                 character2Image.setImage(image);
                                 break;
-                            case 3:
+                            case 2:
+                                if (board.getCharacters()[i] instanceof Princess || board.getCharacters()[i] instanceof Monk) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character3.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student3Character3.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student4Character3.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student6Character3.setGraphic(imageViewStudent4);
+
+                                    student1Character3.setVisible(true);
+                                    student3Character3.setVisible(true);
+                                    student4Character3.setVisible(true);
+                                    student6Character3.setVisible(true);
+                                } else if (board.getCharacters()[i] instanceof Jester) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character3.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student2Character3.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student3Character3.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student4Character3.setGraphic(imageViewStudent4);
+
+                                    Image student5 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[4].getColor()));
+                                    ImageView imageViewStudent5 = new ImageView(student5);
+                                    imageViewStudent5.setFitHeight(30);
+                                    imageViewStudent5.setFitWidth(30);
+                                    student5Character3.setGraphic(imageViewStudent5);
+
+                                    Image student6 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[5].getColor()));
+                                    ImageView imageViewStudent6 = new ImageView(student6);
+                                    imageViewStudent6.setFitHeight(30);
+                                    imageViewStudent6.setFitWidth(30);
+                                    student6Character3.setGraphic(imageViewStudent6);
+
+                                    student1Character3.setVisible(true);
+                                    student2Character3.setVisible(true);
+                                    student3Character3.setVisible(true);
+                                    student4Character3.setVisible(true);
+                                    student5Character3.setVisible(true);
+                                    student6Character3.setVisible(true);
+                                }
                                 character3Image.setImage(image);
                                 break;
                         }
@@ -952,6 +1172,22 @@ public class BoardController extends GuiController {
                 }
             });
         }
+    }
+
+    private String returnImagePathStudentFromColor(PawnColor color) {
+        switch (color) {
+            case BLUE:
+                return "/images/Board/Schoolboards/Students/blue.png";
+            case GREEN:
+                return "/images/Board/Schoolboards/Students/green.png";
+            case PINK:
+                return "/images/Board/Schoolboards/Students/pink.png";
+            case RED:
+                return "/images/Board/Schoolboards/Students/red.png";
+            case YELLOW:
+                return "/images/Board/Schoolboards/Students/yellow.png";
+        }
+        return "";
     }
 
     /*private void showCharacterEffect(MouseEvent event) {
@@ -975,14 +1211,14 @@ public class BoardController extends GuiController {
 
     public void playCharacter(MouseEvent event) {
         int indexCard = 0;
-        switch(((Button) event.getSource()).getId()) {
-            case "character1":
+        switch(((ImageView) event.getSource()).getId()) {
+            case "character1Image":
                 indexCard = 0;
                 break;
-            case "character2":
+            case "character2Image":
                 indexCard = 1;
                 break;
-            case "character3":
+            case "character3Image":
                 indexCard = 2;
                 break;
         }

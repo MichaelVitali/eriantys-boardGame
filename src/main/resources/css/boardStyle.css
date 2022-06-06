@@ -26,6 +26,12 @@
     -fx-border-radius: 100;
     -fx-background-color: "transparent";
 }
+.characterStudentButton {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-background-color: "transparent";
+    -fx-effect: dropshadow(three-pass-box, cornflowerblue, 10, 0.5, 0, 0);
+}
 
 .studentsImage {
     -fx-background-radius: 12;
@@ -42,6 +48,11 @@
 .islands {
     -fx-background-color: "transparent";
     -fx-effect: dropshadow(three-pass-box, cornflowerblue, 30, 0.5, 0, 0);
+}
+
+.characterImage {
+    -fx-effect: dropshadow(three-pass-box, cornflowerblue, 30, 0.5, 0, 0);
+    -fx-background-color: "transparent";
 }
 
 .label {
