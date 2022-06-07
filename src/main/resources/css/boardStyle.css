@@ -39,8 +39,8 @@
 }
 
 .label {
-    -fx-font-family: "Dreamwood";
+    -fx-font-family: "Aclonica";
     -fx-alignment: "center";
     -fx-font-size: 16;
-    -fx-text-fill: darkgrey;
+    -fx-text-fill: black;
 }

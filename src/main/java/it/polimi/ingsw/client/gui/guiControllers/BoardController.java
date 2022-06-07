@@ -53,7 +53,7 @@ public class BoardController extends GuiController {
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
     @FXML ImageView motherNature;
     @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; //@FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
-    @FXML Label labelGameMessage;
+    @FXML Label labelGameMessage; @FXML Button buttonGameMessage; @FXML ImageView imageGameMessage;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -838,12 +838,61 @@ public class BoardController extends GuiController {
 
     }*/
 
-    public void showGameMessage(){
+
+    public void showAgainGameMessage(MouseEvent event){
+
+        Thread t = new Thread(new Runnable(){
+            public void run(){
+                try {
+                    wait(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         String playerMessage = board.getPlayerMessage();
+        labelGameMessage.setText(playerMessage);
+        buttonGameMessage.setVisible(false);
+        imageGameMessage.setVisible(false);
+        labelGameMessage.setVisible(true);
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                labelGameMessage.setText(playerMessage);
+
+                t.run();
+                labelGameMessage.setVisible(false);
+                buttonGameMessage.setVisible(true);
+                imageGameMessage.setVisible(true);
+
+            }
+        });
+    }
+
+    public void showGameMessage(){
+
+        Thread t = new Thread(new Runnable(){
+            public void run(){
+                try {
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        String playerMessage = board.getPlayerMessage();
+        labelGameMessage.setText(playerMessage);
+
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                t.run();
+                labelGameMessage.setVisible(false);
+                buttonGameMessage.setVisible(true);
+                imageGameMessage.setVisible(true);
             }
         });
 
