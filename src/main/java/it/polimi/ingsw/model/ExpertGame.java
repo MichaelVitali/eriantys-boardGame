@@ -77,7 +77,7 @@ public class ExpertGame extends Game {
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
-                case 2: //NON TORNA ALLO STATO INZIALE
+                case 2: //OK
                     InnKeeper c2 = new InnKeeper(ID, cost);
                     c.add(c2);
                     break;
@@ -133,8 +133,8 @@ public class ExpertGame extends Game {
             numberOfCharacter--;
         }*/
         this.characters[0] = c.get(0);
-        this.characters[1] = c.get(11);
-        this.characters[2] = c.get(6);
+        this.characters[1] = c.get(6);
+        this.characters[2] = c.get(10);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

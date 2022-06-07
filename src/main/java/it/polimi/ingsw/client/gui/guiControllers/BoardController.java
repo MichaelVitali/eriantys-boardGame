@@ -16,7 +16,9 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -47,13 +49,15 @@ public class BoardController extends GuiController {
     @FXML ImageView studentImage40; @FXML ImageView studentImage41; @FXML ImageView studentImage42; @FXML ImageView studentImage43; @FXML ImageView studentImage44; @FXML ImageView studentImage45; @FXML ImageView studentImage46; @FXML ImageView studentImage47; @FXML ImageView studentImage48; @FXML ImageView studentImage49;
     @FXML ImageView myTower0; @FXML ImageView myTower1; @FXML ImageView myTower2; @FXML ImageView myTower3; @FXML ImageView myTower4; @FXML ImageView myTower5; @FXML ImageView myTower6; @FXML ImageView myTower7;
 
-    @FXML Button island0; @FXML Button island1; @FXML Button island2; @FXML Button island3; @FXML Button island4; @FXML Button island5; @FXML Button island6; @FXML Button island7; @FXML Button island8; @FXML Button island9; @FXML Button island10; @FXML Button island11;
+    @FXML ImageView island0; @FXML ImageView island1; @FXML ImageView island2; @FXML ImageView island3; @FXML ImageView island4; @FXML ImageView island5; @FXML ImageView island6; @FXML ImageView island7; @FXML ImageView island8; @FXML ImageView island9; @FXML ImageView island10; @FXML ImageView island11;
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
     @FXML ImageView motherNature;
-    @FXML Button character1; @FXML Button character2; @FXML Button character3; @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; //@FXML ImageView coin1; @FXML ImageView coin2; @FXML ImageView coin3;
-    @FXML Label labelGameMessage; @FXML Button buttonGameMessage; @FXML ImageView imageGameMessage;
+    @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
+    @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
+    @FXML Label labelGameMessage;
+    @FXML AnchorPane paneClouds;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -69,7 +73,7 @@ public class BoardController extends GuiController {
     private Map<String, ImageView> enemyTowers;
 
 
-    private Map<String, Button> islands;
+    private Map<String, ImageView> islands;
 
     private GameMessage board;
     private int myPlayerId;
@@ -80,15 +84,33 @@ public class BoardController extends GuiController {
     private double motherNatureX;
     private double motherNatureY;
 
+    /**
+     *
+     * @return
+     */
     public GameMessage getBoard() {
         return board;
     }
 
+    /**
+     *
+     * @param board
+     */
     public void setBoard(GameMessage board) {
         this.board = board;
         myPlayerId = board.getPlayerId();
     }
 
+    /**
+     *
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //System.out.println("Initialize");
@@ -144,6 +166,9 @@ public class BoardController extends GuiController {
         //displayBoard(1);
     }
 
+    /**
+     *
+     */
     public void adaptSceneToPlayers() {
         Platform.runLater(() -> {
                 if (board.getNumberOfPLayers() == 2) {
@@ -165,11 +190,12 @@ public class BoardController extends GuiController {
                 }
                 displayBoard(1);
         });
+        //adaptClouds();
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
     }
 
     /**
-     * Per ora setta tutto di colore verdeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+     * Sets the student image on the node selecting the color of the student passed as parameter
      * @param node
      * @param student
      */
@@ -181,41 +207,42 @@ public class BoardController extends GuiController {
                     switch (student.getColor()) {
                         case GREEN:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/red.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/yellow.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/pink.png"));
                             node.setFitHeight(30);
-                            node.setFitWidth(44);
+                            node.setFitWidth(30);
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/blue.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setFitHeight(30);
+                            node.setFitWidth(30);
                             break;
                     }
                 } else {
-                    node.setImage(new Image("/images/island_prova.png"));
-                    node.setFitHeight(24);
-                    node.setFitWidth(24);
+                    node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
+                    node.setFitHeight(30);
+                    node.setFitWidth(30);
                 }
+                node.setPreserveRatio(true);
             }
         });
     }
 
     /**
-     * Qua andranno i professoiiriririiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+     * Sets the professor image on the node selecting the color passed as parameter
      * @param node
      * @param color
      */
@@ -226,24 +253,24 @@ public class BoardController extends GuiController {
                 if (color != null) {
                     switch (color) {
                         case GREEN:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/green.png"));
                             node.setFitHeight(100);
                             break;
                         case RED:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/red.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/red.png"));
                             break;
                         case YELLOW:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/yellow.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/yellow.png"));
                             break;
                         case PINK:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/pink.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/pink.png"));
                             break;
                         case BLUE:
-                            node.setImage(new Image("/images/Board/Schoolboards/Students/blue.png"));
+                            node.setImage(new Image("/images/Board/Schoolboards/Professors/blue.png"));
                             break;
                     }
                 } else {
-                    node.setImage(new Image("/images/island_prova.png"));
+                    node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(60.0);
                     node.setFitWidth(60.0);
                 }
@@ -252,6 +279,11 @@ public class BoardController extends GuiController {
         });
     }
 
+    /**
+     *
+     * @param node
+     * @param color
+     */
     public void setTower(ImageView node, TowerColor color) {
         Platform.runLater(() -> {
             if(node != null) {
@@ -274,17 +306,22 @@ public class BoardController extends GuiController {
                             break;
                     }
                 } else {
-                    node.setImage(new Image("/images/island_prova.png"));
+                    node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(24);
                     node.setFitWidth(24);
                 }
+                node.setPreserveRatio(true);
             }
         });
     }
 
+    /**
+     *
+     * @param playerOffset
+     */
     public void displayEnemySchoolboard(int playerOffset) {
         //System.out.println("displayEnemySchoolboard");
-        System.out.println(playerOffset + " " + board.getNumberOfPLayers());
+        //System.out.println(playerOffset + " " + board.getNumberOfPLayers());
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
                 SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
@@ -294,7 +331,7 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                         try {
-                            System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
+                            //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
@@ -305,24 +342,34 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     try {
                         if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
-                            System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
+                            //System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
                         } else {
-                            System.out.println("Stampo prof enemy vuoto");
+                            //System.out.println("Stampo prof enemy vuoto");
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
                         }
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
                 }
+                //System.out.println("Enemy" + schoolBoard.getTowers().size());
                 for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                     setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
+                    System.out.println("Enemy" + i);
                 }
-                //System.out.println("Rendered the enemy schoolboard");
+                for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+                    setTower(myTowers.get(("enemyTower" + i)), null);
+                    System.out.println("Enemy" + i);
+                }
             }
+
+                //System.out.println("Rendered the enemy schoolboard");
         }
     }
 
+    /**
+     *
+     */
     public void displayMySchoolboard() {
         //System.out.println("displayMySchoolboard");
         if (board != null) {
@@ -341,29 +388,44 @@ public class BoardController extends GuiController {
             }
             for (int i = 0; i < PawnColor.values().length; i++) {
                 try {
-                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
+                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)))
                         setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                    }
+                    else
+                        setProfessor(myProfessors.get(("myProfessor" + i)), null);
                 } catch (InvalidIndexException e) {
                     System.out.println(e.getMessage());
                 }
             }
+            //System.out.println("My" + schoolBoard.getTowers().size());
             for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                 setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
+            }
+            for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+                setTower(myTowers.get(("myTower" + i)), null);
             }
         }
     }
 
+    /**
+     *
+     */
     public void displayIslands() {
         //System.out.println("displayIslands");
 
     }
 
+    /**
+     *
+     */
     public void displayClouds() {
         //System.out.println("displayClouds");
 
     }
 
+    /**
+     *
+     * @param playerOffset
+     */
     public void displayBoard(int playerOffset) {
         //System.out.println("displayBoard");
         //System.out.println("Player: " + board.getPlayerOnTurn());
@@ -376,9 +438,13 @@ public class BoardController extends GuiController {
         displayAssistants();
         displayCharacter();
         showGameMessage();
-        setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
+        //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
+    /**
+     *
+     * @param event
+     */
     public void changeBoard(ActionEvent event) {
         switch(((Button) event.getSource()).getId()) {
             case "player2":
@@ -392,6 +458,11 @@ public class BoardController extends GuiController {
                 break;
         }
     }
+
+    /**
+     *
+     * @param message
+     */
     @Override
     public void update(Message message) {
         //System.out.println("Arrivato un messaggio alla update");
@@ -427,7 +498,10 @@ public class BoardController extends GuiController {
         }
     }
 
-
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void assistantClick(MouseEvent event) {
         int indexCard = 0;
@@ -467,6 +541,10 @@ public class BoardController extends GuiController {
         System.out.println("inviato messaggio PlayAssistantMessage");
     }
 
+    /**
+     *
+     * @param event
+     */
     public void myEntranceClick(ActionEvent event) {
         //System.out.println(((Button) event.getSource()).getId() + " pressed");
         switch(((Button) event.getSource()).getId()) {
@@ -510,6 +588,10 @@ public class BoardController extends GuiController {
         myEntrance.get("myEntrance" + studentMoved).setEffect(new Glow(0.8));
     }
 
+    /**
+     *
+     * @param event
+     */
     public void myTablesClick(ActionEvent event) {
         if (state == 1) {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
@@ -519,10 +601,14 @@ public class BoardController extends GuiController {
         }
     }
 
-    public void islandClick(ActionEvent event) {
+    /**
+     *
+     * @param event
+     */
+    public void islandClick(MouseEvent event) {
         int islandIndex = -1;
         //System.out.println(((Button) event.getSource()).getId() + " pressed");
-        switch(((Button) event.getSource()).getId()) {
+        switch(((ImageView) event.getSource()).getId()) {
             case "island0":
                 islandIndex = 0;
                 break;
@@ -568,24 +654,38 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     *
+     * @param islandIndex
+     */
     public void setMotherNatureIsland(int islandIndex) {
         Platform.runLater(() -> {
             if(islandIndex < 12 && islandIndex > -1) {
                 String islandId = "island" + Integer.toString(islandIndex);
-                Button island = islands.get(islandId);
-                double buttonX = island.getTranslateX();
-                double buttonY = island.getTranslateY();
-                motherNature.setTranslateX(buttonX + 15 - motherNatureX);
-                motherNature.setTranslateY(buttonY + 15 - motherNatureY);
+                ImageView island = islands.get(islandId);
+                double imageX = island.getLayoutX();
+                double imageY = island.getLayoutY();
+                System.out.println("island mother nature " + imageX + " " + imageY);
+                motherNature.setTranslateX(imageX + 15 - motherNatureX);
+                motherNature.setTranslateY(imageY + 15 - motherNatureY);
                 System.out.println("x - " + motherNature.getTranslateX() + " - x - " + motherNature.getX() + " - y - " + motherNature.getTranslateY() + " - y - " + motherNature.getY());
                 motherNatureX = motherNature.getTranslateX();
                 motherNatureY = motherNature.getTranslateY();
             }
         });
     }
+
     public void dragMotherNature(MouseEvent event) {
-        motherNatureX = event.getSceneX() - motherNature.getTranslateX();
-        motherNatureY = event.getSceneY() - motherNature.getTranslateY();
+        Platform.runLater(() -> {
+            Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString("MN");
+            db.setContent(content);
+            event.consume();
+
+            motherNatureX = event.getSceneX() - motherNature.getTranslateX();
+            motherNatureY = event.getSceneY() - motherNature.getTranslateY();
+        });
     }
 
     public void moveMotherNature(MouseEvent event) {
@@ -595,6 +695,26 @@ public class BoardController extends GuiController {
         });
     }
 
+     public void dropMotherNature(DragEvent event) {
+        Platform.runLater(() -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                System.out.println("Dropped: " + db.getString());
+                success = true;
+            }
+            getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, Integer.parseInt(
+                    ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
+                            ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
+                            : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2))));
+            System.out.println("Inviato ChangeMotherNaturePositionMessage" + Integer.parseInt(
+                    ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
+                            ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
+                            : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2)));
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
     /**
      * Da completareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
      * @param x
@@ -604,6 +724,10 @@ public class BoardController extends GuiController {
      */
     public int getIslandFromCoordinates(double x, double y) throws NoIslandException {
         int islandIndex = board.getGametable().getMotherNaturePosition() + 1;
+        for(int i = 0; i < 12; i++) {
+            ImageView island = islands.get("island" + Integer.toString(i));
+
+        }
         if (true) {
 
         } else {
@@ -611,7 +735,8 @@ public class BoardController extends GuiController {
         }
         return islandIndex;
     }
-    public void dropMotherNature(MouseEvent event) {
+
+    /*public void dropMotherNature(MouseEvent event) {
         try {
             int islandIndex = getIslandFromCoordinates(event.getSceneX(), event.getSceneY());
             getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
@@ -623,7 +748,7 @@ public class BoardController extends GuiController {
         }
         motherNature.setTranslateX(event.getSceneX() - motherNatureX);
         motherNature.setTranslateY(event.getSceneY() - motherNatureY);
-    }
+    }*/
 
     public void showAssistant(MouseEvent event) {
         String idAssistant = ((Button) event.getSource()).getId();
@@ -806,21 +931,240 @@ public class BoardController extends GuiController {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    character1.setVisible(true);
-                    character2.setVisible(true);
-                    character3.setVisible(true);
+                    character1Image.setVisible(true);
+                    character2Image.setVisible(true);
+                    character3Image.setVisible(true);
 
                     for (int i = 0; i < 3; i++) {
                         String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
                         Image image = new Image(path);
                         switch (i) {
-                            case 1:
+                            case 0:
+                                if (board.getCharacters()[i] instanceof Princess || board.getCharacters()[i] instanceof Monk) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character1.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student3Character1.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student4Character1.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student6Character1.setGraphic(imageViewStudent4);
+
+                                    student1Character1.setVisible(true);
+                                    student3Character1.setVisible(true);
+                                    student4Character1.setVisible(true);
+                                    student6Character1.setVisible(true);
+                                } else if (board.getCharacters()[i] instanceof Jester) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character1.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student2Character1.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student3Character1.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student4Character1.setGraphic(imageViewStudent4);
+
+                                    Image student5 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[4].getColor()));
+                                    ImageView imageViewStudent5 = new ImageView(student5);
+                                    imageViewStudent5.setFitHeight(30);
+                                    imageViewStudent5.setFitWidth(30);
+                                    student5Character1.setGraphic(imageViewStudent5);
+
+                                    Image student6 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[5].getColor()));
+                                    ImageView imageViewStudent6 = new ImageView(student6);
+                                    imageViewStudent6.setFitHeight(30);
+                                    imageViewStudent6.setFitWidth(30);
+                                    student6Character1.setGraphic(imageViewStudent6);
+
+                                    student1Character1.setVisible(true);
+                                    student2Character1.setVisible(true);
+                                    student3Character1.setVisible(true);
+                                    student4Character1.setVisible(true);
+                                    student5Character1.setVisible(true);
+                                    student6Character1.setVisible(true);
+                                }
                                 character1Image.setImage(image);
                                 break;
-                            case 2:
+                            case 1:
+                                if (board.getCharacters()[i] instanceof Princess || board.getCharacters()[i] instanceof Monk) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character2.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student3Character2.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student4Character2.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student6Character2.setGraphic(imageViewStudent4);
+
+                                    student1Character2.setVisible(true);
+                                    student3Character2.setVisible(true);
+                                    student4Character2.setVisible(true);
+                                    student6Character2.setVisible(true);
+                                } else if (board.getCharacters()[i] instanceof Jester) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character2.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student2Character2.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student3Character2.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student4Character2.setGraphic(imageViewStudent4);
+
+                                    Image student5 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[4].getColor()));
+                                    ImageView imageViewStudent5 = new ImageView(student5);
+                                    imageViewStudent5.setFitHeight(30);
+                                    imageViewStudent5.setFitWidth(30);
+                                    student5Character2.setGraphic(imageViewStudent5);
+
+                                    Image student6 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[5].getColor()));
+                                    ImageView imageViewStudent6 = new ImageView(student6);
+                                    imageViewStudent6.setFitHeight(30);
+                                    imageViewStudent6.setFitWidth(30);
+                                    student6Character2.setGraphic(imageViewStudent6);
+
+                                    student1Character2.setVisible(true);
+                                    student2Character2.setVisible(true);
+                                    student3Character2.setVisible(true);
+                                    student4Character2.setVisible(true);
+                                    student5Character2.setVisible(true);
+                                    student6Character2.setVisible(true);
+                                }
                                 character2Image.setImage(image);
                                 break;
-                            case 3:
+                            case 2:
+                                if (board.getCharacters()[i] instanceof Princess || board.getCharacters()[i] instanceof Monk) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character3.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student3Character3.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student4Character3.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student6Character3.setGraphic(imageViewStudent4);
+
+                                    student1Character3.setVisible(true);
+                                    student3Character3.setVisible(true);
+                                    student4Character3.setVisible(true);
+                                    student6Character3.setVisible(true);
+                                } else if (board.getCharacters()[i] instanceof Jester) {
+                                    Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
+                                    ImageView imageViewStudent1 = new ImageView(student1);
+                                    imageViewStudent1.setFitHeight(30);
+                                    imageViewStudent1.setFitWidth(30);
+                                    student1Character3.setGraphic(imageViewStudent1);
+
+                                    Image student2 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[1].getColor()));
+                                    ImageView imageViewStudent2 = new ImageView(student2);
+                                    imageViewStudent2.setFitHeight(30);
+                                    imageViewStudent2.setFitWidth(30);
+                                    student2Character3.setGraphic(imageViewStudent2);
+
+                                    Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
+                                    ImageView imageViewStudent3 = new ImageView(student3);
+                                    imageViewStudent3.setFitHeight(30);
+                                    imageViewStudent3.setFitWidth(30);
+                                    student3Character3.setGraphic(imageViewStudent3);
+
+                                    Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
+                                    ImageView imageViewStudent4 = new ImageView(student4);
+                                    imageViewStudent4.setFitHeight(30);
+                                    imageViewStudent4.setFitWidth(30);
+                                    student4Character3.setGraphic(imageViewStudent4);
+
+                                    Image student5 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[4].getColor()));
+                                    ImageView imageViewStudent5 = new ImageView(student5);
+                                    imageViewStudent5.setFitHeight(30);
+                                    imageViewStudent5.setFitWidth(30);
+                                    student5Character3.setGraphic(imageViewStudent5);
+
+                                    Image student6 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[5].getColor()));
+                                    ImageView imageViewStudent6 = new ImageView(student6);
+                                    imageViewStudent6.setFitHeight(30);
+                                    imageViewStudent6.setFitWidth(30);
+                                    student6Character3.setGraphic(imageViewStudent6);
+
+                                    student1Character3.setVisible(true);
+                                    student2Character3.setVisible(true);
+                                    student3Character3.setVisible(true);
+                                    student4Character3.setVisible(true);
+                                    student5Character3.setVisible(true);
+                                    student6Character3.setVisible(true);
+                                }
                                 character3Image.setImage(image);
                                 break;
                         }
@@ -828,6 +1172,22 @@ public class BoardController extends GuiController {
                 }
             });
         }
+    }
+
+    private String returnImagePathStudentFromColor(PawnColor color) {
+        switch (color) {
+            case BLUE:
+                return "/images/Board/Schoolboards/Students/blue.png";
+            case GREEN:
+                return "/images/Board/Schoolboards/Students/green.png";
+            case PINK:
+                return "/images/Board/Schoolboards/Students/pink.png";
+            case RED:
+                return "/images/Board/Schoolboards/Students/red.png";
+            case YELLOW:
+                return "/images/Board/Schoolboards/Students/yellow.png";
+        }
+        return "";
     }
 
     /*private void showCharacterEffect(MouseEvent event) {
@@ -838,61 +1198,12 @@ public class BoardController extends GuiController {
 
     }*/
 
-
-    public void showAgainGameMessage(MouseEvent event){
-
-        Thread t = new Thread(new Runnable(){
-            public void run(){
-                try {
-                    wait(20000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        String playerMessage = board.getPlayerMessage();
-        labelGameMessage.setText(playerMessage);
-        buttonGameMessage.setVisible(false);
-        imageGameMessage.setVisible(false);
-        labelGameMessage.setVisible(true);
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-
-                t.run();
-                labelGameMessage.setVisible(false);
-                buttonGameMessage.setVisible(true);
-                imageGameMessage.setVisible(true);
-
-            }
-        });
-    }
-
     public void showGameMessage(){
-
-        Thread t = new Thread(new Runnable(){
-            public void run(){
-                try {
-                    Thread.sleep(20000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         String playerMessage = board.getPlayerMessage();
-        labelGameMessage.setText(playerMessage);
-
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                t.run();
-                labelGameMessage.setVisible(false);
-                buttonGameMessage.setVisible(true);
-                imageGameMessage.setVisible(true);
+                labelGameMessage.setText(playerMessage);
             }
         });
 
@@ -900,18 +1211,155 @@ public class BoardController extends GuiController {
 
     public void playCharacter(MouseEvent event) {
         int indexCard = 0;
-        switch(((Button) event.getSource()).getId()) {
-            case "character1":
+        switch(((ImageView) event.getSource()).getId()) {
+            case "character1Image":
                 indexCard = 0;
                 break;
-            case "character2":
+            case "character2Image":
                 indexCard = 1;
                 break;
-            case "character3":
+            case "character3Image":
                 indexCard = 2;
                 break;
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         System.out.println("Character played");
     }
+/*
+    private void adaptClouds() {
+        /*Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (board.getNumberOfPLayers() == 2) {
+                    Button student1 = new Button();
+                    ImageView imageViewStudent1 = new ImageView();
+                    Image imageStudent1 = new Image("/images/Board/Schoolboards/Students/blue.png");
+                    imageViewStudent1.setFitWidth(60.0);
+                    imageViewStudent1.setFitHeight(60.0);
+                    imageViewStudent1.setImage(imageStudent1);
+                    student1.setGraphic(imageViewStudent1);
+                    student1.setLayoutX(146.0);
+                    student1.setLayoutY(35.0);
+                    student1.setMouseTransparent(true);
+
+                    ImageView cloud1 = new ImageView();
+                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+                    cloud1.setImage(imageCloud1);
+                    cloud1.setX(25.0);
+                    cloud1.setY(25.0);
+                    cloud1.setFitHeight(500.0);
+                    cloud1.setFitWidth(500.0);
+
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(146.0);
+                    paneCloud1.setLayoutY(0.0);
+                    paneCloud1.getChildren().add(cloud1);
+                    paneCloud1.getChildren().add(student1);
+                    paneCloud1.getChildren().add(student2);
+                    paneCloud1.getChildren().add(student3);
+                    paneClouds.getChildren().add(paneCloud1);
+
+                    ImageView cloud2 = new ImageView();
+                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
+                    cloud2.setImage(imageCloud2);
+                    AnchorPane paneCloud2 = new AnchorPane();
+                    paneCloud2.setPrefSize(100.0, 100.0);
+                    paneCloud2.setLayoutX(530.0);
+                    paneCloud2.setLayoutY(0.0);
+                    cloud2.setX(25.0);
+                    cloud2.setY(20.0);
+                    cloud2.setFitHeight(500.0);
+                    cloud2.setFitWidth(500.0);
+                    paneCloud2.getChildren().add(cloud2);
+                    paneClouds.getChildren().add(paneCloud2);
+                } else if (board.getNumberOfPLayers() == 3) {
+                    ImageView cloud1 = new ImageView();
+                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(85.0);
+                    paneCloud1.setLayoutY(0.0);
+                    cloud1.setImage(imageCloud1);
+                    cloud1.setX(25.0);
+                    cloud1.setY(25.0);
+                    cloud1.setFitHeight(500.0);
+                    cloud1.setFitWidth(500.0);
+                    paneCloud1.getChildren().add(cloud1);
+                    paneClouds.getChildren().add(paneCloud1);
+
+                    ImageView cloud2 = new ImageView();
+                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
+                    cloud2.setImage(imageCloud2);
+                    AnchorPane paneCloud2 = new AnchorPane();
+                    paneCloud2.setPrefSize(100.0, 100.0);
+                    paneCloud2.setLayoutX(420.0);
+                    paneCloud2.setLayoutY(0.0);
+                    cloud2.setX(25.0);
+                    cloud2.setY(50.0);
+                    cloud2.setFitHeight(450.0);
+                    cloud2.setFitWidth(450.0);
+                    paneCloud2.getChildren().add(cloud2);
+                    paneClouds.getChildren().add(paneCloud2);
+
+                    ImageView cloud3 = new ImageView();
+                    Image imageCloud3 = new Image("/images/Cloud/cloud3.png");
+                    cloud3.setImage(imageCloud3);
+                    AnchorPane paneCloud3 = new AnchorPane();
+                    paneCloud3.setPrefSize(100.0, 100.0);
+                    paneCloud3.setLayoutX(620.0);
+                    paneCloud3.setLayoutY(0.0);
+                    cloud3.setX(25.0);
+                    cloud3.setY(18.0);
+                    cloud3.setFitHeight(500.0);
+                    cloud3.setFitWidth(500.0);
+                    paneCloud3.getChildren().add(cloud3);
+                    paneClouds.getChildren().add(paneCloud3);
+                } else if(board.getNumberOfPLayers() == 4) {
+                    ImageView cloud1 = new ImageView();
+                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
+                    AnchorPane paneCloud1 = new AnchorPane();
+                    paneCloud1.setPrefSize(100.0, 100.0);
+                    paneCloud1.setLayoutX(85.0);
+                    paneCloud1.setLayoutY(0.0);
+                    cloud1.setImage(imageCloud1);
+                    cloud1.setX(25.0);
+                    cloud1.setY(25.0);
+                    cloud1.setFitHeight(500.0);
+                    cloud1.setFitWidth(500.0);
+                    paneCloud1.getChildren().add(cloud1);
+                    paneClouds.getChildren().add(paneCloud1);
+
+                    ImageView cloud2 = new ImageView();
+                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
+                    cloud2.setImage(imageCloud2);
+                    AnchorPane paneCloud2 = new AnchorPane();
+                    paneCloud2.setPrefSize(100.0, 100.0);
+                    paneCloud2.setLayoutX(420.0);
+                    paneCloud2.setLayoutY(0.0);
+                    cloud2.setX(25.0);
+                    cloud2.setY(50.0);
+                    cloud2.setFitHeight(450.0);
+                    cloud2.setFitWidth(450.0);
+                    paneCloud2.getChildren().add(cloud2);
+                    paneClouds.getChildren().add(paneCloud2);
+
+                    ImageView cloud3 = new ImageView();
+                    Image imageCloud3 = new Image("/images/Cloud/cloud3.png");
+                    cloud3.setImage(imageCloud3);
+                    AnchorPane paneCloud3 = new AnchorPane();
+                    paneCloud3.setPrefSize(100.0, 100.0);
+                    paneCloud3.setLayoutX(620.0);
+                    paneCloud3.setLayoutY(0.0);
+                    cloud3.setX(25.0);
+                    cloud3.setY(18.0);
+                    cloud3.setFitHeight(500.0);
+                    cloud3.setFitWidth(500.0);
+                    paneCloud3.getChildren().add(cloud3);
+                    paneClouds.getChildren().add(paneCloud3);
+                }
+            }
+        });
+    }*/
 }
