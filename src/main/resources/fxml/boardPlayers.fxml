@@ -412,7 +412,7 @@
                      </ImageView>
                   </AnchorPane>
                   <ImageView fx:id="assistantImage" fitHeight="230.0" fitWidth="180.0" layoutX="267.0" layoutY="200.0" />
-                  <ImageView fx:id="motherNature" fitHeight="50.0" fitWidth="22.0" layoutX="200.0" layoutY="200.0" onMouseDragged="#moveMotherNature" onMousePressed="#dragMotherNature" onMouseReleased="#dropMotherNature" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="motherNature" fitHeight="50.0" fitWidth="22.0" layoutX="200.0" layoutY="200.0" onDragDetected="#dragMotherNature" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image preserveRatio="true" requestedHeight="100" url="@../images/BLLoghi.png" />
                      </image>

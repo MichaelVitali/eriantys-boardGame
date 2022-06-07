@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -159,6 +160,14 @@ public class BoardController extends GuiController {
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
 
+        motherNature.setOnDragDetected(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+
+                    }
+                }
+        );
         motherNatureX = 0;
         motherNatureY = 0;
 
@@ -680,7 +689,7 @@ public class BoardController extends GuiController {
             Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
             content.putString("MN");
-            db.setContent(content);
+            db.setContent(content);;
             event.consume();
 
             motherNatureX = event.getSceneX() - motherNature.getTranslateX();
