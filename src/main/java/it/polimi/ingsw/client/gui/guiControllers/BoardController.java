@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -54,11 +55,13 @@ public class BoardController extends GuiController {
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
+    @FXML Button buttonAssistantPlayed1; @FXML Button buttonAssistantPlayed2; @FXML Button buttonAssistantPlayed3; @FXML Button buttonAssistantPlayed4; @FXML ImageView assistantPlayed1; @FXML ImageView assistantPlayed2; @FXML ImageView assistantPlayed3; @FXML ImageView assistantPlayed4;
     @FXML ImageView motherNature;
     @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
     @FXML Label labelGameMessage;
     @FXML AnchorPane paneClouds;
+    @FXML Label nickAssistantPlayed;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -447,6 +450,7 @@ public class BoardController extends GuiController {
         displayAssistants();
         displayCharacter();
         showGameMessage();
+        displayAssistantsPlayed();
         //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -686,11 +690,11 @@ public class BoardController extends GuiController {
 
     public void dragMotherNature(MouseEvent event) {
         Platform.runLater(() -> {
-            Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
+            /*Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
             content.putString("MN");
-            db.setContent(content);;
-            event.consume();
+            db.setContent(content);
+            event.consume();*/
 
             motherNatureX = event.getSceneX() - motherNature.getTranslateX();
             motherNatureY = event.getSceneY() - motherNature.getTranslateY();
@@ -704,14 +708,14 @@ public class BoardController extends GuiController {
         });
     }
 
-     public void dropMotherNature(DragEvent event) {
+     public void dropMotherNature(MouseEvent event) {
         Platform.runLater(() -> {
-            Dragboard db = event.getDragboard();
+            /*Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
                 System.out.println("Dropped: " + db.getString());
                 success = true;
-            }
+            }*/
             getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, Integer.parseInt(
                     ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
                             ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
@@ -720,9 +724,10 @@ public class BoardController extends GuiController {
                     ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
                             ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
                             : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2)));
-            event.setDropCompleted(success);
-            event.consume();
+            /*event.setDropCompleted(success);
+            event.consume();*/
         });
+        System.out.println("MotherNature Lasciata");
     }
     /**
      * Da completareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
@@ -808,6 +813,90 @@ public class BoardController extends GuiController {
             @Override
             public void run() {
                 assistantImage.setVisible(false);
+                nickAssistantPlayed.setVisible(false);
+            }
+        });
+    }
+
+    public void showAssistantPlayed(MouseEvent event) {
+        String image = ((Button) event.getSource()).getGraphic().getId();
+        int playerNickname = -1, cardValue = -1;
+        String imagePath = "/images/Assistant/";
+         if (board.getNumberOfPLayers() == 2) {
+             if (image.equals("assistantPlayed2")) {
+                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
+             } else {
+                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
+             }
+         } else if(board.getNumberOfPLayers() == 3) {
+             if (image.equals("assistantPlayed2")) {
+                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
+             } else if (image.equals("assistantPlayed3")){
+                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
+             } else {
+                 playerNickname = board.getPlayedAssistants()[2].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[2].getAssistant().getCardValue();
+             }
+         } else if (board.getNumberOfPLayers() == 4) {
+             if (image.equals("assistantPlayed1")) {
+                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
+             } else if (image.equals("assistantPlayed2")){
+                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
+             } else if (image.equals("assistantPlayed3")){
+                 playerNickname = board.getPlayedAssistants()[2].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[2].getAssistant().getCardValue();
+             } else {
+                 playerNickname = board.getPlayedAssistants()[3].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[3].getAssistant().getCardValue();
+             }
+         }
+         switch (cardValue) {
+             case 1:
+                 imagePath += "assistant0.png";
+                 break;
+             case 2:
+                 imagePath += "assistant1.png";
+                 break;
+             case 3:
+                 imagePath += "assistant2.png";
+                 break;
+             case 4:
+                 imagePath += "assistant3.png";
+                 break;
+             case 5:
+                 imagePath += "assistant4.png";
+                 break;
+             case 6:
+                 imagePath += "assistant5.png";
+                 break;
+             case 7:
+                 imagePath += "assistant6.png";
+                 break;
+             case 8:
+                 imagePath += "assistant7.png";
+                 break;
+             case 9:
+                 imagePath += "assistant8.png";
+                 break;
+             case 10:
+                 imagePath += "assistant9.png";
+                 break;
+         }
+        Image imageAssistant = new Image(imagePath);
+        int finalPlayerNickname = playerNickname;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                assistantImage.setImage(imageAssistant);
+                assistantImage.setVisible(true);
+                nickAssistantPlayed.setText("Assistant played by " + finalPlayerNickname);
+                nickAssistantPlayed.setVisible(true);
             }
         });
     }
@@ -1182,6 +1271,44 @@ public class BoardController extends GuiController {
             });
         }
     }
+
+    private void displayAssistantsPlayed() {
+        if (board.getNumberOfPLayers() == 2 && board.getPlayedAssistants()[0] != null && board.getPlayedAssistants()[1] != null) {
+            Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+            assistantPlayed2.setImage(assistant1);
+            Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+            assistantPlayed3.setImage(assistant2);
+
+            buttonAssistantPlayed2.setVisible(true);
+            buttonAssistantPlayed3.setVisible(true);
+        } else if (board.getNumberOfPLayers() == 3 && board.getPlayedAssistants()[0] != null && board.getPlayedAssistants()[1] != null && board.getPlayedAssistants()[2] != null) {
+            Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+            assistantPlayed2.setImage(assistant1);
+            Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+            assistantPlayed3.setImage(assistant2);
+            Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
+            assistantPlayed4.setImage(assistant4);
+
+            buttonAssistantPlayed2.setVisible(true);
+            buttonAssistantPlayed3.setVisible(true);
+            buttonAssistantPlayed4.setVisible(true);
+        } else if (board.getNumberOfPLayers() == 4 && board.getPlayedAssistants()[0] != null && board.getPlayedAssistants()[1] != null && board.getPlayedAssistants()[2] != null && board.getPlayedAssistants()[3] != null) {
+            Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+            assistantPlayed1.setImage(assistant1);
+            Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+            assistantPlayed2.setImage(assistant2);
+            Image assistant3 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
+            assistantPlayed3.setImage(assistant3);
+            Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[3].getAssistant().getCardValue() + ".png");
+            assistantPlayed4.setImage(assistant4);
+
+            buttonAssistantPlayed1.setVisible(true);
+            buttonAssistantPlayed2.setVisible(true);
+            buttonAssistantPlayed3.setVisible(true);
+            buttonAssistantPlayed4.setVisible(true);
+        }
+    }
+
 
     private String returnImagePathStudentFromColor(PawnColor color) {
         switch (color) {
