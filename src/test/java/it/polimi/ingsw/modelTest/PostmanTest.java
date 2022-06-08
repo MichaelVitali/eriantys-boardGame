@@ -30,9 +30,9 @@ public class PostmanTest {
     public void postmanTest1() throws InvalidIndexException {
         game.getGameTable().changeMotherNaturePosition(0);
         int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
-        game.getRound().playAssistant(currentPlayer, 0);
-        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().playAssistant(currentPlayer, 1);
+        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
+        game.getRound().playAssistant(currentPlayer, 2);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().activateEffect(currentPlayer, 0);
         game.getRound().addStudentOnTable(currentPlayer, 0);
@@ -47,9 +47,9 @@ public class PostmanTest {
     public void postmanTest2() throws InvalidIndexException {
         game.getGameTable().changeMotherNaturePosition(0);
         int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
-        game.getRound().playAssistant(currentPlayer, 0);
-        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().playAssistant(currentPlayer, 1);
+        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
+        game.getRound().playAssistant(currentPlayer, 2);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().activateEffect(currentPlayer, 0);
         game.getRound().addStudentOnTable(currentPlayer, 0);
@@ -64,9 +64,9 @@ public class PostmanTest {
     public void postmanTest3() throws InvalidIndexException {
         game.getGameTable().changeMotherNaturePosition(0);
         int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
-        game.getRound().playAssistant(currentPlayer, 0);
-        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().playAssistant(currentPlayer, 1);
+        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
+        game.getRound().playAssistant(currentPlayer, 2);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().activateEffect(currentPlayer, 0);
         game.getRound().addStudentOnTable(currentPlayer, 0);

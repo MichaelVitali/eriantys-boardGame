@@ -366,7 +366,7 @@ public class RoundTest {
 
         game2p.getRound().setRoundState(0);
         game2p.getRound().playAssistant(1, 11);
-        assertEquals("The assistant doesn't exist!Select an assistant", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("The assistant doesn't exist!\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessage());
     }
 
     @Test
