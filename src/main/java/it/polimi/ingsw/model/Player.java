@@ -59,14 +59,32 @@ public class Player implements Serializable {
         return returnedAssistants;
     }
 
-    public Assistant getAssistant(int position) throws InvalidIndexException{
-        if(position < 0 && position >= assistants.size()) throw new InvalidIndexException("Choose a valid assistant");
-        return this.assistants.get(position);
+    public Assistant getAssistant(int id) throws InvalidIndexException{
+        boolean flag = false;
+        int pos = -1;
+        for(int i = 0; i < assistants.size(); i++) {
+            if (assistants.get(i).getCardValue() == id) {
+                flag = true;
+                pos = i;
+                break;
+            }
+        }
+        if (flag) return assistants.get(pos);
+        else throw new InvalidIndexException("The assistant doesn't exist!\n");
     }
 
-    public Assistant removeAssistant(int position) throws InvalidIndexException{
-        if(position < 0 && position >= assistants.size()) throw new InvalidIndexException("Choose a valid assistant");
-        return assistants.remove(position);
+    public Assistant removeAssistant(int id) throws InvalidIndexException{
+        boolean flag = false;
+        int pos = -1;
+        for(int i = 0; i < assistants.size(); i++) {
+            if (assistants.get(i).getCardValue() == id) {
+                flag = true;
+                pos = i;
+                break;
+            }
+        }
+        if (flag) return assistants.remove(pos);
+        else throw new InvalidIndexException("The assistant doesn't exist!\n");
     }
 
     public void moveStudentOnTable(int pos) throws FullTableException, InvalidIndexException {

@@ -304,11 +304,11 @@ public class Round implements Serializable {
         playedAssistantsPF.add(assistantToPlay);
     }
 
-    public void playAssistant(int playerId, int assistantPosition) {
+    public void playAssistant(int playerId, int idAssistant) {
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(0);
-            removeAssistant(playerId, assistantPosition);
+            removeAssistant(playerId, idAssistant);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
