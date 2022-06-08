@@ -426,8 +426,13 @@ public class BoardController extends GuiController {
         System.out.println("displayIslands");
         Platform.runLater(() -> {
             if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
-                for (int i = 0; i < board.getPlayedAssistants()[myPlayerId].getAssistant().getMotherNatureMoves(); i++) {
-                    islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + i) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                for(int i = 0; i < board.getNumberOfPLayers(); i++) {
+                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                        Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
+                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
+                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        }
+                    }
                 }
             } else {
                 for (int i = 0; i < 12; i++) {
@@ -674,14 +679,18 @@ public class BoardController extends GuiController {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
+                state = 0;
+            } else {
+                getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
+                System.out.println("inviato messaggio ChangeMotherNaturePositionMessage");
             }
         }
     }
 
-    /**
+    /*
      *
      * @param islandIndex
-     */
+     *
     public void setMotherNatureIsland(int islandIndex) {
         Platform.runLater(() -> {
             if(islandIndex < 12 && islandIndex > -1) {

@@ -387,22 +387,22 @@
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="153.0" layoutY="395.0">
-                     <ImageView fx:id="island7" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island10" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="255.0" layoutY="450.0">
-                     <ImageView fx:id="island8" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island9" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="357.0" layoutY="450.0">
-                     <ImageView fx:id="island9" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island8" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="459.0" layoutY="395.0">
-                     <ImageView fx:id="island10" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island7" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
                   </AnchorPane>
