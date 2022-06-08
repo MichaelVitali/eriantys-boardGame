@@ -352,67 +352,67 @@
             <AnchorPane maxHeight="700.0" maxWidth="714.0" prefHeight="700.0" prefWidth="714.0" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane layoutX="60.0" layoutY="220.0">
-                     <ImageView fx:id="island0" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island0" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="153.0" layoutY="145.0">
-                     <ImageView fx:id="island1" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island1" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="255.0" layoutY="90.0">
-                     <ImageView fx:id="island2" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island2" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="357.0" layoutY="90.0">
-                     <ImageView fx:id="island3" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island3" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="459.0" layoutY="145.0">
-                     <ImageView fx:id="island4" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island4" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="552.0" layoutY="220.0">
-                     <ImageView fx:id="island5" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island5" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="552.0" layoutY="330.0">
-                     <ImageView fx:id="island6" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island6" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="153.0" layoutY="395.0">
-                     <ImageView fx:id="island7" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island7" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="255.0" layoutY="450.0">
-                     <ImageView fx:id="island8" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island8" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="357.0" layoutY="450.0">
-                     <ImageView fx:id="island9" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island9" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="459.0" layoutY="395.0">
-                     <ImageView fx:id="island10" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island10" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
                   </AnchorPane>
                   <AnchorPane layoutX="60.0" layoutY="330.0">
-                     <ImageView fx:id="island11" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseReleased="#dropMotherNature" preserveRatio="true" styleClass="islands">
+                     <ImageView fx:id="island11" fitHeight="90.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
                   </AnchorPane>
                   <ImageView fx:id="assistantImage" fitHeight="209.0" fitWidth="180.0" layoutX="267.0" layoutY="221.0" />
-                  <ImageView fx:id="motherNature" fitHeight="50.0" fitWidth="22.0" layoutX="200.0" layoutY="200.0" onMouseDragged="#moveMotherNature" onMousePressed="#dragMotherNature" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="motherNature" fitHeight="50.0" fitWidth="22.0" layoutX="200.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image preserveRatio="true" requestedHeight="100" url="@../images/BLLoghi.png" />
                      </image>

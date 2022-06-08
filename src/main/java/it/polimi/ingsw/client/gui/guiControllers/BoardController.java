@@ -14,12 +14,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 //import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -117,7 +120,7 @@ public class BoardController extends GuiController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //System.out.println("Initialize");
+        System.out.println("Initialize");
         myEntrance = new HashMap<>();
         myProfessors = new HashMap<>();
         myTables = new HashMap<>();
@@ -163,19 +166,10 @@ public class BoardController extends GuiController {
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
 
-        motherNature.setOnDragDetected(
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-
-                    }
-                }
-        );
         motherNatureX = 0;
         motherNatureY = 0;
 
         enemyBoardDisplayed = 1;
-        //displayBoard(1);
     }
 
     /**
@@ -383,7 +377,7 @@ public class BoardController extends GuiController {
      *
      */
     public void displayMySchoolboard() {
-        //System.out.println("displayMySchoolboard");
+        System.out.println("displayMySchoolboard");
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -422,8 +416,18 @@ public class BoardController extends GuiController {
      *
      */
     public void displayIslands() {
-        //System.out.println("displayIslands");
-
+        System.out.println("displayIslands");
+        Platform.runLater(() -> {
+            if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
+                for (int i = 0; i < board.getPlayedAssistants()[myPlayerId].getAssistant().getMotherNatureMoves(); i++) {
+                    islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + i) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                }
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                }
+            }
+        });
     }
 
     /**
@@ -663,14 +667,17 @@ public class BoardController extends GuiController {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
+            } else {
+                getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
+                System.out.println("inviato messaggio ChangeMotherNaturePositionMessage");
             }
         }
     }
 
-    /**
+    /*
      *
      * @param islandIndex
-     */
+     *
     public void setMotherNatureIsland(int islandIndex) {
         Platform.runLater(() -> {
             if(islandIndex < 12 && islandIndex > -1) {
@@ -686,15 +693,15 @@ public class BoardController extends GuiController {
                 motherNatureY = motherNature.getTranslateY();
             }
         });
-    }
-
+    }*/
+    /*
     public void dragMotherNature(MouseEvent event) {
         Platform.runLater(() -> {
             /*Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
             content.putString("MN");
             db.setContent(content);
-            event.consume();*/
+            event.consume();
 
             motherNatureX = event.getSceneX() - motherNature.getTranslateX();
             motherNatureY = event.getSceneY() - motherNature.getTranslateY();
@@ -707,15 +714,15 @@ public class BoardController extends GuiController {
             motherNature.setTranslateY(event.getSceneY() - motherNatureY);
         });
     }
-
-     public void dropMotherNature(MouseEvent event) {
+*/
+     /*public void dropMotherNature(MouseEvent event) {
         Platform.runLater(() -> {
             /*Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
                 System.out.println("Dropped: " + db.getString());
                 success = true;
-            }*/
+            }
             getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, Integer.parseInt(
                     ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
                             ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
@@ -724,18 +731,20 @@ public class BoardController extends GuiController {
                     ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
                             ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
                             : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2)));
-            /*event.setDropCompleted(success);
-            event.consume();*/
+            event.setDropCompleted(success);
+            event.consume();
         });
         System.out.println("MotherNature Lasciata");
     }
+    */
+    /*
     /**
      * Da completareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
      * @param x
      * @param y
      * @return
      * @throws NoIslandException
-     */
+     *
     public int getIslandFromCoordinates(double x, double y) throws NoIslandException {
         int islandIndex = board.getGametable().getMotherNaturePosition() + 1;
         for(int i = 0; i < 12; i++) {
@@ -748,7 +757,7 @@ public class BoardController extends GuiController {
             throw new NoIslandException();
         }
         return islandIndex;
-    }
+    }*/
 
     /*public void dropMotherNature(MouseEvent event) {
         try {
