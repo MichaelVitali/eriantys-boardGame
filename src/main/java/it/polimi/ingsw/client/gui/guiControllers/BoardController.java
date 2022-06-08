@@ -120,7 +120,7 @@ public class BoardController extends GuiController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Initialize");
+        //System.out.println("Initialize");
         myEntrance = new HashMap<>();
         myProfessors = new HashMap<>();
         myTables = new HashMap<>();
@@ -170,6 +170,7 @@ public class BoardController extends GuiController {
         motherNatureY = 0;
 
         enemyBoardDisplayed = 1;
+        //displayBoard(1);
     }
 
     /**
@@ -328,6 +329,7 @@ public class BoardController extends GuiController {
     public void displayEnemySchoolboard(int playerOffset) {
         //System.out.println("displayEnemySchoolboard");
         //System.out.println(playerOffset + " " + board.getNumberOfPLayers());
+        int dist = 25;
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
                 SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
@@ -339,10 +341,12 @@ public class BoardController extends GuiController {
                         try {
                             //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                            myTables.get("enemyStudent" + i + j).setLayoutX(dist);
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
                             System.out.println(e.getMessage());
                         }
+                        dist += 30;
                     }
                 }
                 for (int i = 0; i < PawnColor.values().length; i++) {
@@ -377,7 +381,8 @@ public class BoardController extends GuiController {
      *
      */
     public void displayMySchoolboard() {
-        System.out.println("displayMySchoolboard");
+        //System.out.println("displayMySchoolboard");
+        int dist = 25;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -387,10 +392,12 @@ public class BoardController extends GuiController {
                 for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                     try {
                         setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                        myTables.get("student" + i + j).setLayoutX(dist);
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
                 }
+                dist += 40;
             }
             for (int i = 0; i < PawnColor.values().length; i++) {
                 try {
@@ -667,17 +674,14 @@ public class BoardController extends GuiController {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
-            } else {
-                getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
-                System.out.println("inviato messaggio ChangeMotherNaturePositionMessage");
             }
         }
     }
 
-    /*
+    /**
      *
      * @param islandIndex
-     *
+     */
     public void setMotherNatureIsland(int islandIndex) {
         Platform.runLater(() -> {
             if(islandIndex < 12 && islandIndex > -1) {
@@ -1282,39 +1286,54 @@ public class BoardController extends GuiController {
     }
 
     private void displayAssistantsPlayed() {
-        if (board.getNumberOfPLayers() == 2 && board.getPlayedAssistants()[0] != null && board.getPlayedAssistants()[1] != null) {
-            Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
-            assistantPlayed2.setImage(assistant1);
-            Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
-            assistantPlayed3.setImage(assistant2);
-
-            buttonAssistantPlayed2.setVisible(true);
-            buttonAssistantPlayed3.setVisible(true);
-        } else if (board.getNumberOfPLayers() == 3 && board.getPlayedAssistants()[0] != null && board.getPlayedAssistants()[1] != null && board.getPlayedAssistants()[2] != null) {
-            Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
-            assistantPlayed2.setImage(assistant1);
-            Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
-            assistantPlayed3.setImage(assistant2);
-            Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
-            assistantPlayed4.setImage(assistant4);
-
-            buttonAssistantPlayed2.setVisible(true);
-            buttonAssistantPlayed3.setVisible(true);
-            buttonAssistantPlayed4.setVisible(true);
-        } else if (board.getNumberOfPLayers() == 4 && board.getPlayedAssistants()[0] != null && board.getPlayedAssistants()[1] != null && board.getPlayedAssistants()[2] != null && board.getPlayedAssistants()[3] != null) {
-            Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
-            assistantPlayed1.setImage(assistant1);
-            Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
-            assistantPlayed2.setImage(assistant2);
-            Image assistant3 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
-            assistantPlayed3.setImage(assistant3);
-            Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[3].getAssistant().getCardValue() + ".png");
-            assistantPlayed4.setImage(assistant4);
-
-            buttonAssistantPlayed1.setVisible(true);
-            buttonAssistantPlayed2.setVisible(true);
-            buttonAssistantPlayed3.setVisible(true);
-            buttonAssistantPlayed4.setVisible(true);
+        if (board.getNumberOfPLayers() == 2) {
+            if (board.getPlayedAssistants()[0] != null) {
+                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+                assistantPlayed2.setImage(assistant1);
+                buttonAssistantPlayed2.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[1] != null) {
+                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+                assistantPlayed3.setImage(assistant2);
+                buttonAssistantPlayed3.setVisible(true);
+            }
+        } else if (board.getNumberOfPLayers() == 3) {
+            if (board.getPlayedAssistants()[0] != null) {
+                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+                assistantPlayed2.setImage(assistant1);
+                buttonAssistantPlayed2.setVisible(true);
+            }
+            if(board.getPlayedAssistants()[1] != null) {
+                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+                assistantPlayed3.setImage(assistant2);
+                buttonAssistantPlayed3.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[2] != null) {
+                Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
+                assistantPlayed4.setImage(assistant4);
+                buttonAssistantPlayed4.setVisible(true);
+            }
+        } else if (board.getNumberOfPLayers() == 4) {
+            if (board.getPlayedAssistants()[0] != null) {
+                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+                assistantPlayed1.setImage(assistant1);
+                buttonAssistantPlayed1.setVisible(true);
+            }
+            if(board.getPlayedAssistants()[1] != null) {
+                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+                assistantPlayed2.setImage(assistant2);
+                buttonAssistantPlayed2.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[2] != null) {
+                Image assistant3 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
+                assistantPlayed3.setImage(assistant3);
+                buttonAssistantPlayed3.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[3] != null) {
+                Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[3].getAssistant().getCardValue() + ".png");
+                assistantPlayed4.setImage(assistant4);
+                buttonAssistantPlayed4.setVisible(true);
+            }
         }
     }
 
