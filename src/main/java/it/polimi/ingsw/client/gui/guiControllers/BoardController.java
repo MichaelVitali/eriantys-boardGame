@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,12 +14,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 //import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +62,8 @@ public class BoardController extends GuiController {
     @FXML ImageView motherNature;
     @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
+    @FXML AnchorPane centerUpperAnchorPane;
+    @FXML ImageView cloud0; @FXML ImageView cloud1; @FXML ImageView cloud2; @FXML ImageView cloud3;
     @FXML Label labelGameMessage;
     @FXML AnchorPane paneClouds;
     @FXML Label nickAssistantPlayed;
@@ -77,6 +83,7 @@ public class BoardController extends GuiController {
 
 
     private Map<String, ImageView> islands;
+    private Map<String, ImageView> clouds;
 
     private GameMessage board;
     private int myPlayerId;
@@ -130,6 +137,7 @@ public class BoardController extends GuiController {
         enemyTowers = new HashMap<>();
 
         islands = new HashMap<>();
+        clouds = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
@@ -161,6 +169,8 @@ public class BoardController extends GuiController {
         myTowers.put("myTower0", myTower0); myTowers.put("myTower1", myTower1); myTowers.put("myTower2", myTower2); myTowers.put("myTower3", myTower3); myTowers.put("myTower4", myTower4); myTowers.put("myTower5", myTower5); myTowers.put("myTower6", myTower6); myTowers.put("myTower7", myTower7);
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
+        clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
+
 
         motherNatureX = 0;
         motherNatureY = 0;
@@ -182,9 +192,14 @@ public class BoardController extends GuiController {
                     entrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
+                    cloud2.setVisible(false);
+                    cloud3.setVisible(false);
+                    centerUpperAnchorPane.setPrefWidth(200);
                 } else if (board.getNumberOfPLayers() == 3) {
                     player4.setVisible(false);
-                    // adattero le torri anche traslandole
+                    cloud3.setVisible(false);
+                    centerUpperAnchorPane.setPrefWidth(300);
+                    // da adattare le torri anche traslandole
                 } else if (board.getNumberOfPLayers() == 4) {
                     entrance7.setVisible(false);
                     entrance8.setVisible(false);
@@ -337,7 +352,7 @@ public class BoardController extends GuiController {
                         try {
                             //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                            myTables.get("enemyStudent" + i + j).setLayoutX(dist);
+                            //myTables.get("enemyStudent" + i + j).setLayoutX(dist);
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
                             System.out.println(e.getMessage());
@@ -419,8 +434,23 @@ public class BoardController extends GuiController {
      *
      */
     public void displayIslands() {
-        //System.out.println("displayIslands");
-
+        System.out.println("displayIslands");
+        Platform.runLater(() -> {
+            if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
+                for(int i = 0; i < board.getNumberOfPLayers(); i++) {
+                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                        Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
+                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
+                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                }
+            }
+        });
     }
 
     /**
@@ -660,106 +690,13 @@ public class BoardController extends GuiController {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
+                state = 0;
+            } else {
+                getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
+                System.out.println("inviato messaggio ChangeMotherNaturePositionMessage");
             }
         }
     }
-
-    /**
-     *
-     * @param islandIndex
-     */
-    public void setMotherNatureIsland(int islandIndex) {
-        Platform.runLater(() -> {
-            if(islandIndex < 12 && islandIndex > -1) {
-                String islandId = "island" + Integer.toString(islandIndex);
-                ImageView island = islands.get(islandId);
-                double imageX = island.getLayoutX();
-                double imageY = island.getLayoutY();
-                System.out.println("island mother nature " + imageX + " " + imageY);
-                motherNature.setTranslateX(imageX + 15 - motherNatureX);
-                motherNature.setTranslateY(imageY + 15 - motherNatureY);
-                System.out.println("x - " + motherNature.getTranslateX() + " - x - " + motherNature.getX() + " - y - " + motherNature.getTranslateY() + " - y - " + motherNature.getY());
-                motherNatureX = motherNature.getTranslateX();
-                motherNatureY = motherNature.getTranslateY();
-            }
-        });
-    }
-
-    public void dragMotherNature(MouseEvent event) {
-        Platform.runLater(() -> {
-            /*Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
-            ClipboardContent content = new ClipboardContent();
-            content.putString("MN");
-            db.setContent(content);
-            event.consume();*/
-
-            motherNatureX = event.getSceneX() - motherNature.getTranslateX();
-            motherNatureY = event.getSceneY() - motherNature.getTranslateY();
-        });
-    }
-
-    public void moveMotherNature(MouseEvent event) {
-        Platform.runLater(() -> {
-            motherNature.setTranslateX(event.getSceneX() - motherNatureX);
-            motherNature.setTranslateY(event.getSceneY() - motherNatureY);
-        });
-    }
-
-     public void dropMotherNature(MouseEvent event) {
-        Platform.runLater(() -> {
-            /*Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasString()) {
-                System.out.println("Dropped: " + db.getString());
-                success = true;
-            }*/
-            getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, Integer.parseInt(
-                    ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
-                            ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
-                            : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2))));
-            System.out.println("Inviato ChangeMotherNaturePositionMessage" + Integer.parseInt(
-                    ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
-                            ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
-                            : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2)));
-            /*event.setDropCompleted(success);
-            event.consume();*/
-        });
-        System.out.println("MotherNature Lasciata");
-    }
-    /**
-     * Da completareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-     * @param x
-     * @param y
-     * @return
-     * @throws NoIslandException
-     */
-    public int getIslandFromCoordinates(double x, double y) throws NoIslandException {
-        int islandIndex = board.getGametable().getMotherNaturePosition() + 1;
-        for(int i = 0; i < 12; i++) {
-            ImageView island = islands.get("island" + Integer.toString(i));
-
-        }
-        if (true) {
-
-        } else {
-            throw new NoIslandException();
-        }
-        return islandIndex;
-    }
-
-    /*public void dropMotherNature(MouseEvent event) {
-        try {
-            int islandIndex = getIslandFromCoordinates(event.getSceneX(), event.getSceneY());
-            getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
-            System.out.println("Inviato ChangeMotherNaturePositionMessage");
-        } catch (NoIslandException e) {
-            motherNature.setTranslateX(motherNatureX);
-            motherNature.setTranslateY(motherNatureY);
-
-        }
-        motherNature.setTranslateX(event.getSceneX() - motherNatureX);
-        motherNature.setTranslateY(event.getSceneY() - motherNatureY);
-    }*/
 
     public void showAssistant(MouseEvent event) {
         String idAssistant = ((Button) event.getSource()).getId();
@@ -920,12 +857,9 @@ public class BoardController extends GuiController {
                     case 2:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                assistant2Image.setImage(imageBW);
-                                assistant2.setMouseTransparent(true);
-                            }
+                        Platform.runLater(() -> {
+                            assistant2Image.setImage(imageBW);
+                            assistant2.setMouseTransparent(true);
                         });
                         break;
                     case 3:
@@ -1021,6 +955,11 @@ public class BoardController extends GuiController {
         }
     }
 
+    public void cloudClick(MouseEvent event) {
+        int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
+        getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
+        System.out.println("inviato messaggio GetStudentsFromCloudsMessage");
+    }
     private void displayCharacter() {
         if (board.getGameMode() == GameMode.EXPERT) {
             Platform.runLater(new Runnable() {
