@@ -39,6 +39,11 @@
     -fx-background-color: "black";
 }
 
+.colorButton {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-font-family: "Aclonica", cursive;
+}
 /*.islands {
     -fx-background-radius: 12;
     -fx-border-radius: 10;

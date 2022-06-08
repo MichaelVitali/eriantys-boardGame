@@ -67,6 +67,7 @@ public class BoardController extends GuiController {
     @FXML Label labelGameMessage;
     @FXML AnchorPane paneClouds;
     @FXML Label nickAssistantPlayed;
+    @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -93,6 +94,7 @@ public class BoardController extends GuiController {
 
     private double motherNatureX;
     private double motherNatureY;
+    private int indexLastCharacterPlayed;
 
     /**
      *
@@ -478,6 +480,7 @@ public class BoardController extends GuiController {
         displayCharacter();
         showGameMessage();
         displayAssistantsPlayed();
+        if (board.getGameMode() == GameMode.EXPERT) showButtonPawnColor();
         //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -547,34 +550,34 @@ public class BoardController extends GuiController {
         int indexCard = 0;
         switch(((Button) event.getSource()).getId()) {
             case "assistant1":
-                indexCard = 0;
-                break;
-            case "assistant2":
                 indexCard = 1;
                 break;
-            case "assistant3":
+            case "assistant2":
                 indexCard = 2;
                 break;
-            case "assistant4":
+            case "assistant3":
                 indexCard = 3;
                 break;
-            case "assistant5":
+            case "assistant4":
                 indexCard = 4;
                 break;
-            case "assistant6":
+            case "assistant5":
                 indexCard = 5;
                 break;
-            case "assistant7":
+            case "assistant6":
                 indexCard = 6;
                 break;
-            case "assistant8":
+            case "assistant7":
                 indexCard = 7;
                 break;
-            case "assistant9":
+            case "assistant8":
                 indexCard = 8;
                 break;
-            case "assistant10":
+            case "assistant9":
                 indexCard = 9;
+                break;
+            case "assistant10":
+                indexCard = 10;
                 break;
         }
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
@@ -686,14 +689,16 @@ public class BoardController extends GuiController {
                 islandIndex = 11;
                 break;
         }
+        System.out.println("State: " + state);
+        System.out.println("Board state: " + board.getState());
         if(islandIndex < 12 && islandIndex > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
                 state = 0;
-            } else {
-                getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
-                System.out.println("inviato messaggio ChangeMotherNaturePositionMessage");
+            } else if (board.getState() == 4) {
+                getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
+                System.out.println("Inviata isola");
             }
         }
     }
@@ -1260,7 +1265,49 @@ public class BoardController extends GuiController {
         }
     }
 
+    public void sendPawnColor(MouseEvent event) {
+        String button = ((Button) event.getSource()).getId();
+        int indexColor = -1;
+        switch (button) {
+            case "pawnColor0":
+                indexColor = 0;
+                break;
+            case "pawnColor1":
+                indexColor = 1;
+                break;
+            case "pawnColor2":
+                indexColor = 2;
+                break;
+            case "pawnColor3":
+                indexColor = 3;
+                break;
+            case "pawnColor4":
+                indexColor = 4;
+                break;
+        }
+        if (board.getState() == 4) {
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexColor));
+            Platform.runLater( () -> {
+                pawnColor0.setVisible(false);
+                pawnColor1.setVisible(false);
+                pawnColor2.setVisible(false);
+                pawnColor3.setVisible(false);
+                pawnColor4.setVisible(false);
+            });
+        }
+    }
 
+    private void showButtonPawnColor() {
+        if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9) && board.getState() == 4) {
+            Platform.runLater( () -> {
+                pawnColor0.setVisible(true);
+                pawnColor1.setVisible(true);
+                pawnColor2.setVisible(true);
+                pawnColor3.setVisible(true);
+                pawnColor4.setVisible(true);
+            });
+        }
+    }
     private String returnImagePathStudentFromColor(PawnColor color) {
         switch (color) {
             case BLUE:
@@ -1277,13 +1324,6 @@ public class BoardController extends GuiController {
         return "";
     }
 
-    /*private void showCharacterEffect(MouseEvent event) {
-
-    }
-
-    private void removeShowCharacterEffect(MouseEvent event) {
-
-    }*/
 
     public void showGameMessage(){
         String playerMessage = board.getPlayerMessage();
@@ -1297,7 +1337,7 @@ public class BoardController extends GuiController {
     }
 
     public void playCharacter(MouseEvent event) {
-        int indexCard = 0;
+        int indexCard = -1;
         switch(((ImageView) event.getSource()).getId()) {
             case "character1Image":
                 indexCard = 0;
@@ -1310,7 +1350,8 @@ public class BoardController extends GuiController {
                 break;
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
-        System.out.println("Character played");
+        indexLastCharacterPlayed = indexCard;
+        System.out.println("Character played " + indexCard);
     }
 /*
     private void adaptClouds() {
