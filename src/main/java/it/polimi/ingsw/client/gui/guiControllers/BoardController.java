@@ -5,19 +5,24 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 //import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,11 +58,16 @@ public class BoardController extends GuiController {
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
+    @FXML Button buttonAssistantPlayed1; @FXML Button buttonAssistantPlayed2; @FXML Button buttonAssistantPlayed3; @FXML Button buttonAssistantPlayed4; @FXML ImageView assistantPlayed1; @FXML ImageView assistantPlayed2; @FXML ImageView assistantPlayed3; @FXML ImageView assistantPlayed4;
     @FXML ImageView motherNature;
     @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
+    @FXML AnchorPane centerUpperAnchorPane;
+    @FXML ImageView cloud0; @FXML ImageView cloud1; @FXML ImageView cloud2; @FXML ImageView cloud3;
     @FXML Label labelGameMessage;
     @FXML AnchorPane paneClouds;
+    @FXML Label nickAssistantPlayed;
+    @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
 
     private Map<String, Button> myTables;
@@ -74,6 +84,7 @@ public class BoardController extends GuiController {
 
 
     private Map<String, ImageView> islands;
+    private Map<String, ImageView> clouds;
 
     private GameMessage board;
     private int myPlayerId;
@@ -83,6 +94,7 @@ public class BoardController extends GuiController {
 
     private double motherNatureX;
     private double motherNatureY;
+    private int indexLastCharacterPlayed;
 
     /**
      *
@@ -127,6 +139,7 @@ public class BoardController extends GuiController {
         enemyTowers = new HashMap<>();
 
         islands = new HashMap<>();
+        clouds = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
@@ -158,6 +171,8 @@ public class BoardController extends GuiController {
         myTowers.put("myTower0", myTower0); myTowers.put("myTower1", myTower1); myTowers.put("myTower2", myTower2); myTowers.put("myTower3", myTower3); myTowers.put("myTower4", myTower4); myTowers.put("myTower5", myTower5); myTowers.put("myTower6", myTower6); myTowers.put("myTower7", myTower7);
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
+        clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
+
 
         motherNatureX = 0;
         motherNatureY = 0;
@@ -179,9 +194,14 @@ public class BoardController extends GuiController {
                     entrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
+                    cloud2.setVisible(false);
+                    cloud3.setVisible(false);
+                    centerUpperAnchorPane.setPrefWidth(200);
                 } else if (board.getNumberOfPLayers() == 3) {
                     player4.setVisible(false);
-                    // adattero le torri anche traslandole
+                    cloud3.setVisible(false);
+                    centerUpperAnchorPane.setPrefWidth(300);
+                    // da adattare le torri anche traslandole
                 } else if (board.getNumberOfPLayers() == 4) {
                     entrance7.setVisible(false);
                     entrance8.setVisible(false);
@@ -322,6 +342,7 @@ public class BoardController extends GuiController {
     public void displayEnemySchoolboard(int playerOffset) {
         //System.out.println("displayEnemySchoolboard");
         //System.out.println(playerOffset + " " + board.getNumberOfPLayers());
+        int dist = 25;
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
                 SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
@@ -333,10 +354,12 @@ public class BoardController extends GuiController {
                         try {
                             //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                            //myTables.get("enemyStudent" + i + j).setLayoutX(dist);
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
                             System.out.println(e.getMessage());
                         }
+                        dist += 30;
                     }
                 }
                 for (int i = 0; i < PawnColor.values().length; i++) {
@@ -372,6 +395,7 @@ public class BoardController extends GuiController {
      */
     public void displayMySchoolboard() {
         //System.out.println("displayMySchoolboard");
+        int dist = 25;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -381,10 +405,12 @@ public class BoardController extends GuiController {
                 for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                     try {
                         setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                        myTables.get("student" + i + j).setLayoutX(dist);
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
                 }
+                dist += 40;
             }
             for (int i = 0; i < PawnColor.values().length; i++) {
                 try {
@@ -410,8 +436,23 @@ public class BoardController extends GuiController {
      *
      */
     public void displayIslands() {
-        //System.out.println("displayIslands");
-
+        System.out.println("displayIslands");
+        Platform.runLater(() -> {
+            if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
+                for(int i = 0; i < board.getNumberOfPLayers(); i++) {
+                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                        Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
+                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
+                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                }
+            }
+        });
     }
 
     /**
@@ -438,6 +479,8 @@ public class BoardController extends GuiController {
         displayAssistants();
         displayCharacter();
         showGameMessage();
+        displayAssistantsPlayed();
+        if (board.getGameMode() == GameMode.EXPERT) showButtonPawnColor();
         //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -507,34 +550,34 @@ public class BoardController extends GuiController {
         int indexCard = 0;
         switch(((Button) event.getSource()).getId()) {
             case "assistant1":
-                indexCard = 0;
-                break;
-            case "assistant2":
                 indexCard = 1;
                 break;
-            case "assistant3":
+            case "assistant2":
                 indexCard = 2;
                 break;
-            case "assistant4":
+            case "assistant3":
                 indexCard = 3;
                 break;
-            case "assistant5":
+            case "assistant4":
                 indexCard = 4;
                 break;
-            case "assistant6":
+            case "assistant5":
                 indexCard = 5;
                 break;
-            case "assistant7":
+            case "assistant6":
                 indexCard = 6;
                 break;
-            case "assistant8":
+            case "assistant7":
                 indexCard = 7;
                 break;
-            case "assistant9":
+            case "assistant8":
                 indexCard = 8;
                 break;
-            case "assistant10":
+            case "assistant9":
                 indexCard = 9;
+                break;
+            case "assistant10":
+                indexCard = 10;
                 break;
         }
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
@@ -646,109 +689,19 @@ public class BoardController extends GuiController {
                 islandIndex = 11;
                 break;
         }
+        System.out.println("State: " + state);
+        System.out.println("Board state: " + board.getState());
         if(islandIndex < 12 && islandIndex > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
+                state = 0;
+            } else if (board.getState() == 4) {
+                getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
+                System.out.println("Inviata isola");
             }
         }
     }
-
-    /**
-     *
-     * @param islandIndex
-     */
-    public void setMotherNatureIsland(int islandIndex) {
-        Platform.runLater(() -> {
-            if(islandIndex < 12 && islandIndex > -1) {
-                String islandId = "island" + Integer.toString(islandIndex);
-                ImageView island = islands.get(islandId);
-                double imageX = island.getLayoutX();
-                double imageY = island.getLayoutY();
-                System.out.println("island mother nature " + imageX + " " + imageY);
-                motherNature.setTranslateX(imageX + 15 - motherNatureX);
-                motherNature.setTranslateY(imageY + 15 - motherNatureY);
-                System.out.println("x - " + motherNature.getTranslateX() + " - x - " + motherNature.getX() + " - y - " + motherNature.getTranslateY() + " - y - " + motherNature.getY());
-                motherNatureX = motherNature.getTranslateX();
-                motherNatureY = motherNature.getTranslateY();
-            }
-        });
-    }
-
-    public void dragMotherNature(MouseEvent event) {
-        Platform.runLater(() -> {
-            Dragboard db = ((ImageView) event.getSource()).startDragAndDrop(TransferMode.ANY);
-            ClipboardContent content = new ClipboardContent();
-            content.putString("MN");
-            db.setContent(content);
-            event.consume();
-
-            motherNatureX = event.getSceneX() - motherNature.getTranslateX();
-            motherNatureY = event.getSceneY() - motherNature.getTranslateY();
-        });
-    }
-
-    public void moveMotherNature(MouseEvent event) {
-        Platform.runLater(() -> {
-            motherNature.setTranslateX(event.getSceneX() - motherNatureX);
-            motherNature.setTranslateY(event.getSceneY() - motherNatureY);
-        });
-    }
-
-     public void dropMotherNature(DragEvent event) {
-        Platform.runLater(() -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasString()) {
-                System.out.println("Dropped: " + db.getString());
-                success = true;
-            }
-            getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, Integer.parseInt(
-                    ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
-                            ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
-                            : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2))));
-            System.out.println("Inviato ChangeMotherNaturePositionMessage" + Integer.parseInt(
-                    ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2).equals("s")
-                            ? ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1)
-                            : ((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 2)));
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    }
-    /**
-     * Da completareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-     * @param x
-     * @param y
-     * @return
-     * @throws NoIslandException
-     */
-    public int getIslandFromCoordinates(double x, double y) throws NoIslandException {
-        int islandIndex = board.getGametable().getMotherNaturePosition() + 1;
-        for(int i = 0; i < 12; i++) {
-            ImageView island = islands.get("island" + Integer.toString(i));
-
-        }
-        if (true) {
-
-        } else {
-            throw new NoIslandException();
-        }
-        return islandIndex;
-    }
-
-    /*public void dropMotherNature(MouseEvent event) {
-        try {
-            int islandIndex = getIslandFromCoordinates(event.getSceneX(), event.getSceneY());
-            getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
-            System.out.println("Inviato ChangeMotherNaturePositionMessage");
-        } catch (NoIslandException e) {
-            motherNature.setTranslateX(motherNatureX);
-            motherNature.setTranslateY(motherNatureY);
-
-        }
-        motherNature.setTranslateX(event.getSceneX() - motherNatureX);
-        motherNature.setTranslateY(event.getSceneY() - motherNatureY);
-    }*/
 
     public void showAssistant(MouseEvent event) {
         String idAssistant = ((Button) event.getSource()).getId();
@@ -799,6 +752,90 @@ public class BoardController extends GuiController {
             @Override
             public void run() {
                 assistantImage.setVisible(false);
+                nickAssistantPlayed.setVisible(false);
+            }
+        });
+    }
+
+    public void showAssistantPlayed(MouseEvent event) {
+        String image = ((Button) event.getSource()).getGraphic().getId();
+        int playerNickname = -1, cardValue = -1;
+        String imagePath = "/images/Assistant/";
+         if (board.getNumberOfPLayers() == 2) {
+             if (image.equals("assistantPlayed2")) {
+                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
+             } else {
+                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
+             }
+         } else if(board.getNumberOfPLayers() == 3) {
+             if (image.equals("assistantPlayed2")) {
+                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
+             } else if (image.equals("assistantPlayed3")){
+                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
+             } else {
+                 playerNickname = board.getPlayedAssistants()[2].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[2].getAssistant().getCardValue();
+             }
+         } else if (board.getNumberOfPLayers() == 4) {
+             if (image.equals("assistantPlayed1")) {
+                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
+             } else if (image.equals("assistantPlayed2")){
+                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
+             } else if (image.equals("assistantPlayed3")){
+                 playerNickname = board.getPlayedAssistants()[2].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[2].getAssistant().getCardValue();
+             } else {
+                 playerNickname = board.getPlayedAssistants()[3].getPlayerIndex();
+                 cardValue = board.getPlayedAssistants()[3].getAssistant().getCardValue();
+             }
+         }
+         switch (cardValue) {
+             case 1:
+                 imagePath += "assistant0.png";
+                 break;
+             case 2:
+                 imagePath += "assistant1.png";
+                 break;
+             case 3:
+                 imagePath += "assistant2.png";
+                 break;
+             case 4:
+                 imagePath += "assistant3.png";
+                 break;
+             case 5:
+                 imagePath += "assistant4.png";
+                 break;
+             case 6:
+                 imagePath += "assistant5.png";
+                 break;
+             case 7:
+                 imagePath += "assistant6.png";
+                 break;
+             case 8:
+                 imagePath += "assistant7.png";
+                 break;
+             case 9:
+                 imagePath += "assistant8.png";
+                 break;
+             case 10:
+                 imagePath += "assistant9.png";
+                 break;
+         }
+        Image imageAssistant = new Image(imagePath);
+        int finalPlayerNickname = playerNickname;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                assistantImage.setImage(imageAssistant);
+                assistantImage.setVisible(true);
+                nickAssistantPlayed.setText("Assistant played by " + finalPlayerNickname);
+                nickAssistantPlayed.setVisible(true);
             }
         });
     }
@@ -825,12 +862,9 @@ public class BoardController extends GuiController {
                     case 2:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                assistant2Image.setImage(imageBW);
-                                assistant2.setMouseTransparent(true);
-                            }
+                        Platform.runLater(() -> {
+                            assistant2Image.setImage(imageBW);
+                            assistant2.setMouseTransparent(true);
                         });
                         break;
                     case 3:
@@ -926,6 +960,11 @@ public class BoardController extends GuiController {
         }
     }
 
+    public void cloudClick(MouseEvent event) {
+        int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
+        getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
+        System.out.println("inviato messaggio GetStudentsFromCloudsMessage");
+    }
     private void displayCharacter() {
         if (board.getGameMode() == GameMode.EXPERT) {
             Platform.runLater(new Runnable() {
@@ -1174,6 +1213,101 @@ public class BoardController extends GuiController {
         }
     }
 
+    private void displayAssistantsPlayed() {
+        if (board.getNumberOfPLayers() == 2) {
+            if (board.getPlayedAssistants()[0] != null) {
+                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+                assistantPlayed2.setImage(assistant1);
+                buttonAssistantPlayed2.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[1] != null) {
+                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+                assistantPlayed3.setImage(assistant2);
+                buttonAssistantPlayed3.setVisible(true);
+            }
+        } else if (board.getNumberOfPLayers() == 3) {
+            if (board.getPlayedAssistants()[0] != null) {
+                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+                assistantPlayed2.setImage(assistant1);
+                buttonAssistantPlayed2.setVisible(true);
+            }
+            if(board.getPlayedAssistants()[1] != null) {
+                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+                assistantPlayed3.setImage(assistant2);
+                buttonAssistantPlayed3.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[2] != null) {
+                Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
+                assistantPlayed4.setImage(assistant4);
+                buttonAssistantPlayed4.setVisible(true);
+            }
+        } else if (board.getNumberOfPLayers() == 4) {
+            if (board.getPlayedAssistants()[0] != null) {
+                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
+                assistantPlayed1.setImage(assistant1);
+                buttonAssistantPlayed1.setVisible(true);
+            }
+            if(board.getPlayedAssistants()[1] != null) {
+                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
+                assistantPlayed2.setImage(assistant2);
+                buttonAssistantPlayed2.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[2] != null) {
+                Image assistant3 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
+                assistantPlayed3.setImage(assistant3);
+                buttonAssistantPlayed3.setVisible(true);
+            }
+            if (board.getPlayedAssistants()[3] != null) {
+                Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[3].getAssistant().getCardValue() + ".png");
+                assistantPlayed4.setImage(assistant4);
+                buttonAssistantPlayed4.setVisible(true);
+            }
+        }
+    }
+
+    public void sendPawnColor(MouseEvent event) {
+        String button = ((Button) event.getSource()).getId();
+        int indexColor = -1;
+        switch (button) {
+            case "pawnColor0":
+                indexColor = 0;
+                break;
+            case "pawnColor1":
+                indexColor = 1;
+                break;
+            case "pawnColor2":
+                indexColor = 2;
+                break;
+            case "pawnColor3":
+                indexColor = 3;
+                break;
+            case "pawnColor4":
+                indexColor = 4;
+                break;
+        }
+        if (board.getState() == 4) {
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexColor));
+            Platform.runLater( () -> {
+                pawnColor0.setVisible(false);
+                pawnColor1.setVisible(false);
+                pawnColor2.setVisible(false);
+                pawnColor3.setVisible(false);
+                pawnColor4.setVisible(false);
+            });
+        }
+    }
+
+    private void showButtonPawnColor() {
+        if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9) && board.getState() == 4) {
+            Platform.runLater( () -> {
+                pawnColor0.setVisible(true);
+                pawnColor1.setVisible(true);
+                pawnColor2.setVisible(true);
+                pawnColor3.setVisible(true);
+                pawnColor4.setVisible(true);
+            });
+        }
+    }
     private String returnImagePathStudentFromColor(PawnColor color) {
         switch (color) {
             case BLUE:
@@ -1190,13 +1324,6 @@ public class BoardController extends GuiController {
         return "";
     }
 
-    /*private void showCharacterEffect(MouseEvent event) {
-
-    }
-
-    private void removeShowCharacterEffect(MouseEvent event) {
-
-    }*/
 
     public void showGameMessage(){
         String playerMessage = board.getPlayerMessage();
@@ -1210,7 +1337,7 @@ public class BoardController extends GuiController {
     }
 
     public void playCharacter(MouseEvent event) {
-        int indexCard = 0;
+        int indexCard = -1;
         switch(((ImageView) event.getSource()).getId()) {
             case "character1Image":
                 indexCard = 0;
@@ -1223,7 +1350,8 @@ public class BoardController extends GuiController {
                 break;
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
-        System.out.println("Character played");
+        indexLastCharacterPlayed = indexCard;
+        System.out.println("Character played " + indexCard);
     }
 /*
     private void adaptClouds() {

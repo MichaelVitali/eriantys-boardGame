@@ -350,23 +350,23 @@ public class RoundTest {
         int[] playerOrder={0,1};
         game2p.startRound(playerOrder);
         int playerId=0;
-        int assistantPosition=3;
-        Assistant played = game2p.getPlayer(playerId).getAssistant(assistantPosition);
+        int idAssistant=1;
+        Assistant played = game2p.getPlayer(playerId).getAssistant(idAssistant);
 
-        game2p.getRound().playAssistant(playerId, assistantPosition);
+        game2p.getRound().playAssistant(playerId, idAssistant);
         assertEquals(played, game2p.getRound().getPlayedAssistants()[playerId].getAssistant());
 
-        game2p.getRound().playAssistant(playerId, assistantPosition);
+        game2p.getRound().playAssistant(playerId, idAssistant);
         assertEquals(played, game2p.getRound().getPlayedAssistants()[playerId].getAssistant());
 
         playerId=game2p.getRound().getPlayerOrder()[1];
         game2p.getRound().setRoundState(1);
-        game2p.getRound().playAssistant(playerId, assistantPosition);
+        game2p.getRound().playAssistant(playerId, idAssistant);
         assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getPlayerMessage());
 
         game2p.getRound().setRoundState(0);
         game2p.getRound().playAssistant(1, 11);
-        assertEquals("You can't choose that assistant\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("The assistant doesn't exist!\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessage());
     }
 
     @Test

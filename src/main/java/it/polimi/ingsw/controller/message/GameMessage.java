@@ -21,6 +21,7 @@ public class GameMessage extends Message implements Serializable {
     private Character[] characters;
     private int[] playersCoins;
     private String[] playersNicknames;
+    private Round.PlayedAssistant[] playedAssistants;
 
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
@@ -38,8 +39,12 @@ public class GameMessage extends Message implements Serializable {
             playersCoins = ((ExpertGame) model).getPlayersCoins();
         } else characters = null;
         playersNicknames = model.getPlayersNicknames();
+        playedAssistants = model.getRound().getPlayedAssistants();
     }
 
+    public Round.PlayedAssistant[] getPlayedAssistants() {
+        return playedAssistants;
+    }
     public Character[] getCharacters() {
         return characters;
     }

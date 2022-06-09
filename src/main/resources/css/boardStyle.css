@@ -12,29 +12,51 @@
 }
 
 .boards {
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, saddlebrown, 30, 0.5, 0, 0);
 }
 
 .studentsButton {
-    -fx-background-radius: 12;
-    -fx-border-radius: 10;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
     -fx-background-color: "transparent";
 }
 
 .assistantButton {
-    -fx-background-radius: 12;
-    -fx-border-radius: 10;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
     -fx-background-color: "transparent";
+}
+.characterStudentButton {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-background-color: "transparent";
+    -fx-effect: dropshadow(three-pass-box, cornflowerblue, 10, 0.5, 0, 0);
 }
 
 .studentsImage {
     -fx-background-radius: 12;
     -fx-border-radius: 10;
+    -fx-background-color: "black";
 }
 
-.islands {
+.colorButton {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-font-family: "Aclonica", cursive;
+}
+/*.islands {
     -fx-background-radius: 12;
     -fx-border-radius: 10;
+    -fx-background-color: "transparent";
+}*/
+
+.islands {
+    -fx-background-color: "transparent";
+    -fx-effect: dropshadow(three-pass-box, cornflowerblue, 30, 0.5, 0, 0);
+}
+
+.characterImage {
+    -fx-effect: dropshadow(three-pass-box, cornflowerblue, 30, 0.5, 0, 0);
     -fx-background-color: "transparent";
 }
 
@@ -43,4 +65,11 @@
     -fx-alignment: "center";
     -fx-font-size: 16;
     -fx-text-fill: darkgrey;
+}
+
+.text {
+    -fx-font-family: "Aclonica", cursive;
+    -fx-alignment: "center";
+    -fx-font-size: 15;
+    -fx-text-fill: gray;
 }
