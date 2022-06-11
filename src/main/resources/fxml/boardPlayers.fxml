@@ -56,34 +56,34 @@
             <AnchorPane layoutY="198.0" prefHeight="300.0" prefWidth="258.0">
                <children>
                   <Button fx:id="student00" layoutX="35.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage00" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage00" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student01" layoutX="35.0" layoutY="235.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage01" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage01" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student02" layoutX="35.0" layoutY="206.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage02" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage02" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student03" layoutX="35.0" layoutY="177.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage03" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage03" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student04" layoutX="35.0" layoutY="148.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage04" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage04" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student05" layoutX="35.0" layoutY="119.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage05" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage05" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student06" layoutX="35.0" layoutY="90.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage06" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage06" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student07" layoutX="35.0" layoutY="61.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage07" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage07" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student08" layoutX="35.0" layoutY="32.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage08" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage08" styleClass="studentsImage" /></graphic>
                   </Button>
                   <Button fx:id="student09" layoutX="35.0" layoutY="3.0" onAction="#myTablesClick" styleClass="studentsButton">
-                     <graphic><ImageView fx:id="studentImage09" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
+                     <graphic><ImageView fx:id="studentImage09" styleClass="studentsImage" /></graphic>
                   </Button>
 
                   <Button fx:id="student10" layoutX="78.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
@@ -212,11 +212,11 @@
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="184.0" prefWidth="258.0">
-               <ImageView fx:id="myProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="142.0" />
-               <ImageView fx:id="myProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="62.0" layoutY="142.0" />
-               <ImageView fx:id="myProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="103.0" layoutY="142.0" />
-               <ImageView fx:id="myProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="145.0" layoutY="142.0" />
-               <ImageView fx:id="myProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="185.0" layoutY="142.0" />
+               <ImageView fx:id="myProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="30" layoutY="145.0" />
+               <ImageView fx:id="myProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="73.0" layoutY="145.0" />
+               <ImageView fx:id="myProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="115.0" layoutY="145.0" />
+               <ImageView fx:id="myProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="157.0" layoutY="145.0" />
+               <ImageView fx:id="myProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="200.0" layoutY="145.0" />
                <ImageView fx:id="myTower0" layoutX="33.0" layoutY="30.0" />
                <ImageView fx:id="myTower1" layoutX="33.0" layoutY="80.0" />
                <ImageView fx:id="myTower2" layoutX="87.0" layoutY="30.0" />
@@ -316,11 +316,11 @@
                </children>
             </AnchorPane>
             <AnchorPane layoutY="35.0" prefHeight="184.0" prefWidth="258.0">
-               <ImageView fx:id="enemyProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="142.0" />
-               <ImageView fx:id="enemyProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="62.0" layoutY="142.0" />
-               <ImageView fx:id="enemyProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="103.0" layoutY="142.0" />
-               <ImageView fx:id="enemyProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="145.0" layoutY="142.0" />
-               <ImageView fx:id="enemyProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="185.0" layoutY="142.0" />
+               <ImageView fx:id="enemyProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="30.0" layoutY="145.0" />
+               <ImageView fx:id="enemyProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="73.0" layoutY="145.0" />
+               <ImageView fx:id="enemyProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="115.0" layoutY="145.0" />
+               <ImageView fx:id="enemyProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="157.0" layoutY="145.0" />
+               <ImageView fx:id="enemyProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="200.0" layoutY="145.0" />
                <ImageView fx:id="enemyTower0" layoutX="33.0" layoutY="30.0" />
                <ImageView fx:id="enemyTower1" layoutX="33.0" layoutY="80.0" />
                <ImageView fx:id="enemyTower2" layoutX="87.0" layoutY="30.0" />

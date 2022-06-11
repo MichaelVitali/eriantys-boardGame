@@ -41,8 +41,8 @@ public class BoardController extends GuiController {
     @FXML Button student00; @FXML Button student01; @FXML Button student02; @FXML Button student03; @FXML Button student04; @FXML Button student05; @FXML Button student06; @FXML Button student07; @FXML Button student08; @FXML Button student09;
     @FXML Button student10; @FXML Button student11; @FXML Button student12; @FXML Button student13; @FXML Button student14; @FXML Button student15; @FXML Button student16; @FXML Button student17; @FXML Button student18; @FXML Button student19;
     @FXML Button student20; @FXML Button student21; @FXML Button student22; @FXML Button student23; @FXML Button student24; @FXML Button student25; @FXML Button student26; @FXML Button student27; @FXML Button student28; @FXML Button student29;
-    @FXML Button student30; @FXML Button student31; @FXML Button student32; @FXML Button student33; @FXML Button student34; @FXML Button student35; @FXML Button student36; @FXML Button student37; @FXML Button student38; @FXML Button student39; @FXML Button student40;
-    @FXML Button student41; @FXML Button student42; @FXML Button student43; @FXML Button student44; @FXML Button student45; @FXML Button student46; @FXML Button student47; @FXML Button student48; @FXML Button student49;
+    @FXML Button student30; @FXML Button student31; @FXML Button student32; @FXML Button student33; @FXML Button student34; @FXML Button student35; @FXML Button student36; @FXML Button student37; @FXML Button student38; @FXML Button student39;
+    @FXML Button student40; @FXML Button student41; @FXML Button student42; @FXML Button student43; @FXML Button student44; @FXML Button student45; @FXML Button student46; @FXML Button student47; @FXML Button student48; @FXML Button student49;
     @FXML ImageView myProfessor0; @FXML ImageView myProfessor1; @FXML ImageView myProfessor2; @FXML ImageView myProfessor3; @FXML ImageView myProfessor4;
     @FXML ImageView myEntranceImage0; @FXML ImageView myEntranceImage1; @FXML ImageView myEntranceImage2; @FXML ImageView myEntranceImage3; @FXML ImageView myEntranceImage4; @FXML ImageView myEntranceImage5; @FXML ImageView myEntranceImage6; @FXML ImageView myEntranceImage7; @FXML ImageView myEntranceImage8;
     @FXML ImageView studentImage00; @FXML ImageView studentImage01; @FXML ImageView studentImage02; @FXML ImageView studentImage03; @FXML ImageView studentImage04; @FXML ImageView studentImage05; @FXML ImageView studentImage06; @FXML ImageView studentImage07; @FXML ImageView studentImage08; @FXML ImageView studentImage09;
@@ -165,11 +165,11 @@ public class BoardController extends GuiController {
         myEntrance.put("myEntrance0", myEntrance0); myEntrance.put("myEntrance1", myEntrance1); myEntrance.put("myEntrance2", myEntrance2); myEntrance.put("myEntrance3", myEntrance3); myEntrance.put("myEntrance4", myEntrance4); myEntrance.put("myEntrance5", myEntrance5); myEntrance.put("myEntrance6", myEntrance6); myEntrance.put("myEntrance7", myEntrance7); myEntrance.put("myEntrance8", myEntrance8);
         myEntranceImages.put("myEntranceImage0", myEntranceImage0); myEntranceImages.put("myEntranceImage1", myEntranceImage1); myEntranceImages.put("myEntranceImage2", myEntranceImage2); myEntranceImages.put("myEntranceImage3", myEntranceImage3); myEntranceImages.put("myEntranceImage4", myEntranceImage4); myEntranceImages.put("myEntranceImage5", myEntranceImage5); myEntranceImages.put("myEntranceImage6", myEntranceImage6); myEntranceImages.put("myEntranceImage7", myEntranceImage7); myEntranceImages.put("myEntranceImage8", myEntranceImage8);
 
-        myTables.put("student00", student00); myTables.put("student01", student01); myTables.put("student02", student02); myTables.put("student03", student03); myTables.put("student01", student04); myTables.put("student05", student05); myTables.put("student06", student06); myTables.put("student07", student07); myTables.put("student08", student08); myTables.put("student09", student09);
-        myTables.put("student10", student10); myTables.put("student11", student11); myTables.put("student12", student12); myTables.put("student13", student13); myTables.put("student11", student14); myTables.put("student15", student15); myTables.put("student16", student16); myTables.put("student17", student17); myTables.put("student18", student18); myTables.put("student19", student19);
-        myTables.put("student20", student20); myTables.put("student21", student21); myTables.put("student22", student22); myTables.put("student23", student23); myTables.put("student21", student24); myTables.put("student25", student25); myTables.put("student26", student26); myTables.put("student27", student27); myTables.put("student28", student28); myTables.put("student29", student29);
-        myTables.put("student30", student30); myTables.put("student31", student31); myTables.put("student32", student32); myTables.put("student33", student33); myTables.put("student31", student34); myTables.put("student35", student35); myTables.put("student36", student36); myTables.put("student37", student37); myTables.put("student38", student38); myTables.put("student39", student39);
-        myTables.put("student40", student40); myTables.put("student41", student41); myTables.put("student42", student42); myTables.put("student43", student43); myTables.put("student41", student44); myTables.put("student45", student45); myTables.put("student46", student46); myTables.put("student47", student47); myTables.put("student48", student48); myTables.put("student49", student49);
+        myTables.put("student00", student00); myTables.put("student01", student01); myTables.put("student02", student02); myTables.put("student03", student03); myTables.put("student04", student04); myTables.put("student05", student05); myTables.put("student06", student06); myTables.put("student07", student07); myTables.put("student08", student08); myTables.put("student09", student09);
+        myTables.put("student10", student10); myTables.put("student11", student11); myTables.put("student12", student12); myTables.put("student13", student13); myTables.put("student14", student14); myTables.put("student15", student15); myTables.put("student16", student16); myTables.put("student17", student17); myTables.put("student18", student18); myTables.put("student19", student19);
+        myTables.put("student20", student20); myTables.put("student21", student21); myTables.put("student22", student22); myTables.put("student23", student23); myTables.put("student24", student24); myTables.put("student25", student25); myTables.put("student26", student26); myTables.put("student27", student27); myTables.put("student28", student28); myTables.put("student29", student29);
+        myTables.put("student30", student30); myTables.put("student31", student31); myTables.put("student32", student32); myTables.put("student33", student33); myTables.put("student34", student34); myTables.put("student35", student35); myTables.put("student36", student36); myTables.put("student37", student37); myTables.put("student38", student38); myTables.put("student39", student39);
+        myTables.put("student40", student40); myTables.put("student41", student41); myTables.put("student42", student42); myTables.put("student43", student43); myTables.put("student44", student44); myTables.put("student45", student45); myTables.put("student46", student46); myTables.put("student47", student47); myTables.put("student48", student48); myTables.put("student49", student49);
 
         myTablesImages.put("studentImage00", studentImage00); myTablesImages.put("studentImage01", studentImage01); myTablesImages.put("studentImage02", studentImage02); myTablesImages.put("studentImage03", studentImage03); myTablesImages.put("studentImage04", studentImage04); myTablesImages.put("studentImage05", studentImage05); myTablesImages.put("studentImage06", studentImage06); myTablesImages.put("studentImage07", studentImage07); myTablesImages.put("studentImage08", studentImage08); myTablesImages.put("studentImage09", studentImage09);
         myTablesImages.put("studentImage10", studentImage10); myTablesImages.put("studentImage11", studentImage11); myTablesImages.put("studentImage12", studentImage12); myTablesImages.put("studentImage13", studentImage13); myTablesImages.put("studentImage14", studentImage14); myTablesImages.put("studentImage15", studentImage15); myTablesImages.put("studentImage16", studentImage16); myTablesImages.put("studentImage17", studentImage17); myTablesImages.put("studentImage18", studentImage18); myTablesImages.put("studentImage19", studentImage19);
@@ -293,8 +293,8 @@ public class BoardController extends GuiController {
                     }
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
-                    node.setFitHeight(30);
-                    node.setFitWidth(30);
+                    node.setFitHeight(30.0);
+                    node.setFitWidth(30.0);
                 }
                 node.setPreserveRatio(true);
             }
@@ -331,8 +331,8 @@ public class BoardController extends GuiController {
                     }
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
-                    node.setFitHeight(60.0);
-                    node.setFitWidth(60.0);
+                    node.setFitHeight(30.0);
+                    node.setFitWidth(30.0);
                 }
                 node.setPreserveRatio(true);
             }
@@ -394,13 +394,13 @@ public class BoardController extends GuiController {
                         try {
                             //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                            enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
                             System.out.println(e.getMessage());
                         }
                     }
-                    dist += 40;
+                    for (int j = 0; j < 10; j++) enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
+                    dist += 42;
                     for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
                         setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
                     }
@@ -428,8 +428,6 @@ public class BoardController extends GuiController {
                     System.out.println("Enemy" + i);
                 }
             }
-
-                //System.out.println("Rendered the enemy schoolboard");
         }
     }
 
@@ -437,8 +435,8 @@ public class BoardController extends GuiController {
      *
      */
     public void displayMySchoolboard() {
-        //System.out.println("displayMySchoolboard");
-        int dist = 25;
+
+        int dist = 24;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -447,17 +445,16 @@ public class BoardController extends GuiController {
             for (int i = 0; i < PawnColor.values().length; i++) {
                 for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                     try {
-                        setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                        myTables.get("student" + i + "" + j).setLayoutX(dist);
+                        setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
                 }
+                for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
+                dist += 42;
                 for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
                     setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
-                    //myTables.get("student" + i + "" + j).setLayoutX(dist);
                 }
-                dist += 40;
             }
             for (int i = 0; i < PawnColor.values().length; i++) {
                 try {
