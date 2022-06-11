@@ -342,7 +342,7 @@ public class BoardController extends GuiController {
     public void displayEnemySchoolboard(int playerOffset) {
         //System.out.println("displayEnemySchoolboard");
         //System.out.println(playerOffset + " " + board.getNumberOfPLayers());
-        int dist = 25;
+        int dist = 30;
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
                 SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
@@ -354,13 +354,13 @@ public class BoardController extends GuiController {
                         try {
                             //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                            //myTables.get("enemyStudent" + i + j).setLayoutX(dist);
+                            enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
                             System.out.println(e.getMessage());
                         }
-                        dist += 30;
                     }
+                    dist += 40;
                 }
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     try {
