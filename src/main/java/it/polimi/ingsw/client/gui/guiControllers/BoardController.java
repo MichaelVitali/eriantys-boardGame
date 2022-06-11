@@ -5,10 +5,8 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -54,12 +52,18 @@ public class BoardController extends GuiController {
     @FXML ImageView studentImage40; @FXML ImageView studentImage41; @FXML ImageView studentImage42; @FXML ImageView studentImage43; @FXML ImageView studentImage44; @FXML ImageView studentImage45; @FXML ImageView studentImage46; @FXML ImageView studentImage47; @FXML ImageView studentImage48; @FXML ImageView studentImage49;
     @FXML ImageView myTower0; @FXML ImageView myTower1; @FXML ImageView myTower2; @FXML ImageView myTower3; @FXML ImageView myTower4; @FXML ImageView myTower5; @FXML ImageView myTower6; @FXML ImageView myTower7;
 
+    @FXML AnchorPane islandPane0; @FXML AnchorPane islandPane1; @FXML AnchorPane islandPane2; @FXML AnchorPane islandPane3; @FXML AnchorPane islandPane4; @FXML AnchorPane islandPane5;    @FXML AnchorPane islandPane6; @FXML AnchorPane islandPane7; @FXML AnchorPane islandPane8; @FXML AnchorPane islandPane9; @FXML AnchorPane islandPane10; @FXML AnchorPane islandPane11;
     @FXML ImageView island0; @FXML ImageView island1; @FXML ImageView island2; @FXML ImageView island3; @FXML ImageView island4; @FXML ImageView island5; @FXML ImageView island6; @FXML ImageView island7; @FXML ImageView island8; @FXML ImageView island9; @FXML ImageView island10; @FXML ImageView island11;
+    @FXML ImageView student0OnIsland0; @FXML ImageView student0OnIsland1; @FXML ImageView student0OnIsland2; @FXML ImageView student0OnIsland3; @FXML ImageView student0OnIsland4; @FXML ImageView student0OnIsland5; @FXML ImageView student0OnIsland6; @FXML ImageView student0OnIsland7; @FXML ImageView student0OnIsland8; @FXML ImageView student0OnIsland9; @FXML ImageView student0OnIsland10; @FXML ImageView student0OnIsland11;
+    @FXML ImageView student1OnIsland0; @FXML ImageView student1OnIsland1; @FXML ImageView student1OnIsland2; @FXML ImageView student1OnIsland3; @FXML ImageView student1OnIsland4; @FXML ImageView student1OnIsland5; @FXML ImageView student1OnIsland6; @FXML ImageView student1OnIsland7; @FXML ImageView student1OnIsland8; @FXML ImageView student1OnIsland9; @FXML ImageView student1OnIsland10; @FXML ImageView student1OnIsland11;
+    @FXML ImageView student2OnIsland0; @FXML ImageView student2OnIsland1; @FXML ImageView student2OnIsland2; @FXML ImageView student2OnIsland3; @FXML ImageView student2OnIsland4; @FXML ImageView student2OnIsland5; @FXML ImageView student2OnIsland6; @FXML ImageView student2OnIsland7; @FXML ImageView student2OnIsland8; @FXML ImageView student2OnIsland9; @FXML ImageView student2OnIsland10; @FXML ImageView student2OnIsland11;
+    @FXML ImageView student3OnIsland0; @FXML ImageView student3OnIsland1; @FXML ImageView student3OnIsland2; @FXML ImageView student3OnIsland3; @FXML ImageView student3OnIsland4; @FXML ImageView student3OnIsland5; @FXML ImageView student3OnIsland6; @FXML ImageView student3OnIsland7; @FXML ImageView student3OnIsland8; @FXML ImageView student3OnIsland9; @FXML ImageView student3OnIsland10; @FXML ImageView student3OnIsland11;
+    @FXML ImageView student4OnIsland0; @FXML ImageView student4OnIsland1; @FXML ImageView student4OnIsland2; @FXML ImageView student4OnIsland3; @FXML ImageView student4OnIsland4; @FXML ImageView student4OnIsland5; @FXML ImageView student4OnIsland6; @FXML ImageView student4OnIsland7; @FXML ImageView student4OnIsland8; @FXML ImageView student4OnIsland9; @FXML ImageView student4OnIsland10; @FXML ImageView student4OnIsland11;
+
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
     @FXML Button buttonAssistantPlayed1; @FXML Button buttonAssistantPlayed2; @FXML Button buttonAssistantPlayed3; @FXML Button buttonAssistantPlayed4; @FXML ImageView assistantPlayed1; @FXML ImageView assistantPlayed2; @FXML ImageView assistantPlayed3; @FXML ImageView assistantPlayed4;
-    @FXML ImageView motherNature;
     @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
     @FXML AnchorPane centerUpperAnchorPane;
@@ -82,16 +86,19 @@ public class BoardController extends GuiController {
     private Map<String, ImageView> enemyTables;
     private Map<String, ImageView> enemyTowers;
 
-
+    private Map<String, AnchorPane> islandPanes;
     private Map<String, ImageView> islands;
+    private Map<String, ImageView> studentsOnIslands;
     private Map<String, ImageView> clouds;
 
     private GameMessage board;
     private int myPlayerId;
     private int studentMoved;
+    private int studentCardMoved;
     private int enemyBoardDisplayed;
     private int state;
 
+    private ImageView motherNature;
     private double motherNatureX;
     private double motherNatureY;
     private int indexLastCharacterPlayed;
@@ -138,17 +145,19 @@ public class BoardController extends GuiController {
         enemyTables = new HashMap<>();
         enemyTowers = new HashMap<>();
 
+        islandPanes = new HashMap<>();
         islands = new HashMap<>();
+        studentsOnIslands = new HashMap<>();
         clouds = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
 
-        enemyTables.put("enemyStudent00", enemyStudent00); enemyTables.put("enemyStudent01", enemyStudent01); enemyTables.put("enemyStudent02", enemyStudent02); enemyTables.put("enemyStudent03", enemyStudent03); enemyTables.put("enemyStudent01", enemyStudent04); enemyTables.put("enemyStudent05", enemyStudent05); enemyTables.put("enemyStudent06", enemyStudent06); enemyTables.put("enemyStudent07", enemyStudent07); enemyTables.put("enemyStudent08", enemyStudent08); enemyTables.put("enemyStudent09", enemyStudent09);
-        enemyTables.put("enemyStudent10", enemyStudent10); enemyTables.put("enemyStudent11", enemyStudent11); enemyTables.put("enemyStudent12", enemyStudent12); enemyTables.put("enemyStudent13", enemyStudent13); enemyTables.put("enemyStudent11", enemyStudent14); enemyTables.put("enemyStudent15", enemyStudent15); enemyTables.put("enemyStudent16", enemyStudent16); enemyTables.put("enemyStudent17", enemyStudent17); enemyTables.put("enemyStudent18", enemyStudent18); enemyTables.put("enemyStudent19", enemyStudent19);
-        enemyTables.put("enemyStudent20", enemyStudent20); enemyTables.put("enemyStudent21", enemyStudent21); enemyTables.put("enemyStudent22", enemyStudent22); enemyTables.put("enemyStudent23", enemyStudent23); enemyTables.put("enemyStudent21", enemyStudent24); enemyTables.put("enemyStudent25", enemyStudent25); enemyTables.put("enemyStudent26", enemyStudent26); enemyTables.put("enemyStudent27", enemyStudent27); enemyTables.put("enemyStudent28", enemyStudent28); enemyTables.put("enemyStudent29", enemyStudent29);
-        enemyTables.put("enemyStudent30", enemyStudent30); enemyTables.put("enemyStudent31", enemyStudent31); enemyTables.put("enemyStudent32", enemyStudent32); enemyTables.put("enemyStudent33", enemyStudent33); enemyTables.put("enemyStudent31", enemyStudent34); enemyTables.put("enemyStudent35", enemyStudent35); enemyTables.put("enemyStudent36", enemyStudent36); enemyTables.put("enemyStudent37", enemyStudent37); enemyTables.put("enemyStudent38", enemyStudent38); enemyTables.put("enemyStudent39", enemyStudent39);
-        enemyTables.put("enemyStudent40", enemyStudent40); enemyTables.put("enemyStudent41", enemyStudent41); enemyTables.put("enemyStudent42", enemyStudent42); enemyTables.put("enemyStudent43", enemyStudent43); enemyTables.put("enemyStudent41", enemyStudent44); enemyTables.put("enemyStudent45", enemyStudent45); enemyTables.put("enemyStudent46", enemyStudent46); enemyTables.put("enemyStudent47", enemyStudent47); enemyTables.put("enemyStudent48", enemyStudent48); enemyTables.put("enemyStudent49", enemyStudent49);
+        enemyTables.put("enemyStudent00", enemyStudent00); enemyTables.put("enemyStudent01", enemyStudent01); enemyTables.put("enemyStudent02", enemyStudent02); enemyTables.put("enemyStudent03", enemyStudent03); enemyTables.put("enemyStudent04", enemyStudent04); enemyTables.put("enemyStudent05", enemyStudent05); enemyTables.put("enemyStudent06", enemyStudent06); enemyTables.put("enemyStudent07", enemyStudent07); enemyTables.put("enemyStudent08", enemyStudent08); enemyTables.put("enemyStudent09", enemyStudent09);
+        enemyTables.put("enemyStudent10", enemyStudent10); enemyTables.put("enemyStudent11", enemyStudent11); enemyTables.put("enemyStudent12", enemyStudent12); enemyTables.put("enemyStudent13", enemyStudent13); enemyTables.put("enemyStudent14", enemyStudent14); enemyTables.put("enemyStudent15", enemyStudent15); enemyTables.put("enemyStudent16", enemyStudent16); enemyTables.put("enemyStudent17", enemyStudent17); enemyTables.put("enemyStudent18", enemyStudent18); enemyTables.put("enemyStudent19", enemyStudent19);
+        enemyTables.put("enemyStudent20", enemyStudent20); enemyTables.put("enemyStudent21", enemyStudent21); enemyTables.put("enemyStudent22", enemyStudent22); enemyTables.put("enemyStudent23", enemyStudent23); enemyTables.put("enemyStudent24", enemyStudent24); enemyTables.put("enemyStudent25", enemyStudent25); enemyTables.put("enemyStudent26", enemyStudent26); enemyTables.put("enemyStudent27", enemyStudent27); enemyTables.put("enemyStudent28", enemyStudent28); enemyTables.put("enemyStudent29", enemyStudent29);
+        enemyTables.put("enemyStudent30", enemyStudent30); enemyTables.put("enemyStudent31", enemyStudent31); enemyTables.put("enemyStudent32", enemyStudent32); enemyTables.put("enemyStudent33", enemyStudent33); enemyTables.put("enemyStudent34", enemyStudent34); enemyTables.put("enemyStudent35", enemyStudent35); enemyTables.put("enemyStudent36", enemyStudent36); enemyTables.put("enemyStudent37", enemyStudent37); enemyTables.put("enemyStudent38", enemyStudent38); enemyTables.put("enemyStudent39", enemyStudent39);
+        enemyTables.put("enemyStudent40", enemyStudent40); enemyTables.put("enemyStudent41", enemyStudent41); enemyTables.put("enemyStudent42", enemyStudent42); enemyTables.put("enemyStudent43", enemyStudent43); enemyTables.put("enemyStudent44", enemyStudent44); enemyTables.put("enemyStudent45", enemyStudent45); enemyTables.put("enemyStudent46", enemyStudent46); enemyTables.put("enemyStudent47", enemyStudent47); enemyTables.put("enemyStudent48", enemyStudent48); enemyTables.put("enemyStudent49", enemyStudent49);
 
         enemyTowers.put("enemyTower0", enemyTower0); enemyTowers.put("enemyTower1", enemyTower1); enemyTowers.put("enemyTower2", enemyTower2); enemyTowers.put("enemyTower3", enemyTower3); enemyTowers.put("enemyTower4", enemyTower4); enemyTowers.put("enemyTower5", enemyTower5); enemyTowers.put("enemyTower6", enemyTower6); enemyTowers.put("enemyTower7", enemyTower7);
 
@@ -162,17 +171,24 @@ public class BoardController extends GuiController {
         myTables.put("student30", student30); myTables.put("student31", student31); myTables.put("student32", student32); myTables.put("student33", student33); myTables.put("student31", student34); myTables.put("student35", student35); myTables.put("student36", student36); myTables.put("student37", student37); myTables.put("student38", student38); myTables.put("student39", student39);
         myTables.put("student40", student40); myTables.put("student41", student41); myTables.put("student42", student42); myTables.put("student43", student43); myTables.put("student41", student44); myTables.put("student45", student45); myTables.put("student46", student46); myTables.put("student47", student47); myTables.put("student48", student48); myTables.put("student49", student49);
 
-        myTablesImages.put("studentImage00", studentImage00); myTablesImages.put("studentImage01", studentImage01); myTablesImages.put("studentImage02", studentImage02); myTablesImages.put("studentImage03", studentImage03); myTablesImages.put("studentImage01", studentImage04); myTablesImages.put("studentImage05", studentImage05); myTablesImages.put("studentImage06", studentImage06); myTablesImages.put("studentImage07", studentImage07); myTablesImages.put("studentImage08", studentImage08); myTablesImages.put("studentImage09", studentImage09);
-        myTablesImages.put("studentImage10", studentImage10); myTablesImages.put("studentImage11", studentImage11); myTablesImages.put("studentImage12", studentImage12); myTablesImages.put("studentImage13", studentImage13); myTablesImages.put("studentImage11", studentImage14); myTablesImages.put("studentImage15", studentImage15); myTablesImages.put("studentImage16", studentImage16); myTablesImages.put("studentImage17", studentImage17); myTablesImages.put("studentImage18", studentImage18); myTablesImages.put("studentImage19", studentImage19);
-        myTablesImages.put("studentImage20", studentImage20); myTablesImages.put("studentImage21", studentImage21); myTablesImages.put("studentImage22", studentImage22); myTablesImages.put("studentImage23", studentImage23); myTablesImages.put("studentImage21", studentImage24); myTablesImages.put("studentImage25", studentImage25); myTablesImages.put("studentImage26", studentImage26); myTablesImages.put("studentImage27", studentImage27); myTablesImages.put("studentImage28", studentImage28); myTablesImages.put("studentImage29", studentImage29);
-        myTablesImages.put("studentImage30", studentImage30); myTablesImages.put("studentImage31", studentImage31); myTablesImages.put("studentImage32", studentImage32); myTablesImages.put("studentImage33", studentImage33); myTablesImages.put("studentImage31", studentImage34); myTablesImages.put("studentImage35", studentImage35); myTablesImages.put("studentImage36", studentImage36); myTablesImages.put("studentImage37", studentImage37); myTablesImages.put("studentImage38", studentImage38); myTablesImages.put("studentImage39", studentImage39);
-        myTablesImages.put("studentImage40", studentImage40); myTablesImages.put("studentImage41", studentImage41); myTablesImages.put("studentImage42", studentImage42); myTablesImages.put("studentImage43", studentImage43); myTablesImages.put("studentImage41", studentImage44); myTablesImages.put("studentImage45", studentImage45); myTablesImages.put("studentImage46", studentImage46); myTablesImages.put("studentImage47", studentImage47); myTablesImages.put("studentImage48", studentImage48); myTablesImages.put("studentImage49", studentImage49);
+        myTablesImages.put("studentImage00", studentImage00); myTablesImages.put("studentImage01", studentImage01); myTablesImages.put("studentImage02", studentImage02); myTablesImages.put("studentImage03", studentImage03); myTablesImages.put("studentImage04", studentImage04); myTablesImages.put("studentImage05", studentImage05); myTablesImages.put("studentImage06", studentImage06); myTablesImages.put("studentImage07", studentImage07); myTablesImages.put("studentImage08", studentImage08); myTablesImages.put("studentImage09", studentImage09);
+        myTablesImages.put("studentImage10", studentImage10); myTablesImages.put("studentImage11", studentImage11); myTablesImages.put("studentImage12", studentImage12); myTablesImages.put("studentImage13", studentImage13); myTablesImages.put("studentImage14", studentImage14); myTablesImages.put("studentImage15", studentImage15); myTablesImages.put("studentImage16", studentImage16); myTablesImages.put("studentImage17", studentImage17); myTablesImages.put("studentImage18", studentImage18); myTablesImages.put("studentImage19", studentImage19);
+        myTablesImages.put("studentImage20", studentImage20); myTablesImages.put("studentImage21", studentImage21); myTablesImages.put("studentImage22", studentImage22); myTablesImages.put("studentImage23", studentImage23); myTablesImages.put("studentImage24", studentImage24); myTablesImages.put("studentImage25", studentImage25); myTablesImages.put("studentImage26", studentImage26); myTablesImages.put("studentImage27", studentImage27); myTablesImages.put("studentImage28", studentImage28); myTablesImages.put("studentImage29", studentImage29);
+        myTablesImages.put("studentImage30", studentImage30); myTablesImages.put("studentImage31", studentImage31); myTablesImages.put("studentImage32", studentImage32); myTablesImages.put("studentImage33", studentImage33); myTablesImages.put("studentImage34", studentImage34); myTablesImages.put("studentImage35", studentImage35); myTablesImages.put("studentImage36", studentImage36); myTablesImages.put("studentImage37", studentImage37); myTablesImages.put("studentImage38", studentImage38); myTablesImages.put("studentImage39", studentImage39);
+        myTablesImages.put("studentImage40", studentImage40); myTablesImages.put("studentImage41", studentImage41); myTablesImages.put("studentImage42", studentImage42); myTablesImages.put("studentImage43", studentImage43); myTablesImages.put("studentImage44", studentImage44); myTablesImages.put("studentImage45", studentImage45); myTablesImages.put("studentImage46", studentImage46); myTablesImages.put("studentImage47", studentImage47); myTablesImages.put("studentImage48", studentImage48); myTablesImages.put("studentImage49", studentImage49);
 
         myTowers.put("myTower0", myTower0); myTowers.put("myTower1", myTower1); myTowers.put("myTower2", myTower2); myTowers.put("myTower3", myTower3); myTowers.put("myTower4", myTower4); myTowers.put("myTower5", myTower5); myTowers.put("myTower6", myTower6); myTowers.put("myTower7", myTower7);
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
-        clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
+        islandPanes.put("islandPane0", islandPane0); islandPanes.put("islandPane1", islandPane1); islandPanes.put("islandPane2", islandPane2); islandPanes.put("islandPane3", islandPane3); islandPanes.put("islandPane4", islandPane4); islandPanes.put("islandPane5", islandPane5); islandPanes.put("islandPane6", islandPane6); islandPanes.put("islandPane7", islandPane7); islandPanes.put("islandPane8", islandPane8); islandPanes.put("islandPane9", islandPane9); islandPanes.put("islandPane10", islandPane10); islandPanes.put("islandPane11", islandPane11);
+         studentsOnIslands.put("student0OnIsland0", student0OnIsland0);  studentsOnIslands.put("student0OnIsland1", student0OnIsland1);  studentsOnIslands.put("student0OnIsland2", student0OnIsland2);  studentsOnIslands.put("student0OnIsland3", student0OnIsland3);  studentsOnIslands.put("student0OnIsland4", student0OnIsland4);  studentsOnIslands.put("student0OnIsland5", student0OnIsland5);  studentsOnIslands.put("student0OnIsland6", student0OnIsland6);  studentsOnIslands.put("student0OnIsland7", student0OnIsland7);  studentsOnIslands.put("student0OnIsland8", student0OnIsland8);  studentsOnIslands.put("student0OnIsland9", student0OnIsland9);  studentsOnIslands.put("student0OnIsland10", student0OnIsland10);  studentsOnIslands.put("student0OnIsland11", student0OnIsland11);
+         studentsOnIslands.put("student0OnIsland0", student1OnIsland0);  studentsOnIslands.put("student1OnIsland1", student1OnIsland1);  studentsOnIslands.put("student1OnIsland2", student1OnIsland2);  studentsOnIslands.put("student1OnIsland3", student1OnIsland3);  studentsOnIslands.put("student1OnIsland4", student1OnIsland4);  studentsOnIslands.put("student1OnIsland5", student1OnIsland5);  studentsOnIslands.put("student1OnIsland6", student1OnIsland6);  studentsOnIslands.put("student1OnIsland7", student1OnIsland7);  studentsOnIslands.put("student1OnIsland8", student1OnIsland8);  studentsOnIslands.put("student1OnIsland9", student1OnIsland9);  studentsOnIslands.put("student1OnIsland10", student1OnIsland10);  studentsOnIslands.put("student1OnIsland11", student1OnIsland11);
+         studentsOnIslands.put("student2OnIsland0", student2OnIsland0);  studentsOnIslands.put("student2OnIsland1", student2OnIsland1);  studentsOnIslands.put("student2OnIsland2", student2OnIsland2);  studentsOnIslands.put("student2OnIsland3", student2OnIsland3);  studentsOnIslands.put("student2OnIsland4", student2OnIsland4);  studentsOnIslands.put("student2OnIsland5", student2OnIsland5);  studentsOnIslands.put("student2OnIsland6", student2OnIsland6);  studentsOnIslands.put("student2OnIsland7", student2OnIsland7);  studentsOnIslands.put("student2OnIsland8", student2OnIsland8);  studentsOnIslands.put("student2OnIsland9", student2OnIsland9);  studentsOnIslands.put("student2OnIsland10", student2OnIsland10);  studentsOnIslands.put("student2OnIsland11", student2OnIsland11);
+         studentsOnIslands.put(" studentOnIsland0", student3OnIsland0);  studentsOnIslands.put("student3OnIsland1", student3OnIsland1);  studentsOnIslands.put("student3OnIsland2", student3OnIsland2);  studentsOnIslands.put("student3OnIsland3", student3OnIsland3);  studentsOnIslands.put("student3OnIsland4", student3OnIsland4);  studentsOnIslands.put("student3OnIsland5", student3OnIsland5);  studentsOnIslands.put("student3OnIsland6", student3OnIsland6);  studentsOnIslands.put("student3OnIsland7", student3OnIsland7);  studentsOnIslands.put("student3OnIsland8", student3OnIsland8);  studentsOnIslands.put("student3OnIsland9", student3OnIsland9);  studentsOnIslands.put("student3OnIsland10", student3OnIsland10);  studentsOnIslands.put("student3OnIsland11", student3OnIsland11);
+         studentsOnIslands.put("student4OnIsland0", student4OnIsland0);  studentsOnIslands.put("student4OnIsland1", student4OnIsland1);  studentsOnIslands.put("student4OnIsland2", student4OnIsland2);  studentsOnIslands.put("student4OnIsland3", student4OnIsland3);  studentsOnIslands.put("student4OnIsland4", student4OnIsland4);  studentsOnIslands.put("student4OnIsland5", student4OnIsland5);  studentsOnIslands.put("student4OnIsland6", student4OnIsland6);  studentsOnIslands.put("student4OnIsland7", student4OnIsland7);  studentsOnIslands.put("student4OnIsland8", student4OnIsland8);  studentsOnIslands.put("student4OnIsland9", student4OnIsland9);  studentsOnIslands.put("student4OnIsland10", student4OnIsland10);  studentsOnIslands.put("student4OnIsland11", student4OnIsland11);
 
+
+        clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
 
         motherNatureX = 0;
         motherNatureY = 0;
@@ -212,6 +228,30 @@ public class BoardController extends GuiController {
         });
         //adaptClouds();
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
+        motherNature = new ImageView(new Image("/images/Board/mn.jpeg", 25, 25,  true, false));
+        String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
+        islandPanes.get(pane).getChildren().add(motherNature);
+        motherNature.setX(20);
+        motherNature.setY(20);
+    }
+
+    private List<String> getShapeCoordinates(int elements, double edge) {
+        List coordinates = new ArrayList<String>();
+        switch(elements) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                coordinates.add("");
+                break;
+            case 4:
+
+                break;
+            case 5:
+                break;
+        }
+        return coordinates;
     }
 
     /**
@@ -361,6 +401,9 @@ public class BoardController extends GuiController {
                         }
                         dist += 30;
                     }
+                    for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                        setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
+                    }
                 }
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     try {
@@ -380,7 +423,7 @@ public class BoardController extends GuiController {
                     setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
                     System.out.println("Enemy" + i);
                 }
-                for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+                for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++) {
                     setTower(myTowers.get(("enemyTower" + i)), null);
                     System.out.println("Enemy" + i);
                 }
@@ -405,10 +448,14 @@ public class BoardController extends GuiController {
                 for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                     try {
                         setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                        myTables.get("student" + i + j).setLayoutX(dist);
+                        myTables.get("student" + i + "" + j).setLayoutX(dist);
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
+                }
+                for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                    setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
+                    //myTables.get("student" + i + "" + j).setLayoutX(dist);
                 }
                 dist += 40;
             }
@@ -437,6 +484,7 @@ public class BoardController extends GuiController {
      */
     public void displayIslands() {
         System.out.println("displayIslands");
+        // problema con il postman
         Platform.runLater(() -> {
             if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
                 for(int i = 0; i < board.getNumberOfPLayers(); i++) {
@@ -447,11 +495,23 @@ public class BoardController extends GuiController {
                         }
                     }
                 }
+
             } else {
                 for (int i = 0; i < 12; i++) {
                     islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
                 }
             }
+            for(int i = 0; i < 12; i++) {
+                String pane = "islandPane" + i;
+                if (islandPanes.get(pane).getChildren().contains(motherNature)) {
+                    islandPanes.get(pane).getChildren().remove(motherNature);
+                }
+
+            }
+            islandPanes.get("islandPane" + board.getGametable().getMotherNaturePosition()).getChildren().add(motherNature);
+            motherNature.setX(20);
+            motherNature.setY(20);
+
         });
     }
 
@@ -641,6 +701,9 @@ public class BoardController extends GuiController {
             System.out.println("inviato messaggio AddStudentOnTableMessage");
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);
             state = 0;
+        } else if (state == 2) {
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, studentCardMoved));
+            state = 0;
         }
     }
 
@@ -650,7 +713,6 @@ public class BoardController extends GuiController {
      */
     public void islandClick(MouseEvent event) {
         int islandIndex = -1;
-        //System.out.println(((Button) event.getSource()).getId() + " pressed");
         switch(((ImageView) event.getSource()).getId()) {
             case "island0":
                 islandIndex = 0;
@@ -689,18 +751,28 @@ public class BoardController extends GuiController {
                 islandIndex = 11;
                 break;
         }
-        System.out.println("State: " + state);
-        System.out.println("Board state: " + board.getState());
         if(islandIndex < 12 && islandIndex > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 System.out.println("inviato messaggio AddStudentOnIslandMessage");
                 state = 0;
+            } else if (state == 2) {
+                    getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
+                    state = 0;
             } else if (board.getState() == 4) {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
-                System.out.println("Inviata isola");
+            } else if (board.getState() == 2) {
+                getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
+                System.out.println("ChangeMotherNaturePositionMessage");
             }
         }
+    }
+
+    public void playStudentCard(MouseEvent event) {
+        String button = ((Button) event.getSource()).getId();
+        int indexStudent = Integer.parseInt(button.substring(7,8));
+        if (board.getCharacters()[indexLastCharacterPlayed].getID() == 1) getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent - 1));
+        state = 2;
     }
 
     public void showAssistant(MouseEvent event) {
@@ -960,6 +1032,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /*public void selectStudentFromCard(MouseEvent event) {
+        String studentButton = ((Button) event.getSource()).getId();
+    }*/
     public void cloudClick(MouseEvent event) {
         int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
         getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
@@ -975,7 +1050,7 @@ public class BoardController extends GuiController {
                     character3Image.setVisible(true);
 
                     for (int i = 0; i < 3; i++) {
-                        String path = "/images/Personaggi/character" + board.getCharacters()[i].getID() + ".jpg";
+                        String path = "/images/Character/character" + board.getCharacters()[i].getID() + ".jpg";
                         Image image = new Image(path);
                         switch (i) {
                             case 0:
@@ -990,24 +1065,24 @@ public class BoardController extends GuiController {
                                     ImageView imageViewStudent2 = new ImageView(student2);
                                     imageViewStudent2.setFitHeight(30);
                                     imageViewStudent2.setFitWidth(30);
-                                    student3Character1.setGraphic(imageViewStudent2);
+                                    student2Character1.setGraphic(imageViewStudent2);
 
                                     Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
                                     ImageView imageViewStudent3 = new ImageView(student3);
                                     imageViewStudent3.setFitHeight(30);
                                     imageViewStudent3.setFitWidth(30);
-                                    student4Character1.setGraphic(imageViewStudent3);
+                                    student3Character1.setGraphic(imageViewStudent3);
 
                                     Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
                                     ImageView imageViewStudent4 = new ImageView(student4);
                                     imageViewStudent4.setFitHeight(30);
                                     imageViewStudent4.setFitWidth(30);
-                                    student6Character1.setGraphic(imageViewStudent4);
+                                    student4Character1.setGraphic(imageViewStudent4);
 
                                     student1Character1.setVisible(true);
+                                    student2Character1.setVisible(true);
                                     student3Character1.setVisible(true);
                                     student4Character1.setVisible(true);
-                                    student6Character1.setVisible(true);
                                 } else if (board.getCharacters()[i] instanceof Jester) {
                                     Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
                                     ImageView imageViewStudent1 = new ImageView(student1);
@@ -1066,24 +1141,24 @@ public class BoardController extends GuiController {
                                     ImageView imageViewStudent2 = new ImageView(student2);
                                     imageViewStudent2.setFitHeight(30);
                                     imageViewStudent2.setFitWidth(30);
-                                    student3Character2.setGraphic(imageViewStudent2);
+                                    student2Character2.setGraphic(imageViewStudent2);
 
                                     Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
                                     ImageView imageViewStudent3 = new ImageView(student3);
                                     imageViewStudent3.setFitHeight(30);
                                     imageViewStudent3.setFitWidth(30);
-                                    student4Character2.setGraphic(imageViewStudent3);
+                                    student3Character2.setGraphic(imageViewStudent3);
 
                                     Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
                                     ImageView imageViewStudent4 = new ImageView(student4);
                                     imageViewStudent4.setFitHeight(30);
                                     imageViewStudent4.setFitWidth(30);
-                                    student6Character2.setGraphic(imageViewStudent4);
+                                    student4Character2.setGraphic(imageViewStudent4);
 
                                     student1Character2.setVisible(true);
+                                    student2Character2.setVisible(true);
                                     student3Character2.setVisible(true);
                                     student4Character2.setVisible(true);
-                                    student6Character2.setVisible(true);
                                 } else if (board.getCharacters()[i] instanceof Jester) {
                                     Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
                                     ImageView imageViewStudent1 = new ImageView(student1);
@@ -1142,24 +1217,24 @@ public class BoardController extends GuiController {
                                     ImageView imageViewStudent2 = new ImageView(student2);
                                     imageViewStudent2.setFitHeight(30);
                                     imageViewStudent2.setFitWidth(30);
-                                    student3Character3.setGraphic(imageViewStudent2);
+                                    student2Character3.setGraphic(imageViewStudent2);
 
                                     Image student3 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[2].getColor()));
                                     ImageView imageViewStudent3 = new ImageView(student3);
                                     imageViewStudent3.setFitHeight(30);
                                     imageViewStudent3.setFitWidth(30);
-                                    student4Character3.setGraphic(imageViewStudent3);
+                                    student3Character3.setGraphic(imageViewStudent3);
 
                                     Image student4 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[3].getColor()));
                                     ImageView imageViewStudent4 = new ImageView(student4);
                                     imageViewStudent4.setFitHeight(30);
                                     imageViewStudent4.setFitWidth(30);
-                                    student6Character3.setGraphic(imageViewStudent4);
+                                    student4Character3.setGraphic(imageViewStudent4);
 
                                     student1Character3.setVisible(true);
+                                    student2Character3.setVisible(true);
                                     student3Character3.setVisible(true);
                                     student4Character3.setVisible(true);
-                                    student6Character3.setVisible(true);
                                 } else if (board.getCharacters()[i] instanceof Jester) {
                                     Image student1 = new Image(returnImagePathStudentFromColor(((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[0].getColor()));
                                     ImageView imageViewStudent1 = new ImageView(student1);
