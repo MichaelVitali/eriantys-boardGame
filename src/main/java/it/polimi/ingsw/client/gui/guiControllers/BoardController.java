@@ -537,10 +537,12 @@ public class BoardController extends GuiController {
         displayIslands();
         displayClouds();
         displayAssistants();
-        displayCharacter();
         showGameMessage();
         displayAssistantsPlayed();
-        if (board.getGameMode() == GameMode.EXPERT) showButtonPawnColor();
+        if (board.getGameMode() == GameMode.EXPERT) {
+            showButtonCenter();
+            displayCharacter();
+        }
         //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
@@ -649,46 +651,58 @@ public class BoardController extends GuiController {
      * @param event
      */
     public void myEntranceClick(ActionEvent event) {
-        //System.out.println(((Button) event.getSource()).getId() + " pressed");
+        int indexStudent = -1;
         switch(((Button) event.getSource()).getId()) {
             case "myEntrance0":
                 studentMoved = 0;
+                indexStudent = 0;
                 state = 1;
                 break;
             case "myEntrance1":
                 studentMoved = 1;
+                indexStudent = 1;
                 state = 1;
                 break;
             case "myEntrance2":
                 studentMoved = 2;
+                indexStudent = 2;
                 state = 1;
                 break;
             case "myEntrance3":
                 studentMoved = 3;
+                indexStudent = 3;
                 state = 1;
                 break;
             case "myEntrance4":
                 studentMoved = 4;
+                indexStudent = 4;
                 state = 1;
                 break;
             case "myEntrance5":
                 studentMoved = 5;
+                indexStudent = 5;
                 state = 1;
                 break;
             case "myEntrance6":
                 studentMoved = 6;
+                indexStudent = 6;
                 state = 1;
                 break;
             case "myEntrance7":
                 studentMoved = 7;
+                indexStudent = 7;
                 state = 1;
                 break;
             case "myEntrance8":
                 studentMoved = 8;
+                indexStudent = 8;
                 state = 1;
                 break;
         }
         myEntrance.get("myEntrance" + studentMoved).setEffect(new Glow(0.8));
+        if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7 && board.getState() == 6){
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
+        }
     }
 
     /**
@@ -698,7 +712,6 @@ public class BoardController extends GuiController {
     public void myTablesClick(ActionEvent event) {
         if (state == 1) {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
-            System.out.println("inviato messaggio AddStudentOnTableMessage");
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);
             state = 0;
         } else if (state == 2) {
@@ -754,7 +767,6 @@ public class BoardController extends GuiController {
         if(islandIndex < 12 && islandIndex > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
-                System.out.println("inviato messaggio AddStudentOnIslandMessage");
                 state = 0;
             } else if (state == 2) {
                     getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
@@ -763,7 +775,6 @@ public class BoardController extends GuiController {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             } else if (board.getState() == 2) {
                 getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
-                System.out.println("ChangeMotherNaturePositionMessage");
             }
         }
     }
@@ -771,8 +782,13 @@ public class BoardController extends GuiController {
     public void playStudentCard(MouseEvent event) {
         String button = ((Button) event.getSource()).getId();
         int indexStudent = Integer.parseInt(button.substring(7,8));
-        if (board.getCharacters()[indexLastCharacterPlayed].getID() == 1) getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent - 1));
-        state = 2;
+        if (board.getCharacters()[indexLastCharacterPlayed].getID() == 1) {
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent-1));
+            state = 2;
+        }
+        if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7 && board.getState() == 5) {
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent-1));
+        }
     }
 
     public void showAssistant(MouseEvent event) {
@@ -1340,28 +1356,31 @@ public class BoardController extends GuiController {
         }
     }
 
-    public void sendPawnColor(MouseEvent event) {
+    public void sendButtonValue(MouseEvent event) {
         String button = ((Button) event.getSource()).getId();
-        int indexColor = -1;
+        int index = -1;
         switch (button) {
             case "pawnColor0":
-                indexColor = 0;
+                index = 0;
                 break;
             case "pawnColor1":
-                indexColor = 1;
+                index = 1;
                 break;
             case "pawnColor2":
-                indexColor = 2;
+                index = 2;
                 break;
             case "pawnColor3":
-                indexColor = 3;
+                index = 3;
                 break;
             case "pawnColor4":
-                indexColor = 4;
+                index = 4;
                 break;
         }
         if (board.getState() == 4) {
-            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexColor));
+            if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9)) getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, index));
+            else if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7) {
+                getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, index+1));
+            }
             Platform.runLater( () -> {
                 pawnColor0.setVisible(false);
                 pawnColor1.setVisible(false);
@@ -1372,16 +1391,34 @@ public class BoardController extends GuiController {
         }
     }
 
-    private void showButtonPawnColor() {
-        if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9) && board.getState() == 4) {
-            Platform.runLater( () -> {
-                pawnColor0.setVisible(true);
-                pawnColor1.setVisible(true);
-                pawnColor2.setVisible(true);
-                pawnColor3.setVisible(true);
-                pawnColor4.setVisible(true);
-            });
+
+    private void showButtonCenter() {
+        if (board.getState() == 4) {
+            if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9)) {
+                Platform.runLater( () -> {
+                    pawnColor0.setText("GREEN");
+                    pawnColor1.setText("RED");
+                    pawnColor2.setText("YELLOW");
+                    pawnColor3.setText("PINK");
+                    pawnColor4.setText("BLUE");
+                    pawnColor0.setVisible(true);
+                    pawnColor1.setVisible(true);
+                    pawnColor2.setVisible(true);
+                    pawnColor3.setVisible(true);
+                    pawnColor4.setVisible(true);
+                });
+            } else if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7) {
+                Platform.runLater( () -> {
+                    pawnColor0.setText("1");
+                    pawnColor1.setText("2");
+                    pawnColor2.setText("3");
+                    pawnColor0.setVisible(true);
+                    pawnColor1.setVisible(true);
+                    pawnColor2.setVisible(true);
+                });
+            }
         }
+
     }
     private String returnImagePathStudentFromColor(PawnColor color) {
         switch (color) {
