@@ -68,11 +68,14 @@ public class BoardController extends GuiController {
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
     @FXML AnchorPane centerUpperAnchorPane;
     @FXML ImageView cloud0; @FXML ImageView cloud1; @FXML ImageView cloud2; @FXML ImageView cloud3;
+    @FXML AnchorPane cloudPane0; @FXML AnchorPane cloudPane1; @FXML AnchorPane cloudPane2; @FXML AnchorPane cloudPane3;
     @FXML Label labelGameMessage;
     @FXML Label nickAssistantPlayed;
     @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     @FXML Label coinNumber; @FXML ImageView coinImage;
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
+    @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
+    @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
@@ -90,17 +93,15 @@ public class BoardController extends GuiController {
     private Map<String, ImageView> islands;
     private Map<String, ImageView> studentsOnIslands;
     private Map<String, ImageView> clouds;
+    private Map<String, ImageView> studentsClouds;
 
     private GameMessage board;
     private int myPlayerId;
     private int studentMoved;
-    private int studentCardMoved;
     private int enemyBoardDisplayed;
     private int state;
 
     private ImageView motherNature;
-    private double motherNatureX;
-    private double motherNatureY;
     private int indexLastCharacterPlayed;
 
     /**
@@ -149,6 +150,7 @@ public class BoardController extends GuiController {
         islands = new HashMap<>();
         studentsOnIslands = new HashMap<>();
         clouds = new HashMap<>();
+        studentsClouds = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
@@ -189,9 +191,9 @@ public class BoardController extends GuiController {
 
 
         clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
+        studentsClouds.put("cloud0Student0", cloud0Student0); studentsClouds.put("cloud0Student1", cloud0Student1); studentsClouds.put("cloud0Student2", cloud0Student2); studentsClouds.put("cloud0Student3", cloud0Student3); studentsClouds.put("cloud1Student0", cloud1Student0); studentsClouds.put("cloud1Student1", cloud1Student1); studentsClouds.put("cloud1Student2", cloud1Student2); studentsClouds.put("cloud1Student3", cloud1Student3);
+        studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2); studentsClouds.put("cloud3Student3", cloud3Student3);
 
-        motherNatureX = 0;
-        motherNatureY = 0;
 
         enemyBoardDisplayed = 1;
     }
@@ -223,6 +225,7 @@ public class BoardController extends GuiController {
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                 }
+                adaptCloud();
                 displayBoard(1);
         });
         //adaptClouds();
@@ -531,7 +534,13 @@ public class BoardController extends GuiController {
      *
      */
     public void displayClouds() {
-        //System.out.println("displayClouds");
+        if (board != null) {
+            for(int i = 0; i < board.getNumberOfPLayers(); i++) {
+                for (int j = 0; j < board.getClouds()[i].getStudents().size(); j++) {
+                    setStudent(studentsClouds.get("cloud" + i + "Student" + j) , board.getClouds()[i].getStudents().get(j));
+                }
+            }
+        }
 
     }
 
@@ -723,9 +732,6 @@ public class BoardController extends GuiController {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);
             state = 0;
-        } else if (state == 2) {
-            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, studentCardMoved));
-            state = 0;
         }
     }
 
@@ -798,6 +804,9 @@ public class BoardController extends GuiController {
         if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7 && board.getState() == 5) {
             getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent-1));
         }
+        if (board.getCharacters()[indexLastCharacterPlayed].getID() == 11) {
+            getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent-1));
+        }
     }
 
     public void showAssistant(MouseEvent event) {
@@ -849,90 +858,6 @@ public class BoardController extends GuiController {
             @Override
             public void run() {
                 assistantImage.setVisible(false);
-                nickAssistantPlayed.setVisible(false);
-            }
-        });
-    }
-
-    public void showAssistantPlayed(MouseEvent event) {
-        String image = ((Button) event.getSource()).getGraphic().getId();
-        int playerNickname = -1, cardValue = -1;
-        String imagePath = "/images/Assistant/";
-         if (board.getNumberOfPLayers() == 2) {
-             if (image.equals("assistantPlayed2")) {
-                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
-             } else {
-                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
-             }
-         } else if(board.getNumberOfPLayers() == 3) {
-             if (image.equals("assistantPlayed2")) {
-                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
-             } else if (image.equals("assistantPlayed3")){
-                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
-             } else {
-                 playerNickname = board.getPlayedAssistants()[2].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[2].getAssistant().getCardValue();
-             }
-         } else if (board.getNumberOfPLayers() == 4) {
-             if (image.equals("assistantPlayed1")) {
-                 playerNickname = board.getPlayedAssistants()[0].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[0].getAssistant().getCardValue();
-             } else if (image.equals("assistantPlayed2")){
-                 playerNickname = board.getPlayedAssistants()[1].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[1].getAssistant().getCardValue();
-             } else if (image.equals("assistantPlayed3")){
-                 playerNickname = board.getPlayedAssistants()[2].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[2].getAssistant().getCardValue();
-             } else {
-                 playerNickname = board.getPlayedAssistants()[3].getPlayerIndex();
-                 cardValue = board.getPlayedAssistants()[3].getAssistant().getCardValue();
-             }
-         }
-         switch (cardValue) {
-             case 1:
-                 imagePath += "assistant0.png";
-                 break;
-             case 2:
-                 imagePath += "assistant1.png";
-                 break;
-             case 3:
-                 imagePath += "assistant2.png";
-                 break;
-             case 4:
-                 imagePath += "assistant3.png";
-                 break;
-             case 5:
-                 imagePath += "assistant4.png";
-                 break;
-             case 6:
-                 imagePath += "assistant5.png";
-                 break;
-             case 7:
-                 imagePath += "assistant6.png";
-                 break;
-             case 8:
-                 imagePath += "assistant7.png";
-                 break;
-             case 9:
-                 imagePath += "assistant8.png";
-                 break;
-             case 10:
-                 imagePath += "assistant9.png";
-                 break;
-         }
-        Image imageAssistant = new Image(imagePath);
-        int finalPlayerNickname = playerNickname;
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                assistantImage.setImage(imageAssistant);
-                assistantImage.setVisible(true);
-                nickAssistantPlayed.setText("Assistant played by " + finalPlayerNickname);
-                nickAssistantPlayed.setVisible(true);
             }
         });
     }
@@ -1422,141 +1347,16 @@ public class BoardController extends GuiController {
         indexLastCharacterPlayed = indexCard;
         System.out.println("Character played " + indexCard);
     }
-/*
-    private void adaptClouds() {
-        /*Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                if (board.getNumberOfPLayers() == 2) {
-                    Button student1 = new Button();
-                    ImageView imageViewStudent1 = new ImageView();
-                    Image imageStudent1 = new Image("/images/Board/Schoolboards/Students/blue.png");
-                    imageViewStudent1.setFitWidth(60.0);
-                    imageViewStudent1.setFitHeight(60.0);
-                    imageViewStudent1.setImage(imageStudent1);
-                    student1.setGraphic(imageViewStudent1);
-                    student1.setLayoutX(146.0);
-                    student1.setLayoutY(35.0);
-                    student1.setMouseTransparent(true);
 
-                    ImageView cloud1 = new ImageView();
-                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
-                    cloud1.setImage(imageCloud1);
-                    cloud1.setX(25.0);
-                    cloud1.setY(25.0);
-                    cloud1.setFitHeight(500.0);
-                    cloud1.setFitWidth(500.0);
 
-                    AnchorPane paneCloud1 = new AnchorPane();
-                    paneCloud1.setPrefSize(100.0, 100.0);
-                    paneCloud1.setLayoutX(146.0);
-                    paneCloud1.setLayoutY(0.0);
-                    paneCloud1.getChildren().add(cloud1);
-                    paneCloud1.getChildren().add(student1);
-                    paneCloud1.getChildren().add(student2);
-                    paneCloud1.getChildren().add(student3);
-                    paneClouds.getChildren().add(paneCloud1);
-
-                    ImageView cloud2 = new ImageView();
-                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
-                    cloud2.setImage(imageCloud2);
-                    AnchorPane paneCloud2 = new AnchorPane();
-                    paneCloud2.setPrefSize(100.0, 100.0);
-                    paneCloud2.setLayoutX(530.0);
-                    paneCloud2.setLayoutY(0.0);
-                    cloud2.setX(25.0);
-                    cloud2.setY(20.0);
-                    cloud2.setFitHeight(500.0);
-                    cloud2.setFitWidth(500.0);
-                    paneCloud2.getChildren().add(cloud2);
-                    paneClouds.getChildren().add(paneCloud2);
-                } else if (board.getNumberOfPLayers() == 3) {
-                    ImageView cloud1 = new ImageView();
-                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
-
-                    AnchorPane paneCloud1 = new AnchorPane();
-                    paneCloud1.setPrefSize(100.0, 100.0);
-                    paneCloud1.setLayoutX(85.0);
-                    paneCloud1.setLayoutY(0.0);
-                    cloud1.setImage(imageCloud1);
-                    cloud1.setX(25.0);
-                    cloud1.setY(25.0);
-                    cloud1.setFitHeight(500.0);
-                    cloud1.setFitWidth(500.0);
-                    paneCloud1.getChildren().add(cloud1);
-                    paneClouds.getChildren().add(paneCloud1);
-
-                    ImageView cloud2 = new ImageView();
-                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
-                    cloud2.setImage(imageCloud2);
-                    AnchorPane paneCloud2 = new AnchorPane();
-                    paneCloud2.setPrefSize(100.0, 100.0);
-                    paneCloud2.setLayoutX(420.0);
-                    paneCloud2.setLayoutY(0.0);
-                    cloud2.setX(25.0);
-                    cloud2.setY(50.0);
-                    cloud2.setFitHeight(450.0);
-                    cloud2.setFitWidth(450.0);
-                    paneCloud2.getChildren().add(cloud2);
-                    paneClouds.getChildren().add(paneCloud2);
-
-                    ImageView cloud3 = new ImageView();
-                    Image imageCloud3 = new Image("/images/Cloud/cloud3.png");
-                    cloud3.setImage(imageCloud3);
-                    AnchorPane paneCloud3 = new AnchorPane();
-                    paneCloud3.setPrefSize(100.0, 100.0);
-                    paneCloud3.setLayoutX(620.0);
-                    paneCloud3.setLayoutY(0.0);
-                    cloud3.setX(25.0);
-                    cloud3.setY(18.0);
-                    cloud3.setFitHeight(500.0);
-                    cloud3.setFitWidth(500.0);
-                    paneCloud3.getChildren().add(cloud3);
-                    paneClouds.getChildren().add(paneCloud3);
-                } else if(board.getNumberOfPLayers() == 4) {
-                    ImageView cloud1 = new ImageView();
-                    Image imageCloud1 = new Image("/images/Cloud/cloud1.png");
-                    AnchorPane paneCloud1 = new AnchorPane();
-                    paneCloud1.setPrefSize(100.0, 100.0);
-                    paneCloud1.setLayoutX(85.0);
-                    paneCloud1.setLayoutY(0.0);
-                    cloud1.setImage(imageCloud1);
-                    cloud1.setX(25.0);
-                    cloud1.setY(25.0);
-                    cloud1.setFitHeight(500.0);
-                    cloud1.setFitWidth(500.0);
-                    paneCloud1.getChildren().add(cloud1);
-                    paneClouds.getChildren().add(paneCloud1);
-
-                    ImageView cloud2 = new ImageView();
-                    Image imageCloud2 = new Image("/images/Cloud/cloud2.png");
-                    cloud2.setImage(imageCloud2);
-                    AnchorPane paneCloud2 = new AnchorPane();
-                    paneCloud2.setPrefSize(100.0, 100.0);
-                    paneCloud2.setLayoutX(420.0);
-                    paneCloud2.setLayoutY(0.0);
-                    cloud2.setX(25.0);
-                    cloud2.setY(50.0);
-                    cloud2.setFitHeight(450.0);
-                    cloud2.setFitWidth(450.0);
-                    paneCloud2.getChildren().add(cloud2);
-                    paneClouds.getChildren().add(paneCloud2);
-
-                    ImageView cloud3 = new ImageView();
-                    Image imageCloud3 = new Image("/images/Cloud/cloud3.png");
-                    cloud3.setImage(imageCloud3);
-                    AnchorPane paneCloud3 = new AnchorPane();
-                    paneCloud3.setPrefSize(100.0, 100.0);
-                    paneCloud3.setLayoutX(620.0);
-                    paneCloud3.setLayoutY(0.0);
-                    cloud3.setX(25.0);
-                    cloud3.setY(18.0);
-                    cloud3.setFitHeight(500.0);
-                    cloud3.setFitWidth(500.0);
-                    paneCloud3.getChildren().add(cloud3);
-                    paneClouds.getChildren().add(paneCloud3);
-                }
-            }
-        });
-    }*/
+    private void adaptCloud() {
+        if (board.getNumberOfPLayers() == 2) {
+            cloudPane0.setLayoutX(cloudPane0.getLayoutX() + 100);
+            cloudPane1.setLayoutX(cloudPane1.getLayoutX() + 100);
+        } else if (board.getNumberOfPLayers() == 3) {
+            cloudPane0.setLayoutX(cloudPane0.getLayoutX() + 50);
+            cloudPane1.setLayoutX(cloudPane1.getLayoutX() + 50);
+            cloudPane2.setLayoutX(cloudPane2.getLayoutX() + 50);
+        }
+    }
 }

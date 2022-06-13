@@ -12,12 +12,12 @@
    <right>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="258.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="myBoard" fitHeight="600.0" fitWidth="258.0" styleClass="boards">
+            <ImageView fx:id="myBoard" fitHeight="600.0" fitWidth="258.0" layoutY="55.0" styleClass="boards">
                <image>
                   <Image url="@../images/Board/Schoolboards/schoolboardVertical.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutY="508.0" prefHeight="86.0" prefWidth="258.0">
+            <AnchorPane layoutY="563.0" prefHeight="86.0" prefWidth="258.0">
                <children>
                   <Button fx:id="myEntrance0" layoutX="45.0" layoutY="26.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic>
@@ -53,7 +53,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane layoutY="198.0" prefHeight="300.0" prefWidth="258.0">
+            <AnchorPane layoutY="253.0" prefHeight="300.0" prefWidth="258.0">
                <children>
                   <Button fx:id="student00" layoutX="35.0" layoutY="264.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage00" styleClass="studentsImage" /></graphic>
@@ -209,14 +209,14 @@
                   <Button fx:id="student49" layoutX="207.0" layoutY="3.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage49" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="table0" layoutX="33.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
-                  <Button fx:id="table1" layoutX="74.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
-                  <Button fx:id="table2" layoutX="117.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
-                  <Button fx:id="table3" layoutX="160.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
-                  <Button fx:id="table4" layoutX="201.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
+                  <Button fx:id="table0" layoutX="33.0" layoutY="3.0" mnemonicParsing="false" onAction="#myTablesClick" prefHeight="289.0" prefWidth="24.0" styleClass="tableButton" />
+                  <Button fx:id="table1" layoutX="74.0" layoutY="3.0" mnemonicParsing="false" onAction="#myTablesClick" prefHeight="289.0" prefWidth="24.0" styleClass="tableButton" />
+                  <Button fx:id="table2" layoutX="117.0" layoutY="3.0" mnemonicParsing="false" onAction="#myTablesClick" prefHeight="289.0" prefWidth="24.0" styleClass="tableButton" />
+                  <Button fx:id="table3" layoutX="160.0" layoutY="3.0" mnemonicParsing="false" onAction="#myTablesClick" prefHeight="289.0" prefWidth="24.0" styleClass="tableButton" />
+                  <Button fx:id="table4" layoutX="201.0" layoutY="3.0" mnemonicParsing="false" onAction="#myTablesClick" prefHeight="289.0" prefWidth="24.0" styleClass="tableButton" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="184.0" prefWidth="258.0">
+            <AnchorPane layoutY="55.0" prefHeight="184.0" prefWidth="258.0">
                <ImageView fx:id="myProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="30" layoutY="145.0" />
                <ImageView fx:id="myProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="73.0" layoutY="145.0" />
                <ImageView fx:id="myProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="115.0" layoutY="145.0" />
@@ -232,8 +232,8 @@
                <ImageView fx:id="myTower7" layoutX="180.0" layoutY="80.0" />
 
             </AnchorPane>
-            <Label fx:id="coinNumber" layoutX="75.0" layoutY="600.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
-            <ImageView fx:id="coinImage" fitHeight="55.0" fitWidth="55.0" layoutX="100.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <Label fx:id="coinNumber" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
+            <ImageView fx:id="coinImage" fitHeight="55.0" fitWidth="55.0" layoutX="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <Image url="@../images/coin.png" />
             </ImageView>
          </children>
@@ -602,21 +602,37 @@
                   <ImageView fx:id="cloud0" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
                      <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud0.png" />
                   </ImageView>
+                  <ImageView fx:id="cloud0Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud0Student1" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud0Student2" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud0Student3" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
                </AnchorPane>
                <AnchorPane fx:id="cloudPane1" layoutX="100" layoutY="0" prefHeight="100.0" prefWidth="100.0">
                   <ImageView fx:id="cloud1" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
                      <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud1.png" />
                   </ImageView>
+                  <ImageView fx:id="cloud1Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud1Student1" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud1Student2" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud1Student3" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
                </AnchorPane>
                <AnchorPane fx:id="cloudPane2" layoutX="200" layoutY="0" prefHeight="100.0" prefWidth="100.0">
                   <ImageView fx:id="cloud2" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
                      <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud2.png" />
                   </ImageView>
+                  <ImageView fx:id="cloud2Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud2Student1" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud2Student2" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud2Student3" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
                </AnchorPane>
                <AnchorPane fx:id="cloudPane3" layoutX="300" layoutY="0" prefHeight="100.0" prefWidth="100.0">
                   <ImageView fx:id="cloud3" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
                      <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud3.png" />
                   </ImageView>
+                  <ImageView fx:id="cloud3Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud3Student1" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud3Student2" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cloud3Student3" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
                </AnchorPane>
             </AnchorPane>
          </center>
