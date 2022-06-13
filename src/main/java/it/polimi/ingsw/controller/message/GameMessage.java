@@ -88,6 +88,9 @@ public class GameMessage extends Message implements Serializable {
 
     public GameMode getGameMode() { return gameMode; }
 
+    public int getPlayesCoins(int playerId) {
+        return playersCoins[playerId];
+    }
 
     public void printIslands(List<Island> islands) {
         System.out.println("");

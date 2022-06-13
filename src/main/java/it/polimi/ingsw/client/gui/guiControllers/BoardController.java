@@ -69,10 +69,9 @@ public class BoardController extends GuiController {
     @FXML AnchorPane centerUpperAnchorPane;
     @FXML ImageView cloud0; @FXML ImageView cloud1; @FXML ImageView cloud2; @FXML ImageView cloud3;
     @FXML Label labelGameMessage;
-    @FXML AnchorPane paneClouds;
     @FXML Label nickAssistantPlayed;
     @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
-    ////// ho commentato i coin perchè non ci sono ancora nella scene e da errori
+    @FXML Label coinNumber; @FXML ImageView coinImage;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
@@ -182,7 +181,7 @@ public class BoardController extends GuiController {
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
         islandPanes.put("islandPane0", islandPane0); islandPanes.put("islandPane1", islandPane1); islandPanes.put("islandPane2", islandPane2); islandPanes.put("islandPane3", islandPane3); islandPanes.put("islandPane4", islandPane4); islandPanes.put("islandPane5", islandPane5); islandPanes.put("islandPane6", islandPane6); islandPanes.put("islandPane7", islandPane7); islandPanes.put("islandPane8", islandPane8); islandPanes.put("islandPane9", islandPane9); islandPanes.put("islandPane10", islandPane10); islandPanes.put("islandPane11", islandPane11);
          studentsOnIslands.put("student0OnIsland0", student0OnIsland0);  studentsOnIslands.put("student0OnIsland1", student0OnIsland1);  studentsOnIslands.put("student0OnIsland2", student0OnIsland2);  studentsOnIslands.put("student0OnIsland3", student0OnIsland3);  studentsOnIslands.put("student0OnIsland4", student0OnIsland4);  studentsOnIslands.put("student0OnIsland5", student0OnIsland5);  studentsOnIslands.put("student0OnIsland6", student0OnIsland6);  studentsOnIslands.put("student0OnIsland7", student0OnIsland7);  studentsOnIslands.put("student0OnIsland8", student0OnIsland8);  studentsOnIslands.put("student0OnIsland9", student0OnIsland9);  studentsOnIslands.put("student0OnIsland10", student0OnIsland10);  studentsOnIslands.put("student0OnIsland11", student0OnIsland11);
-         studentsOnIslands.put("student0OnIsland0", student1OnIsland0);  studentsOnIslands.put("student1OnIsland1", student1OnIsland1);  studentsOnIslands.put("student1OnIsland2", student1OnIsland2);  studentsOnIslands.put("student1OnIsland3", student1OnIsland3);  studentsOnIslands.put("student1OnIsland4", student1OnIsland4);  studentsOnIslands.put("student1OnIsland5", student1OnIsland5);  studentsOnIslands.put("student1OnIsland6", student1OnIsland6);  studentsOnIslands.put("student1OnIsland7", student1OnIsland7);  studentsOnIslands.put("student1OnIsland8", student1OnIsland8);  studentsOnIslands.put("student1OnIsland9", student1OnIsland9);  studentsOnIslands.put("student1OnIsland10", student1OnIsland10);  studentsOnIslands.put("student1OnIsland11", student1OnIsland11);
+         studentsOnIslands.put("student1OnIsland0", student1OnIsland0);  studentsOnIslands.put("student1OnIsland1", student1OnIsland1);  studentsOnIslands.put("student1OnIsland2", student1OnIsland2);  studentsOnIslands.put("student1OnIsland3", student1OnIsland3);  studentsOnIslands.put("student1OnIsland4", student1OnIsland4);  studentsOnIslands.put("student1OnIsland5", student1OnIsland5);  studentsOnIslands.put("student1OnIsland6", student1OnIsland6);  studentsOnIslands.put("student1OnIsland7", student1OnIsland7);  studentsOnIslands.put("student1OnIsland8", student1OnIsland8);  studentsOnIslands.put("student1OnIsland9", student1OnIsland9);  studentsOnIslands.put("student1OnIsland10", student1OnIsland10);  studentsOnIslands.put("student1OnIsland11", student1OnIsland11);
          studentsOnIslands.put("student2OnIsland0", student2OnIsland0);  studentsOnIslands.put("student2OnIsland1", student2OnIsland1);  studentsOnIslands.put("student2OnIsland2", student2OnIsland2);  studentsOnIslands.put("student2OnIsland3", student2OnIsland3);  studentsOnIslands.put("student2OnIsland4", student2OnIsland4);  studentsOnIslands.put("student2OnIsland5", student2OnIsland5);  studentsOnIslands.put("student2OnIsland6", student2OnIsland6);  studentsOnIslands.put("student2OnIsland7", student2OnIsland7);  studentsOnIslands.put("student2OnIsland8", student2OnIsland8);  studentsOnIslands.put("student2OnIsland9", student2OnIsland9);  studentsOnIslands.put("student2OnIsland10", student2OnIsland10);  studentsOnIslands.put("student2OnIsland11", student2OnIsland11);
          studentsOnIslands.put(" studentOnIsland0", student3OnIsland0);  studentsOnIslands.put("student3OnIsland1", student3OnIsland1);  studentsOnIslands.put("student3OnIsland2", student3OnIsland2);  studentsOnIslands.put("student3OnIsland3", student3OnIsland3);  studentsOnIslands.put("student3OnIsland4", student3OnIsland4);  studentsOnIslands.put("student3OnIsland5", student3OnIsland5);  studentsOnIslands.put("student3OnIsland6", student3OnIsland6);  studentsOnIslands.put("student3OnIsland7", student3OnIsland7);  studentsOnIslands.put("student3OnIsland8", student3OnIsland8);  studentsOnIslands.put("student3OnIsland9", student3OnIsland9);  studentsOnIslands.put("student3OnIsland10", student3OnIsland10);  studentsOnIslands.put("student3OnIsland11", student3OnIsland11);
          studentsOnIslands.put("student4OnIsland0", student4OnIsland0);  studentsOnIslands.put("student4OnIsland1", student4OnIsland1);  studentsOnIslands.put("student4OnIsland2", student4OnIsland2);  studentsOnIslands.put("student4OnIsland3", student4OnIsland3);  studentsOnIslands.put("student4OnIsland4", student4OnIsland4);  studentsOnIslands.put("student4OnIsland5", student4OnIsland5);  studentsOnIslands.put("student4OnIsland6", student4OnIsland6);  studentsOnIslands.put("student4OnIsland7", student4OnIsland7);  studentsOnIslands.put("student4OnIsland8", student4OnIsland8);  studentsOnIslands.put("student4OnIsland9", student4OnIsland9);  studentsOnIslands.put("student4OnIsland10", student4OnIsland10);  studentsOnIslands.put("student4OnIsland11", student4OnIsland11);
@@ -194,7 +193,6 @@ public class BoardController extends GuiController {
         motherNatureY = 0;
 
         enemyBoardDisplayed = 1;
-        //displayBoard(1);
     }
 
     /**
@@ -473,7 +471,15 @@ public class BoardController extends GuiController {
             for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
                 setTower(myTowers.get(("myTower" + i)), null);
             }
+            if (board.getGameMode() == GameMode.EXPERT) coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
         }
+    }
+
+    private void displayCoin() {
+        Platform.runLater(() -> {
+            coinImage.setVisible(true);
+            coinNumber.setVisible(true);
+        });
     }
 
     /**
@@ -539,6 +545,7 @@ public class BoardController extends GuiController {
         if (board.getGameMode() == GameMode.EXPERT) {
             showButtonCenter();
             displayCharacter();
+            displayCoin();
         }
         //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
