@@ -55,160 +55,165 @@
             </AnchorPane>
             <AnchorPane layoutY="198.0" prefHeight="300.0" prefWidth="258.0">
                <children>
-                  <Button fx:id="student00" layoutX="35.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student00" layoutX="35.0" layoutY="264.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage00" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student01" layoutX="35.0" layoutY="235.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student01" layoutX="35.0" layoutY="235.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage01" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student02" layoutX="35.0" layoutY="206.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student02" layoutX="35.0" layoutY="206.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage02" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student03" layoutX="35.0" layoutY="177.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student03" layoutX="35.0" layoutY="177.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage03" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student04" layoutX="35.0" layoutY="148.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student04" layoutX="35.0" layoutY="148.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage04" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student05" layoutX="35.0" layoutY="119.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student05" layoutX="35.0" layoutY="119.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage05" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student06" layoutX="35.0" layoutY="90.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student06" layoutX="35.0" layoutY="90.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage06" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student07" layoutX="35.0" layoutY="61.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student07" layoutX="35.0" layoutY="61.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage07" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student08" layoutX="35.0" layoutY="32.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student08" layoutX="35.0" layoutY="32.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage08" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student09" layoutX="35.0" layoutY="3.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student09" layoutX="35.0" layoutY="3.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage09" styleClass="studentsImage" /></graphic>
                   </Button>
 
-                  <Button fx:id="student10" layoutX="78.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student10" layoutX="78.0" layoutY="264.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage10" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student11" layoutX="78.0" layoutY="235.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student11" layoutX="78.0" layoutY="235.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage11" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student12" layoutX="78.0" layoutY="206.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student12" layoutX="78.0" layoutY="206.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage12" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student13" layoutX="78.0" layoutY="177.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student13" layoutX="78.0" layoutY="177.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage13" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student14" layoutX="78.0" layoutY="148.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student14" layoutX="78.0" layoutY="148.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage14" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student15" layoutX="78.0" layoutY="119.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student15" layoutX="78.0" layoutY="119.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage15" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student16" layoutX="78.0" layoutY="90.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student16" layoutX="78.0" layoutY="90.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage16" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student17" layoutX="78.0" layoutY="61.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student17" layoutX="78.0" layoutY="61.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage17" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student18" layoutX="78.0" layoutY="32.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student18" layoutX="78.0" layoutY="32.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage18" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student19" layoutX="78.0" layoutY="3.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student19" layoutX="78.0" layoutY="3.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage19" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
 
-                  <Button fx:id="student20" layoutX="121.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student20" layoutX="121.0" layoutY="264.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage20" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student21" layoutX="121.0" layoutY="235.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student21" layoutX="121.0" layoutY="235.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage21" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student22" layoutX="121.0" layoutY="206.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student22" layoutX="121.0" layoutY="206.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage22" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student23" layoutX="121.0" layoutY="177.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student23" layoutX="121.0" layoutY="177.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage23" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student24" layoutX="121.0" layoutY="148.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student24" layoutX="121.0" layoutY="148.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage24" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student25" layoutX="121.0" layoutY="119.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student25" layoutX="121.0" layoutY="119.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage25" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student26" layoutX="121.0" layoutY="90.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student26" layoutX="121.0" layoutY="90.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage26" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student27" layoutX="121.0" layoutY="61.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student27" layoutX="121.0" layoutY="61.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage27" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student28" layoutX="121.0" layoutY="32.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student28" layoutX="121.0" layoutY="32.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage28" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student29" layoutX="121.0" layoutY="3.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student29" layoutX="121.0" layoutY="3.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage29" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
 
-                  <Button fx:id="student30" layoutX="164.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student30" layoutX="164.0" layoutY="264.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage30" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student31" layoutX="164.0" layoutY="235.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student31" layoutX="164.0" layoutY="235.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage31" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student32" layoutX="164.0" layoutY="206.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student32" layoutX="164.0" layoutY="206.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage32" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student33" layoutX="164.0" layoutY="177.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student33" layoutX="164.0" layoutY="177.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage33" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student34" layoutX="164.0" layoutY="148.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student34" layoutX="164.0" layoutY="148.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage34" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student35" layoutX="164.0" layoutY="119.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student35" layoutX="164.0" layoutY="119.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage35" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student36" layoutX="164.0" layoutY="90.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student36" layoutX="164.0" layoutY="90.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage36" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student37" layoutX="164.0" layoutY="61.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student37" layoutX="164.0" layoutY="61.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage37" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student38" layoutX="164.0" layoutY="32.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student38" layoutX="164.0" layoutY="32.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage38" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student39" layoutX="164.0" layoutY="3.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student39" layoutX="164.0" layoutY="3.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage39" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
 
-                  <Button fx:id="student40" layoutX="207.0" layoutY="264.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student40" layoutX="207.0" layoutY="264.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage40" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student41" layoutX="207.0" layoutY="235.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student41" layoutX="207.0" layoutY="235.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage41" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student42" layoutX="207.0" layoutY="206.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student42" layoutX="207.0" layoutY="206.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage42" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student43" layoutX="207.0" layoutY="177.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student43" layoutX="207.0" layoutY="177.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage43" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student44" layoutX="207.0" layoutY="148.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student44" layoutX="207.0" layoutY="148.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage44" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student45" layoutX="207.0" layoutY="119.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student45" layoutX="207.0" layoutY="119.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage45" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student46" layoutX="207.0" layoutY="90.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student46" layoutX="207.0" layoutY="90.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage46" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student47" layoutX="207.0" layoutY="61.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student47" layoutX="207.0" layoutY="61.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage47" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student48" layoutX="207.0" layoutY="32.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student48" layoutX="207.0" layoutY="32.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage48" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="student49" layoutX="207.0" layoutY="3.0" onAction="#myTablesClick" styleClass="studentsButton">
+                  <Button fx:id="student49" layoutX="207.0" layoutY="3.0" mouseTransparent="true" styleClass="studentsButton">
                      <graphic><ImageView fx:id="studentImage49" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
+                  <Button fx:id="table0" layoutX="33.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
+                  <Button fx:id="table1" layoutX="74.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
+                  <Button fx:id="table2" layoutX="117.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
+                  <Button fx:id="table3" layoutX="160.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
+                  <Button fx:id="table4" layoutX="201.0" layoutY="3.0" styleClass="tableButton" onAction="#myTablesClick" mnemonicParsing="false" prefHeight="289.0" prefWidth="24.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="184.0" prefWidth="258.0">
@@ -467,7 +472,6 @@
                   </AnchorPane>
                   <ImageView fx:id="assistantImage" fitHeight="209.0" fitWidth="180.0" layoutX="267.0" layoutY="221.0" />
                   <Label fx:id="labelGameMessage" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="714.0" styleClass="text" text="The magical world of Eriantys" />
-                  <Label fx:id="nickAssistantPlayed" layoutX="267.0" layoutY="190.0" prefHeight="20.0" prefWidth="200.0" text="Assistant played by" visible="false" />
                   <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="70.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
                   <AnchorPane layoutX="70.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
@@ -619,31 +623,15 @@
          <left>
             <AnchorPane prefHeight="100.0" prefWidth="265.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="buttonAssistantPlayed1" layoutX="7.0" layoutY="16.0" mnemonicParsing="false" onMouseEntered="#showAssistantPlayed" onMouseExited="#removeShowAssistant" prefHeight="54.0" prefWidth="44.0" styleClass="assistantButton" visible="false">
-                     <graphic>
-                        <ImageView fx:id="assistantPlayed1" fitHeight="45.0" fitWidth="40.0" layoutX="320.0" layoutY="80.0" />
-                     </graphic>
-                  </Button>
-                  <Button fx:id="buttonAssistantPlayed2" layoutX="70.0" layoutY="16.0" mnemonicParsing="false" onMouseEntered="#showAssistantPlayed" onMouseExited="#removeShowAssistant" prefHeight="54.0" prefWidth="44.0" styleClass="assistantButton" visible="false">
-                     <graphic>
-                        <ImageView fx:id="assistantPlayed2" fitHeight="45.0" fitWidth="40.0" layoutX="320.0" layoutY="80.0" />
-                     </graphic>
-                  </Button>
-                  <Button fx:id="buttonAssistantPlayed3" layoutX="134.0" layoutY="16.0" mnemonicParsing="false" onMouseEntered="#showAssistantPlayed" onMouseExited="#removeShowAssistant" prefHeight="54.0" prefWidth="44.0" styleClass="assistantButton" visible="false">
-                     <graphic>
-                        <ImageView fx:id="assistantPlayed3" fitHeight="45.0" fitWidth="40.0" layoutX="320.0" layoutY="80.0" />
-                     </graphic>
-                  </Button>
-                  <Button fx:id="buttonAssistantPlayed4" layoutX="197.0" layoutY="16.0" mnemonicParsing="false" onMouseEntered="#showAssistantPlayed" onMouseExited="#removeShowAssistant" prefHeight="54.0" prefWidth="44.0" styleClass="assistantButton" visible="false">
-                     <graphic>
-                        <ImageView fx:id="assistantPlayed4" fitHeight="45.0" fitWidth="40.0" layoutX="320.0" layoutY="80.0" />
-                     </graphic>
-                  </Button>
+                  <ImageView fx:id="enemyAssistant" fitHeight="100.0" fitWidth="100.0" layoutX="83.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </left>
          <right>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="270.0" BorderPane.alignment="CENTER" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="270.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="myAssistant" fitHeight="100.0" fitWidth="100.0" layoutX="85.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+               </children></AnchorPane>
          </right>
       </BorderPane>
    </top>

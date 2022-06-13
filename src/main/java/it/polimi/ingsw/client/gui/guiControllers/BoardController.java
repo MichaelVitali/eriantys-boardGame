@@ -63,7 +63,7 @@ public class BoardController extends GuiController {
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
     @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
-    @FXML Button buttonAssistantPlayed1; @FXML Button buttonAssistantPlayed2; @FXML Button buttonAssistantPlayed3; @FXML Button buttonAssistantPlayed4; @FXML ImageView assistantPlayed1; @FXML ImageView assistantPlayed2; @FXML ImageView assistantPlayed3; @FXML ImageView assistantPlayed4;
+    @FXML ImageView enemyAssistant; @FXML ImageView myAssistant;
     @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
     @FXML AnchorPane centerUpperAnchorPane;
@@ -72,6 +72,7 @@ public class BoardController extends GuiController {
     @FXML Label nickAssistantPlayed;
     @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     @FXML Label coinNumber; @FXML ImageView coinImage;
+    @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
@@ -378,8 +379,6 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayEnemySchoolboard(int playerOffset) {
-        //System.out.println("displayEnemySchoolboard");
-        //System.out.println(playerOffset + " " + board.getNumberOfPLayers());
         int dist = 30;
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
@@ -425,6 +424,12 @@ public class BoardController extends GuiController {
                     setTower(myTowers.get(("enemyTower" + i)), null);
                     System.out.println("Enemy" + i);
                 }
+            }
+            if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
+                enemyAssistant.setVisible(true);
+                enemyAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()].getAssistant().getCardValue() - 1) + ".png"));
+            } else {
+                enemyAssistant.setVisible(false);
             }
         }
     }
@@ -472,6 +477,10 @@ public class BoardController extends GuiController {
                 setTower(myTowers.get(("myTower" + i)), null);
             }
             if (board.getGameMode() == GameMode.EXPERT) coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
+            if (board.getPlayedAssistants()[myPlayerId] != null) {
+                myAssistant.setVisible(true);
+                myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
+            }
         }
     }
 
@@ -531,17 +540,13 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        //System.out.println("displayBoard");
-        //System.out.println("Player: " + board.getPlayerOnTurn());
         System.out.println(board.getPlayerMessage());
-        //System.out.println(playerOffset);
         displayEnemySchoolboard(playerOffset);
         displayMySchoolboard();
         displayIslands();
         displayClouds();
         displayAssistants();
         showGameMessage();
-        displayAssistantsPlayed();
         if (board.getGameMode() == GameMode.EXPERT) {
             showButtonCenter();
             displayCharacter();
@@ -1305,58 +1310,6 @@ public class BoardController extends GuiController {
                     }
                 }
             });
-        }
-    }
-
-    private void displayAssistantsPlayed() {
-        if (board.getNumberOfPLayers() == 2) {
-            if (board.getPlayedAssistants()[0] != null) {
-                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
-                assistantPlayed2.setImage(assistant1);
-                buttonAssistantPlayed2.setVisible(true);
-            }
-            if (board.getPlayedAssistants()[1] != null) {
-                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
-                assistantPlayed3.setImage(assistant2);
-                buttonAssistantPlayed3.setVisible(true);
-            }
-        } else if (board.getNumberOfPLayers() == 3) {
-            if (board.getPlayedAssistants()[0] != null) {
-                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
-                assistantPlayed2.setImage(assistant1);
-                buttonAssistantPlayed2.setVisible(true);
-            }
-            if(board.getPlayedAssistants()[1] != null) {
-                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
-                assistantPlayed3.setImage(assistant2);
-                buttonAssistantPlayed3.setVisible(true);
-            }
-            if (board.getPlayedAssistants()[2] != null) {
-                Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
-                assistantPlayed4.setImage(assistant4);
-                buttonAssistantPlayed4.setVisible(true);
-            }
-        } else if (board.getNumberOfPLayers() == 4) {
-            if (board.getPlayedAssistants()[0] != null) {
-                Image assistant1 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[0].getAssistant().getCardValue() + ".png");
-                assistantPlayed1.setImage(assistant1);
-                buttonAssistantPlayed1.setVisible(true);
-            }
-            if(board.getPlayedAssistants()[1] != null) {
-                Image assistant2 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[1].getAssistant().getCardValue() + ".png");
-                assistantPlayed2.setImage(assistant2);
-                buttonAssistantPlayed2.setVisible(true);
-            }
-            if (board.getPlayedAssistants()[2] != null) {
-                Image assistant3 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[2].getAssistant().getCardValue() + ".png");
-                assistantPlayed3.setImage(assistant3);
-                buttonAssistantPlayed3.setVisible(true);
-            }
-            if (board.getPlayedAssistants()[3] != null) {
-                Image assistant4 = new Image("/images/Assistant/buttonAssistant" + board.getPlayedAssistants()[3].getAssistant().getCardValue() + ".png");
-                assistantPlayed4.setImage(assistant4);
-                buttonAssistantPlayed4.setVisible(true);
-            }
         }
     }
 
