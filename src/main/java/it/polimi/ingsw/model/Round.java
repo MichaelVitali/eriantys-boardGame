@@ -351,10 +351,10 @@ public class Round implements Serializable {
             System.out.println("Player: " + playerId + " number of  moves: " + movesCounter[playerId]);
             if (getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex] == null) throw new InvalidIndexException("There isn't a student in this position");
             PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
+            game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             if (game instanceof ExpertGame){
                 if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0 && game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) != 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
             }
-            game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             movesCounter[playerId]++;
             game.getGameTable().moveProfessorToTheRightPosition(color);
             calculateNextPlayer();

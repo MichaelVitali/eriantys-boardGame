@@ -23,7 +23,7 @@ public class Jester extends CharacterWithStudent{
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
             try{
-                if (parameter < 0 || parameter > 3) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2, 3}");
+                if (parameter <= 0 || parameter > 3) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2, 3}");
                 getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student on card");
                 countCard = parameter;
                 countEntrance = parameter;

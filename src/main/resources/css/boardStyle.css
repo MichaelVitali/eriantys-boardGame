@@ -67,6 +67,17 @@
     -fx-text-fill: darkgrey;
 }
 
+.coinLable {
+    -fx-font-family: "Dreamwood";
+    -fx-alignment: "center";
+    -fx-font-size: 40;
+    -fx-text-fill: black;
+}
+
+.tableButton {
+    -fx-background-color: "transparent";
+}
+
 .text {
     -fx-font-family: "Aclonica", cursive;
     -fx-alignment: "center";

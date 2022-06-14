@@ -73,6 +73,10 @@ public class GameMessage extends Message implements Serializable {
         return playerMessage;
     }
 
+    public Cloud[] getClouds() {
+        return gametable.getClouds();
+    }
+
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
         if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
@@ -88,6 +92,9 @@ public class GameMessage extends Message implements Serializable {
 
     public GameMode getGameMode() { return gameMode; }
 
+    public int getPlayesCoins(int playerId) {
+        return playersCoins[playerId];
+    }
 
     public void printIslands(List<Island> islands) {
         System.out.println("");
