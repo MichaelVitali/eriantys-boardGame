@@ -598,8 +598,8 @@
       <BorderPane prefHeight="100.0" prefWidth="800.0">
          <center>
             <AnchorPane fx:id="centerUpperAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-               <AnchorPane fx:id="cloudPane0" layoutX="0" layoutY="0" prefHeight="100.0" prefWidth="100.0">
-                  <ImageView fx:id="cloud0" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
+               <AnchorPane fx:id="cloudPane0" layoutX="0.0" layoutY="0.0" prefHeight="100.0" prefWidth="100.0">
+                  <ImageView fx:id="cloud0" fitHeight="90.0" layoutX="0.0" layoutY="15.0" onMouseClicked="#cloudClick">
                      <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud0.png" />
                   </ImageView>
                   <ImageView fx:id="cloud0Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
@@ -607,8 +607,8 @@
                   <ImageView fx:id="cloud0Student2" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="cloud0Student3" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
                </AnchorPane>
-               <AnchorPane fx:id="cloudPane1" layoutX="100" layoutY="0" prefHeight="100.0" prefWidth="100.0">
-                  <ImageView fx:id="cloud1" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
+               <AnchorPane fx:id="cloudPane1" layoutX="100.0" prefHeight="100.0" prefWidth="100.0">
+                  <ImageView fx:id="cloud1" fitHeight="90.0" layoutY="15.0" onMouseClicked="#cloudClick">
                      <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud1.png" />
                   </ImageView>
                   <ImageView fx:id="cloud1Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
@@ -616,9 +616,9 @@
                   <ImageView fx:id="cloud1Student2" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="cloud1Student3" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
                </AnchorPane>
-               <AnchorPane fx:id="cloudPane2" layoutX="200" layoutY="0" prefHeight="100.0" prefWidth="100.0">
-                  <ImageView fx:id="cloud2" fitHeight="90" layoutX="0" layoutY="15" onMouseClicked="#cloudClick">
-                     <Image preserveRatio="true" requestedHeight="90" url="@../images/Board/Cloud/cloud2.png" />
+               <AnchorPane fx:id="cloudPane2" layoutX="200.0" prefHeight="100.0" prefWidth="100.0">
+                  <ImageView fx:id="cloud2" fitHeight="90.0" layoutY="15.0" onMouseClicked="#cloudClick">
+                     <Image preserveRatio="true" requestedHeight="90.0" url="@../images/Board/Cloud/cloud2.png" />
                   </ImageView>
                   <ImageView fx:id="cloud2Student0" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="cloud2Student1" mouseTransparent="true" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
