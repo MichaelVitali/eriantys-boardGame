@@ -685,52 +685,56 @@ public class BoardController extends GuiController {
         int indexStudent = -1;
         switch(((Button) event.getSource()).getId()) {
             case "myEntrance0":
-                studentMoved = 0;
+                //studentMoved = 0;
                 indexStudent = 0;
                 state = 1;
                 break;
             case "myEntrance1":
-                studentMoved = 1;
+                //studentMoved = 1;
                 indexStudent = 1;
                 state = 1;
                 break;
             case "myEntrance2":
-                studentMoved = 2;
+                //studentMoved = 2;
                 indexStudent = 2;
                 state = 1;
                 break;
             case "myEntrance3":
-                studentMoved = 3;
+                //studentMoved = 3;
                 indexStudent = 3;
                 state = 1;
                 break;
             case "myEntrance4":
-                studentMoved = 4;
+                //studentMoved = 4;
                 indexStudent = 4;
                 state = 1;
                 break;
             case "myEntrance5":
-                studentMoved = 5;
+                //studentMoved = 5;
                 indexStudent = 5;
                 state = 1;
                 break;
             case "myEntrance6":
-                studentMoved = 6;
+                //studentMoved = 6;
                 indexStudent = 6;
                 state = 1;
                 break;
             case "myEntrance7":
-                studentMoved = 7;
+                //studentMoved = 7;
                 indexStudent = 7;
                 state = 1;
                 break;
             case "myEntrance8":
-                studentMoved = 8;
+                //studentMoved = 8;
                 indexStudent = 8;
                 state = 1;
                 break;
         }
-        myEntrance.get("myEntrance" + studentMoved).setEffect(new Glow(0.8));
+        if (indexStudent != studentMoved) {
+            myEntrance.get("myEntrance" + studentMoved).setEffect(null);
+        }
+        myEntrance.get("myEntrance" + indexStudent).setEffect(new Glow(0.8));
+        studentMoved = indexStudent;
         if (board.getGameMode() == GameMode.EXPERT) {
             if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7 && board.getState() == 6){
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
