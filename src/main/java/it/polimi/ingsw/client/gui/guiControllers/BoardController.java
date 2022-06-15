@@ -812,6 +812,8 @@ public class BoardController extends GuiController {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             } else if (board.getState() == 2) {
                 getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
+            } else if (board.getState() == 4 && board.getCharacters()[indexLastCharacterPlayed].getID() == 5) {
+                getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             }
         }
     }
@@ -1014,7 +1016,6 @@ public class BoardController extends GuiController {
     }
 
     public void setStudentCharacter(Button node, Student student) {
-        System.out.println("Immagineeeeeeee");
         Platform.runLater(() -> {
             if(node != null) {
                 if (student != null) {
@@ -1076,7 +1077,6 @@ public class BoardController extends GuiController {
                             case 0:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
                                     for (int j = 0; j < 4; j++) {
-                                        System.out.println("SONO DENTROOOOOOOOOOOOO");
                                         setStudentCharacter(studentsCards.get("student" + (j+1) + "Character" + (i+1)), ((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[j]);
                                         studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
                                     }
@@ -1084,6 +1084,21 @@ public class BoardController extends GuiController {
                                     for (int j = 0; j < 6; j++) {
                                         setStudentCharacter(studentsCards.get("student" + (j+1) + "Character" + (i+1)), ((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[j]);
                                         studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
+                                    }
+                                } else if (board.getCharacters()[i] instanceof Healer) {
+                                    for (int j = 0; j < 4; j++) {
+                                        if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
+                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
+                                        } else {
+                                            Image image2 = new Image("/images/Character/prohibition.png");
+                                            ImageView imageView = new ImageView(image2);
+                                            imageView.setFitHeight(30);
+                                            imageView.setFitWidth(30);
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setGraphic(imageView);
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
+                                        }
+
                                     }
                                 }
                                 character1Image.setImage(image);
@@ -1091,7 +1106,6 @@ public class BoardController extends GuiController {
                             case 1:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
                                     for (int j = 0; j < 4; j++) {
-                                        System.out.println("SONO DENTROOOOOOOOOOOOO");
                                         setStudentCharacter(studentsCards.get("student" + (j+1) + "Character" + (i+1)), ((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[j]);
                                         studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
                                     }
@@ -1099,6 +1113,21 @@ public class BoardController extends GuiController {
                                     for (int j = 0; j < 6; j++) {
                                         setStudentCharacter(studentsCards.get("student" + (j+1) + "Character" + (i+1)), ((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[j]);
                                         studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
+                                    }
+                                } else if (board.getCharacters()[i] instanceof Healer) {
+                                    for (int j = 0; j < 4; j++) {
+                                        if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
+                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
+                                        } else {
+                                            Image image2 = new Image("/images/Character/prohibition.png");
+                                            ImageView imageView = new ImageView(image2);
+                                            imageView.setFitHeight(30);
+                                            imageView.setFitWidth(30);
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setGraphic(imageView);
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
+                                        }
+
                                     }
                                 }
                                 character2Image.setImage(image);
@@ -1106,7 +1135,6 @@ public class BoardController extends GuiController {
                             case 2:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
                                     for (int j = 0; j < 4; j++) {
-                                        System.out.println("SONO DENTROOOOOOOOOOOOO");
                                         setStudentCharacter(studentsCards.get("student" + (j+1) + "Character" + (i+1)), ((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[j]);
                                         studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
                                     }
@@ -1114,6 +1142,21 @@ public class BoardController extends GuiController {
                                     for (int j = 0; j < 6; j++) {
                                         setStudentCharacter(studentsCards.get("student" + (j+1) + "Character" + (i+1)), ((CharacterWithStudent) board.getCharacters()[i]).getStudentsOnCard()[j]);
                                         studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
+                                    }
+                                } else if (board.getCharacters()[i] instanceof Healer) {
+                                    for (int j = 0; j < 4; j++) {
+                                        if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
+                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
+                                        } else {
+                                            Image image2 = new Image("/images/Character/prohibition.png");
+                                            ImageView imageView = new ImageView(image2);
+                                            imageView.setFitHeight(30);
+                                            imageView.setFitWidth(30);
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setGraphic(imageView);
+                                            studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(true);
+                                        }
+
                                     }
                                 }
                                 character3Image.setImage(image);

@@ -89,7 +89,7 @@ public class ExpertGame extends Game {
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 5: // QUASI - forse c'è un errore sul cambio di turno, o sulla doppia chiamata all'healer
+                case 5: //OK
                     Healer c5 = new Healer(ID, cost);
                     c.add(c5);
                     break;
@@ -133,7 +133,7 @@ public class ExpertGame extends Game {
             numberOfCharacter--;
         }*/
         this.characters[0] = c.get(0);
-        this.characters[1] = c.get(6);
+        this.characters[1] = c.get(4);
         this.characters[2] = c.get(10);
     }
 
