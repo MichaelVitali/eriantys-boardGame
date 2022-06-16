@@ -353,7 +353,10 @@ public class Round implements Serializable {
             PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
             if (game instanceof ExpertGame){
-                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0 && game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) != 0) ((ExpertGame)game).addCoinToAPlayer(playerId);
+                if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0 && game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) != 0) {
+                    ((ExpertGame)game).addCoinToAPlayer(playerId);
+                    ((ExpertGame) game).removeCoinFromTheTable();
+                }
             }
             movesCounter[playerId]++;
             game.getGameTable().moveProfessorToTheRightPosition(color);

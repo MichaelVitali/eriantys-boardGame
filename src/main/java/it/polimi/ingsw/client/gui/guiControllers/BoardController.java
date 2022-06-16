@@ -77,6 +77,8 @@ public class BoardController extends GuiController {
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
     @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
     @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
+    @FXML AnchorPane enemyTowerPane; @FXML AnchorPane myTowerPane;
+    @FXML ImageView coinTableImage; @FXML ImageView bag; @FXML Label coinTableNumber;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
@@ -224,7 +226,7 @@ public class BoardController extends GuiController {
                     player4.setVisible(false);
                     cloud3.setVisible(false);
                     centerUpperAnchorPane.setPrefWidth(300);
-                    // da adattare le torri anche traslandole
+                    adaptTowers();
                 } else if (board.getNumberOfPLayers() == 4) {
                     entrance7.setVisible(false);
                     entrance8.setVisible(false);
@@ -496,6 +498,10 @@ public class BoardController extends GuiController {
         Platform.runLater(() -> {
             coinImage.setVisible(true);
             coinNumber.setVisible(true);
+            coinTableImage.setVisible(true);
+            coinTableImage.setImage(new Image("/images/coin.png"));
+            coinTableNumber.setVisible(true);
+            coinTableNumber.setText(String.valueOf(board.getTableCoins()));
         });
     }
 
@@ -1303,4 +1309,11 @@ public class BoardController extends GuiController {
             cloudPane2.setLayoutX(cloudPane2.getLayoutX() + 50.0);
         }
     }*/
+
+    private void adaptTowers() {
+        for (int i = 0; i < 6; i++) {
+            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
+            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
+        }
+    }
 }

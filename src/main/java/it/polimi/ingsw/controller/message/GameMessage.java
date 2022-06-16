@@ -21,6 +21,7 @@ public class GameMessage extends Message implements Serializable {
     private SchoolBoard[] schoolBoards;
     private Character[] characters;
     private int[] playersCoins;
+    private int tableCoins;
     private String[] playersNicknames;
     private Round.PlayedAssistant[] playedAssistants;
 
@@ -38,9 +39,11 @@ public class GameMessage extends Message implements Serializable {
         if (gameMode == GameMode.EXPERT) {
             characters = ((ExpertGame) model).getCharacters();
             playersCoins = ((ExpertGame) model).getPlayersCoins();
+            tableCoins = ((ExpertGame) model).getCoinsOfTheTable();
         } else characters = null;
         playersNicknames = model.getPlayersNicknames();
         playedAssistants = model.getRound().getPlayedAssistants();
+
     }
 
     public Round.PlayedAssistant[] getPlayedAssistants() {
@@ -185,6 +188,10 @@ public class GameMessage extends Message implements Serializable {
                 System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");
             }
         }
+    }
+
+    public int getTableCoins() {
+        return tableCoins;
     }
 
     public void printPlayedAssistants(List<Assistant> assistants) {
