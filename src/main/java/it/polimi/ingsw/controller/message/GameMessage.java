@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Character;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameMessage extends Message implements Serializable {
@@ -79,6 +80,7 @@ public class GameMessage extends Message implements Serializable {
 
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
+        printPlayedAssistants(getListPlayedAssistants());
         if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
         if (gameMode == GameMode.EXPERT) printCharacter(characters);
         printAllSchoolboards();
@@ -86,6 +88,14 @@ public class GameMessage extends Message implements Serializable {
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
         if (playerId == playerOnTurn) System.out.println(playerMessage);
         else System.out.println("You're not the player on turn... Wait for other player!");
+    }
+
+    public List<Assistant> getListPlayedAssistants() {
+        List<Assistant> assistants = new ArrayList<>();
+        for (int i = 0; i < numberOfPLayers; i++) {
+            if (playedAssistants[i] != null) assistants.add(playedAssistants[i].getAssistant());
+        }
+        return assistants;
     }
 
     public int getPlayerOnTurn() { return playerOnTurn; }
@@ -152,26 +162,62 @@ public class GameMessage extends Message implements Serializable {
     }
 
     public void printAssistants(List<Assistant> assistants) {
-        System.out.println("\n\nAssistants:");
-        for (Assistant a : assistants) {
-            System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
+        if (assistants.size() != 0) {
+            System.out.println("\n\nAssistants:");
+            for (Assistant a : assistants) {
+                System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
+            }
+            System.out.println("");
+            for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants) {
+                if (a.getCardValue() < 10) System.out.print("\u258F CV:" + a.getCardValue() +   " \u2595     ");
+                else System.out.print("\u258F CV:" + a.getCardValue() +   "\u2595     ");
+            }
+            System.out.println("");
+            for (Assistant a : assistants) System.out.print("\u258F MV:" + a.getMotherNatureMoves() + " \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants)  System.out.print("\u258F      \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants) {
+                System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");
+            }
         }
-        System.out.println("");
-        for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
-        System.out.println("");
-        for (Assistant a : assistants) {
-            if (a.getCardValue() < 10) System.out.print("\u258F CV:" + a.getCardValue() +   " \u2595     ");
-            else System.out.print("\u258F CV:" + a.getCardValue() +   "\u2595     ");
-        }
-        System.out.println("");
-        for (Assistant a : assistants) System.out.print("\u258F MV:" + a.getMotherNatureMoves() + " \u2595     ");
-        System.out.println("");
-        for (Assistant a : assistants)  System.out.print("\u258F      \u2595     ");
-        System.out.println("");
-        for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
-        System.out.println("");
-        for (Assistant a : assistants) {
-            System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");
+    }
+
+    public void printPlayedAssistants(List<Assistant> assistants) {
+        if (assistants.size() != 0) {
+            System.out.println("\n\nPlayed Assistants:");
+            for (int i = 0; i < numberOfPLayers; i++) {
+                if (playedAssistants[i] != null) {
+                    System.out.print("" + playersNicknames[playedAssistants[i].getPlayerIndex()]);
+                    for (int  j = 0; j < (13 - playersNicknames[playedAssistants[i].getPlayerIndex()].length()); j++) System.out.print(" ");
+                }
+
+            }
+            System.out.println("");
+            for (Assistant a : assistants) {
+                System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
+            }
+            System.out.println("");
+            for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants) {
+                if (a.getCardValue() < 10) System.out.print("\u258F CV:" + a.getCardValue() +   " \u2595     ");
+                else System.out.print("\u258F CV:" + a.getCardValue() +   "\u2595     ");
+            }
+            System.out.println("");
+            for (Assistant a : assistants) System.out.print("\u258F MV:" + a.getMotherNatureMoves() + " \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants)  System.out.print("\u258F      \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants) System.out.print("\u258F      \u2595     ");
+            System.out.println("");
+            for (Assistant a : assistants) {
+                System.out.print("\u2594\u2594\u2594\u2594\u2594\u2594\u2594\u2594     ");
+            }
         }
     }
 
