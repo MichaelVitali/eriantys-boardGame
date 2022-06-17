@@ -225,6 +225,7 @@ public class BoardController extends GuiController {
                     player4.setVisible(false);
                     cloud3.setVisible(false);
                     centerUpperAnchorPane.setPrefWidth(300);
+                    adaptCloud();
                     adaptTowers();
                 } else if (board.getNumberOfPLayers() == 4) {
                     enemyEntrance7.setVisible(false);
@@ -232,7 +233,6 @@ public class BoardController extends GuiController {
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                 }
-                //adaptCloud();
                 displayBoard(1);
         });
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
@@ -440,7 +440,7 @@ public class BoardController extends GuiController {
      */
     public void displayMySchoolboard() {
 
-        int dist = 24;
+        int dist = 22;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -1292,16 +1292,28 @@ public class BoardController extends GuiController {
     }
 
 
-    /*private void adaptCloud() {
-        if (board.getNumberOfPLayers() == 2) {
-            cloudPane0.setLayoutX(cloudPane0.getLayoutX() + 100.0);
-            cloudPane1.setLayoutX(cloudPane1.getLayoutX() + 100.0);
-        } else if (board.getNumberOfPLayers() == 3) {
-            cloudPane0.setLayoutX(cloudPane0.getLayoutX() + 50.0);
-            cloudPane1.setLayoutX(cloudPane1.getLayoutX() + 50.0);
-            cloudPane2.setLayoutX(cloudPane2.getLayoutX() + 50.0);
-        }
-    }*/
+    private void adaptCloud() {
+        cloud0Student0.setLayoutX(6.0);
+        cloud0Student0.setLayoutY(45.0);
+        cloud0Student1.setLayoutX(33.0);
+        cloud0Student1.setLayoutY(20.0);
+        cloud0Student2.setLayoutX(58.0);
+        cloud0Student2.setLayoutY(45.0);
+
+        cloud1Student0.setLayoutX(6.0);
+        cloud1Student0.setLayoutY(45.0);
+        cloud1Student1.setLayoutX(33.0);
+        cloud1Student1.setLayoutY(20.0);
+        cloud1Student2.setLayoutX(58.0);
+        cloud1Student2.setLayoutY(45.0);
+
+        cloud2Student0.setLayoutX(6.0);
+        cloud2Student0.setLayoutY(45.0);
+        cloud2Student1.setLayoutX(33.0);
+        cloud2Student1.setLayoutY(20.0);
+        cloud2Student2.setLayoutX(58.0);
+        cloud2Student2.setLayoutY(45.0);
+    }
 
     private void adaptTowers() {
         for (int i = 0; i < 6; i++) {
