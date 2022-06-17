@@ -49,6 +49,14 @@ public class SchoolBoard implements Serializable {
         entrance[index] = null;
     }
 
+    public int getTotalNumberOfStudentsOnTables() {
+        int sum = 0;
+        for (PawnColor color : PawnColor.values()) {
+            sum += getNumberOfStudentsOnTable(color);
+        }
+        return sum;
+    }
+
     /**
      * Adds a student on the table of his color
      * @param student student which has to be put on the table

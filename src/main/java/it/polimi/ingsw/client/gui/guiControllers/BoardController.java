@@ -30,7 +30,7 @@ import java.util.*;
 public class BoardController extends GuiController {
 
     @FXML ImageView enemyProfessor0; @FXML ImageView enemyProfessor1; @FXML ImageView enemyProfessor2; @FXML ImageView enemyProfessor3; @FXML ImageView enemyProfessor4;
-    @FXML ImageView entrance0; @FXML ImageView entrance1; @FXML ImageView entrance2; @FXML ImageView entrance3; @FXML ImageView entrance4; @FXML ImageView entrance5; @FXML ImageView entrance6; @FXML ImageView entrance7; @FXML ImageView entrance8;
+    @FXML ImageView enemyEntrance0; @FXML ImageView enemyEntrance1; @FXML ImageView enemyEntrance2; @FXML ImageView enemyEntrance3; @FXML ImageView enemyEntrance4; @FXML ImageView enemyEntrance5; @FXML ImageView enemyEntrance6; @FXML ImageView enemyEntrance7; @FXML ImageView enemyEntrance8;
     @FXML ImageView enemyStudent00; @FXML ImageView enemyStudent01; @FXML ImageView enemyStudent02; @FXML ImageView enemyStudent03; @FXML ImageView enemyStudent04; @FXML ImageView enemyStudent05; @FXML ImageView enemyStudent06; @FXML ImageView enemyStudent07; @FXML ImageView enemyStudent08; @FXML ImageView enemyStudent09;
     @FXML ImageView enemyStudent10; @FXML ImageView enemyStudent11; @FXML ImageView enemyStudent12; @FXML ImageView enemyStudent13; @FXML ImageView enemyStudent14; @FXML ImageView enemyStudent15; @FXML ImageView enemyStudent16; @FXML ImageView enemyStudent17; @FXML ImageView enemyStudent18; @FXML ImageView enemyStudent19;
     @FXML ImageView enemyStudent20; @FXML ImageView enemyStudent21; @FXML ImageView enemyStudent22; @FXML ImageView enemyStudent23; @FXML ImageView enemyStudent24; @FXML ImageView enemyStudent25; @FXML ImageView enemyStudent26; @FXML ImageView enemyStudent27; @FXML ImageView enemyStudent28; @FXML ImageView enemyStudent29;
@@ -60,8 +60,6 @@ public class BoardController extends GuiController {
     @FXML ImageView student2OnIsland0; @FXML ImageView student2OnIsland1; @FXML ImageView student2OnIsland2; @FXML ImageView student2OnIsland3; @FXML ImageView student2OnIsland4; @FXML ImageView student2OnIsland5; @FXML ImageView student2OnIsland6; @FXML ImageView student2OnIsland7; @FXML ImageView student2OnIsland8; @FXML ImageView student2OnIsland9; @FXML ImageView student2OnIsland10; @FXML ImageView student2OnIsland11;
     @FXML ImageView student3OnIsland0; @FXML ImageView student3OnIsland1; @FXML ImageView student3OnIsland2; @FXML ImageView student3OnIsland3; @FXML ImageView student3OnIsland4; @FXML ImageView student3OnIsland5; @FXML ImageView student3OnIsland6; @FXML ImageView student3OnIsland7; @FXML ImageView student3OnIsland8; @FXML ImageView student3OnIsland9; @FXML ImageView student3OnIsland10; @FXML ImageView student3OnIsland11;
     @FXML ImageView student4OnIsland0; @FXML ImageView student4OnIsland1; @FXML ImageView student4OnIsland2; @FXML ImageView student4OnIsland3; @FXML ImageView student4OnIsland4; @FXML ImageView student4OnIsland5; @FXML ImageView student4OnIsland6; @FXML ImageView student4OnIsland7; @FXML ImageView student4OnIsland8; @FXML ImageView student4OnIsland9; @FXML ImageView student4OnIsland10; @FXML ImageView student4OnIsland11;
-    @FXML ImageView towerOnIsland0; @FXML ImageView towerOnIsland1; @FXML ImageView towerOnIsland2; @FXML ImageView towerOnIsland3; @FXML ImageView towerOnIsland4; @FXML ImageView towerOnIsland5; @FXML ImageView towerOnIsland6; @FXML ImageView towerOnIsland7; @FXML ImageView towerOnIsland8; @FXML ImageView towerOnIsland9; @FXML ImageView towerOnIsland10; @FXML ImageView towerOnIsland11;
-
 
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
@@ -160,7 +158,7 @@ public class BoardController extends GuiController {
         towersOnIslands = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
-        enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
+        enemyEntrance.put("enemyEntrance0", enemyEntrance0); enemyEntrance.put("enemyEntrance1", enemyEntrance1); enemyEntrance.put("enemyEntrance2", enemyEntrance2); enemyEntrance.put("enemyEntrance3", enemyEntrance3); enemyEntrance.put("enemyEntrance4", enemyEntrance4); enemyEntrance.put("enemyEntrance5", enemyEntrance5); enemyEntrance.put("enemyEntrance6", enemyEntrance6); enemyEntrance.put("enemyEntrance7", enemyEntrance7); enemyEntrance.put("enemyEntrance8", enemyEntrance8);
 
         enemyTables.put("enemyStudent00", enemyStudent00); enemyTables.put("enemyStudent01", enemyStudent01); enemyTables.put("enemyStudent02", enemyStudent02); enemyTables.put("enemyStudent03", enemyStudent03); enemyTables.put("enemyStudent04", enemyStudent04); enemyTables.put("enemyStudent05", enemyStudent05); enemyTables.put("enemyStudent06", enemyStudent06); enemyTables.put("enemyStudent07", enemyStudent07); enemyTables.put("enemyStudent08", enemyStudent08); enemyTables.put("enemyStudent09", enemyStudent09);
         enemyTables.put("enemyStudent10", enemyStudent10); enemyTables.put("enemyStudent11", enemyStudent11); enemyTables.put("enemyStudent12", enemyStudent12); enemyTables.put("enemyStudent13", enemyStudent13); enemyTables.put("enemyStudent14", enemyStudent14); enemyTables.put("enemyStudent15", enemyStudent15); enemyTables.put("enemyStudent16", enemyStudent16); enemyTables.put("enemyStudent17", enemyStudent17); enemyTables.put("enemyStudent18", enemyStudent18); enemyTables.put("enemyStudent19", enemyStudent19);
@@ -218,8 +216,8 @@ public class BoardController extends GuiController {
                     player2.setVisible(false);
                     player3.setVisible(false);
                     player4.setVisible(false);
-                    entrance7.setVisible(false);
-                    entrance8.setVisible(false);
+                    enemyEntrance7.setVisible(false);
+                    enemyEntrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                     cloud2.setVisible(false);
@@ -229,15 +227,16 @@ public class BoardController extends GuiController {
                     player4.setVisible(false);
                     cloud3.setVisible(false);
                     centerUpperAnchorPane.setPrefWidth(300);
-                    // da adattare le torri anche traslandole
+                    adaptCloud();
+                    adaptTowers();
                 } else if (board.getNumberOfPLayers() == 4) {
-                    entrance7.setVisible(false);
-                    entrance8.setVisible(false);
+                    enemyEntrance7.setVisible(false);
+                    enemyEntrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                 }
+                displayBoard(1);
         });
-        displayBoard(1);
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
         motherNature = new ImageView(new Image("/images/Board/mn.jpeg", 25, 25,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
@@ -359,7 +358,6 @@ public class BoardController extends GuiController {
         Platform.runLater(() -> {
             if(node != null) {
                 if (color != null) {
-                    System.out.println("Nonnnn nullloooo");
                     switch (color) {
                         case WHITE:
                             node.setImage(new Image("/images/Board/Schoolboards/Towers/white.png"));
@@ -378,7 +376,6 @@ public class BoardController extends GuiController {
                             break;
                     }
                 } else {
-                    System.out.println("Nullloooooo coloreeeee");
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(24);
                     node.setFitWidth(24);
@@ -398,7 +395,7 @@ public class BoardController extends GuiController {
             if(playerOffset < board.getNumberOfPLayers()) {
                 SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
                 for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
-                    setStudent(enemyEntrance.get(("entrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
+                    setStudent(enemyEntrance.get(("enemyEntrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
                 }
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
@@ -449,7 +446,7 @@ public class BoardController extends GuiController {
      */
     public void displayMySchoolboard() {
 
-        int dist = 24;
+        int dist = 22;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
             for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -491,6 +488,8 @@ public class BoardController extends GuiController {
                 myAssistant.setVisible(true);
                 myAssistant.preserveRatioProperty();
                 myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
+            } else {
+                myAssistant.setVisible(false);
             }
         }
     }
@@ -499,6 +498,10 @@ public class BoardController extends GuiController {
         Platform.runLater(() -> {
             coinImage.setVisible(true);
             coinNumber.setVisible(true);
+            coinTableImage.setVisible(true);
+            coinTableImage.setImage(new Image("/images/coin.png"));
+            coinTableNumber.setVisible(true);
+            coinTableNumber.setText(String.valueOf(board.getTableCoins()));
         });
     }
 
@@ -1315,5 +1318,36 @@ public class BoardController extends GuiController {
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         indexLastCharacterPlayed = indexCard;
         System.out.println("Character played " + indexCard);
+    }
+
+
+    private void adaptCloud() {
+        cloud0Student0.setLayoutX(6.0);
+        cloud0Student0.setLayoutY(45.0);
+        cloud0Student1.setLayoutX(33.0);
+        cloud0Student1.setLayoutY(20.0);
+        cloud0Student2.setLayoutX(58.0);
+        cloud0Student2.setLayoutY(45.0);
+
+        cloud1Student0.setLayoutX(6.0);
+        cloud1Student0.setLayoutY(45.0);
+        cloud1Student1.setLayoutX(33.0);
+        cloud1Student1.setLayoutY(20.0);
+        cloud1Student2.setLayoutX(58.0);
+        cloud1Student2.setLayoutY(45.0);
+
+        cloud2Student0.setLayoutX(6.0);
+        cloud2Student0.setLayoutY(45.0);
+        cloud2Student1.setLayoutX(33.0);
+        cloud2Student1.setLayoutY(20.0);
+        cloud2Student2.setLayoutX(58.0);
+        cloud2Student2.setLayoutY(45.0);
+    }
+
+    private void adaptTowers() {
+        for (int i = 0; i < 6; i++) {
+            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
+            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
+        }
     }
 }

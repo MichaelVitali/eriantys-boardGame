@@ -49,7 +49,10 @@ public class Healer extends Character {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
             getGame().sendGame();
         } catch (EffectCannotBeActivatedException e) {
-            setPlayerMessage(playerId, e.getMessage());
+            getRound().setPlayerMessage(playerId, e.getMessage() + "\n" + getRound().getStateMessage() );
+            getGame().sendGame();
+        } catch (NotEnoughCoins e) {
+            setPlayerMessage(playerId,"Not enough coins to play this character" + getRound().getStateMessage());
             getGame().sendGame();
         }
     }
