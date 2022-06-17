@@ -27,6 +27,11 @@ public class Healer extends Character {
     }
 
     @Override
+    public void setAlreadyPlayedCharacter(boolean alreadyPlayedCharacter) {
+        getRound().setAlreadyPlayedCharacter(alreadyPlayedCharacter);
+    }
+
+    @Override
     public void activateEffect(int playerId, int indexCard) {
         try {
             checkPlayerOnTurn(playerId);
@@ -38,13 +43,16 @@ public class Healer extends Character {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (AlreadyPlayedCharcaterException e) {
-            setPlayerMessage(playerId, "You already played a character\n" + getStateMessage());
+            setPlayerMessage(playerId, "You already played a character\n" + getRound().getStateMessage());
             getGame().sendGame();
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You can't play a character during the pianification phase");
             getGame().sendGame();
         } catch (EffectCannotBeActivatedException e) {
-            setPlayerMessage(playerId, e.getMessage());
+            getRound().setPlayerMessage(playerId, e.getMessage() + "\n" + getRound().getStateMessage() );
+            getGame().sendGame();
+        } catch (NotEnoughCoins e) {
+            setPlayerMessage(playerId,"Not enough coins to play this character" + getRound().getStateMessage());
             getGame().sendGame();
         }
     }
@@ -109,11 +117,17 @@ public class Healer extends Character {
                 getGame().sendGame();
             } catch (InvalidIndexException e) {
                 setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You cannot move mother nature now");
+            getGame().sendGame();
         }
+    }
+
+    public int getNumberOfProibitionCard() {
+        return prohibition;
     }
 }
