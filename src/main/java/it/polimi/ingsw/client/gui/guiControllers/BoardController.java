@@ -60,6 +60,8 @@ public class BoardController extends GuiController {
     @FXML ImageView student2OnIsland0; @FXML ImageView student2OnIsland1; @FXML ImageView student2OnIsland2; @FXML ImageView student2OnIsland3; @FXML ImageView student2OnIsland4; @FXML ImageView student2OnIsland5; @FXML ImageView student2OnIsland6; @FXML ImageView student2OnIsland7; @FXML ImageView student2OnIsland8; @FXML ImageView student2OnIsland9; @FXML ImageView student2OnIsland10; @FXML ImageView student2OnIsland11;
     @FXML ImageView student3OnIsland0; @FXML ImageView student3OnIsland1; @FXML ImageView student3OnIsland2; @FXML ImageView student3OnIsland3; @FXML ImageView student3OnIsland4; @FXML ImageView student3OnIsland5; @FXML ImageView student3OnIsland6; @FXML ImageView student3OnIsland7; @FXML ImageView student3OnIsland8; @FXML ImageView student3OnIsland9; @FXML ImageView student3OnIsland10; @FXML ImageView student3OnIsland11;
     @FXML ImageView student4OnIsland0; @FXML ImageView student4OnIsland1; @FXML ImageView student4OnIsland2; @FXML ImageView student4OnIsland3; @FXML ImageView student4OnIsland4; @FXML ImageView student4OnIsland5; @FXML ImageView student4OnIsland6; @FXML ImageView student4OnIsland7; @FXML ImageView student4OnIsland8; @FXML ImageView student4OnIsland9; @FXML ImageView student4OnIsland10; @FXML ImageView student4OnIsland11;
+    @FXML ImageView towerOnIsland0; @FXML ImageView towerOnIsland1; @FXML ImageView towerOnIsland2; @FXML ImageView towerOnIsland3; @FXML ImageView towerOnIsland4; @FXML ImageView towerOnIsland5; @FXML ImageView towerOnIsland6; @FXML ImageView towerOnIsland7; @FXML ImageView towerOnIsland8; @FXML ImageView towerOnIsland9; @FXML ImageView towerOnIsland10; @FXML ImageView towerOnIsland11;
+
 
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
@@ -94,6 +96,7 @@ public class BoardController extends GuiController {
     private Map<String, AnchorPane> islandPanes;
     private Map<String, ImageView> islands;
     private Map<String, ImageView> studentsOnIslands;
+    private Map<String, ImageView> towersOnIslands;
     private Map<String, ImageView> clouds;
     private Map<String, ImageView> studentsClouds;
 
@@ -154,6 +157,7 @@ public class BoardController extends GuiController {
         studentsOnIslands = new HashMap<>();
         clouds = new HashMap<>();
         studentsClouds = new HashMap<>();
+        towersOnIslands = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
@@ -186,11 +190,12 @@ public class BoardController extends GuiController {
 
         islands.put("island0", island0); islands.put("island1", island1); islands.put("island2", island2); islands.put("island3", island3); islands.put("island4", island4); islands.put("island5", island5); islands.put("island6", island6); islands.put("island7", island7); islands.put("island8", island8); islands.put("island9", island9); islands.put("island10", island10); islands.put("island11", island11);
         islandPanes.put("islandPane0", islandPane0); islandPanes.put("islandPane1", islandPane1); islandPanes.put("islandPane2", islandPane2); islandPanes.put("islandPane3", islandPane3); islandPanes.put("islandPane4", islandPane4); islandPanes.put("islandPane5", islandPane5); islandPanes.put("islandPane6", islandPane6); islandPanes.put("islandPane7", islandPane7); islandPanes.put("islandPane8", islandPane8); islandPanes.put("islandPane9", islandPane9); islandPanes.put("islandPane10", islandPane10); islandPanes.put("islandPane11", islandPane11);
-         studentsOnIslands.put("student0OnIsland0", student0OnIsland0);  studentsOnIslands.put("student0OnIsland1", student0OnIsland1);  studentsOnIslands.put("student0OnIsland2", student0OnIsland2);  studentsOnIslands.put("student0OnIsland3", student0OnIsland3);  studentsOnIslands.put("student0OnIsland4", student0OnIsland4);  studentsOnIslands.put("student0OnIsland5", student0OnIsland5);  studentsOnIslands.put("student0OnIsland6", student0OnIsland6);  studentsOnIslands.put("student0OnIsland7", student0OnIsland7);  studentsOnIslands.put("student0OnIsland8", student0OnIsland8);  studentsOnIslands.put("student0OnIsland9", student0OnIsland9);  studentsOnIslands.put("student0OnIsland10", student0OnIsland10);  studentsOnIslands.put("student0OnIsland11", student0OnIsland11);
-         studentsOnIslands.put("student1OnIsland0", student1OnIsland0);  studentsOnIslands.put("student1OnIsland1", student1OnIsland1);  studentsOnIslands.put("student1OnIsland2", student1OnIsland2);  studentsOnIslands.put("student1OnIsland3", student1OnIsland3);  studentsOnIslands.put("student1OnIsland4", student1OnIsland4);  studentsOnIslands.put("student1OnIsland5", student1OnIsland5);  studentsOnIslands.put("student1OnIsland6", student1OnIsland6);  studentsOnIslands.put("student1OnIsland7", student1OnIsland7);  studentsOnIslands.put("student1OnIsland8", student1OnIsland8);  studentsOnIslands.put("student1OnIsland9", student1OnIsland9);  studentsOnIslands.put("student1OnIsland10", student1OnIsland10);  studentsOnIslands.put("student1OnIsland11", student1OnIsland11);
-         studentsOnIslands.put("student2OnIsland0", student2OnIsland0);  studentsOnIslands.put("student2OnIsland1", student2OnIsland1);  studentsOnIslands.put("student2OnIsland2", student2OnIsland2);  studentsOnIslands.put("student2OnIsland3", student2OnIsland3);  studentsOnIslands.put("student2OnIsland4", student2OnIsland4);  studentsOnIslands.put("student2OnIsland5", student2OnIsland5);  studentsOnIslands.put("student2OnIsland6", student2OnIsland6);  studentsOnIslands.put("student2OnIsland7", student2OnIsland7);  studentsOnIslands.put("student2OnIsland8", student2OnIsland8);  studentsOnIslands.put("student2OnIsland9", student2OnIsland9);  studentsOnIslands.put("student2OnIsland10", student2OnIsland10);  studentsOnIslands.put("student2OnIsland11", student2OnIsland11);
-         studentsOnIslands.put(" studentOnIsland0", student3OnIsland0);  studentsOnIslands.put("student3OnIsland1", student3OnIsland1);  studentsOnIslands.put("student3OnIsland2", student3OnIsland2);  studentsOnIslands.put("student3OnIsland3", student3OnIsland3);  studentsOnIslands.put("student3OnIsland4", student3OnIsland4);  studentsOnIslands.put("student3OnIsland5", student3OnIsland5);  studentsOnIslands.put("student3OnIsland6", student3OnIsland6);  studentsOnIslands.put("student3OnIsland7", student3OnIsland7);  studentsOnIslands.put("student3OnIsland8", student3OnIsland8);  studentsOnIslands.put("student3OnIsland9", student3OnIsland9);  studentsOnIslands.put("student3OnIsland10", student3OnIsland10);  studentsOnIslands.put("student3OnIsland11", student3OnIsland11);
-         studentsOnIslands.put("student4OnIsland0", student4OnIsland0);  studentsOnIslands.put("student4OnIsland1", student4OnIsland1);  studentsOnIslands.put("student4OnIsland2", student4OnIsland2);  studentsOnIslands.put("student4OnIsland3", student4OnIsland3);  studentsOnIslands.put("student4OnIsland4", student4OnIsland4);  studentsOnIslands.put("student4OnIsland5", student4OnIsland5);  studentsOnIslands.put("student4OnIsland6", student4OnIsland6);  studentsOnIslands.put("student4OnIsland7", student4OnIsland7);  studentsOnIslands.put("student4OnIsland8", student4OnIsland8);  studentsOnIslands.put("student4OnIsland9", student4OnIsland9);  studentsOnIslands.put("student4OnIsland10", student4OnIsland10);  studentsOnIslands.put("student4OnIsland11", student4OnIsland11);
+        studentsOnIslands.put("student0OnIsland0", student0OnIsland0);  studentsOnIslands.put("student0OnIsland1", student0OnIsland1);  studentsOnIslands.put("student0OnIsland2", student0OnIsland2);  studentsOnIslands.put("student0OnIsland3", student0OnIsland3);  studentsOnIslands.put("student0OnIsland4", student0OnIsland4);  studentsOnIslands.put("student0OnIsland5", student0OnIsland5);  studentsOnIslands.put("student0OnIsland6", student0OnIsland6);  studentsOnIslands.put("student0OnIsland7", student0OnIsland7);  studentsOnIslands.put("student0OnIsland8", student0OnIsland8);  studentsOnIslands.put("student0OnIsland9", student0OnIsland9);  studentsOnIslands.put("student0OnIsland10", student0OnIsland10);  studentsOnIslands.put("student0OnIsland11", student0OnIsland11);
+        studentsOnIslands.put("student1OnIsland0", student1OnIsland0);  studentsOnIslands.put("student1OnIsland1", student1OnIsland1);  studentsOnIslands.put("student1OnIsland2", student1OnIsland2);  studentsOnIslands.put("student1OnIsland3", student1OnIsland3);  studentsOnIslands.put("student1OnIsland4", student1OnIsland4);  studentsOnIslands.put("student1OnIsland5", student1OnIsland5);  studentsOnIslands.put("student1OnIsland6", student1OnIsland6);  studentsOnIslands.put("student1OnIsland7", student1OnIsland7);  studentsOnIslands.put("student1OnIsland8", student1OnIsland8);  studentsOnIslands.put("student1OnIsland9", student1OnIsland9);  studentsOnIslands.put("student1OnIsland10", student1OnIsland10);  studentsOnIslands.put("student1OnIsland11", student1OnIsland11);
+        studentsOnIslands.put("student2OnIsland0", student2OnIsland0);  studentsOnIslands.put("student2OnIsland1", student2OnIsland1);  studentsOnIslands.put("student2OnIsland2", student2OnIsland2);  studentsOnIslands.put("student2OnIsland3", student2OnIsland3);  studentsOnIslands.put("student2OnIsland4", student2OnIsland4);  studentsOnIslands.put("student2OnIsland5", student2OnIsland5);  studentsOnIslands.put("student2OnIsland6", student2OnIsland6);  studentsOnIslands.put("student2OnIsland7", student2OnIsland7);  studentsOnIslands.put("student2OnIsland8", student2OnIsland8);  studentsOnIslands.put("student2OnIsland9", student2OnIsland9);  studentsOnIslands.put("student2OnIsland10", student2OnIsland10);  studentsOnIslands.put("student2OnIsland11", student2OnIsland11);
+        studentsOnIslands.put("student3OnIsland0", student3OnIsland0);  studentsOnIslands.put("student3OnIsland1", student3OnIsland1);  studentsOnIslands.put("student3OnIsland2", student3OnIsland2);  studentsOnIslands.put("student3OnIsland3", student3OnIsland3);  studentsOnIslands.put("student3OnIsland4", student3OnIsland4);  studentsOnIslands.put("student3OnIsland5", student3OnIsland5);  studentsOnIslands.put("student3OnIsland6", student3OnIsland6);  studentsOnIslands.put("student3OnIsland7", student3OnIsland7);  studentsOnIslands.put("student3OnIsland8", student3OnIsland8);  studentsOnIslands.put("student3OnIsland9", student3OnIsland9);  studentsOnIslands.put("student3OnIsland10", student3OnIsland10);  studentsOnIslands.put("student3OnIsland11", student3OnIsland11);
+        studentsOnIslands.put("student4OnIsland0", student4OnIsland0);  studentsOnIslands.put("student4OnIsland1", student4OnIsland1);  studentsOnIslands.put("student4OnIsland2", student4OnIsland2);  studentsOnIslands.put("student4OnIsland3", student4OnIsland3);  studentsOnIslands.put("student4OnIsland4", student4OnIsland4);  studentsOnIslands.put("student4OnIsland5", student4OnIsland5);  studentsOnIslands.put("student4OnIsland6", student4OnIsland6);  studentsOnIslands.put("student4OnIsland7", student4OnIsland7);  studentsOnIslands.put("student4OnIsland8", student4OnIsland8);  studentsOnIslands.put("student4OnIsland9", student4OnIsland9);  studentsOnIslands.put("student4OnIsland10", student4OnIsland10);  studentsOnIslands.put("student4OnIsland11", student4OnIsland11);
+        towersOnIslands.put("towerOnIsland0", towerOnIsland0); towersOnIslands.put("towerOnIsland1", towerOnIsland1); towersOnIslands.put("towerOnIsland2", towerOnIsland2); towersOnIslands.put("towerOnIsland3", towerOnIsland3); towersOnIslands.put("towerOnIsland4", towerOnIsland4); towersOnIslands.put("towerOnIsland5", towerOnIsland5); towersOnIslands.put("towerOnIsland6", towerOnIsland6); towersOnIslands.put("towerOnIsland7", towerOnIsland7); towersOnIslands.put("towerOnIsland8", towerOnIsland8); towersOnIslands.put("towerOnIsland9", towerOnIsland9); towersOnIslands.put("towerOnIsland10", towerOnIsland10); towersOnIslands.put("towerOnIsland11", towerOnIsland11);
 
         studentsCards.put("student1Character1", student1Character1); studentsCards.put("student2Character1", student2Character1); studentsCards.put("student3Character1", student3Character1); studentsCards.put("student4Character1", student4Character1); studentsCards.put("student5Character1", student5Character1); studentsCards.put("student6Character1", student6Character1);
         studentsCards.put("student1Character2", student1Character2); studentsCards.put("student2Character2", student2Character2); studentsCards.put("student3Character2", student3Character2); studentsCards.put("student4Character2", student4Character2); studentsCards.put("student5Character2", student5Character2); studentsCards.put("student6Character2", student6Character2);
@@ -231,18 +236,17 @@ public class BoardController extends GuiController {
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                 }
-                //adaptCloud();
-                displayBoard(1);
         });
+        displayBoard(1);
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
         motherNature = new ImageView(new Image("/images/Board/mn.jpeg", 25, 25,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
         islandPanes.get(pane).getChildren().add(motherNature);
-        motherNature.setX(20);
-        motherNature.setY(20);
+        motherNature.setX(50);
+        motherNature.setY(40);
     }
 
-    private List<String> getShapeCoordinates(int elements, double edge) {
+    /*private List<String> getShapeCoordinates(int elements, double edge) {
         List coordinates = new ArrayList<String>();
         switch(elements) {
             case 1:
@@ -259,7 +263,7 @@ public class BoardController extends GuiController {
                 break;
         }
         return coordinates;
-    }
+    }*/
 
     /**
      * Sets the student image on the node selecting the color of the student passed as parameter
@@ -355,6 +359,7 @@ public class BoardController extends GuiController {
         Platform.runLater(() -> {
             if(node != null) {
                 if (color != null) {
+                    System.out.println("Nonnnn nullloooo");
                     switch (color) {
                         case WHITE:
                             node.setImage(new Image("/images/Board/Schoolboards/Towers/white.png"));
@@ -373,6 +378,7 @@ public class BoardController extends GuiController {
                             break;
                     }
                 } else {
+                    System.out.println("Nullloooooo coloreeeee");
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(24);
                     node.setFitWidth(24);
@@ -424,13 +430,10 @@ public class BoardController extends GuiController {
                     }
                 }
                 //System.out.println("Enemy" + schoolBoard.getTowers().size());
-                for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
+                for (int i = 0; i < schoolBoard.getTowers().size(); i++)
                     setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
-                    System.out.println("Enemy" + i);
-                }
-                for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++) {
-                    setTower(myTowers.get(("enemyTower" + i)), null);
-                }
+                for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++)
+                    setTower(enemyTowers.get(("enemyTower" + i)), null);
             }
             if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
                 enemyAssistant.setVisible(true);
@@ -442,7 +445,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * Displays the schoolboard of the actual player
      */
     public void displayMySchoolboard() {
 
@@ -500,39 +503,62 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * Displays the islands, rendering students, towers and mother nature
      */
     public void displayIslands() {
         System.out.println("displayIslands");
         // problema con il postman
-        Platform.runLater(() -> {
-            if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
-                for(int i = 0; i < board.getNumberOfPLayers(); i++) {
-                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
-                        Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
-                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
-                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+        if(board != null && board.getGametable() != null && board.getGametable().getIslands() != null) {
+            Platform.runLater(() -> {
+                if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
+                    for (int i = 0; i < board.getNumberOfPLayers(); i++) {
+                        if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                            Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
+                            for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
+                                islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                            }
+                        }
+                    }
+
+                } else {
+                    for (int i = 0; i < 12; i++) {
+                        islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                    }
+                }
+                for (int i = 0; i < 12; i++) {
+                    String pane = "islandPane" + i;
+                    if (islandPanes.get(pane).getChildren().contains(motherNature))
+                        islandPanes.get(pane).getChildren().remove(motherNature);
+                }
+                islandPanes.get("islandPane" + board.getGametable().getMotherNaturePosition()).getChildren().add(motherNature);
+                motherNature.setX(50);
+                motherNature.setY(40);
+
+                for (int i = 0; i < 12; i++) {
+                    List<Student> students = board.getGametable().getIslands().get(i).getStudents();
+                    List<PawnColor> colors = new ArrayList<>();
+                    for (Student student : students)
+                        if (student != null)
+                            colors.add(student.getColor());
+                    int j = 0;
+                    for (PawnColor color : PawnColor.values()) {
+                        if (colors.contains(color)) {
+                            setStudent(studentsOnIslands.get("student" + j + "OnIsland" + i), new Student(color));
+                            j++;
                         }
                     }
                 }
 
-            } else {
-                for (int i = 0; i < 12; i++) {
-                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
+                    if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
+                        System.out.println("Isola " + i + " vuota");
+                    else
+                        if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
+                            setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
                 }
-            }
-            for(int i = 0; i < 12; i++) {
-                String pane = "islandPane" + i;
-                if (islandPanes.get(pane).getChildren().contains(motherNature)) {
-                    islandPanes.get(pane).getChildren().remove(motherNature);
-                }
-
-            }
-            islandPanes.get("islandPane" + board.getGametable().getMotherNaturePosition()).getChildren().add(motherNature);
-            motherNature.setX(20);
-            motherNature.setY(20);
-
-        });
+                //System.out.println("Uscito");
+            });
+        }
     }
 
     /**
@@ -574,7 +600,6 @@ public class BoardController extends GuiController {
             displayCharacter();
             displayCoin();
         }
-        //setMotherNatureIsland(board.getGametable().getMotherNaturePosition());
     }
 
     /**
@@ -628,7 +653,7 @@ public class BoardController extends GuiController {
                                   }
                 );
             } else {
-                Platform.runLater(() -> displayBoard(enemyBoardDisplayed));
+                displayBoard(enemyBoardDisplayed);
             }
             System.out.println(((GameMessage) message).getPlayerMessage());
         }
@@ -753,7 +778,7 @@ public class BoardController extends GuiController {
             getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);
             state = 0;
-        } else if (board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 6) {
+        } else if (board.getGameMode() == GameMode.EXPERT && board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 6) {
             String button = ((Button) event.getSource()).getId();
             int indexTable = Integer.parseInt(button.substring(5,6));
             System.out.println(indexTable);
@@ -1291,16 +1316,4 @@ public class BoardController extends GuiController {
         indexLastCharacterPlayed = indexCard;
         System.out.println("Character played " + indexCard);
     }
-
-
-    /*private void adaptCloud() {
-        if (board.getNumberOfPLayers() == 2) {
-            cloudPane0.setLayoutX(cloudPane0.getLayoutX() + 100.0);
-            cloudPane1.setLayoutX(cloudPane1.getLayoutX() + 100.0);
-        } else if (board.getNumberOfPLayers() == 3) {
-            cloudPane0.setLayoutX(cloudPane0.getLayoutX() + 50.0);
-            cloudPane1.setLayoutX(cloudPane1.getLayoutX() + 50.0);
-            cloudPane2.setLayoutX(cloudPane2.getLayoutX() + 50.0);
-        }
-    }*/
 }
