@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.NotEnoughCoins;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.Serializable;
@@ -202,7 +203,7 @@ public class Game extends Observable<Game> implements Serializable {
 
     }
 
-    public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException {
+    public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException, NotEnoughCoins {
     }
 
     public void sendGame() {

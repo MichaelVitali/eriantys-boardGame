@@ -33,6 +33,7 @@ public class Minstrel extends Character  {
         if (getRoundState() == 4) {
             try {
                 if (parameter > 2 || parameter < 0) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2}");
+                if (getRound().getGame().getGameTable().getSchoolBoards()[playerId].getTotalNumberOfStudentsOnTables() < parameter) throw new InvalidIndexException("Yuo don't have enought students! Select another number");
                 setPlayerMessage(playerId,"Select an index for a student on entrance:");
                 countTable = parameter;
                 countEntrance = parameter;
@@ -95,6 +96,7 @@ public class Minstrel extends Character  {
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessage("How many Students do you want to change");
+        if (getRound().getGame().getGameTable().getSchoolBoards()[playerID].getTotalNumberOfStudentsOnTables() == 0) throw new EffectCannotBeActivatedException("The Minstrel cannot be activated: you don't have students on tables!");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

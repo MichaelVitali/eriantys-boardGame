@@ -313,12 +313,13 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot play any assistant now");
+            setPlayerMessage(playerId, "You cannot play any assistant now\n" + getStateMessage());
+            game.sendGame();
         } catch (IndexOutOfBoundsException e) {
             setPlayerMessage(playerId,"You can't choose that assistant\n" + getStateMessage());
             game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage() + getStateMessage());
+            setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
             game.sendGame();
         }
     }
@@ -334,9 +335,11 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move students now");
+            setPlayerMessage(playerId, "You cannot move students now\n" + getStateMessage());
+            game.sendGame();
         } catch (TooManyMovesException e) {
-            setPlayerMessage(playerId, "You can move no more students");
+            setPlayerMessage(playerId, "You can move no more students\n" + getStateMessage());
+            game.sendGame();
         } catch (InvalidIndexException e) {
             setPlayerMessage(playerId, e.getMessage() + getStateMessage());
             game.sendGame();
@@ -364,13 +367,17 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move students now");
+            setPlayerMessage(playerId, "You cannot move students now\n" + getStateMessage());
+            game.sendGame();
         } catch (TooManyMovesException e) {
-            setPlayerMessage(playerId, "You can move no more students");
+            setPlayerMessage(playerId, "You can move no more students\n" + getStateMessage());
+            game.sendGame();
         } catch (FullTableException e) {
-            setPlayerMessage(playerId, "You can't move that student, his table has no more free seats");
+            setPlayerMessage(playerId, "You can't move that student, his table has no more free seats\n" + getStateMessage());
+            game.sendGame();
         } catch (NotEnoughCoins e) {
-            setPlayerMessage(playerId, "You can't take a coin from a table");
+            setPlayerMessage(playerId, "You can't take a coin from a table\n" + getStateMessage());
+            game.sendGame();
         } catch (InvalidIndexException e) {
             setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
             game.sendGame();
@@ -450,12 +457,14 @@ public class Round implements Serializable {
                 setPlayerMessage(playerId, message);
                 game.sendGame();
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist\n" + getStateMessage());
+                game.sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
             setPlayerMessage(playerId, "You cannot move mother nature now");
+            game.sendGame();
         }
     }
 
@@ -468,7 +477,8 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot get students from cloud now");
+            setPlayerMessage(playerId, "You cannot get students from cloud now\n" + getStateMessage());
+            game.sendGame();
         } catch (InvalidIndexException e) {
             setPlayerMessage(playerId, e.getMessage() + getStateMessage());
             game.sendGame();
@@ -491,11 +501,14 @@ public class Round implements Serializable {
             setPlayerMessage(playerId, "You already played a character\n" + getStateMessage());
             game.sendGame();
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You can't play a character during the pianification phase");
-            getGame().sendGame();
+            setPlayerMessage(playerId, "You can't play a character during the pianification phase\n" + getStateMessage());
+            game.sendGame();
         } catch (EffectCannotBeActivatedException e) {
-            setPlayerMessage(playerId, e.getMessage());
-            getGame().sendGame();
+            setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
+            game.sendGame();
+        }   catch (NotEnoughCoins e) {
+            setPlayerMessage(playerId,"Not enough coins to play this character\n" + getStateMessage());
+            game.sendGame();
         }
     }
 

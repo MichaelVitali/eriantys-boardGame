@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
-import com.sun.source.tree.ModuleTree;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
@@ -30,7 +29,7 @@ import java.util.*;
 public class BoardController extends GuiController {
 
     @FXML ImageView enemyProfessor0; @FXML ImageView enemyProfessor1; @FXML ImageView enemyProfessor2; @FXML ImageView enemyProfessor3; @FXML ImageView enemyProfessor4;
-    @FXML ImageView entrance0; @FXML ImageView entrance1; @FXML ImageView entrance2; @FXML ImageView entrance3; @FXML ImageView entrance4; @FXML ImageView entrance5; @FXML ImageView entrance6; @FXML ImageView entrance7; @FXML ImageView entrance8;
+    @FXML ImageView enemyEntrance0; @FXML ImageView enemyEntrance1; @FXML ImageView enemyEntrance2; @FXML ImageView enemyEntrance3; @FXML ImageView enemyEntrance4; @FXML ImageView enemyEntrance5; @FXML ImageView enemyEntrance6; @FXML ImageView enemyEntrance7; @FXML ImageView enemyEntrance8;
     @FXML ImageView enemyStudent00; @FXML ImageView enemyStudent01; @FXML ImageView enemyStudent02; @FXML ImageView enemyStudent03; @FXML ImageView enemyStudent04; @FXML ImageView enemyStudent05; @FXML ImageView enemyStudent06; @FXML ImageView enemyStudent07; @FXML ImageView enemyStudent08; @FXML ImageView enemyStudent09;
     @FXML ImageView enemyStudent10; @FXML ImageView enemyStudent11; @FXML ImageView enemyStudent12; @FXML ImageView enemyStudent13; @FXML ImageView enemyStudent14; @FXML ImageView enemyStudent15; @FXML ImageView enemyStudent16; @FXML ImageView enemyStudent17; @FXML ImageView enemyStudent18; @FXML ImageView enemyStudent19;
     @FXML ImageView enemyStudent20; @FXML ImageView enemyStudent21; @FXML ImageView enemyStudent22; @FXML ImageView enemyStudent23; @FXML ImageView enemyStudent24; @FXML ImageView enemyStudent25; @FXML ImageView enemyStudent26; @FXML ImageView enemyStudent27; @FXML ImageView enemyStudent28; @FXML ImageView enemyStudent29;
@@ -78,7 +77,7 @@ public class BoardController extends GuiController {
     @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
     @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
     @FXML AnchorPane enemyTowerPane; @FXML AnchorPane myTowerPane;
-    @FXML ImageView coinTableImage; @FXML ImageView bag; @FXML Label coinTableNumber;
+    @FXML ImageView coinTableImage; @FXML Label coinTableNumber;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
@@ -158,7 +157,7 @@ public class BoardController extends GuiController {
         studentsClouds = new HashMap<>();
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
-        enemyEntrance.put("entrance0", entrance0); enemyEntrance.put("entrance1", entrance1); enemyEntrance.put("entrance2", entrance2); enemyEntrance.put("entrance3", entrance3); enemyEntrance.put("entrance4", entrance4); enemyEntrance.put("entrance5", entrance5); enemyEntrance.put("entrance6", entrance6); enemyEntrance.put("entrance7", entrance7); enemyEntrance.put("entrance8", entrance8);
+        enemyEntrance.put("enemyEntrance0", enemyEntrance0); enemyEntrance.put("enemyEntrance1", enemyEntrance1); enemyEntrance.put("enemyEntrance2", enemyEntrance2); enemyEntrance.put("enemyEntrance3", enemyEntrance3); enemyEntrance.put("enemyEntrance4", enemyEntrance4); enemyEntrance.put("enemyEntrance5", enemyEntrance5); enemyEntrance.put("enemyEntrance6", enemyEntrance6); enemyEntrance.put("enemyEntrance7", enemyEntrance7); enemyEntrance.put("enemyEntrance8", enemyEntrance8);
 
         enemyTables.put("enemyStudent00", enemyStudent00); enemyTables.put("enemyStudent01", enemyStudent01); enemyTables.put("enemyStudent02", enemyStudent02); enemyTables.put("enemyStudent03", enemyStudent03); enemyTables.put("enemyStudent04", enemyStudent04); enemyTables.put("enemyStudent05", enemyStudent05); enemyTables.put("enemyStudent06", enemyStudent06); enemyTables.put("enemyStudent07", enemyStudent07); enemyTables.put("enemyStudent08", enemyStudent08); enemyTables.put("enemyStudent09", enemyStudent09);
         enemyTables.put("enemyStudent10", enemyStudent10); enemyTables.put("enemyStudent11", enemyStudent11); enemyTables.put("enemyStudent12", enemyStudent12); enemyTables.put("enemyStudent13", enemyStudent13); enemyTables.put("enemyStudent14", enemyStudent14); enemyTables.put("enemyStudent15", enemyStudent15); enemyTables.put("enemyStudent16", enemyStudent16); enemyTables.put("enemyStudent17", enemyStudent17); enemyTables.put("enemyStudent18", enemyStudent18); enemyTables.put("enemyStudent19", enemyStudent19);
@@ -215,8 +214,8 @@ public class BoardController extends GuiController {
                     player2.setVisible(false);
                     player3.setVisible(false);
                     player4.setVisible(false);
-                    entrance7.setVisible(false);
-                    entrance8.setVisible(false);
+                    enemyEntrance7.setVisible(false);
+                    enemyEntrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                     cloud2.setVisible(false);
@@ -228,8 +227,8 @@ public class BoardController extends GuiController {
                     centerUpperAnchorPane.setPrefWidth(300);
                     adaptTowers();
                 } else if (board.getNumberOfPLayers() == 4) {
-                    entrance7.setVisible(false);
-                    entrance8.setVisible(false);
+                    enemyEntrance7.setVisible(false);
+                    enemyEntrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                 }
@@ -269,7 +268,6 @@ public class BoardController extends GuiController {
      * @param student
      */
     public void setStudent(ImageView node, Student student) {
-        //System.out.println("Colora studenti");
         Platform.runLater(() -> {
             if(node != null) {
                 if (student != null) {
@@ -316,7 +314,6 @@ public class BoardController extends GuiController {
      * @param color
      */
     public void setProfessor(ImageView node, PawnColor color) {
-        //System.out.println("Colora professori");
         Platform.runLater(() -> {
             if(node != null) {
                 if (color != null) {
@@ -394,12 +391,11 @@ public class BoardController extends GuiController {
             if(playerOffset < board.getNumberOfPLayers()) {
                 SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
                 for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
-                    setStudent(enemyEntrance.get(("entrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
+                    setStudent(enemyEntrance.get(("enemyEntrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
                 }
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
                         try {
-                            //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
@@ -415,20 +411,16 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < PawnColor.values().length; i++) {
                     try {
                         if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
-                            //System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
                         } else {
-                            //System.out.println("Stampo prof enemy vuoto");
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
                         }
                     } catch (InvalidIndexException e) {
                         System.out.println(e.getMessage());
                     }
                 }
-                //System.out.println("Enemy" + schoolBoard.getTowers().size());
                 for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                     setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
-                    System.out.println("Enemy" + i);
                 }
                 for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++) {
                     setTower(myTowers.get(("enemyTower" + i)), null);
@@ -478,7 +470,6 @@ public class BoardController extends GuiController {
                     System.out.println(e.getMessage());
                 }
             }
-            //System.out.println("My" + schoolBoard.getTowers().size());
             for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                 setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
             }
@@ -490,6 +481,8 @@ public class BoardController extends GuiController {
                 myAssistant.setVisible(true);
                 myAssistant.preserveRatioProperty();
                 myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
+            } else {
+                myAssistant.setVisible(false);
             }
         }
     }

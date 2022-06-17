@@ -19,36 +19,36 @@
             </ImageView>
             <AnchorPane layoutY="563.0" prefHeight="86.0" prefWidth="258.0">
                <children>
-                  <Button fx:id="myEntrance0" layoutX="45.0" layoutY="26.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance0" layoutX="30.0" layoutY="5.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic>
                         <ImageView fx:id="myEntranceImage0" layoutX="35.0" layoutY="264.0" styleClass="studentsImage">
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="myEntrance2" layoutX="87.0" layoutY="26.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance2" layoutX="70.0" layoutY="5.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic>
                         <ImageView fx:id="myEntranceImage2" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" />
                      </graphic>
                   </Button>
-                  <Button fx:id="myEntrance4" layoutX="129.0" layoutY="26.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance4" layoutX="110.0" layoutY="5.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage4" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="myEntrance6" layoutX="171.0" layoutY="26.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance6" layoutX="150.0" layoutY="5.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage6" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="myEntrance8" layoutX="213.0" layoutY="26.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance8" layoutX="190.0" layoutY="5.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage8" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="myEntrance1" layoutX="87.0" layoutY="59.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance1" layoutX="70.0" layoutY="40.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage1" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="myEntrance3" layoutX="129.0" layoutY="59.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance3" layoutX="110.0" layoutY="40.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage3" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="myEntrance5" layoutX="171.0" layoutY="59.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance5" layoutX="150.0" layoutY="40.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage5" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
-                  <Button fx:id="myEntrance7" layoutX="213.0" layoutY="59.0" onAction="#myEntranceClick" styleClass="studentsButton">
+                  <Button fx:id="myEntrance7" layoutX="190.0" layoutY="40.0" onAction="#myEntranceClick" styleClass="studentsButton">
                      <graphic><ImageView fx:id="myEntranceImage7" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" /></graphic>
                   </Button>
                </children>
@@ -252,15 +252,15 @@
             </ImageView>
             <AnchorPane layoutY="544.0" maxHeight="90.0" maxWidth="258.0" prefHeight="90.0" prefWidth="258.0">
                <children>
-                  <ImageView fx:id="entrance0" layoutX="33.0" layoutY="22.0" />
-                  <ImageView fx:id="entrance2" layoutX="87.0" layoutY="26.0" />
-                  <ImageView fx:id="entrance4" layoutX="129.0" layoutY="26.0" />
-                  <ImageView fx:id="entrance6" layoutX="171.0" layoutY="26.0" />
-                  <ImageView fx:id="entrance8" layoutX="213.0" layoutY="26.0" />
-                  <ImageView fx:id="entrance1" layoutX="87.0" layoutY="59.0" />
-                  <ImageView fx:id="entrance3" layoutX="129.0" layoutY="59.0" />
-                  <ImageView fx:id="entrance5" layoutX="171.0" layoutY="59.0" />
-                  <ImageView fx:id="entrance7" layoutX="213.0" layoutY="59.0" />
+                  <ImageView fx:id="enemyEntrance0" layoutX="40.0" layoutY="5.0" />
+                  <ImageView fx:id="enemyEntrance2" layoutX="80.0" layoutY="5.0" />
+                  <ImageView fx:id="enemyEntrance4" layoutX="120.0" layoutY="5.0" />
+                  <ImageView fx:id="enemyEntrance6" layoutX="160.0" layoutY="5.0" />
+                  <ImageView fx:id="enemyEntrance8" layoutX="200.0" layoutY="5.0" />
+                  <ImageView fx:id="enemyEntrance1" layoutX="80.0" layoutY="40.0" />
+                  <ImageView fx:id="enemyEntrance3" layoutX="120.0" layoutY="40.0" />
+                  <ImageView fx:id="enemyEntrance5" layoutX="160.0" layoutY="40.0" />
+                  <ImageView fx:id="enemyEntrance7" layoutX="200.0" layoutY="40.0" />
                </children>
             </AnchorPane>
             <Button fx:id="player2" layoutY="-3.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="86.0" styleClass="text" text="Player 2" />
@@ -509,7 +509,6 @@
                   <Button fx:id="pawnColor2" layoutX="397.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="YELLOW" visible="false" />
                   <Button fx:id="pawnColor3" layoutX="261.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="PINK" visible="false" />
                   <Button fx:id="pawnColor4" layoutX="357.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="BLUE" visible="false" />
-                  <ImageView fx:id="bag" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="coinTableNumber" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
                   <ImageView fx:id="coinTableImage" fitHeight="55.0" fitWidth="55.0" layoutX="25.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" />
                </children>
@@ -642,14 +641,14 @@
          <left>
             <AnchorPane prefHeight="100.0" prefWidth="265.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="enemyAssistant" fitHeight="100.0" fitWidth="100.0" layoutX="83.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="enemyAssistant" fitHeight="100.0" fitWidth="100.0" layoutX="85.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </left>
          <right>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="270.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="myAssistant" fitHeight="100.0" fitWidth="100.0" layoutX="85.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="myAssistant" fitHeight="100.0" fitWidth="100.0" layoutX="85.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
                </children></AnchorPane>
          </right>
       </BorderPane>
