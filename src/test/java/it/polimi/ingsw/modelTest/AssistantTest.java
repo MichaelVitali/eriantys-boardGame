@@ -3,7 +3,10 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.Assistant;
 
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+
+import java.util.Objects;
+
+import static org.junit.Assert.*;
 
 public class AssistantTest {
 
@@ -18,5 +21,17 @@ public class AssistantTest {
     public void testGetMotherNatureMoves() {
         assertTrue(a1.getMotherNatureMoves() == 5);
         assertTrue(a2.getMotherNatureMoves() == 1);
+    }
+
+    @Test
+    public void testEquals(){
+        Assistant a = new Assistant(1,5);
+        assertTrue(a1.equals(a));
+    }
+
+    @Test
+    public void testHashCode(){
+        int i = Objects.hash(a1.getCardValue(), a1.getMotherNatureMoves());
+        assertEquals(i, a1.hashCode());
     }
 }

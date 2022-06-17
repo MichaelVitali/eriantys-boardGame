@@ -32,6 +32,6 @@ public class CentaurTest {
         game.getRound().playAssistant(currentPlayer, 1);
         currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
         game.getRound().activateEffect(currentPlayer, 0);
-        
     }
+
 }

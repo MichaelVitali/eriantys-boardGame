@@ -20,6 +20,11 @@ public class GameTest {
     private Game game2p = new Game(2, Arrays.stream(nicknames).collect(Collectors.toList()));
 
     @Test
+    public void testGetGameMode() {
+        assertEquals(GameMode.NORMAL,game2p.getGameMode());
+    }
+
+    @Test
     public void testCreateGameTable() {
 
         //SchoolBoard[] expectedSchoolBoards= new SchoolBoard[]{new SchoolBoard(7, TowerColor.WHITE, 8), new SchoolBoard(7, TowerColor.BLACK, 8)};
@@ -48,6 +53,18 @@ public class GameTest {
         }catch (EmptyBagException e){
             assertTrue(true);
         }
+    }
+
+    @Test
+    public void testSetWinner(){
+        game2p.setWinner(TowerColor.WHITE);
+        assertEquals(TowerColor.WHITE, game2p.getWinner());
+    }
+
+    @Test
+    public void testGetWinner(){
+        game2p.setWinner(TowerColor.WHITE);
+        assertEquals(TowerColor.WHITE, game2p.getWinner());
     }
 
     @Test

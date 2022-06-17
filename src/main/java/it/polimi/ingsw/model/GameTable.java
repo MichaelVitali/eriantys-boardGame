@@ -17,8 +17,6 @@ public class GameTable implements Serializable {
     private int motherNaturePosition;
     private Bag bag;
 
-    public GameTable() { }
-
     public GameTable(int numberOfPlayers, SchoolBoard[] schoolBoards, Bag bag) {
         this.numberOfPlayers = numberOfPlayers;
 
@@ -408,11 +406,6 @@ public class GameTable implements Serializable {
      */
     public void addStudentOnTableFromEntrance(int indexStudent, int schoolBoardIndex) throws FullTableException, InvalidIndexException {
         this.schoolBoards[schoolBoardIndex].addStudentOnTable(indexStudent);
-    }
-
-    public void addSchoolBoards(SchoolBoard[] schoolBoards) {
-        if(schoolBoards != null)
-            this.schoolBoards = schoolBoards;
     }
 
     public GameTable getGameTableInstance(){

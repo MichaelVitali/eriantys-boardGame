@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.IslandAlreadyForbiddenException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,6 +15,24 @@ public class IslandTest {
 
     private Island island = new Island(1);
     private Bag bag = new Bag();
+
+    @Test
+    public void testSetProhibition() throws IslandAlreadyForbiddenException {
+        island.setProhibition();
+        assertTrue(island.isForbidden());
+    }
+
+    @Test
+    public void testIsForbidden() throws IslandAlreadyForbiddenException {
+        island.setProhibition();
+        assertTrue(island.isForbidden());
+    }
+
+    @Test
+    public void testResetProhibition() {
+        island.resetProhibition();
+        assertFalse(island.isForbidden());
+    }
 
     @Test
     public void testGetIndex() {

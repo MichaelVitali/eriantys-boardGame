@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.IslandAlreadyForbiddenException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,6 +15,13 @@ public class MergedIslandsTest {
     private Island secondIsland = new Island (1);
     private MergedIslands mergedIslands = new MergedIslands(firstIsland, secondIsland);
     private MergedIslands mergedIslands2 = new MergedIslands(mergedIslands, new Island(2));
+
+    @Test
+    public void testIsForbidden() throws IslandAlreadyForbiddenException {
+        firstIsland.setProhibition();
+        secondIsland.setProhibition();
+        assertTrue(mergedIslands.isForbidden());
+    }
 
     @Test
     public void testSetTowers() {
@@ -104,5 +112,34 @@ public class MergedIslandsTest {
         assertEquals(2, mergedIslands2.getStudents().size());
         assertEquals(s1, mergedIslands2.getStudents().get(0));
         assertEquals(s2, mergedIslands2.getStudents().get(1));
+    }
+
+    @Test
+    public void testSetProhibition() throws IslandAlreadyForbiddenException {
+        try {
+            firstIsland.setProhibition();
+        } catch (IslandAlreadyForbiddenException e){
+            assertTrue(true);
+        }
+        firstIsland.resetProhibition();
+        mergedIslands.setProhibition();
+        assertTrue(firstIsland.isForbidden());
+        assertTrue(secondIsland.isForbidden());
+    }
+
+    @Test
+    public void testResetProhibition() throws IslandAlreadyForbiddenException {
+        mergedIslands.setProhibition();
+        assertTrue(firstIsland.isForbidden());
+        assertTrue(secondIsland.isForbidden());
+        mergedIslands.resetProhibition();
+        assertFalse(firstIsland.isForbidden());
+        assertFalse(secondIsland.isForbidden());
+    }
+
+    @Test
+    public void testGetNumberOfStudentsFromColor() throws InvalidIndexException {
+        firstIsland.addStudents(new Student(PawnColor.YELLOW), 0);
+        assertEquals(1, mergedIslands.getNumberOfStudentsForColor(PawnColor.YELLOW));
     }
 }

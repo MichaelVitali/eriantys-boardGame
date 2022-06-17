@@ -370,6 +370,11 @@ public class RoundTest {
     }
 
     @Test
+    public void testGetRound(){
+        assertEquals(game2p.getRound(), game2p.getRound().getRound());
+    }
+
+    @Test
     public void testAddStudentOnIsland() {
         int[] playerOrder={0,1};
         int playerId=0;
@@ -475,23 +480,6 @@ public class RoundTest {
         game2p.getRound().setRoundState(2);
         game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
         assertEquals(expectedPosition, game2p.getGameTable().getMotherNaturePosition());
-
-        game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
-        //assertEquals("You are not the current player",game2p.getPlayer(playerId).getPlayerMessage());
-        /*
-        
-        Problema con i messaggi: l'eccezione viene catchata correttamente ma il messaggio di errore non viene displayato
-
-        playerId=game2p.getRound().getIndexOfPlayerOnTurn();
-        game2p.getRound().setRoundState(2);
-        game2p.getRound().changeMotherNaturePosition(playerId, islandIndex+game2p.getRound().getPlayedAssistants()[playerId].getAssistant().getMotherNatureMoves()+1);
-        assertEquals("You cannot put mother nature in the chosen island", game2p.getPlayer(playerId).getPlayerMessage());
-
-        playerId=0;
-        islandIndex=2;
-        game2p.getRound().changeMotherNaturePosition(playerId, islandIndex);
-        assertEquals("You cannot move mother nature now", game2p.getPlayer(playerId).getPlayerMessage());
-        */
     }
 
     @Test
@@ -540,6 +528,23 @@ public class RoundTest {
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
         assertEquals("The chosen cloud doesn't exist", game2p.getPlayer(playerId).getPlayerMessage());
 */
+    }
+
+    @Test
+    public void testCheckEndGameAndSetWinner() throws InvalidIndexException, NoMoreTowersException {
+
+        game2p.getGameTable().getSchoolBoards()[0].removeTowers(7);
+        game2p.getRound().checkEndgameAndSetTheWinner();
+        assertEquals(TowerColor.WHITE, game2p.getRound().getGame().getWinner());
+        game2p.startRound();
+        List<Tower> tta = new ArrayList<>();
+        for (int i=0; i<7; i++)
+            tta.add(new Tower(TowerColor.WHITE));
+        game2p.getGameTable().getSchoolBoards()[0].addTowers(tta);
+        game2p.getGameTable().getSchoolBoards()[0].removeTowers(5);
+        game2p.getGameTable().getSchoolBoards()[1].removeTowers(5);
+        game2p.getRound().checkEndgameAndSetTheWinner();
+        assertTrue(game2p.isDraw());
     }
 
     @Test

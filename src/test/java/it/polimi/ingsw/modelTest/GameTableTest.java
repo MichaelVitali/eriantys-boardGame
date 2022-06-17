@@ -19,6 +19,12 @@ public class GameTableTest {
     }
 
     @Test
+    public void getIslandByIndex(){
+        gameTable.createIslands();
+        assertEquals(gameTable.getIslands().get(0), gameTable.getIslandByIndex(0));
+    }
+
+    @Test
     public void testAddStudentsOnIslandOnStart() {
         SchoolBoard[] schoolBoards = new SchoolBoard[] { new SchoolBoard(9, TowerColor.BLACK, 8), new SchoolBoard(9, TowerColor.WHITE, 8)};
         GameTable g = new GameTable(2, schoolBoards, new Bag());
@@ -128,6 +134,7 @@ public class GameTableTest {
         gameTable.getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.BLUE));
         gameTable.moveProfessorToTheRightPosition(PawnColor.BLUE);
         gameTable.changeMotherNaturePosition(0);
+        List<Tower> towers = new ArrayList<>();
         int[] influences = gameTable.calculateInfluenceValuesGivenByStudents();
         int[] influencesFromTowers = gameTable.calculateInfluenceValuesGivenByTowers();
         for (int i = 0; i < influences.length; i++) {
@@ -136,6 +143,20 @@ public class GameTableTest {
         gameTable.putTowerOrChangeColorIfNecessary(influences);
         assertEquals(TowerColor.BLACK, gameTable.getIslands().get(0).getTowers().get(0).getColor());
 
+        towers.add(new Tower(TowerColor.WHITE));
+        gameTable.getIslands().get(gameTable.getMotherNaturePosition()).setTowers(towers);
+        gameTable.addStudentOnIsland(new Student(PawnColor.YELLOW), 0);
+        gameTable.getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
+
+        influences = gameTable.calculateInfluenceValuesGivenByStudents();
+        influencesFromTowers = gameTable.calculateInfluenceValuesGivenByTowers();
+        influencesFromTowers[0]++;
+        for (int i = 0; i < influences.length; i++) {
+            influences[i] += influencesFromTowers[i];
+        }
+
+        gameTable.putTowerOrChangeColorIfNecessary(influences);
+        assertEquals(TowerColor.WHITE, gameTable.getIslands().get(0).getTowers().get(0).getColor());
     }
 
     @Test
