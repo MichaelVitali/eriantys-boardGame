@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.gui.guiControllers;
 
-import com.sun.source.tree.ModuleTree;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
@@ -60,6 +59,7 @@ public class BoardController extends GuiController {
     @FXML ImageView student2OnIsland0; @FXML ImageView student2OnIsland1; @FXML ImageView student2OnIsland2; @FXML ImageView student2OnIsland3; @FXML ImageView student2OnIsland4; @FXML ImageView student2OnIsland5; @FXML ImageView student2OnIsland6; @FXML ImageView student2OnIsland7; @FXML ImageView student2OnIsland8; @FXML ImageView student2OnIsland9; @FXML ImageView student2OnIsland10; @FXML ImageView student2OnIsland11;
     @FXML ImageView student3OnIsland0; @FXML ImageView student3OnIsland1; @FXML ImageView student3OnIsland2; @FXML ImageView student3OnIsland3; @FXML ImageView student3OnIsland4; @FXML ImageView student3OnIsland5; @FXML ImageView student3OnIsland6; @FXML ImageView student3OnIsland7; @FXML ImageView student3OnIsland8; @FXML ImageView student3OnIsland9; @FXML ImageView student3OnIsland10; @FXML ImageView student3OnIsland11;
     @FXML ImageView student4OnIsland0; @FXML ImageView student4OnIsland1; @FXML ImageView student4OnIsland2; @FXML ImageView student4OnIsland3; @FXML ImageView student4OnIsland4; @FXML ImageView student4OnIsland5; @FXML ImageView student4OnIsland6; @FXML ImageView student4OnIsland7; @FXML ImageView student4OnIsland8; @FXML ImageView student4OnIsland9; @FXML ImageView student4OnIsland10; @FXML ImageView student4OnIsland11;
+    @FXML ImageView towerOnIsland0; @FXML ImageView towerOnIsland1; @FXML ImageView towerOnIsland2; @FXML ImageView towerOnIsland3; @FXML ImageView towerOnIsland4; @FXML ImageView towerOnIsland5; @FXML ImageView towerOnIsland6; @FXML ImageView towerOnIsland7; @FXML ImageView towerOnIsland8; @FXML ImageView towerOnIsland9; @FXML ImageView towerOnIsland10; @FXML ImageView towerOnIsland11;
 
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
@@ -77,6 +77,8 @@ public class BoardController extends GuiController {
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
     @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
     @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
+
+    @FXML ImageView coinTableImage; @FXML ImageView bag; @FXML Label coinTableNumber;
 
     private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
