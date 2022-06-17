@@ -62,21 +62,32 @@ public class BoardController extends GuiController {
     @FXML ImageView towerOnIsland0; @FXML ImageView towerOnIsland1; @FXML ImageView towerOnIsland2; @FXML ImageView towerOnIsland3; @FXML ImageView towerOnIsland4; @FXML ImageView towerOnIsland5; @FXML ImageView towerOnIsland6; @FXML ImageView towerOnIsland7; @FXML ImageView towerOnIsland8; @FXML ImageView towerOnIsland9; @FXML ImageView towerOnIsland10; @FXML ImageView towerOnIsland11;
 
     @FXML Button player2; @FXML Button player3; @FXML Button player4;
+
     @FXML Button assistant1; @FXML Button assistant2; @FXML Button assistant3; @FXML Button assistant4; @FXML Button assistant5; @FXML Button assistant6; @FXML Button assistant7; @FXML Button assistant8; @FXML Button assistant9;@FXML Button assistant10;
-    @FXML ImageView assistantImage; @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
+    @FXML ImageView assistant1Image; @FXML ImageView assistant2Image; @FXML ImageView assistant3Image; @FXML ImageView assistant4Image; @FXML ImageView assistant5Image; @FXML ImageView assistant6Image; @FXML ImageView assistant7Image; @FXML ImageView assistant8Image; @FXML ImageView assistant9Image; @FXML ImageView assistant10Image;
+
+    @FXML ImageView assistantImage;
+    @FXML ImageView imageStudentsCount0; @FXML ImageView imageStudentsCount1; @FXML ImageView imageStudentsCount2; @FXML ImageView imageStudentsCount3; @FXML ImageView imageStudentsCount4;
+    @FXML ImageView imageTowersCount;
+    @FXML Label studentsCount0; @FXML Label studentsCount1; @FXML Label studentsCount2; @FXML Label studentsCount3; @FXML Label studentsCount4;
+    @FXML Label towersCount;
+
     @FXML ImageView enemyAssistant; @FXML ImageView myAssistant;
+
     @FXML ImageView character1Image; @FXML ImageView character2Image; @FXML ImageView character3Image; @FXML Button student1Character1; @FXML Button student2Character1; @FXML Button student3Character1; @FXML Button student4Character1; @FXML Button student5Character1; @FXML Button student6Character1; @FXML Button student1Character2; @FXML Button student2Character2; @FXML Button student3Character2;
     @FXML Button student4Character2; @FXML Button student5Character2; @FXML Button student6Character2;@FXML Button student1Character3; @FXML Button student2Character3; @FXML Button student3Character3; @FXML Button student4Character3; @FXML Button student5Character3; @FXML Button student6Character3;
+
     @FXML AnchorPane centerUpperAnchorPane;
     @FXML ImageView cloud0; @FXML ImageView cloud1; @FXML ImageView cloud2; @FXML ImageView cloud3;
     @FXML AnchorPane cloudPane0; @FXML AnchorPane cloudPane1; @FXML AnchorPane cloudPane2; @FXML AnchorPane cloudPane3;
+    @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
+    @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
+
     @FXML Label labelGameMessage;
-    @FXML Label nickAssistantPlayed;
+    //@FXML Label nickAssistantPlayed;
     @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     @FXML Label coinNumber; @FXML ImageView coinImage;
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
-    @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
-    @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
 
     @FXML ImageView coinTableImage; @FXML ImageView bag; @FXML Label coinTableNumber;
 
@@ -97,6 +108,10 @@ public class BoardController extends GuiController {
     private Map<String, ImageView> islands;
     private Map<String, ImageView> studentsOnIslands;
     private Map<String, ImageView> towersOnIslands;
+    private Map<String, ImageView> imageStudentsCounts;
+    private Map<String, Label> studentsCounts;
+
+
     private Map<String, ImageView> clouds;
     private Map<String, ImageView> studentsClouds;
 
@@ -158,6 +173,9 @@ public class BoardController extends GuiController {
         clouds = new HashMap<>();
         studentsClouds = new HashMap<>();
         towersOnIslands = new HashMap<>();
+        imageStudentsCounts = new HashMap<>();
+        studentsCounts = new HashMap<>();
+
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
         enemyEntrance.put("enemyEntrance0", enemyEntrance0); enemyEntrance.put("enemyEntrance1", enemyEntrance1); enemyEntrance.put("enemyEntrance2", enemyEntrance2); enemyEntrance.put("enemyEntrance3", enemyEntrance3); enemyEntrance.put("enemyEntrance4", enemyEntrance4); enemyEntrance.put("enemyEntrance5", enemyEntrance5); enemyEntrance.put("enemyEntrance6", enemyEntrance6); enemyEntrance.put("enemyEntrance7", enemyEntrance7); enemyEntrance.put("enemyEntrance8", enemyEntrance8);
@@ -196,6 +214,8 @@ public class BoardController extends GuiController {
         studentsOnIslands.put("student3OnIsland0", student3OnIsland0);  studentsOnIslands.put("student3OnIsland1", student3OnIsland1);  studentsOnIslands.put("student3OnIsland2", student3OnIsland2);  studentsOnIslands.put("student3OnIsland3", student3OnIsland3);  studentsOnIslands.put("student3OnIsland4", student3OnIsland4);  studentsOnIslands.put("student3OnIsland5", student3OnIsland5);  studentsOnIslands.put("student3OnIsland6", student3OnIsland6);  studentsOnIslands.put("student3OnIsland7", student3OnIsland7);  studentsOnIslands.put("student3OnIsland8", student3OnIsland8);  studentsOnIslands.put("student3OnIsland9", student3OnIsland9);  studentsOnIslands.put("student3OnIsland10", student3OnIsland10);  studentsOnIslands.put("student3OnIsland11", student3OnIsland11);
         studentsOnIslands.put("student4OnIsland0", student4OnIsland0);  studentsOnIslands.put("student4OnIsland1", student4OnIsland1);  studentsOnIslands.put("student4OnIsland2", student4OnIsland2);  studentsOnIslands.put("student4OnIsland3", student4OnIsland3);  studentsOnIslands.put("student4OnIsland4", student4OnIsland4);  studentsOnIslands.put("student4OnIsland5", student4OnIsland5);  studentsOnIslands.put("student4OnIsland6", student4OnIsland6);  studentsOnIslands.put("student4OnIsland7", student4OnIsland7);  studentsOnIslands.put("student4OnIsland8", student4OnIsland8);  studentsOnIslands.put("student4OnIsland9", student4OnIsland9);  studentsOnIslands.put("student4OnIsland10", student4OnIsland10);  studentsOnIslands.put("student4OnIsland11", student4OnIsland11);
         towersOnIslands.put("towerOnIsland0", towerOnIsland0); towersOnIslands.put("towerOnIsland1", towerOnIsland1); towersOnIslands.put("towerOnIsland2", towerOnIsland2); towersOnIslands.put("towerOnIsland3", towerOnIsland3); towersOnIslands.put("towerOnIsland4", towerOnIsland4); towersOnIslands.put("towerOnIsland5", towerOnIsland5); towersOnIslands.put("towerOnIsland6", towerOnIsland6); towersOnIslands.put("towerOnIsland7", towerOnIsland7); towersOnIslands.put("towerOnIsland8", towerOnIsland8); towersOnIslands.put("towerOnIsland9", towerOnIsland9); towersOnIslands.put("towerOnIsland10", towerOnIsland10); towersOnIslands.put("towerOnIsland11", towerOnIsland11);
+        imageStudentsCounts.put("imageStudentsCount0", imageStudentsCount0); imageStudentsCounts.put("imageStudentsCount1", imageStudentsCount1); imageStudentsCounts.put("imageStudentsCount2", imageStudentsCount2); imageStudentsCounts.put("imageStudentsCount3", imageStudentsCount3); imageStudentsCounts.put("imageStudentsCount4", imageStudentsCount4);
+        studentsCounts.put("studentsCount0", studentsCount0); studentsCounts.put("studentsCount1", studentsCount1); studentsCounts.put("studentsCount2", studentsCount2); studentsCounts.put("studentsCount3", studentsCount3); studentsCounts.put("studentsCount4", studentsCount4);
 
         studentsCards.put("student1Character1", student1Character1); studentsCards.put("student2Character1", student2Character1); studentsCards.put("student3Character1", student3Character1); studentsCards.put("student4Character1", student4Character1); studentsCards.put("student5Character1", student5Character1); studentsCards.put("student6Character1", student6Character1);
         studentsCards.put("student1Character2", student1Character2); studentsCards.put("student2Character2", student2Character2); studentsCards.put("student3Character2", student3Character2); studentsCards.put("student4Character2", student4Character2); studentsCards.put("student5Character2", student5Character2); studentsCards.put("student6Character2", student6Character2);
@@ -712,54 +732,8 @@ public class BoardController extends GuiController {
      * @param event
      */
     public void myEntranceClick(ActionEvent event) {
-        int indexStudent = -1;
-        switch(((Button) event.getSource()).getId()) {
-            case "myEntrance0":
-                //studentMoved = 0;
-                indexStudent = 0;
-                state = 1;
-                break;
-            case "myEntrance1":
-                //studentMoved = 1;
-                indexStudent = 1;
-                state = 1;
-                break;
-            case "myEntrance2":
-                //studentMoved = 2;
-                indexStudent = 2;
-                state = 1;
-                break;
-            case "myEntrance3":
-                //studentMoved = 3;
-                indexStudent = 3;
-                state = 1;
-                break;
-            case "myEntrance4":
-                //studentMoved = 4;
-                indexStudent = 4;
-                state = 1;
-                break;
-            case "myEntrance5":
-                //studentMoved = 5;
-                indexStudent = 5;
-                state = 1;
-                break;
-            case "myEntrance6":
-                //studentMoved = 6;
-                indexStudent = 6;
-                state = 1;
-                break;
-            case "myEntrance7":
-                //studentMoved = 7;
-                indexStudent = 7;
-                state = 1;
-                break;
-            case "myEntrance8":
-                //studentMoved = 8;
-                indexStudent = 8;
-                state = 1;
-                break;
-        }
+        int indexStudent = Integer.valueOf(((Button) event.getSource()).getId().substring(10));
+        state = 1;
         if (indexStudent != studentMoved) {
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);
         }
@@ -791,50 +765,60 @@ public class BoardController extends GuiController {
         }
     }
 
+    public void showStuffOnIslands(MouseEvent event) {
+        int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
+        if(islandIndex < 12 && islandIndex > -1) {
+            Island island = board.getGametable().getIslands().get(islandIndex);
+            if (island != null) {
+                Platform.runLater(() -> {
+                    for (int i = 0; i < 5; i++) {
+                        imageStudentsCounts.get("imageStudentsCount" + i).setVisible(true);
+                        studentsCounts.get("studentsCount" + i).setVisible(true);
+                        try {
+                            studentsCounts.get("studentsCount" + i).setText("x" + island.getNumberOfStudentsForColor(PawnColor.associateIndexToPawnColor(i)));
+                        } catch (InvalidIndexException e) {
+                            // It is never thrown
+                        }
+                    }
+                });
+                Platform.runLater(() -> {
+                    imageTowersCount.setVisible(true);
+                    towersCount.setVisible(true);
+                    towersCount.setText("x" + String.valueOf(island.getTowers().size()));
+                    assistantImage.setImage(new Image("images/Board/Islands/parchment.jpg", 80,130, false, false));
+                    assistantImage.setVisible(true);
+                    assistantImage.setTranslateY(-25.0);
+                });
+            }
+        }
+    }
+
+    public void hideStuffOnIslands(MouseEvent event) {
+        int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
+        if(islandIndex < 12 && islandIndex > -1) {
+            Island island = board.getGametable().getIslands().get(islandIndex);
+            if (island != null) {
+                Platform.runLater(() -> {
+                    for (int i = 0; i < 5; i++) {
+                        imageStudentsCounts.get("imageStudentsCount" + i).setVisible(false);
+                        studentsCounts.get("studentsCount" + i).setVisible(false);
+                    }
+                });
+                Platform.runLater(() -> {
+                    imageTowersCount.setVisible(false);
+                    towersCount.setVisible(false);
+                    assistantImage.setVisible(false);
+                    assistantImage.setTranslateY(25.0);
+                });
+            }
+        }
+    }
     /**
      *
      * @param event
      */
     public void islandClick(MouseEvent event) {
-        int islandIndex = -1;
-        switch(((ImageView) event.getSource()).getId()) {
-            case "island0":
-                islandIndex = 0;
-                break;
-            case "island1":
-                islandIndex = 1;
-                break;
-            case "island2":
-                islandIndex = 2;
-                break;
-            case "island3":
-                islandIndex = 3;
-                break;
-            case "island4":
-                islandIndex = 4;
-                break;
-            case "island5":
-                islandIndex = 5;
-                break;
-            case "island6":
-                islandIndex = 6;
-                break;
-            case "island7":
-                islandIndex = 7;
-                break;
-            case "island8":
-                islandIndex = 8;
-                break;
-            case "island9":
-                islandIndex = 9;
-                break;
-            case "island10":
-                islandIndex = 10;
-                break;
-            case "island11":
-                islandIndex = 11;
-                break;
-        }
+        int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
         if(islandIndex < 12 && islandIndex > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
@@ -908,6 +892,7 @@ public class BoardController extends GuiController {
             public void run() {
                 assistantImage.setImage(imageAssistant);
                 assistantImage.setVisible(true);
+                assistantImage.setTranslateY(-8.0);
             }
         });
     }
@@ -916,6 +901,7 @@ public class BoardController extends GuiController {
             @Override
             public void run() {
                 assistantImage.setVisible(false);
+                assistantImage.setTranslateY(8.0);
             }
         });
     }
