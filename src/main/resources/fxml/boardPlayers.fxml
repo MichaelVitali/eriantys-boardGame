@@ -269,59 +269,59 @@
             <AnchorPane layoutY="233.0" prefHeight="300.0" prefWidth="258.0">
                <children>
                   <ImageView fx:id="enemyStudent00" layoutX="35.0" layoutY="264.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent01" layoutX="35.0" layoutY="235.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent02" layoutX="35.0" layoutY="206.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent01" layoutX="35.0" layoutY="234.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent02" layoutX="35.0" layoutY="205.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent03" layoutX="35.0" layoutY="177.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent04" layoutX="35.0" layoutY="148.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent05" layoutX="35.0" layoutY="119.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent06" layoutX="35.0" layoutY="90.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent07" layoutX="35.0" layoutY="61.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent08" layoutX="35.0" layoutY="32.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent08" layoutX="35.0" layoutY="33.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent09" layoutX="35.0" layoutY="3.0" styleClass="studentsImage" />
 
                   <ImageView fx:id="enemyStudent10" layoutX="78.0" layoutY="264.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent11" layoutX="78.0" layoutY="235.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent12" layoutX="78.0" layoutY="206.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent11" layoutX="78.0" layoutY="234.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent12" layoutX="78.0" layoutY="205.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent13" layoutX="78.0" layoutY="177.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent14" layoutX="78.0" layoutY="148.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent15" layoutX="78.0" layoutY="119.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent16" layoutX="78.0" layoutY="90.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent17" layoutX="78.0" layoutY="61.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent18" layoutX="78.0" layoutY="32.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent18" layoutX="78.0" layoutY="33.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent19" layoutX="78.0" layoutY="3.0" styleClass="studentsImage" />
 
                   <ImageView fx:id="enemyStudent20" layoutX="121.0" layoutY="264.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent21" layoutX="121.0" layoutY="235.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent22" layoutX="121.0" layoutY="206.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent21" layoutX="121.0" layoutY="234.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent22" layoutX="121.0" layoutY="205.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent23" layoutX="121.0" layoutY="177.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent24" layoutX="121.0" layoutY="148.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent25" layoutX="121.0" layoutY="119.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent26" layoutX="121.0" layoutY="90.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent27" layoutX="121.0" layoutY="61.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent28" layoutX="121.0" layoutY="32.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent28" layoutX="121.0" layoutY="33.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent29" layoutX="121.0" layoutY="3.0" styleClass="studentsImage" />
 
                   <ImageView fx:id="enemyStudent30" layoutX="164.0" layoutY="264.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent31" layoutX="164.0" layoutY="235.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent32" layoutX="164.0" layoutY="206.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent31" layoutX="164.0" layoutY="234.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent32" layoutX="164.0" layoutY="205.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent33" layoutX="164.0" layoutY="177.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent34" layoutX="164.0" layoutY="148.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent35" layoutX="164.0" layoutY="119.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent36" layoutX="164.0" layoutY="90.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent37" layoutX="164.0" layoutY="61.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent38" layoutX="164.0" layoutY="32.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent38" layoutX="164.0" layoutY="33.0" styleClass="studentsImage" />
                   <ImageView fx:id="enemyStudent39" layoutX="164.0" layoutY="3.0" styleClass="studentsImage" />
 
-                  <ImageView fx:id="enemyStudent40" layoutX="207.0" layoutY="264.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent41" layoutX="207.0" layoutY="235.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent42" layoutX="207.0" layoutY="206.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent43" layoutX="207.0" layoutY="177.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent44" layoutX="207.0" layoutY="148.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent45" layoutX="207.0" layoutY="119.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent46" layoutX="207.0" layoutY="90.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent47" layoutX="207.0" layoutY="61.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent48" layoutX="207.0" layoutY="32.0" styleClass="studentsImage" />
-                  <ImageView fx:id="enemyStudent49" layoutX="207.0" layoutY="3.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent40" layoutX="210.0" layoutY="264.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent41" layoutX="210.0" layoutY="234.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent42" layoutX="210.0" layoutY="205.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent43" layoutX="210.0" layoutY="177.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent44" layoutX="210.0" layoutY="148.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent45" layoutX="210.0" layoutY="119.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent46" layoutX="210.0" layoutY="90.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent47" layoutX="210.0" layoutY="61.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent48" layoutX="210.0" layoutY="33.0" styleClass="studentsImage" />
+                  <ImageView fx:id="enemyStudent49" layoutX="210.0" layoutY="3.0" styleClass="studentsImage" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="enemyTowerPane" layoutY="35.0" prefHeight="184.0" prefWidth="258.0">
