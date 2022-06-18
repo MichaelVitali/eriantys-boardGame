@@ -359,14 +359,6 @@ public class RoundTest {
         game2p.getRound().playAssistant(playerId, idAssistant);
         assertEquals(played, game2p.getRound().getPlayedAssistants()[playerId].getAssistant());
 
-        playerId=game2p.getRound().getPlayerOrder()[1];
-        game2p.getRound().setRoundState(1);
-        game2p.getRound().playAssistant(playerId, idAssistant);
-        assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getPlayerMessage());
-
-        game2p.getRound().setRoundState(0);
-        game2p.getRound().playAssistant(1, 11);
-        assertEquals("The assistant doesn't exist!\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessage());
     }
 
     @Test
@@ -518,10 +510,6 @@ public class RoundTest {
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
         assertEquals("You are not the current player", game2p.getPlayer(playerId).getPlayerMessage());
 
-        playerId=1;
-        game2p.getRound().setRoundState(2);
-        game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You cannot get students from cloud now", game2p.getPlayer(playerId).getPlayerMessage());
 /*
         cloudIndex=4;
         game2p.getRound().setRoundState(3);

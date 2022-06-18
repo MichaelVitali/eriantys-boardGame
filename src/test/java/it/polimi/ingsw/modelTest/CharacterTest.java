@@ -382,10 +382,6 @@ public class CharacterTest {
         c.getStudentsFromCloud(playerId, cloudIndex);
         assertEquals("You are not the current player", round.getGame().getPlayer(playerId).getPlayerMessage());
 
-        playerId = 1;
-        round.setRoundState(2);
-        c.getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You cannot get students from cloud now", round.getGame().getPlayer(playerId).getPlayerMessage());
     }
 
     @Test
