@@ -555,4 +555,3 @@ public class Round implements Serializable {
         return alreadyPlayedCharacter;
     }
 }
-
