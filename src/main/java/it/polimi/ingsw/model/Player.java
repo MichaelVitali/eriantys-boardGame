@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.exception.OutOfBoundException;
 
 import java.io.Serializable;
 import java.util.*;
@@ -13,7 +12,8 @@ public class Player implements Serializable {
     private final String nickName;
     private final int playerId;
     private List<Assistant> assistants;
-    private String message;
+    private String messageCli;
+    private String messageGui;
     private Wizard wizard;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
@@ -96,12 +96,20 @@ public class Player implements Serializable {
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
-    public String getPlayerMessage() {
-        return message;
+    public String getPlayerMessageCli() {
+        return messageCli;
     }
 
-    public void setPlayerMessage(String message) {
-        this.message = message;
+    public String getPlayerMessageGui() {
+        return messageGui;
+    }
+
+    public void setPlayerMessageCli(String message) {
+        messageCli = message;
+    }
+
+    public void setPlayerMessageGui(String message) {
+        messageGui = message;
     }
 
     public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException, InvalidIndexException {

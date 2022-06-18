@@ -21,16 +21,19 @@ public class Villager extends Character {
             try {
                 if (parameter < 0 || parameter > 4) throw new InvalidIndexException("The chosen student color doesn't exist");
                 getGame().getRound().setRoundState(getOldState());
-                setPlayerMessage(playerId, getStateMessage());
+                setPlayerMessageCli(playerId, getStateMessageCli());
+                setPlayerMessageGui(playerId, getStateMessageGui());
                 studentColor = PawnColor.associateIndexToPawnColor(parameter);
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageGui(playerId, e.getMessage());
             }
         }
     }
 
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select a student color { 0:YELLOW - 1:BLUE - 2:GREEN - 3:RED - 4:PINK}");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("Select a student color { 0:GREEN - 1:RED - 2:YELLOW - 3:PINK - 4:BLUE}");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("Select a student color");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;
@@ -71,16 +74,20 @@ public class Villager extends Character {
                 calculateNextPlayer();
                 deactivateEffect(false);
             } catch (TooFarIslandException e) {
-                String message = "You cannot put mother nature in the chosen island\n" + getStateMessage();
-                setPlayerMessage(playerId, message);
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island\n" + getStateMessageCli());
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island\n" + getStateMessageGui());
                 getGame().sendGame();
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move mother nature now");
+            setPlayerMessageCli(playerId, "You cannot move mother nature now");
+            setPlayerMessageGui(playerId, "You cannot move mother nature now");
+            getGame().sendGame();
         }
     }
 

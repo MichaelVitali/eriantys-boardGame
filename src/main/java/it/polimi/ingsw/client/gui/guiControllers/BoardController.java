@@ -624,7 +624,7 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        System.out.println(board.getPlayerMessage());
+        System.out.println(board.getPlayerMessageCli());
         displayEnemySchoolboard(playerOffset);
         displayMySchoolboard();
         displayIslands();
@@ -691,7 +691,7 @@ public class BoardController extends GuiController {
             } else {
                 displayBoard(enemyBoardDisplayed);
             }
-            System.out.println(((GameMessage) message).getPlayerMessage());
+            System.out.println(((GameMessage) message).getPlayerMessageCli());
         }
     }
 
@@ -1295,14 +1295,10 @@ public class BoardController extends GuiController {
 
 
     public void showGameMessage(){
-        String playerMessage = board.getPlayerMessage();
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                labelGameMessage.setText(playerMessage);
-            }
+        String playerMessage = board.getPlayerMessageGui();
+        Platform.runLater(() -> {
+            labelGameMessage.setText(playerMessage);
         });
-
     }
 
     public void playCharacter(MouseEvent event) {

@@ -113,13 +113,13 @@ public class RoundTest {
         int rightPlayer = playerOrder[0];
 
         game2p.getRound().checkPlayerOnTurn(rightPlayer);
-        assertEquals("Select an assistant", game2p.getPlayer(rightPlayer).getPlayerMessage());
+        assertEquals("Select an assistant", game2p.getPlayer(rightPlayer).getPlayerMessageCli());
 
         try {
             game2p.getRound().checkPlayerOnTurn(wrongPlayer);
         }catch (PlayerNotOnTurnException e){ assertTrue(true);}
 
-        assertTrue(game2p.getPlayer(wrongPlayer).getPlayerMessage() == "You are not the current player");
+        assertTrue(game2p.getPlayer(wrongPlayer).getPlayerMessageCli() == "You are not the current player");
     }
 
     /*@Test
@@ -176,8 +176,8 @@ public class RoundTest {
 
     @Test
     public void testSetErrorMessage() {
-        game2p.startRound().setPlayerMessage(0, "Generic error");
-        assertTrue(game2p.getPlayer(0).getPlayerMessage()=="Generic error");
+        game2p.startRound().setPlayerMessageCli(0, "Generic error");
+        assertTrue(game2p.getPlayer(0).getPlayerMessageCli()=="Generic error");
     }
 
     @Test
@@ -362,11 +362,11 @@ public class RoundTest {
         playerId=game2p.getRound().getPlayerOrder()[1];
         game2p.getRound().setRoundState(1);
         game2p.getRound().playAssistant(playerId, idAssistant);
-        assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getPlayerMessageCli());
 
         game2p.getRound().setRoundState(0);
         game2p.getRound().playAssistant(1, 11);
-        assertEquals("The assistant doesn't exist!\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("The assistant doesn't exist!\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessageCli());
     }
 
     @Test
@@ -516,12 +516,12 @@ public class RoundTest {
 
         game2p.getRound().setRoundState(3);
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You are not the current player", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("You are not the current player", game2p.getPlayer(playerId).getPlayerMessageCli());
 
         playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You cannot get students from cloud now", game2p.getPlayer(playerId).getPlayerMessage());
+        assertEquals("You cannot get students from cloud now", game2p.getPlayer(playerId).getPlayerMessageCli());
 /*
         cloudIndex=4;
         game2p.getRound().setRoundState(3);
