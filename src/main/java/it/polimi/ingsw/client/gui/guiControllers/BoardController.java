@@ -226,10 +226,50 @@ public class BoardController extends GuiController {
 
         clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
         studentsClouds.put("cloud0Student0", cloud0Student0); studentsClouds.put("cloud0Student1", cloud0Student1); studentsClouds.put("cloud0Student2", cloud0Student2); studentsClouds.put("cloud0Student3", cloud0Student3); studentsClouds.put("cloud1Student0", cloud1Student0); studentsClouds.put("cloud1Student1", cloud1Student1); studentsClouds.put("cloud1Student2", cloud1Student2); studentsClouds.put("cloud1Student3", cloud1Student3);
-        studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2); studentsClouds.put("cloud3Student3", cloud3Student3);
+        studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2);
 
         indexLastCharacterPlayed = 0;
         enemyBoardDisplayed = 1;
+    }
+
+    /**
+     *
+     */
+    private void adaptCloud() {
+        cloud0Student0.setLayoutX(6.0);
+        cloud0Student0.setLayoutY(45.0);
+        cloud0Student1.setLayoutX(33.0);
+        cloud0Student1.setLayoutY(20.0);
+        cloud0Student2.setLayoutX(58.0);
+        cloud0Student2.setLayoutY(45.0);
+
+        cloud1Student0.setLayoutX(6.0);
+        cloud1Student0.setLayoutY(45.0);
+        cloud1Student1.setLayoutX(33.0);
+        cloud1Student1.setLayoutY(20.0);
+        cloud1Student2.setLayoutX(58.0);
+        cloud1Student2.setLayoutY(45.0);
+
+        cloud2Student0.setLayoutX(6.0);
+        cloud2Student0.setLayoutY(45.0);
+        cloud2Student1.setLayoutX(33.0);
+        cloud2Student1.setLayoutY(20.0);
+        cloud2Student2.setLayoutX(58.0);
+        cloud2Student2.setLayoutY(45.0);
+    }
+
+    /**
+     *
+     */
+    private void adaptTowers() {
+        for (int i = 0; i < 6; i++) {
+            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
+            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
+        }
+        myTowers.get("myTower6").setVisible(false);
+        myTowers.get("myTower7").setVisible(false);
+        enemyTowers.get("enemyTower6").setVisible(false);
+        enemyTowers.get("enemyTower7").setVisible(false);
     }
 
     /**
@@ -247,10 +287,23 @@ public class BoardController extends GuiController {
                     myEntrance8.setVisible(false);
                     cloud2.setVisible(false);
                     cloud3.setVisible(false);
-                    centerUpperAnchorPane.setPrefWidth(200);
+                    cloudPane2.setVisible(false);
+                    cloudPane3.setVisible(false);
+                    for (int i = 0; i < 4; i++)
+                        studentsClouds.get("cloud2Student" + i).setVisible(false);
+                    for (int i = 0; i < 3; i++)
+                        studentsClouds.get("cloud3Student" + i).setVisible(false);
+                    cloudPane0.setTranslateX(100);
+                    cloudPane1.setTranslateX(100);
                 } else if (board.getNumberOfPLayers() == 3) {
                     player4.setVisible(false);
                     cloud3.setVisible(false);
+                    cloudPane3.setVisible(false);
+                    cloudPane0.setTranslateX(50);
+                    cloudPane1.setTranslateX(50);
+                    cloudPane2.setTranslateX(50);
+                    for (int i = 0; i < 3; i++)
+                        studentsClouds.get("cloud3Student" + i).setVisible(false);
                     centerUpperAnchorPane.setPrefWidth(300);
                     adaptCloud();
                     adaptTowers();
@@ -262,7 +315,7 @@ public class BoardController extends GuiController {
                 }
                 displayBoard(1);
         });
-        System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
+        //System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
         motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
         islandPanes.get(pane).getChildren().add(motherNature);
@@ -424,7 +477,7 @@ public class BoardController extends GuiController {
                             setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
                         } catch (InvalidIndexException e) {
                             e.printStackTrace();
-                            System.out.println(e.getMessage());
+                            //System.out.println(e.getMessage());
                         }
                     }
                     for (int j = 0; j < 10; j++) enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
@@ -443,7 +496,7 @@ public class BoardController extends GuiController {
                             setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
                         }
                     } catch (InvalidIndexException e) {
-                        System.out.println(e.getMessage());
+                        //System.out.println(e.getMessage());
                     }
                 }
                 //System.out.println("Enemy" + schoolBoard.getTowers().size());
@@ -493,7 +546,7 @@ public class BoardController extends GuiController {
                     try {
                         setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
                     } catch (InvalidIndexException e) {
-                        System.out.println(e.getMessage());
+                        //System.out.println(e.getMessage());
                     }
                 }
                 for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
@@ -513,7 +566,7 @@ public class BoardController extends GuiController {
                         myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
                     }
                 } catch (InvalidIndexException e) {
-                    System.out.println(e.getMessage());
+                    //System.out.println(e.getMessage());
                 }
             }
             //System.out.println("My" + schoolBoard.getTowers().size());
@@ -557,7 +610,7 @@ public class BoardController extends GuiController {
      * Displays the islands, rendering students, towers and mother nature
      */
     public void displayIslands() {
-        System.out.println("displayIslands");
+        //System.out.println("displayIslands");
         // problema con il postman
         if(board != null && board.getGametable() != null && board.getGametable().getIslands() != null) {
             Platform.runLater(() -> {
@@ -711,7 +764,7 @@ public class BoardController extends GuiController {
                 else
                     board.renderWhatNeeded(this);
             }
-            System.out.println(((GameMessage) message).getPlayerMessageCli());
+            //System.out.println(((GameMessage) message).getPlayerMessageCli());
         }
     }
 
@@ -724,7 +777,7 @@ public class BoardController extends GuiController {
         int indexCard = Integer.valueOf(((Button) event.getSource()).getId().substring(9,10));
 
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
-        System.out.println("inviato messaggio PlayAssistantMessage");
+        //System.out.println("inviato messaggio PlayAssistantMessage");
         myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
@@ -761,7 +814,7 @@ public class BoardController extends GuiController {
         } else if (board.getGameMode() == GameMode.EXPERT && board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 6) {
             String button = ((Button) event.getSource()).getId();
             int indexTable = Integer.parseInt(button.substring(5,6));
-            System.out.println(indexTable);
+            //System.out.println(indexTable);
             getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexTable));
         }
         myEntrance.get("myEntrance" + studentMoved).setEffect(null);
@@ -972,7 +1025,7 @@ public class BoardController extends GuiController {
     public void cloudClick(MouseEvent event) {
         int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
         getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
-        System.out.println(cloudIndex);
+        //System.out.println(cloudIndex);
         myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
@@ -1049,7 +1102,6 @@ public class BoardController extends GuiController {
                                 } else if (board.getCharacters()[i] instanceof Healer) {
                                     for (int j = 0; j < 4; j++) {
                                         if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
-                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
                                             studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
                                         } else {
                                             Image image2 = new Image("/images/Character/prohibition.png");
@@ -1078,7 +1130,6 @@ public class BoardController extends GuiController {
                                 } else if (board.getCharacters()[i] instanceof Healer) {
                                     for (int j = 0; j < 4; j++) {
                                         if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
-                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
                                             studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
                                         } else {
                                             Image image2 = new Image("/images/Character/prohibition.png");
@@ -1107,7 +1158,6 @@ public class BoardController extends GuiController {
                                 } else if (board.getCharacters()[i] instanceof Healer) {
                                     for (int j = 0; j < 4; j++) {
                                         if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
-                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
                                             studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
                                         } else {
                                             Image image2 = new Image("/images/Character/prohibition.png");
@@ -1255,37 +1305,6 @@ public class BoardController extends GuiController {
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         indexLastCharacterPlayed = indexCard;
-        System.out.println("Character played " + indexCard);
-    }
-
-
-    private void adaptCloud() {
-        cloud0Student0.setLayoutX(6.0);
-        cloud0Student0.setLayoutY(45.0);
-        cloud0Student1.setLayoutX(33.0);
-        cloud0Student1.setLayoutY(20.0);
-        cloud0Student2.setLayoutX(58.0);
-        cloud0Student2.setLayoutY(45.0);
-
-        cloud1Student0.setLayoutX(6.0);
-        cloud1Student0.setLayoutY(45.0);
-        cloud1Student1.setLayoutX(33.0);
-        cloud1Student1.setLayoutY(20.0);
-        cloud1Student2.setLayoutX(58.0);
-        cloud1Student2.setLayoutY(45.0);
-
-        cloud2Student0.setLayoutX(6.0);
-        cloud2Student0.setLayoutY(45.0);
-        cloud2Student1.setLayoutX(33.0);
-        cloud2Student1.setLayoutY(20.0);
-        cloud2Student2.setLayoutX(58.0);
-        cloud2Student2.setLayoutY(45.0);
-    }
-
-    private void adaptTowers() {
-        for (int i = 0; i < 6; i++) {
-            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
-            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
-        }
+        //System.out.println("Character played " + indexCard);
     }
 }

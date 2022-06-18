@@ -93,10 +93,6 @@ public class GameMessage extends Message implements Serializable {
         this.playerId = playerId;
     }
 
-    public void setPlayerMessage(String playerMessage) {
-        this.playerMessage = playerMessage;
-    }
-
     public void printDefaultOnCli() {
         printIslands(gametable.getIslands());
         printPlayedAssistants(getListPlayedAssistants());
