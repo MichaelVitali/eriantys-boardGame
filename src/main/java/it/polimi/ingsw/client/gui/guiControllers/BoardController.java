@@ -339,34 +339,42 @@ public class BoardController extends GuiController {
      * @param color
      */
     public void setProfessor(ImageView node, PawnColor color) {
-        //System.out.println("Colora professori");
         Platform.runLater(() -> {
+            double x = 0;
             if(node != null) {
                 if (color != null) {
                     switch (color) {
                         case GREEN:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/green.png"));
-                            node.setFitHeight(100);
+                            x = 19.0;
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/red.png"));
+                            x = 61.0;
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/yellow.png"));
+                            x = 102.0;
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/pink.png"));
+                            x = 144.0;
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/blue.png"));
+                            x = 184.0;
                             break;
                     }
+                    node.setPreserveRatio(true);
+                    node.setFitHeight(60.0);
+                    node.setFitWidth(60.0);
+                    node.setLayoutX(x);
+                    node.setLayoutY(139.0);
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(30.0);
                     node.setFitWidth(30.0);
                 }
-                node.setPreserveRatio(true);
             }
         });
     }
@@ -490,15 +498,18 @@ public class BoardController extends GuiController {
             }
             for (int i = 0; i < PawnColor.values().length; i++) {
                 try {
-                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)))
+                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
                         setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                    else
+                    }
+                    else {
                         setProfessor(myProfessors.get(("myProfessor" + i)), null);
+                        myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
+                        myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
+                    }
                 } catch (InvalidIndexException e) {
                     System.out.println(e.getMessage());
                 }
             }
-            //System.out.println("My" + schoolBoard.getTowers().size());
             for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
                 setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
             }
@@ -725,6 +736,7 @@ public class BoardController extends GuiController {
         }
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
         System.out.println("inviato messaggio PlayAssistantMessage");
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     /**
@@ -763,6 +775,7 @@ public class BoardController extends GuiController {
             System.out.println(indexTable);
             getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexTable));
         }
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     public void showStuffOnIslands(MouseEvent event) {
@@ -834,6 +847,7 @@ public class BoardController extends GuiController {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             }
         }
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     public void playStudentCard(MouseEvent event) {
@@ -1033,6 +1047,7 @@ public class BoardController extends GuiController {
         int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
         getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
         System.out.println(cloudIndex);
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     public void setStudentCharacter(Button node, Student student) {

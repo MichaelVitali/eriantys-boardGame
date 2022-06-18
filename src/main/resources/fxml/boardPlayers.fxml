@@ -217,11 +217,11 @@
                </children>
             </AnchorPane>
             <AnchorPane fx:id="myTowerPane" layoutY="55.0" prefHeight="184.0" prefWidth="258.0">
-               <ImageView fx:id="myProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="30" layoutY="145.0" />
-               <ImageView fx:id="myProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="73.0" layoutY="145.0" />
-               <ImageView fx:id="myProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="115.0" layoutY="145.0" />
-               <ImageView fx:id="myProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="157.0" layoutY="145.0" />
-               <ImageView fx:id="myProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="200.0" layoutY="145.0" />
+               <ImageView fx:id="myProfessor0" fitHeight="60.0" fitWidth="60.0" layoutX="30.0" layoutY="147.0" preserveRatio="true" />
+               <ImageView fx:id="myProfessor1" fitHeight="60.0" fitWidth="60.0" layoutX="75.0" layoutY="147.0" preserveRatio="true" />
+               <ImageView fx:id="myProfessor2" fitHeight="60.0" fitWidth="60.0" layoutX="120.0" layoutY="147.0" preserveRatio="true" />
+               <ImageView fx:id="myProfessor3" fitHeight="60.0" fitWidth="60.0" layoutX="195.0" layoutY="147.0" preserveRatio="true" />
+               <ImageView fx:id="myProfessor4" fitHeight="60.0" fitWidth="60.0" layoutX="240.0" layoutY="147.0" preserveRatio="true" />
                <ImageView fx:id="myTower0" layoutX="33.0" layoutY="30.0" />
                <ImageView fx:id="myTower1" layoutX="33.0" layoutY="80.0" />
                <ImageView fx:id="myTower2" layoutX="87.0" layoutY="30.0" />
@@ -354,161 +354,161 @@
                      <ImageView fx:id="island0" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland0" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland0" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland0" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland0" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland0" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland0" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="student0OnIsland0" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland0" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland0" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland0" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland0" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland0" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane1" layoutX="90.0" layoutY="145.0">
                      <ImageView fx:id="island1" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland1" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland1" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland1" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland1" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland1" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland1" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland1" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland1" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland1" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland1" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland1" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland1" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane2" layoutX="215.0" layoutY="110.0">
                      <ImageView fx:id="island2" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland2" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland2" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland2" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland2" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland2" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland2" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland2" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland2" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland2" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland2" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland2" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland2" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane3" layoutX="343.0" layoutY="80.0">
                      <ImageView fx:id="island3" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland3" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland3" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland3" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland3" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland3" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland3" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland3" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland3" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland3" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland3" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland3" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland3" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane4" layoutX="480.0" layoutY="110.0">
                      <ImageView fx:id="island4" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland4" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland4" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland4" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland4" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland4" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland4" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland4" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland4" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland4" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland4" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland4" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland4" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane5" layoutX="600.0" layoutY="145.0">
                      <ImageView fx:id="island5" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland5" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland5" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland5" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland5" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland5" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland5" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland5" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland5" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland5" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland5" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland5" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland5" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane6" layoutX="672.0" layoutY="260.0">
                      <ImageView fx:id="island6" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland6" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland6" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland6" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland6" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland6" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland6" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland6" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland6" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland6" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland6" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland6" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland6" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane10" layoutX="215.0" layoutY="410.0">
                      <ImageView fx:id="island10" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland10" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland10" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland10" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland10" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland10" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland10" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland10" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland10" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland10" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland10" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland10" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland10" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane9" layoutX="343.0" layoutY="440.0">
                      <ImageView fx:id="island9" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland9" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland9" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland9" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland9" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland9" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland9" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland9" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland9" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland9" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland9" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland9" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland9" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane8" layoutX="480.0" layoutY="410.0">
                      <ImageView fx:id="island8" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island2.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland8" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland8" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland8" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland8" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland8" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland8" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland8" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland8" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland8" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland8" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland8" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland8" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane7" layoutX="600.0" layoutY="375.0">
                      <ImageView fx:id="island7" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island3.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland7" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland7" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland7" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland7" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland7" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland7" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland7" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland7" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland7" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland7" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland7" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland7" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
                   <AnchorPane fx:id="islandPane11" layoutX="90.0" layoutY="375.0">
                      <ImageView fx:id="island11" fitHeight="110.0" layoutX="0.0" layoutY="0.0" onMouseClicked="#islandClick" onMouseEntered="#showStuffOnIslands" onMouseExited="#hideStuffOnIslands" preserveRatio="true" styleClass="islands">
                         <Image url="@../images/Board/Islands/island1.png" />
                      </ImageView>
-                     <ImageView fx:id="student0OnIsland11" layoutX="32.0" layoutY="5.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student1OnIsland11" layoutX="84.0" layoutY="44.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student2OnIsland11" layoutX="23.0" layoutY="70.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student3OnIsland11" layoutX="65.0" layoutY="75.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
-                     <ImageView fx:id="student4OnIsland11" layoutX="6.0" layoutY="36.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
-                     <ImageView fx:id="towerOnIsland11" layoutX="67.0" layoutY="10.0" fitHeight="30" preserveRatio="true" styleClass="studentsImage"/> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student0OnIsland11" fitHeight="30" layoutX="32.0" layoutY="5.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student1OnIsland11" fitHeight="30" layoutX="84.0" layoutY="44.0" preserveRatio="true" styleClass="studentsImage" /> <!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student2OnIsland11" fitHeight="30" layoutX="23.0" layoutY="70.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student3OnIsland11" fitHeight="30" layoutX="65.0" layoutY="75.0" preserveRatio="true" styleClass="studentsImage" /> <!-- <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
+                     <ImageView fx:id="student4OnIsland11" fitHeight="30" layoutX="6.0" layoutY="36.0" preserveRatio="true" styleClass="studentsImage" /><!-- > <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView> -->
+                     <ImageView fx:id="towerOnIsland11" fitHeight="30" layoutX="67.0" layoutY="10.0" preserveRatio="true" styleClass="studentsImage" /> <!--> <Image url="@../images/Board/Schoolboards/Students/green.png"/></ImageView>-->
                   </AnchorPane>
 
 
-                  <ImageView fx:id="assistantImage" preserveRatio="true" fitWidth="140.0" layoutX="335.0" layoutY="220.0"/><!--<Image url="@../images/Board/Islands/parchment.jpg" requestedHeight="580"/></ImageView>-->
-                  <ImageView fx:id="imageStudentsCount0" preserveRatio="true" fitHeight="30" layoutX="365.0" layoutY="210.0" visible="false">
-                     <Image url="@../images/Board/Schoolboards/Students/green.png"/>
+                  <ImageView fx:id="assistantImage" fitWidth="140.0" layoutX="335.0" layoutY="220.0" preserveRatio="true" /><!--<Image url="@../images/Board/Islands/parchment.jpg" requestedHeight="580"/></ImageView>-->
+                  <ImageView fx:id="imageStudentsCount0" fitHeight="30" layoutX="365.0" layoutY="210.0" preserveRatio="true" visible="false">
+                     <Image url="@../images/Board/Schoolboards/Students/green.png" />
                   </ImageView>
-                  <ImageView fx:id="imageStudentsCount1" preserveRatio="true" fitHeight="30" layoutX="365.0" layoutY="245.0" visible="false">
-                     <Image url="@../images/Board/Schoolboards/Students/red.png"/>
+                  <ImageView fx:id="imageStudentsCount1" fitHeight="30" layoutX="365.0" layoutY="245.0" preserveRatio="true" visible="false">
+                     <Image url="@../images/Board/Schoolboards/Students/red.png" />
                   </ImageView>
-                  <ImageView fx:id="imageStudentsCount2" preserveRatio="true" fitHeight="30" layoutX="365.0" layoutY="280.0" visible="false">
-                     <Image url="@../images/Board/Schoolboards/Students/yellow.png"/>
+                  <ImageView fx:id="imageStudentsCount2" fitHeight="30" layoutX="365.0" layoutY="280.0" preserveRatio="true" visible="false">
+                     <Image url="@../images/Board/Schoolboards/Students/yellow.png" />
                   </ImageView>
-                  <ImageView fx:id="imageStudentsCount3" preserveRatio="true" fitHeight="30" layoutX="365.0" layoutY="315.0" visible="false">
-                     <Image url="@../images/Board/Schoolboards/Students/pink.png"/>
+                  <ImageView fx:id="imageStudentsCount3" fitHeight="30" layoutX="365.0" layoutY="315.0" preserveRatio="true" visible="false">
+                     <Image url="@../images/Board/Schoolboards/Students/pink.png" />
                   </ImageView>
-                  <ImageView fx:id="imageStudentsCount4" preserveRatio="true" fitHeight="30" layoutX="365.0" layoutY="350.0" visible="false">
-                     <Image url="@../images/Board/Schoolboards/Students/blue.png"/>
+                  <ImageView fx:id="imageStudentsCount4" fitHeight="30" layoutX="365.0" layoutY="350.0" preserveRatio="true" visible="false">
+                     <Image url="@../images/Board/Schoolboards/Students/blue.png" />
                   </ImageView>
-                  <ImageView fx:id="imageTowersCount" preserveRatio="true" fitHeight="30" layoutX="365.0" layoutY="385.0" visible="false">
-                     <Image url="@../images/Board/Schoolboards/circle.png"/>
+                  <ImageView fx:id="imageTowersCount" fitHeight="30" layoutX="365.0" layoutY="385.0" preserveRatio="true" visible="false">
+                     <Image url="@../images/Board/Schoolboards/circle.png" />
                   </ImageView>
-                  <Label fx:id="studentsCount0" alignment="CENTER" layoutX="405.0" layoutY="210.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false"/>
-                  <Label fx:id="studentsCount1" alignment="CENTER" layoutX="405.0" layoutY="245.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false"/>
-                  <Label fx:id="studentsCount2" alignment="CENTER" layoutX="405.0" layoutY="280.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false"/>
-                  <Label fx:id="studentsCount3" alignment="CENTER" layoutX="405.0" layoutY="315.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false"/>
-                  <Label fx:id="studentsCount4" alignment="CENTER" layoutX="405.0" layoutY="350.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false"/>
-                  <Label fx:id="towersCount" alignment="CENTER" layoutX="405.0" layoutY="385.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false"/>
+                  <Label fx:id="studentsCount0" alignment="CENTER" layoutX="405.0" layoutY="210.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false" />
+                  <Label fx:id="studentsCount1" alignment="CENTER" layoutX="405.0" layoutY="245.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false" />
+                  <Label fx:id="studentsCount2" alignment="CENTER" layoutX="405.0" layoutY="280.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false" />
+                  <Label fx:id="studentsCount3" alignment="CENTER" layoutX="405.0" layoutY="315.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false" />
+                  <Label fx:id="studentsCount4" alignment="CENTER" layoutX="405.0" layoutY="350.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false" />
+                  <Label fx:id="towersCount" alignment="CENTER" layoutX="405.0" layoutY="385.0" prefHeight="30.0" prefWidth="30.0" styleClass="text" text="x" visible="false" />
 
                   <Label fx:id="labelGameMessage" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="800.0" styleClass="text" text="The magical world of Eriantys" />
 
