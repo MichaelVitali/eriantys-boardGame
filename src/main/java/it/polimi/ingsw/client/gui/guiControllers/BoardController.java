@@ -123,18 +123,19 @@ public class BoardController extends GuiController {
 
     private ImageView motherNature;
     private int indexLastCharacterPlayed;
+    private boolean toInitialize = true;
 
     /**
-     *
-     * @return
+     * Returns the board sent by the server
+     * @return board sent by the server
      */
     public GameMessage getBoard() {
         return board;
     }
 
     /**
-     *
-     * @param board
+     * Sets the board which is the stuff to show
+     * @param board board to show on the graphic user interface
      */
     public void setBoard(GameMessage board) {
         this.board = board;
@@ -260,31 +261,12 @@ public class BoardController extends GuiController {
                 displayBoard(1);
         });
         System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
-        motherNature = new ImageView(new Image("/images/Board/mn.jpeg", 25, 25,  true, false));
+        motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
         islandPanes.get(pane).getChildren().add(motherNature);
         motherNature.setX(50);
         motherNature.setY(40);
     }
-
-    /*private List<String> getShapeCoordinates(int elements, double edge) {
-        List coordinates = new ArrayList<String>();
-        switch(elements) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                coordinates.add("");
-                break;
-            case 4:
-
-                break;
-            case 5:
-                break;
-        }
-        return coordinates;
-    }*/
 
     /**
      * Sets the student image on the node selecting the color of the student passed as parameter
@@ -382,29 +364,33 @@ public class BoardController extends GuiController {
                 if (color != null) {
                     switch (color) {
                         case WHITE:
-                            node.setImage(new Image("/images/Board/Schoolboards/Towers/white.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/whiteTower.png"));
+                            node.setFitHeight(40);
+                            node.setFitWidth(40);
                             break;
                         case BLACK:
-                            node.setImage(new Image("/images/Board/Schoolboards/Towers/black.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/blackTower.png"));
+                            node.setFitHeight(40);
+                            node.setFitWidth(40);
                             break;
                         case GREY:
-                            node.setImage(new Image("/images/Board/Schoolboards/Towers/gray.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/greyTower.png"));
+                            node.setFitHeight(40);
+                            node.setFitWidth(40);
                             break;
                     }
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
-                    node.setFitHeight(24);
-                    node.setFitWidth(24);
+                    node.setFitHeight(40);
+                    node.setFitWidth(40);
                 }
                 node.setPreserveRatio(true);
             }
         });
+    }
+
+    public void displayEnemySchoolboard() {
+        displayEnemySchoolboard(enemyBoardDisplayed);
     }
 
     /**
@@ -449,18 +435,34 @@ public class BoardController extends GuiController {
                     }
                 }
                 //System.out.println("Enemy" + schoolBoard.getTowers().size());
-                for (int i = 0; i < schoolBoard.getTowers().size(); i++)
-                    setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
-                for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++)
-                    setTower(enemyTowers.get(("enemyTower" + i)), null);
-            }
-            if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
-                enemyAssistant.setVisible(true);
-                enemyAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()].getAssistant().getCardValue() - 1) + ".png"));
-            } else {
-                enemyAssistant.setVisible(false);
+                //displayEnemyAssistant(playerOffset);
             }
         }
+    }
+
+    public void displayEnemyAssistant() {
+        displayEnemyAssistant(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyAssistant(int playerOffset) {
+        if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
+            enemyAssistant.setVisible(true);
+            enemyAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()].getAssistant().getCardValue() - 1) + ".png"));
+        } else {
+            enemyAssistant.setVisible(false);
+        }
+    }
+
+    public void displayEnemyTowers() {
+        displayEnemyTowers(enemyBoardDisplayed);
+    }
+    public void displayEnemyTowers(int playerOffset) {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < schoolBoard.getTowers().size(); i++)
+            setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
+        for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++)
+            setTower(enemyTowers.get(("enemyTower" + i)), null);
+
     }
 
     /**
@@ -499,20 +501,28 @@ public class BoardController extends GuiController {
                 }
             }
             //System.out.println("My" + schoolBoard.getTowers().size());
-            for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
-                setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
-            }
-            for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
-                setTower(myTowers.get(("myTower" + i)), null);
-            }
+            displayMyTowers();
             if (board.getGameMode() == GameMode.EXPERT) coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
-            if (board.getPlayedAssistants()[myPlayerId] != null) {
-                myAssistant.setVisible(true);
-                myAssistant.preserveRatioProperty();
-                myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
-            } else {
-                myAssistant.setVisible(false);
-            }
+            //displayMyAssistant();
+        }
+    }
+
+    public void displayMyAssistant() {
+        if (board.getPlayedAssistants()[myPlayerId] != null) {
+            myAssistant.setVisible(true);
+            myAssistant.preserveRatioProperty();
+            myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
+        } else {
+            myAssistant.setVisible(false);
+        }
+    }
+    public void displayMyTowers() {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
+            setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
+        }
+        for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+            setTower(myTowers.get(("myTower" + i)), null);
         }
     }
 
@@ -575,11 +585,11 @@ public class BoardController extends GuiController {
                 }
 
                 for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
-                    if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
+                    /*if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
                         System.out.println("Isola " + i + " vuota");
-                    else
-                        if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
-                            setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
+                    else*/
+                    if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
+                        setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
                 }
                 //System.out.println("Uscito");
             });
@@ -613,9 +623,11 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        System.out.println(board.getPlayerMessage());
+        //System.out.println(board.getPlayerMessage());
         displayEnemySchoolboard(playerOffset);
+        displayEnemyTowers(playerOffset);
         displayMySchoolboard();
+        displayMyTowers();
         displayIslands();
         displayClouds();
         displayAssistants();
@@ -678,7 +690,10 @@ public class BoardController extends GuiController {
                                   }
                 );
             } else {
-                displayBoard(enemyBoardDisplayed);
+                if (toInitialize)
+                    displayBoard(enemyBoardDisplayed);
+                else
+                    board.renderWhatNeeded(this);
             }
             System.out.println(((GameMessage) message).getPlayerMessage());
         }

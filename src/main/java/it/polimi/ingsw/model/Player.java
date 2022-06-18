@@ -14,6 +14,7 @@ public class Player implements Serializable {
     private final int playerId;
     private List<Assistant> assistants;
     private String message;
+    private boolean error;
     private Wizard wizard;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
@@ -21,7 +22,16 @@ public class Player implements Serializable {
         this.playerId = playerId;
         this.assistants = new ArrayList<>();
         this.assistants.addAll(assistants);
-        this.wizard = null;
+        error = false;
+        wizard = null;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 
     public void setWizard(Wizard wizard){

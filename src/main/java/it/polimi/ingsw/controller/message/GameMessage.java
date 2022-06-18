@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.message;
 
+import it.polimi.ingsw.client.gui.guiControllers.BoardController;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Character;
 
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMessage extends Message implements Serializable {
-    private static final long serialVersionUID = 100L;
     private int state;
     private int playerId;
     private String playerMessage;
@@ -46,6 +46,8 @@ public class GameMessage extends Message implements Serializable {
 
     }
 
+    public void renderWhatNeeded(BoardController controller) { }
+
     public Round.PlayedAssistant[] getPlayedAssistants() {
         return playedAssistants;
     }
@@ -79,6 +81,14 @@ public class GameMessage extends Message implements Serializable {
 
     public Cloud[] getClouds() {
         return gametable.getClouds();
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
+
+    public void setPlayerMessage(String playerMessage) {
+        this.playerMessage = playerMessage;
     }
 
     public void printDefaultOnCli() {
