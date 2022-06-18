@@ -26,7 +26,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 0;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
         try {
             characters = new Character[3];
             createCharacters();
@@ -132,8 +132,8 @@ public class ExpertGame extends Game {
             numberOfCharacter--;
         }*/
         this.characters[0] = c.get(9);
-        this.characters[1] = c.get(0);
-        this.characters[2] = c.get(4);
+        this.characters[1] = c.get(8);
+        this.characters[2] = c.get(10);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

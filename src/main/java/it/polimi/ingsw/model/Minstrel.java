@@ -34,12 +34,14 @@ public class Minstrel extends Character  {
             try {
                 if (parameter > 2 || parameter < 0) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2}");
                 if (getRound().getGame().getGameTable().getSchoolBoards()[playerId].getTotalNumberOfStudentsOnTables() < parameter) throw new InvalidIndexException("Yuo don't have enought students! Select another number");
-                setPlayerMessage(playerId,"Select an index for a student on entrance:");
+                setPlayerMessageCli(playerId,"Select an index for a student on entrance:");
+                setPlayerMessageGui(playerId,"Select an index for a student on entrance:");
                 countTable = parameter;
                 countEntrance = parameter;
                 setRoundState(5);
             } catch (InvalidIndexException e){
-                setPlayerMessage(playerId, e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageGui(playerId, e.getMessage());
             }
         } else if (getRoundState() == 5) {
             if (countEntrance > 0) {
@@ -48,14 +50,17 @@ public class Minstrel extends Character  {
                     if (entranceIndexes.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one: ");
                     entranceIndexes.add(parameter);
                     countEntrance -= 1;
-                    setPlayerMessage(playerId,"Select an index for a student on entrance:");
+                    setPlayerMessageCli(playerId,"Select an index for a student on entrance:");
+                    setPlayerMessageGui(playerId,"Select an index for a student on entrance:");
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage());
+                    setPlayerMessageCli(playerId, e.getMessage());
+                    setPlayerMessageGui(playerId, e.getMessage());
                 }
             }
             if(countEntrance == 0) {
                 setRoundState(6);
-                setPlayerMessage(playerId,"Select index for a table to switch:");
+                setPlayerMessageCli(playerId,"Select index for a table to switch:");
+                setPlayerMessageGui(playerId,"Select index for a table to switch:");
             }
         } else if (getRoundState() == 6) {
             if (countTable > 0) {
@@ -65,9 +70,11 @@ public class Minstrel extends Character  {
                     if (getGame().getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(parameter) == 0) throw new InvalidIndexException("The table is empty, choose another one");
                     tableIndexes.add(parameter);
                     countTable -= 1;
-                    setPlayerMessage(playerId,"Select index for a table to switch:");
+                    setPlayerMessageCli(playerId,"Select index for a table to switch:");
+                    setPlayerMessageGui(playerId,"Select index for a table to switch:");
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage());
+                    setPlayerMessageCli(playerId, e.getMessage());
+                    setPlayerMessageGui(playerId, e.getMessage());
                 }
             }
             if(countTable == 0){
@@ -83,11 +90,14 @@ public class Minstrel extends Character  {
                     getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
                     deactivateEffect(true);
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage());
+                    setPlayerMessageCli(playerId, e.getMessage());
+                    setPlayerMessageGui(playerId, e.getMessage());
                 } catch (EmptyTableException e) {
-                    setPlayerMessage(playerId, "The table is empty, choose another one");
+                    setPlayerMessageCli(playerId, "The table is empty, choose another one");
+                    setPlayerMessageGui(playerId, "The table is empty, choose another one");
                 } catch (FullTableException e) {
-                    setPlayerMessage(playerId, "The table is full, choose another one");
+                    setPlayerMessageCli(playerId, "The table is full, choose another one");
+                    setPlayerMessageGui(playerId, "The table is full, choose another one");
                 }
             }
         }
@@ -95,8 +105,9 @@ public class Minstrel extends Character  {
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("How many Students do you want to change");
-        if (getRound().getGame().getGameTable().getSchoolBoards()[playerID].getTotalNumberOfStudentsOnTables() == 0) throw new EffectCannotBeActivatedException("The Minstrel cannot be activated: you don't have students on tables!");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("How many Students do you want to change");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("How many Students do you want to change");
+        //if (getRound().getGame().getGameTable().getSchoolBoards()[playerID].getTotalNumberOfStudentsOnTables() == 0) throw new EffectCannotBeActivatedException("The Minstrel cannot be activated: you don't have students on tables!");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

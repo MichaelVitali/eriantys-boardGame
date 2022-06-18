@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controllerTest.message;
 
-import it.polimi.ingsw.controller.message.AddStudentOnIslandMessage;
 import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.model.*;
 import junit.framework.TestCase;
@@ -40,7 +39,7 @@ public class GameMessageTest extends TestCase {
     }
 
     public void testGetPlayerMessage() {
-        message.getPlayerMessage();
+        message.getPlayerMessageCli();
     }
 
     public void testPrintDefaultOnCli() {

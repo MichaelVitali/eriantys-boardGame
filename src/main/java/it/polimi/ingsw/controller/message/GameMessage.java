@@ -11,7 +11,8 @@ import java.util.List;
 public class GameMessage extends Message implements Serializable {
     private int state;
     private int playerId;
-    private String playerMessage;
+    private String playerMessageCli;
+    private String playerMessageGui;
     private GameTable gametable;
     private List<Assistant> assistants;
     private int playerOnTurn;
@@ -28,7 +29,8 @@ public class GameMessage extends Message implements Serializable {
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
-        playerMessage = model.getPlayer(playerId).getPlayerMessage();
+        playerMessageCli = model.getPlayer(playerId).getPlayerMessageCli();
+        playerMessageGui = model.getPlayer(playerId).getPlayerMessageGui();
         gametable = model.getGameTable();
         assistants = model.getPlayerAssistant(playerId);
         playerOnTurn = model.getRound().getPlayerOnTurn();
@@ -75,8 +77,12 @@ public class GameMessage extends Message implements Serializable {
         return playerId;
     }
 
-    public String getPlayerMessage() {
-        return playerMessage;
+    public String getPlayerMessageCli() {
+        return playerMessageCli;
+    }
+
+    public String getPlayerMessageGui() {
+        return playerMessageGui;
     }
 
     public Cloud[] getClouds() {
@@ -99,7 +105,7 @@ public class GameMessage extends Message implements Serializable {
         printAllSchoolboards();
         if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
-        if (playerId == playerOnTurn) System.out.println(playerMessage);
+        if (playerId == playerOnTurn) System.out.println(playerMessageCli);
         else System.out.println("You're not the player on turn... Wait for other player!");
     }
 

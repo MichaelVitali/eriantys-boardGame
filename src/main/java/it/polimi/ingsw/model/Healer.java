@@ -18,9 +18,9 @@ public class Healer extends Character {
                 getGame().getGameTable().getIslandByIndex(parameter).setProhibition();
                 prohibition--;
                 setRoundState(getOldState());
-                setPlayerMessage(playerId, getStateMessage());
+                setPlayerMessageCli(playerId, getStateMessageCli());
             } catch (InvalidIndexException | IslandAlreadyForbiddenException e) {
-                setPlayerMessage(playerId, e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage());
                 getGame().sendGame();
             }
         }
@@ -43,16 +43,20 @@ public class Healer extends Character {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (AlreadyPlayedCharcaterException e) {
-            setPlayerMessage(playerId, "You already played a character\n" + getRound().getStateMessage());
+            setPlayerMessageCli(playerId, "You already played a character\n" + getRound().getStateMessageCli());
+            setPlayerMessageGui(playerId, "You already played a character\n" + getRound().getStateMessageGui());
             getGame().sendGame();
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You can't play a character during the pianification phase");
+            setPlayerMessageCli(playerId, "You can't play a character during the pianification phase");
+            setPlayerMessageGui(playerId, "You can't play a character during the pianification phase");
             getGame().sendGame();
         } catch (EffectCannotBeActivatedException e) {
-            getRound().setPlayerMessage(playerId, e.getMessage() + "\n" + getRound().getStateMessage() );
+            setPlayerMessageCli(playerId, e.getMessage() + "\n" + getRound().getStateMessageCli() );
+            setPlayerMessageGui(playerId, e.getMessage() + "\n" + getRound().getStateMessageGui() );
             getGame().sendGame();
         } catch (NotEnoughCoins e) {
-            setPlayerMessage(playerId,"Not enough coins to play this character" + getRound().getStateMessage());
+            setPlayerMessageCli(playerId,"Not enough coins to play this character" + getRound().getStateMessageCli());
+            setPlayerMessageGui(playerId,"Not enough coins to play this character" + getRound().getStateMessageGui());
             getGame().sendGame();
         }
     }
@@ -60,14 +64,14 @@ public class Healer extends Character {
     @Override
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         if (prohibition <= 0) throw new EffectCannotBeActivatedException("The healer cannot be activated: there are no prohibition cards");
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select an island where you want to put the prohibition card");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("Select an island where you want to put the prohibition card");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("Select an island where you want to put the prohibition card");
         setRoundState(4);
         return this;
     }
 
     @Override
     public void switchToPianificationPhase() {
-        System.out.println("Abbiamo eseguito la switch to pianification phase");
         setPianificationPhaseOrder();
         try {
             getGame().getGameTable().addStudentsOnClouds();
@@ -112,17 +116,19 @@ public class Healer extends Character {
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
-                String message = "You cannot put mother nature in the chosen island\n" + getRound().getStateMessage();
-                setPlayerMessage(playerId, message);
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island\n" + getRound().getStateMessageCli());
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island\n" + getRound().getStateMessageGui());
                 getGame().sendGame();
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island, it does not exist");
                 getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move mother nature now");
+            setPlayerMessageCli(playerId, "You cannot move mother nature now");
+            setPlayerMessageGui(playerId, "You cannot move mother nature now");
             getGame().sendGame();
         }
     }

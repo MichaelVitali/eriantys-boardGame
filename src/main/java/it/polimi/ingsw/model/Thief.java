@@ -27,7 +27,8 @@ public class Thief extends Character {
                             getRound().getGame().getGameTable().getBag().addStudents(Arrays.asList(getRound().getGame().getGameTable().getSchoolBoards()[i].removeStudentFromTable(pawnColor)));
                 deactivateEffect(true);
             }catch (InvalidIndexException | EmptyTableException e) {
-                setPlayerMessage(playerId,e.getMessage());
+                setPlayerMessageCli(playerId,e.getMessage());
+                setPlayerMessageGui(playerId,e.getMessage());
                 getGame().sendGame();
             }
         }
@@ -35,7 +36,8 @@ public class Thief extends Character {
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select pawn color { 0:YELLOW - 1: BLU - 2:GREEN - 3:RED - 4:PINK }");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("Select pawn color { 0:YELLOW - 1: BLU - 2:GREEN - 3:RED - 4:PINK }");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("Select pawn color");
         Round r = super.activateEffect(playerID, round);
         setRoundState(4);
         return r;

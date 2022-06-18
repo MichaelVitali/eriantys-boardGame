@@ -48,6 +48,12 @@ public class IslandTest {
     }
 
     @Test
+    public void testIsland(){
+        Island i = new Island();
+        assertNotNull(i);
+    }
+
+    @Test
     public void testGetTowers() {
         List<Tower> t = new ArrayList<>() ;
         t.add(new Tower(TowerColor.BLACK));

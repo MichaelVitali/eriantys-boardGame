@@ -57,7 +57,12 @@ public class MinstrelTest {
     }
 
     @Test
-    public void testActivateEffect() throws EffectCannotBeActivatedException {
+    public void testActivateEffect() throws EffectCannotBeActivatedException, InvalidIndexException, FullTableException {
+
+        for (int i = 0; i < 3; i++) {
+            round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.associateIndexToPawnColor(i)));
+        }
+        character.activateEffect(0, round);
         assertEquals(character.activateEffect(0, round), character);
         assertEquals(4, character.getRound().getRoundState());
     }

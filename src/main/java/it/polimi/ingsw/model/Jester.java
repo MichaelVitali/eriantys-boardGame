@@ -24,28 +24,33 @@ public class Jester extends CharacterWithStudent{
         if (getRoundState() == 4) {
             try{
                 if (parameter <= 0 || parameter > 3) throw new InvalidIndexException("The number of students is wrong. How many students do you want to change? {1, 2, 3}");
-                getRound().getGame().getPlayer(playerId).setPlayerMessage("Select student on card");
+                setPlayerMessageCli(playerId,"Select student on card");
+                setPlayerMessageGui(playerId,"Select student on card");
                 countCard = parameter;
                 countEntrance = parameter;
                 setRoundState(5);
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageGui(playerId, e.getMessage());
             }
         } else if (getRoundState() == 5) {
             if (countCard > 0) {
                 try {
-                    if (parameter < 0 || parameter > 5) throw new InvalidIndexException("The student doesn't exists\n Chose another one: ");
-                    if (studentsIndexOnCard.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one: ");
+                    if (parameter < 0 || parameter > 5) throw new InvalidIndexException("The student doesn't exists\n Chose another one");
+                    if (studentsIndexOnCard.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one");
                     studentsIndexOnCard.add(parameter);
                     countCard -= 1;
-                    setPlayerMessage(playerId,"Select student on card");
+                    setPlayerMessageCli(playerId,"Select student on card");
+                    setPlayerMessageGui(playerId,"Select student on card");
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage());
+                    setPlayerMessageCli(playerId, e.getMessage());
+                    setPlayerMessageGui(playerId, e.getMessage());
                 }
             }
             if(countCard == 0) {
                 setRoundState(6);
-                setPlayerMessage(playerId,"Select student on entrance");
+                setPlayerMessageCli(playerId,"Select student on entrance");
+                setPlayerMessageGui(playerId,"Select student on entrance");
             }
         } else if (getRoundState() == 6) {
             if (countEntrance > 0) {
@@ -54,9 +59,11 @@ public class Jester extends CharacterWithStudent{
                     if (studentsIndexOnEntrance.contains(parameter)) throw new InvalidIndexException("The student is already chosen\n Chose another one: ");
                     studentsIndexOnEntrance.add(parameter);
                     countEntrance -= 1;
-                    setPlayerMessage(playerId,"Select student on entrance");
+                    setPlayerMessageCli(playerId,"Select student on entrance");
+                    setPlayerMessageGui(playerId,"Select student on entrance");
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage());
+                    setPlayerMessageCli(playerId, e.getMessage());
+                    setPlayerMessageGui(playerId, e.getMessage());
                 }
             }
             if(countEntrance == 0){
@@ -69,7 +76,8 @@ public class Jester extends CharacterWithStudent{
                     getRound().getGame().getGameTable().getSchoolBoards()[playerId].addStudentsOnEntrance(newStudentsOnEntrance);
                     deactivateEffect(true);
                 } catch (InvalidIndexException e) {
-                    setPlayerMessage(playerId, e.getMessage());
+                    setPlayerMessageCli(playerId, e.getMessage());
+                    setPlayerMessageGui(playerId, e.getMessage());
                 }
             }
         }
@@ -77,7 +85,8 @@ public class Jester extends CharacterWithStudent{
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("How many Students do you want to change");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("How many Students do you want to change");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("How many Students do you want to change");
         Round r = super.activateEffect(playerID, round);
         setRoundState(4);
         return r;

@@ -25,6 +25,8 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.Timer;
+
 
 public class BoardController extends GuiController {
 
@@ -323,26 +325,36 @@ public class BoardController extends GuiController {
     public void setProfessor(ImageView node, PawnColor color) {
         //System.out.println("Colora professori");
         Platform.runLater(() -> {
+            double x = 0;
             if(node != null) {
                 if (color != null) {
                     switch (color) {
                         case GREEN:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/green.png"));
-                            node.setFitHeight(100);
+                            x = 19.0;
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/red.png"));
+                            x = 61.0;
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/yellow.png"));
+                            x = 102.0;
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/pink.png"));
+                            x = 144.0;
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/blue.png"));
+                            x = 184.0;
                             break;
                     }
+                    node.setPreserveRatio(true);
+                    node.setFitHeight(60.0);
+                    node.setFitWidth(60.0);
+                    node.setLayoutX(x);
+                    node.setLayoutY(139.0);
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(30.0);
@@ -492,10 +504,14 @@ public class BoardController extends GuiController {
             }
             for (int i = 0; i < PawnColor.values().length; i++) {
                 try {
-                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)))
+                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
                         setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                    else
+                    }
+                    else {
                         setProfessor(myProfessors.get(("myProfessor" + i)), null);
+                        myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
+                        myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
+                    }
                 } catch (InvalidIndexException e) {
                     System.out.println(e.getMessage());
                 }
@@ -623,7 +639,7 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        //System.out.println(board.getPlayerMessage());
+        //System.out.println(board.getPlayerMessageCli());
         displayEnemySchoolboard(playerOffset);
         displayEnemyTowers(playerOffset);
         displayMySchoolboard();
@@ -695,7 +711,7 @@ public class BoardController extends GuiController {
                 else
                     board.renderWhatNeeded(this);
             }
-            System.out.println(((GameMessage) message).getPlayerMessage());
+            System.out.println(((GameMessage) message).getPlayerMessageCli());
         }
     }
 
@@ -705,41 +721,11 @@ public class BoardController extends GuiController {
      */
     @FXML
     public void assistantClick(MouseEvent event) {
-        int indexCard = 0;
-        switch(((Button) event.getSource()).getId()) {
-            case "assistant1":
-                indexCard = 1;
-                break;
-            case "assistant2":
-                indexCard = 2;
-                break;
-            case "assistant3":
-                indexCard = 3;
-                break;
-            case "assistant4":
-                indexCard = 4;
-                break;
-            case "assistant5":
-                indexCard = 5;
-                break;
-            case "assistant6":
-                indexCard = 6;
-                break;
-            case "assistant7":
-                indexCard = 7;
-                break;
-            case "assistant8":
-                indexCard = 8;
-                break;
-            case "assistant9":
-                indexCard = 9;
-                break;
-            case "assistant10":
-                indexCard = 10;
-                break;
-        }
+        int indexCard = Integer.valueOf(((Button) event.getSource()).getId().substring(9,10));
+
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
         System.out.println("inviato messaggio PlayAssistantMessage");
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     /**
@@ -778,6 +764,7 @@ public class BoardController extends GuiController {
             System.out.println(indexTable);
             getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexTable));
         }
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     public void showStuffOnIslands(MouseEvent event) {
@@ -849,6 +836,7 @@ public class BoardController extends GuiController {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             }
         }
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     public void playStudentCard(MouseEvent event) {
@@ -867,57 +855,20 @@ public class BoardController extends GuiController {
     }
 
     public void showAssistant(MouseEvent event) {
-        String idAssistant = ((Button) event.getSource()).getId();
-        String imagePath = "/images/Assistant/";
-        switch (idAssistant) {
-            case "assistant1":
-                imagePath += "assistant0.png";
-                break;
-            case "assistant2":
-                imagePath += "assistant1.png";
-                break;
-            case "assistant3":
-                imagePath += "assistant2.png";
-                break;
-            case "assistant4":
-                imagePath += "assistant3.png";
-                break;
-            case "assistant5":
-                imagePath += "assistant4.png";
-                break;
-            case "assistant6":
-                imagePath += "assistant5.png";
-                break;
-            case "assistant7":
-                imagePath += "assistant6.png";
-                break;
-            case "assistant8":
-                imagePath += "assistant7.png";
-                break;
-            case "assistant9":
-                imagePath += "assistant8.png";
-                break;
-            case "assistant10":
-                imagePath += "assistant9.png";
-                break;
-        }
+        int idAssistant = Integer.parseInt(((Button) event.getSource()).getId().substring(9,10));
+        idAssistant--;
+        String imagePath = "/images/Assistant/assistant" + idAssistant + ".png";
         Image imageAssistant = new Image(imagePath);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+        Platform.runLater(() -> {
                 assistantImage.setImage(imageAssistant);
                 assistantImage.setVisible(true);
                 assistantImage.setTranslateY(-8.0);
-            }
         });
     }
     public void removeShowAssistant(MouseEvent event) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+        Platform.runLater(() -> {
                 assistantImage.setVisible(false);
                 assistantImage.setTranslateY(8.0);
-            }
         });
     }
 
@@ -932,12 +883,10 @@ public class BoardController extends GuiController {
                     case 1:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant1Image.setImage(imageBW);
                                 assistant1.setMouseTransparent(true);
-                            }
+
                         });
                         break;
                     case 2:
@@ -951,89 +900,65 @@ public class BoardController extends GuiController {
                     case 3:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant3Image.setImage(imageBW);
                                 assistant3.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 4:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant4Image.setImage(imageBW);
                                 assistant4.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 5:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant5Image.setImage(imageBW);
                                 assistant5.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 6:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant6Image.setImage(imageBW);
                                 assistant6.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 7:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant7Image.setImage(imageBW);
                                 assistant7.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 8:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant8Image.setImage(imageBW);
                                 assistant8.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 9:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant9Image.setImage(imageBW);
                                 assistant9.setMouseTransparent(true);
-                            }
                         });
                         break;
                     case 10:
                         imagePath += i + ".png";
                         imageBW = new Image(imagePath);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
+                        Platform.runLater(() -> {
                                 assistant10Image.setImage(imageBW);
                                 assistant10.setMouseTransparent(true);
-                            }
                         });
                         break;
                 }
@@ -1048,6 +973,7 @@ public class BoardController extends GuiController {
         int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
         getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
         System.out.println(cloudIndex);
+        myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
     public void setStudentCharacter(Button node, Student student) {
@@ -1295,13 +1221,22 @@ public class BoardController extends GuiController {
 
 
     public void showGameMessage(){
-        String playerMessage = board.getPlayerMessage();
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                labelGameMessage.setText(playerMessage);
-            }
+        String playerMessage = board.getPlayerMessageGui();
+        Platform.runLater(() -> {
+                    labelGameMessage.setVisible(true);
+                    labelGameMessage.setText(playerMessage);
         });
+
+        Timer timer = new Timer();
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        labelGameMessage.setVisible(false);
+                    });
+                }
+            }, 50 * 1000);
 
     }
 

@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +32,16 @@ public class Princess extends CharacterWithStudent  {
                 addStudents(getRound().getGame().getGameTable().getBag().drawStudents(1));
                 deactivateEffect(true);
             }catch (InvalidIndexException | EmptyBagException e){
-                getRound().getGame().getPlayer(playerId).setPlayerMessage(e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageGui(playerId, e.getMessage());
                 getGame().sendGame();
             }catch (NoMoreStudentsException e){
-                getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't play this card because there are no students");
+                setPlayerMessageCli(playerId, "You can't play this card because there are no students");
+                setPlayerMessageGui(playerId, "You can't play this card because there are no students");
                 getGame().sendGame();
             } catch (FullTableException e) {
-                getRound().getGame().getPlayer(playerId).setPlayerMessage("You can't add the chosen student on table because it is full");
+                setPlayerMessageCli(playerId, "You can't add the chosen student on table because it is full");
+                setPlayerMessageGui(playerId, "You can't add the chosen student on table because it is full");
                 getGame().sendGame();
             }
         }
@@ -47,7 +49,8 @@ public class Princess extends CharacterWithStudent  {
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select student");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("Select student");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("Select student");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

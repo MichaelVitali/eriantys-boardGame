@@ -28,6 +28,16 @@ public class SchoolBoardTest {
     }
 
     @Test
+    public void testGetTotalNumberOfStudentsOnTables() throws FullTableException {
+        schoolBoard.addStudentOnTable(new Student(PawnColor.YELLOW));
+        schoolBoard.addStudentOnTable(new Student(PawnColor.GREEN));
+        schoolBoard.addStudentOnTable(new Student(PawnColor.BLUE));
+        schoolBoard.addStudentOnTable(new Student(PawnColor.GREEN));
+        schoolBoard.addStudentOnTable(new Student(PawnColor.BLUE));
+        assertEquals(5, schoolBoard.getTotalNumberOfStudentsOnTables());
+    }
+
+    @Test
     public void testTestAddStudentOnTable() throws FullTableException, EmptyBagException {
         schoolBoard.addStudentsOnEntrance(bag.drawStudents(9));
         Student[] entrance = schoolBoard.getStudentsFromEntrance();
