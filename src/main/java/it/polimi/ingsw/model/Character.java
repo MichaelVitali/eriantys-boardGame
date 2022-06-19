@@ -140,6 +140,9 @@ public class Character extends Round implements Serializable {
     public String getStateMessageCli() { return round.getStateMessageCli(); }
 
     @Override
+    public String getStateMessageGui() { return round.getStateMessageGui(); }
+
+    @Override
     public boolean isPianificationPhaseEnded() { return round.isPianificationPhaseEnded(); }
 
     @Override
@@ -226,6 +229,7 @@ public class Character extends Round implements Serializable {
         if(resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
         round.setPlayerMessageCli(getPlayerOnTurn(), getStateMessageCli());
+        round.setPlayerMessageGui(getPlayerOnTurn(), getStateMessageGui());
     }
 
     @Override

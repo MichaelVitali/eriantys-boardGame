@@ -107,7 +107,7 @@ public class Minstrel extends Character  {
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessageCli("How many Students do you want to change");
         round.getGame().getPlayer(playerID).setPlayerMessageGui("How many Students do you want to change");
-        //if (getRound().getGame().getGameTable().getSchoolBoards()[playerID].getTotalNumberOfStudentsOnTables() == 0) throw new EffectCannotBeActivatedException("The Minstrel cannot be activated: you don't have students on tables!");
+        if (round.getGame().getGameTable().getSchoolBoards()[playerID].getTotalNumberOfStudentsOnTables() == 0) throw new EffectCannotBeActivatedException("The Minstrel cannot be activated: you don't have students on the tables!");
         super.activateEffect(playerID, round);
         setRoundState(4);
         return this;

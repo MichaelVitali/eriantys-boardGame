@@ -703,7 +703,7 @@ public class BoardController extends GuiController {
      */
     @FXML
     public void assistantClick(MouseEvent event) {
-        int indexCard = Integer.valueOf(((Button) event.getSource()).getId().substring(9,10));
+        int indexCard = Integer.parseInt(((Button) event.getSource()).getId().substring(9,10));
 
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
         System.out.println("inviato messaggio PlayAssistantMessage");
@@ -715,7 +715,7 @@ public class BoardController extends GuiController {
      * @param event
      */
     public void myEntranceClick(ActionEvent event) {
-        int indexStudent = Integer.valueOf(((Button) event.getSource()).getId().substring(10));
+        int indexStudent = Integer.parseInt(((Button) event.getSource()).getId().substring(10));
         state = 1;
         if (indexStudent != studentMoved) {
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);

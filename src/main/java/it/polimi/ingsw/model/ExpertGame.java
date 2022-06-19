@@ -175,10 +175,10 @@ public class ExpertGame extends Game {
         try {
             int cost = getCostCharacter(indexCard);
             if (playersCoins[playerId] < cost) throw new NotEnoughCoins();
-            removeCoinsFromAPlayer(playerId, cost);
-            addCoinsToTheTable(cost);
             if (!getCharacter(indexCard).getFirstUse()) getCharacter(indexCard).setFirstUse();
             setRound(characters[indexCard].activateEffect(playerId, getRound()));
+            removeCoinsFromAPlayer(playerId, cost);
+            addCoinsToTheTable(cost);
             sendGame();
         } catch (InvalidIndexException e) {
             e.printStackTrace(); // Non esiste quell'indice
