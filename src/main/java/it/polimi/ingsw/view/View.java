@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.Observable;

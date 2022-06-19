@@ -125,18 +125,19 @@ public class BoardController extends GuiController {
 
     private ImageView motherNature;
     private int indexLastCharacterPlayed;
+    private boolean toInitialize = true;
 
     /**
-     *
-     * @return
+     * Returns the board sent by the server
+     * @return board sent by the server
      */
     public GameMessage getBoard() {
         return board;
     }
 
     /**
-     *
-     * @param board
+     * Sets the board which is the stuff to show
+     * @param board board to show on the graphic user interface
      */
     public void setBoard(GameMessage board) {
         this.board = board;
@@ -225,10 +226,50 @@ public class BoardController extends GuiController {
 
         clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
         studentsClouds.put("cloud0Student0", cloud0Student0); studentsClouds.put("cloud0Student1", cloud0Student1); studentsClouds.put("cloud0Student2", cloud0Student2); studentsClouds.put("cloud0Student3", cloud0Student3); studentsClouds.put("cloud1Student0", cloud1Student0); studentsClouds.put("cloud1Student1", cloud1Student1); studentsClouds.put("cloud1Student2", cloud1Student2); studentsClouds.put("cloud1Student3", cloud1Student3);
-        studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2); studentsClouds.put("cloud3Student3", cloud3Student3);
+        studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2);
 
         indexLastCharacterPlayed = 0;
         enemyBoardDisplayed = 1;
+    }
+
+    /**
+     *
+     */
+    private void adaptCloud() {
+        cloud0Student0.setLayoutX(6.0);
+        cloud0Student0.setLayoutY(45.0);
+        cloud0Student1.setLayoutX(33.0);
+        cloud0Student1.setLayoutY(20.0);
+        cloud0Student2.setLayoutX(58.0);
+        cloud0Student2.setLayoutY(45.0);
+
+        cloud1Student0.setLayoutX(6.0);
+        cloud1Student0.setLayoutY(45.0);
+        cloud1Student1.setLayoutX(33.0);
+        cloud1Student1.setLayoutY(20.0);
+        cloud1Student2.setLayoutX(58.0);
+        cloud1Student2.setLayoutY(45.0);
+
+        cloud2Student0.setLayoutX(6.0);
+        cloud2Student0.setLayoutY(45.0);
+        cloud2Student1.setLayoutX(33.0);
+        cloud2Student1.setLayoutY(20.0);
+        cloud2Student2.setLayoutX(58.0);
+        cloud2Student2.setLayoutY(45.0);
+    }
+
+    /**
+     *
+     */
+    private void adaptTowers() {
+        for (int i = 0; i < 6; i++) {
+            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
+            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
+        }
+        myTowers.get("myTower6").setVisible(false);
+        myTowers.get("myTower7").setVisible(false);
+        enemyTowers.get("enemyTower6").setVisible(false);
+        enemyTowers.get("enemyTower7").setVisible(false);
     }
 
     /**
@@ -246,10 +287,23 @@ public class BoardController extends GuiController {
                     myEntrance8.setVisible(false);
                     cloud2.setVisible(false);
                     cloud3.setVisible(false);
-                    centerUpperAnchorPane.setPrefWidth(200);
+                    cloudPane2.setVisible(false);
+                    cloudPane3.setVisible(false);
+                    for (int i = 0; i < 4; i++)
+                        studentsClouds.get("cloud2Student" + i).setVisible(false);
+                    for (int i = 0; i < 3; i++)
+                        studentsClouds.get("cloud3Student" + i).setVisible(false);
+                    cloudPane0.setTranslateX(100);
+                    cloudPane1.setTranslateX(100);
                 } else if (board.getNumberOfPLayers() == 3) {
                     player4.setVisible(false);
                     cloud3.setVisible(false);
+                    cloudPane3.setVisible(false);
+                    cloudPane0.setTranslateX(50);
+                    cloudPane1.setTranslateX(50);
+                    cloudPane2.setTranslateX(50);
+                    for (int i = 0; i < 3; i++)
+                        studentsClouds.get("cloud3Student" + i).setVisible(false);
                     centerUpperAnchorPane.setPrefWidth(300);
                     adaptCloud();
                     adaptTowers();
@@ -260,33 +314,15 @@ public class BoardController extends GuiController {
                     myEntrance8.setVisible(false);
                 }
                 displayBoard(1);
+                toInitialize = false;
         });
-        System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
-        motherNature = new ImageView(new Image("/images/Board/mn.jpeg", 25, 25,  true, false));
+        //System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
+        motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
         islandPanes.get(pane).getChildren().add(motherNature);
         motherNature.setX(50);
         motherNature.setY(40);
     }
-
-    /*private List<String> getShapeCoordinates(int elements, double edge) {
-        List coordinates = new ArrayList<String>();
-        switch(elements) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                coordinates.add("");
-                break;
-            case 4:
-
-                break;
-            case 5:
-                break;
-        }
-        return coordinates;
-    }*/
 
     /**
      * Sets the student image on the node selecting the color of the student passed as parameter
@@ -341,6 +377,7 @@ public class BoardController extends GuiController {
      * @param color
      */
     public void setProfessor(ImageView node, PawnColor color) {
+        //System.out.println("Colora professori");
         Platform.runLater(() -> {
             double x = 0;
             if(node != null) {
@@ -377,6 +414,7 @@ public class BoardController extends GuiController {
                     node.setFitHeight(30.0);
                     node.setFitWidth(30.0);
                 }
+                node.setPreserveRatio(true);
             }
         });
     }
@@ -392,29 +430,33 @@ public class BoardController extends GuiController {
                 if (color != null) {
                     switch (color) {
                         case WHITE:
-                            node.setImage(new Image("/images/Board/Schoolboards/Towers/white.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/whiteTower.png"));
+                            node.setFitHeight(40);
+                            node.setFitWidth(40);
                             break;
                         case BLACK:
-                            node.setImage(new Image("/images/Board/Schoolboards/Towers/black.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/blackTower.png"));
+                            node.setFitHeight(40);
+                            node.setFitWidth(40);
                             break;
                         case GREY:
-                            node.setImage(new Image("/images/Board/Schoolboards/Towers/gray.png"));
-                            node.setFitHeight(24);
-                            node.setFitWidth(24);
+                            node.setImage(new Image("/images/Board/Schoolboards/Towers/greyTower.png"));
+                            node.setFitHeight(40);
+                            node.setFitWidth(40);
                             break;
                     }
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
-                    node.setFitHeight(24);
-                    node.setFitWidth(24);
+                    node.setFitHeight(40);
+                    node.setFitWidth(40);
                 }
                 node.setPreserveRatio(true);
             }
         });
+    }
+
+    public void displayEnemySchoolboard() {
+        displayEnemySchoolboard(enemyBoardDisplayed);
     }
 
     /**
@@ -422,110 +464,174 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayEnemySchoolboard(int playerOffset) {
-        int dist = 30;
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
-                SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
-                for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
-                    setStudent(enemyEntrance.get(("enemyEntrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
-                }
-                for (int i = 0; i < PawnColor.values().length; i++) {
-                    for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
-                        try {
-                            //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
-                            setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                        } catch (InvalidIndexException e) {
-                            e.printStackTrace();
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    for (int j = 0; j < 10; j++) enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
-                    dist += 42;
-                    for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
-                        setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
-                    }
-                }
-                for (int i = 0; i < PawnColor.values().length; i++) {
-                    try {
-                        if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
-                            //System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
-                            setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                        } else {
-                            //System.out.println("Stampo prof enemy vuoto");
-                            setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
-                        }
-                    } catch (InvalidIndexException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                //System.out.println("Enemy" + schoolBoard.getTowers().size());
-                for (int i = 0; i < schoolBoard.getTowers().size(); i++)
-                    setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
-                for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++)
-                    setTower(enemyTowers.get(("enemyTower" + i)), null);
-            }
-            if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
-                enemyAssistant.setVisible(true);
-                enemyAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()].getAssistant().getCardValue() - 1) + ".png"));
-            } else {
-                enemyAssistant.setVisible(false);
+                displayEnemyEntrance(playerOffset);
+                displayEnemyTables(playerOffset);
+                displayEnemyProfessors(playerOffset);
+                displayEnemyAssistant(playerOffset);
             }
         }
+    }
+
+    public void displayEnemyAssistant() {
+        displayEnemyAssistant(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyAssistant(int playerOffset) {
+        if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
+            enemyAssistant.setVisible(true);
+            enemyAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()].getAssistant().getCardValue() - 1) + ".png"));
+        } else {
+            enemyAssistant.setVisible(false);
+        }
+    }
+
+    public void displayEnemyEntrance() {
+        displayEnemyEntrance(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyEntrance(int playerOffset) {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
+            setStudent(enemyEntrance.get(("enemyEntrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
+        }
+    }
+
+    public void displayEnemyTables() {
+        displayEnemyTables(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyTables(int playerOffset) {
+        int dist = 30;
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
+                try {
+                    //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
+                    setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                } catch (InvalidIndexException e) {
+                    e.printStackTrace();
+                    //System.out.println(e.getMessage());
+                }
+            }
+            for (int j = 0; j < 10; j++) enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
+            dist += 42;
+            for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
+            }
+        }
+    }
+
+    public void displayEnemyProfessors() {
+        displayEnemyProfessors(enemyBoardDisplayed);
+    }
+    public void displayEnemyProfessors(int playerOffset) {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            try {
+                if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
+                    //System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
+                    setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
+                } else {
+                    //System.out.println("Stampo prof enemy vuoto");
+                    setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
+                }
+            } catch (InvalidIndexException e) {
+                //System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void displayEnemyTowers() {
+        displayEnemyTowers(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyTowers(int playerOffset) {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < schoolBoard.getTowers().size(); i++)
+            setTower(enemyTowers.get(("enemyTower" + i)), schoolBoard.getTowers().get(i).getColor());
+        for (int i = schoolBoard.getTowers().size(); i < (board.getNumberOfPLayers() == 3 ? 6 : 8); i++)
+            setTower(enemyTowers.get(("enemyTower" + i)), null);
+
     }
 
     /**
      * Displays the schoolboard of the actual player
      */
     public void displayMySchoolboard() {
-
-        int dist = 22;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
-            for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
-                setStudent(myEntranceImages.get(("myEntranceImage" + i)), schoolBoard.getStudentsFromEntrance()[i]);
-            }
-            for (int i = 0; i < PawnColor.values().length; i++) {
-                for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
-                    try {
-                        setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
-                    } catch (InvalidIndexException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
-                dist += 42;
-                for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
-                    setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
-                }
-            }
-            for (int i = 0; i < PawnColor.values().length; i++) {
-                try {
-                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
-                        setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                    }
-                    else {
-                        setProfessor(myProfessors.get(("myProfessor" + i)), null);
-                        myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
-                        myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
-                    }
-                } catch (InvalidIndexException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
-                setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
-            }
-            for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
-                setTower(myTowers.get(("myTower" + i)), null);
-            }
+            displayMyEntrance();
+            displayMyTables();
+            displayMyProfessors();
+            //System.out.println("My" + schoolBoard.getTowers().size());
+            displayMyTowers();
             if (board.getGameMode() == GameMode.EXPERT) coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
-            if (board.getPlayedAssistants()[myPlayerId] != null) {
-                myAssistant.setVisible(true);
-                myAssistant.preserveRatioProperty();
-                myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
-            } else {
-                myAssistant.setVisible(false);
+            //displayMyAssistant();
+        }
+    }
+
+    public void displayMyAssistant() {
+        if (board.getPlayedAssistants()[myPlayerId] != null) {
+            myAssistant.setVisible(true);
+            myAssistant.preserveRatioProperty();
+            myAssistant.setImage(new Image("/images/Assistant/assistant" + (board.getPlayedAssistants()[myPlayerId].getAssistant().getCardValue() - 1) + ".png"));
+        } else {
+            myAssistant.setVisible(false);
+        }
+    }
+
+    public void displayMyEntrance() {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
+            setStudent(myEntranceImages.get(("myEntranceImage" + i)), schoolBoard.getStudentsFromEntrance()[i]);
+        }
+    }
+
+    public void displayMyTables() {
+        int dist = 22;
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
+                try {
+                    setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
+                } catch (InvalidIndexException e) {
+                    //System.out.println(e.getMessage());
+                }
             }
+            for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
+            dist += 42;
+            for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
+            }
+        }
+    }
+    public void displayMyProfessors() {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            try {
+                if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
+                    setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
+                }
+                else {
+                    setProfessor(myProfessors.get(("myProfessor" + i)), null);
+                    myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
+                    myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
+                }
+            } catch (InvalidIndexException e) {
+                //System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void displayMyTowers() {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
+            setTower(myTowers.get(("myTower" + i)), schoolBoard.getTowers().get(i).getColor());
+        }
+        for (int i = schoolBoard.getTowers().size(); i < 8; i++) {
+            setTower(myTowers.get(("myTower" + i)), null);
         }
     }
 
@@ -544,25 +650,11 @@ public class BoardController extends GuiController {
      * Displays the islands, rendering students, towers and mother nature
      */
     public void displayIslands() {
-        System.out.println("displayIslands");
+        //System.out.println("displayIslands");
         // problema con il postman
         if(board != null && board.getGametable() != null && board.getGametable().getIslands() != null) {
+            displayIslandEffect();
             Platform.runLater(() -> {
-                if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
-                    for (int i = 0; i < board.getNumberOfPLayers(); i++) {
-                        if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
-                            Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
-                            for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
-                                islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
-                            }
-                        }
-                    }
-
-                } else {
-                    for (int i = 0; i < 12; i++) {
-                        islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
-                    }
-                }
                 for (int i = 0; i < 12; i++) {
                     String pane = "islandPane" + i;
                     if (islandPanes.get(pane).getChildren().contains(motherNature))
@@ -588,17 +680,36 @@ public class BoardController extends GuiController {
                 }
 
                 for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
-                    if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
+                    /*if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
                         System.out.println("Isola " + i + " vuota");
-                    else
-                        if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
-                            setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
+                    else*/
+                    if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
+                        setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
                 }
                 //System.out.println("Uscito");
             });
         }
     }
 
+    public void displayIslandEffect() {
+        Platform.runLater(() -> {
+            if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
+                for (int i = 0; i < board.getNumberOfPLayers(); i++) {
+                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                        Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
+                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
+                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        }
+                    }
+                }
+
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                }
+            }
+        });
+    }
     /**
      *
      */
@@ -626,9 +737,11 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        System.out.println(board.getPlayerMessageCli());
+        //System.out.println(board.getPlayerMessageCli());
         displayEnemySchoolboard(playerOffset);
+        displayEnemyTowers(playerOffset);
         displayMySchoolboard();
+        displayMyTowers();
         displayIslands();
         displayClouds();
         displayAssistants();
@@ -691,9 +804,15 @@ public class BoardController extends GuiController {
                                   }
                 );
             } else {
-                displayBoard(enemyBoardDisplayed);
+                if (toInitialize) {
+                    displayBoard(enemyBoardDisplayed);
+                    toInitialize = false;
+                } else {
+                    board.renderWhatNeeded(this);
+                    System.out.println(board.getClass());
+                }
             }
-            System.out.println(((GameMessage) message).getPlayerMessageCli());
+            //System.out.println(((GameMessage) message).getPlayerMessageCli());
         }
     }
 
@@ -706,7 +825,7 @@ public class BoardController extends GuiController {
         int indexCard = Integer.parseInt(((Button) event.getSource()).getId().substring(9,10));
 
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
-        System.out.println("inviato messaggio PlayAssistantMessage");
+        //System.out.println("inviato messaggio PlayAssistantMessage");
         myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
@@ -743,7 +862,7 @@ public class BoardController extends GuiController {
         } else if (board.getGameMode() == GameMode.EXPERT && board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 6) {
             String button = ((Button) event.getSource()).getId();
             int indexTable = Integer.parseInt(button.substring(5,6));
-            System.out.println(indexTable);
+            //System.out.println(indexTable);
             getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexTable));
         }
         myEntrance.get("myEntrance" + studentMoved).setEffect(null);
@@ -954,7 +1073,7 @@ public class BoardController extends GuiController {
     public void cloudClick(MouseEvent event) {
         int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
         getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
-        System.out.println(cloudIndex);
+        //System.out.println(cloudIndex);
         myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
@@ -1031,7 +1150,6 @@ public class BoardController extends GuiController {
                                 } else if (board.getCharacters()[i] instanceof Healer) {
                                     for (int j = 0; j < 4; j++) {
                                         if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
-                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
                                             studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
                                         } else {
                                             Image image2 = new Image("/images/Character/prohibition.png");
@@ -1060,7 +1178,6 @@ public class BoardController extends GuiController {
                                 } else if (board.getCharacters()[i] instanceof Healer) {
                                     for (int j = 0; j < 4; j++) {
                                         if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
-                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
                                             studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
                                         } else {
                                             Image image2 = new Image("/images/Character/prohibition.png");
@@ -1089,7 +1206,6 @@ public class BoardController extends GuiController {
                                 } else if (board.getCharacters()[i] instanceof Healer) {
                                     for (int j = 0; j < 4; j++) {
                                         if (j >= ((Healer) board.getCharacters()[i]).getNumberOfProibitionCard()) {
-                                            System.out.println("SONO DENTROOOOOOOOOOOOO");
                                             studentsCards.get("student" + (j+1) + "Character" + (i+1)).setVisible(false);
                                         } else {
                                             Image image2 = new Image("/images/Character/prohibition.png");
@@ -1237,37 +1353,6 @@ public class BoardController extends GuiController {
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         indexLastCharacterPlayed = indexCard;
-        System.out.println("Character played " + indexCard);
-    }
-
-
-    private void adaptCloud() {
-        cloud0Student0.setLayoutX(6.0);
-        cloud0Student0.setLayoutY(45.0);
-        cloud0Student1.setLayoutX(33.0);
-        cloud0Student1.setLayoutY(20.0);
-        cloud0Student2.setLayoutX(58.0);
-        cloud0Student2.setLayoutY(45.0);
-
-        cloud1Student0.setLayoutX(6.0);
-        cloud1Student0.setLayoutY(45.0);
-        cloud1Student1.setLayoutX(33.0);
-        cloud1Student1.setLayoutY(20.0);
-        cloud1Student2.setLayoutX(58.0);
-        cloud1Student2.setLayoutY(45.0);
-
-        cloud2Student0.setLayoutX(6.0);
-        cloud2Student0.setLayoutY(45.0);
-        cloud2Student1.setLayoutX(33.0);
-        cloud2Student1.setLayoutY(20.0);
-        cloud2Student2.setLayoutX(58.0);
-        cloud2Student2.setLayoutY(45.0);
-    }
-
-    private void adaptTowers() {
-        for (int i = 0; i < 6; i++) {
-            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
-            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
-        }
+        //System.out.println("Character played " + indexCard);
     }
 }

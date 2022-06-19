@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.OutOfBoundException;
 
 import java.io.Serializable;
 import java.util.*;
@@ -14,6 +15,7 @@ public class Player implements Serializable {
     private List<Assistant> assistants;
     private String messageCli;
     private String messageGui;
+    private boolean error;
     private Wizard wizard;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
@@ -21,7 +23,16 @@ public class Player implements Serializable {
         this.playerId = playerId;
         this.assistants = new ArrayList<>();
         this.assistants.addAll(assistants);
-        this.wizard = null;
+        error = false;
+        wizard = null;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 
     public void setWizard(Wizard wizard){

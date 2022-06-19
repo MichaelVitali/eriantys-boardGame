@@ -9,6 +9,7 @@ public class Round implements Serializable {
 
     private Game game;
     protected int roundState;
+    private int previousState;
     private int[] movesCounter;                     // In indice playerId si trovano gli spostamenti di studenti fatti dal giocatore con tale id
     private int indexOfPlayerOnTurn;               // Indice in playerOrder del giocatore che sta giocando
     private int[] playerOrder;                      // Da 0 al numero di player identifica l'ordine di essi in quella fase di gioco
@@ -25,6 +26,7 @@ public class Round implements Serializable {
         playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++) playerOrder[i] = (playerOrder[i - 1] + 1) % game.getNumberOfPlayers();
         roundState = 0;
+        previousState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
         for (int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
@@ -105,6 +107,14 @@ public class Round implements Serializable {
 
     public int getRoundState(){
         return roundState;
+    }
+
+    public int getPreviousState() {
+        return previousState;
+    }
+
+    public void setPreviousState(int previousState) {
+        this.previousState = previousState;
     }
 
     public int[] getMovesCounter(){
@@ -260,6 +270,7 @@ public class Round implements Serializable {
 
     public void switchToActionPhase() {
         setActionPhaseOrder();
+        previousState = 0;
         roundState = 1;
         indexOfPlayerOnTurn = 0;
     }
@@ -271,7 +282,7 @@ public class Round implements Serializable {
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isTimeToChooseTheNextStudent()) {
-
+            previousState = 1;
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
             roundEnded = true;
@@ -280,10 +291,13 @@ public class Round implements Serializable {
                 game.endTheMatch();
             }
         } else if (isTimeToMoveMotherNature()) {
+            previousState = 1;
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
+            previousState = 2;
             roundState = 3;
         } else if (cloudHasBeenChosen()) {
+            previousState = 3;
             roundState = 1;
             indexOfPlayerOnTurn++;
             alreadyPlayedCharacter = false;
