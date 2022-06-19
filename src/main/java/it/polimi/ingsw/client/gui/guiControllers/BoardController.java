@@ -263,8 +263,8 @@ public class BoardController extends GuiController {
      */
     private void adaptTowers() {
         for (int i = 0; i < 6; i++) {
-            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 45.0);
-            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 45.0);
+            myTowers.get("myTower" + i).setLayoutX(myTowers.get("myTower" + i).getLayoutX() + 20.0);
+            enemyTowers.get("enemyTower" + i).setLayoutX(enemyTowers.get("enemyTower" + i).getLayoutX() + 20.0);
         }
         myTowers.get("myTower6").setVisible(false);
         myTowers.get("myTower7").setVisible(false);
@@ -836,16 +836,18 @@ public class BoardController extends GuiController {
     public void myEntranceClick(ActionEvent event) {
         int indexStudent = Integer.parseInt(((Button) event.getSource()).getId().substring(10));
         state = 1;
-        if (indexStudent != studentMoved) {
+        if (indexStudent == studentMoved) {
+            myEntrance.get("myEntrance" + indexStudent).setEffect(null);
+        } else {
             myEntrance.get("myEntrance" + studentMoved).setEffect(null);
-        }
-        myEntrance.get("myEntrance" + indexStudent).setEffect(new Glow(0.8));
-        studentMoved = indexStudent;
-        if (board.getGameMode() == GameMode.EXPERT) {
-            if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7 && board.getState() == 6){
-                getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
-            } else if (board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 5) {
-                getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
+            myEntrance.get("myEntrance" + indexStudent).setEffect(new Glow(0.8));
+            studentMoved = indexStudent;
+            if (board.getGameMode() == GameMode.EXPERT) {
+                if (board.getCharacters()[indexLastCharacterPlayed].getID() == 7 && board.getState() == 6) {
+                    getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
+                } else if (board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 5) {
+                    getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
+                }
             }
         }
     }
