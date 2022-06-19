@@ -11,12 +11,10 @@ public class PostGetStudentsFromCloudsMessage extends GameMessage {
 
     @Override
     public void renderWhatNeeded(BoardController controller) {
-        if (getPlayerOnTurn() == getPlayerId())
-            controller.displayMySchoolboard();
-        else
-            controller.displayEnemySchoolboard();
-        controller.showGameMessage();
+        controller.displayMyEntrance();
+        controller.displayEnemyEntrance();
         controller.displayClouds();
+        controller.showGameMessage();
     }
 }
 

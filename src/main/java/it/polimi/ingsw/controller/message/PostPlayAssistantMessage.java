@@ -11,10 +11,11 @@ public class PostPlayAssistantMessage extends GameMessage {
 
     @Override
     public void renderWhatNeeded(BoardController controller) {
-        if (getPlayerOnTurn() == getPlayerId())
-            controller.displayMyAssistant();
-        else
-            controller.displayEnemyAssistant();
+        controller.displayMyAssistant();
+        controller.displayEnemyAssistant();
+        controller.displayMyEntrance();
+        controller.displayEnemyEntrance();
+        controller.displayClouds();
         controller.showGameMessage();
     }
 

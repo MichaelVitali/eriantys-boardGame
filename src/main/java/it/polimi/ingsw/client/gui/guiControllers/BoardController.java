@@ -314,6 +314,7 @@ public class BoardController extends GuiController {
                     myEntrance8.setVisible(false);
                 }
                 displayBoard(1);
+                toInitialize = false;
         });
         //System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
         motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
@@ -463,44 +464,12 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayEnemySchoolboard(int playerOffset) {
-        int dist = 30;
         if (board != null) {
             if(playerOffset < board.getNumberOfPLayers()) {
-                SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
-                for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
-                    setStudent(enemyEntrance.get(("enemyEntrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
-                }
-                for (int i = 0; i < PawnColor.values().length; i++) {
-                    for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
-                        try {
-                            //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
-                            setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
-                        } catch (InvalidIndexException e) {
-                            e.printStackTrace();
-                            //System.out.println(e.getMessage());
-                        }
-                    }
-                    for (int j = 0; j < 10; j++) enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
-                    dist += 42;
-                    for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
-                        setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
-                    }
-                }
-                for (int i = 0; i < PawnColor.values().length; i++) {
-                    try {
-                        if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
-                            //System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
-                            setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                        } else {
-                            //System.out.println("Stampo prof enemy vuoto");
-                            setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
-                        }
-                    } catch (InvalidIndexException e) {
-                        //System.out.println(e.getMessage());
-                    }
-                }
-                //System.out.println("Enemy" + schoolBoard.getTowers().size());
-                //displayEnemyAssistant(playerOffset);
+                displayEnemyEntrance(playerOffset);
+                displayEnemyTables(playerOffset);
+                displayEnemyProfessors(playerOffset);
+                displayEnemyAssistant(playerOffset);
             }
         }
     }
@@ -518,9 +487,66 @@ public class BoardController extends GuiController {
         }
     }
 
+    public void displayEnemyEntrance() {
+        displayEnemyEntrance(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyEntrance(int playerOffset) {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
+            setStudent(enemyEntrance.get(("enemyEntrance" + i)), schoolBoard.getStudentsFromEntrance()[i]);
+        }
+    }
+
+    public void displayEnemyTables() {
+        displayEnemyTables(enemyBoardDisplayed);
+    }
+
+    public void displayEnemyTables(int playerOffset) {
+        int dist = 30;
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
+                try {
+                    //System.out.println("Stampo tavolo enemy" + PawnColor.associateIndexToPawnColor(i));
+                    setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));
+                } catch (InvalidIndexException e) {
+                    e.printStackTrace();
+                    //System.out.println(e.getMessage());
+                }
+            }
+            for (int j = 0; j < 10; j++) enemyTables.get("enemyStudent" + i + j).setLayoutX(dist);
+            dist += 42;
+            for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
+            }
+        }
+    }
+
+    public void displayEnemyProfessors() {
+        displayEnemyProfessors(enemyBoardDisplayed);
+    }
+    public void displayEnemyProfessors(int playerOffset) {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            try {
+                if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
+                    //System.out.println("Stampo prof enemy" + i + " " + schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i)));
+                    setProfessor(enemyProfessors.get(("enemyProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
+                } else {
+                    //System.out.println("Stampo prof enemy vuoto");
+                    setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
+                }
+            } catch (InvalidIndexException e) {
+                //System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public void displayEnemyTowers() {
         displayEnemyTowers(enemyBoardDisplayed);
     }
+
     public void displayEnemyTowers(int playerOffset) {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
         for (int i = 0; i < schoolBoard.getTowers().size(); i++)
@@ -534,41 +560,11 @@ public class BoardController extends GuiController {
      * Displays the schoolboard of the actual player
      */
     public void displayMySchoolboard() {
-
-        int dist = 22;
         if (board != null) {
             SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
-            for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
-                setStudent(myEntranceImages.get(("myEntranceImage" + i)), schoolBoard.getStudentsFromEntrance()[i]);
-            }
-            for (int i = 0; i < PawnColor.values().length; i++) {
-                for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
-                    try {
-                        setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
-                    } catch (InvalidIndexException e) {
-                        //System.out.println(e.getMessage());
-                    }
-                }
-                for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
-                dist += 42;
-                for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
-                    setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
-                }
-            }
-            for (int i = 0; i < PawnColor.values().length; i++) {
-                try {
-                    if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
-                        setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
-                    }
-                    else {
-                        setProfessor(myProfessors.get(("myProfessor" + i)), null);
-                        myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
-                        myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
-                    }
-                } catch (InvalidIndexException e) {
-                    //System.out.println(e.getMessage());
-                }
-            }
+            displayMyEntrance();
+            displayMyTables();
+            displayMyProfessors();
             //System.out.println("My" + schoolBoard.getTowers().size());
             displayMyTowers();
             if (board.getGameMode() == GameMode.EXPERT) coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
@@ -585,6 +581,50 @@ public class BoardController extends GuiController {
             myAssistant.setVisible(false);
         }
     }
+
+    public void displayMyEntrance() {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
+            setStudent(myEntranceImages.get(("myEntranceImage" + i)), schoolBoard.getStudentsFromEntrance()[i]);
+        }
+    }
+
+    public void displayMyTables() {
+        int dist = 22;
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            for (int j = 0; j < schoolBoard.getNumberOfStudentsOnTable(i); j++) {
+                try {
+                    setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
+                } catch (InvalidIndexException e) {
+                    //System.out.println(e.getMessage());
+                }
+            }
+            for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
+            dist += 42;
+            for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
+            }
+        }
+    }
+    public void displayMyProfessors() {
+        SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
+        for (int i = 0; i < PawnColor.values().length; i++) {
+            try {
+                if (schoolBoard.getProfessors().contains(PawnColor.associateIndexToPawnColor(i))) {
+                    setProfessor(myProfessors.get(("myProfessor" + i)), PawnColor.associateIndexToPawnColor(i));
+                }
+                else {
+                    setProfessor(myProfessors.get(("myProfessor" + i)), null);
+                    myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
+                    myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
+                }
+            } catch (InvalidIndexException e) {
+                //System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public void displayMyTowers() {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
         for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
@@ -613,22 +653,8 @@ public class BoardController extends GuiController {
         //System.out.println("displayIslands");
         // problema con il postman
         if(board != null && board.getGametable() != null && board.getGametable().getIslands() != null) {
+            displayIslandEffect();
             Platform.runLater(() -> {
-                if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
-                    for (int i = 0; i < board.getNumberOfPLayers(); i++) {
-                        if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
-                            Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
-                            for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
-                                islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
-                            }
-                        }
-                    }
-
-                } else {
-                    for (int i = 0; i < 12; i++) {
-                        islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
-                    }
-                }
                 for (int i = 0; i < 12; i++) {
                     String pane = "islandPane" + i;
                     if (islandPanes.get(pane).getChildren().contains(motherNature))
@@ -665,6 +691,25 @@ public class BoardController extends GuiController {
         }
     }
 
+    public void displayIslandEffect() {
+        Platform.runLater(() -> {
+            if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
+                for (int i = 0; i < board.getNumberOfPLayers(); i++) {
+                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                        Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
+                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
+                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        }
+                    }
+                }
+
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                }
+            }
+        });
+    }
     /**
      *
      */
@@ -759,10 +804,13 @@ public class BoardController extends GuiController {
                                   }
                 );
             } else {
-                if (toInitialize)
+                if (toInitialize) {
                     displayBoard(enemyBoardDisplayed);
-                else
+                    toInitialize = false;
+                } else {
                     board.renderWhatNeeded(this);
+                    System.out.println(board.getClass());
+                }
             }
             //System.out.println(((GameMessage) message).getPlayerMessageCli());
         }

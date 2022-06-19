@@ -12,9 +12,10 @@ public class PostAddStudentOnIslandMessage extends GameMessage {
     @Override
     public void renderWhatNeeded(BoardController controller) {
         if(getPlayerOnTurn() == getPlayerId())
-            controller.displayMySchoolboard();
+            controller.displayMyEntrance();
         else
-            controller.displayEnemySchoolboard();
+            controller.displayEnemyEntrance();
+        controller.displayIslandEffect();
         controller.displayIslands();
         controller.showGameMessage();
     }

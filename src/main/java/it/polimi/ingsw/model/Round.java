@@ -282,7 +282,7 @@ public class Round implements Serializable {
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isTimeToChooseTheNextStudent()) {
-
+            previousState = 1;
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
             roundEnded = true;

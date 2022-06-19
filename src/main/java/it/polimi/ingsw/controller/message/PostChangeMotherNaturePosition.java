@@ -11,11 +11,9 @@ public class PostChangeMotherNaturePosition extends GameMessage {
 
     @Override
     public void renderWhatNeeded(BoardController controller) {
-        if (getPlayerOnTurn() == getPlayerId())
-            controller.displayMyTowers();
-        else
-            controller.displayEnemyTowers();
-        controller.displayIslands();
+        controller.displayMyTowers();
+        controller.displayEnemyTowers();
+        controller.displayIslands(); /// da far modificare solo due islands
         controller.showGameMessage();
     }
 }

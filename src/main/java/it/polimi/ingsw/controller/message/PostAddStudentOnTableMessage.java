@@ -11,10 +11,16 @@ public class PostAddStudentOnTableMessage extends GameMessage {
 
     @Override
     public void renderWhatNeeded(BoardController controller) {
-        if (getPlayerOnTurn() == getPlayerId())
-            controller.displayMySchoolboard();
-        else
-            controller.displayEnemySchoolboard();
+        if (getPlayerOnTurn() == getPlayerId()) {
+            controller.displayMyEntrance();
+            controller.displayMyTables();
+            controller.displayMyProfessors();
+        } else {
+            controller.displayEnemyEntrance();
+            controller.displayEnemyTables();
+            controller.displayEnemyProfessors();
+        }
+        controller.displayIslandEffect();
         controller.showGameMessage();
     }
 }
