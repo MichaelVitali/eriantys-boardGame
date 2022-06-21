@@ -14,12 +14,12 @@ public class PostAddStudentOnTableMessage extends GameMessage {
         if (getPlayerOnTurn() == getPlayerId()) {
             controller.displayMyEntrance();
             controller.displayMyTables();
-            controller.displayMyProfessors();
         } else {
             controller.displayEnemyEntrance();
             controller.displayEnemyTables();
-            controller.displayEnemyProfessors();
         }
+        controller.displayMyProfessors();
+        controller.displayEnemyProfessors();
         controller.displayIslandEffect();
         controller.showGameMessage();
     }

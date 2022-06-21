@@ -93,6 +93,8 @@ public class BoardController extends GuiController {
 
     @FXML ImageView coinTableImage; @FXML ImageView bag; @FXML Label coinTableNumber;
 
+    @FXML Label myName; @FXML Label enemyName;
+
     //private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
     private Map<String, Button> studentsCards;
@@ -278,6 +280,8 @@ public class BoardController extends GuiController {
     public void adaptSceneToPlayers() {
         Platform.runLater(() -> {
                 if (board.getNumberOfPLayers() == 2) {
+                    enemyName.setVisible(true);
+                    enemyName.setText(board.getPlayersNicknames()[(myPlayerId + 1) % 2]);
                     player2.setVisible(false);
                     player3.setVisible(false);
                     player4.setVisible(false);
@@ -296,6 +300,11 @@ public class BoardController extends GuiController {
                     cloudPane0.setTranslateX(100);
                     cloudPane1.setTranslateX(100);
                 } else if (board.getNumberOfPLayers() == 3) {
+                    player2.setText(board.getPlayersNicknames()[(myPlayerId + 1) % 3]);
+                    player2.setPrefWidth(129);
+                    player3.setText(board.getPlayersNicknames()[(myPlayerId + 2) % 3]);
+                    player3.setPrefWidth(129);
+                    player3.setTranslateX(43);
                     player4.setVisible(false);
                     cloud3.setVisible(false);
                     cloudPane3.setVisible(false);
@@ -308,14 +317,18 @@ public class BoardController extends GuiController {
                     adaptCloud();
                     adaptTowers();
                 } else if (board.getNumberOfPLayers() == 4) {
+                    player2.setText(board.getPlayersNicknames()[(myPlayerId + 1) % 4]);
+                    player3.setText(board.getPlayersNicknames()[(myPlayerId + 2) % 4]);
+                    player4.setText(board.getPlayersNicknames()[(myPlayerId + 3) % 4]);
                     enemyEntrance7.setVisible(false);
                     enemyEntrance8.setVisible(false);
                     myEntrance7.setVisible(false);
                     myEntrance8.setVisible(false);
                 }
-                displayBoard(1);
-                                toInitialize = false;
+                myName.setText(board.getPlayersNicknames()[myPlayerId]);
         });
+        displayBoard(1);
+        toInitialize = false;
         //System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
         motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
@@ -337,35 +350,24 @@ public class BoardController extends GuiController {
                     switch (student.getColor()) {
                         case GREEN:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/green.png"));
-                            node.setFitHeight(30);
-                            node.setFitWidth(30);
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/red.png"));
-                            node.setFitHeight(30);
-                            node.setFitWidth(30);
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/yellow.png"));
-                            node.setFitHeight(30);
-                            node.setFitWidth(30);
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/pink.png"));
-                            node.setFitHeight(30);
-                            node.setFitWidth(30);
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Students/blue.png"));
-                            node.setFitHeight(30);
-                            node.setFitWidth(30);
                             break;
                     }
-                } else {
+                } else
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
-                    node.setFitHeight(30.0);
-                    node.setFitWidth(30.0);
-                }
+                node.setFitHeight(30.0);
+                node.setFitWidth(30.0);
                 node.setPreserveRatio(true);
             }
         });
@@ -377,7 +379,6 @@ public class BoardController extends GuiController {
      * @param color
      */
     public void setProfessor(ImageView node, PawnColor color) {
-        //System.out.println("Colora professori");
         Platform.runLater(() -> {
             double x = 0;
             if(node != null) {
@@ -385,30 +386,29 @@ public class BoardController extends GuiController {
                     switch (color) {
                         case GREEN:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/green.png"));
-                            x = 19.0;
+                            x = 3.0;
                             break;
                         case RED:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/red.png"));
-                            x = 61.0;
+                            x = 46.0;
                             break;
                         case YELLOW:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/yellow.png"));
-                            x = 102.0;
+                            x = 89.0;
                             break;
                         case PINK:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/pink.png"));
-                            x = 144.0;
+                            x = 132.0;
                             break;
                         case BLUE:
                             node.setImage(new Image("/images/Board/Schoolboards/Professors/blue.png"));
-                            x = 184.0;
+                            x = 175.0;
                             break;
                     }
-                    node.setPreserveRatio(true);
-                    node.setFitHeight(60.0);
-                    node.setFitWidth(60.0);
+                    node.setFitHeight(90.0);
+                    node.setFitWidth(90.0);
                     node.setLayoutX(x);
-                    node.setLayoutY(139.0);
+                    node.setLayoutY(129.0);
                 } else {
                     node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(30.0);
@@ -431,24 +431,20 @@ public class BoardController extends GuiController {
                     switch (color) {
                         case WHITE:
                             node.setImage(new Image("/images/Board/Schoolboards/Towers/whiteTower.png"));
-                            node.setFitHeight(40);
-                            node.setFitWidth(40);
                             break;
                         case BLACK:
                             node.setImage(new Image("/images/Board/Schoolboards/Towers/blackTower.png"));
-                            node.setFitHeight(40);
-                            node.setFitWidth(40);
                             break;
                         case GREY:
                             node.setImage(new Image("/images/Board/Schoolboards/Towers/greyTower.png"));
-                            node.setFitHeight(40);
-                            node.setFitWidth(40);
                             break;
                     }
-                } else {
-                    node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
                     node.setFitHeight(40);
                     node.setFitWidth(40);
+                } else {
+                    node.setImage(new Image("/images/Board/Schoolboards/circle.png"));
+                    node.setFitHeight(30);
+                    node.setFitWidth(30);
                 }
                 node.setPreserveRatio(true);
             }
@@ -536,6 +532,8 @@ public class BoardController extends GuiController {
                 } else {
                     //System.out.println("Stampo prof enemy vuoto");
                     setProfessor(enemyProfessors.get(("enemyProfessor" + i)), null);
+                    enemyProfessors.get(("enemyProfessor" + i)).setLayoutX(30.0 + (i * 42.0));
+                    enemyProfessors.get(("enemyProfessor" + i)).setLayoutY(147.0);
                 }
             } catch (InvalidIndexException e) {
                 //System.out.println(e.getMessage());
@@ -616,8 +614,8 @@ public class BoardController extends GuiController {
                 }
                 else {
                     setProfessor(myProfessors.get(("myProfessor" + i)), null);
-                    //myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i*42.0));
-                    //myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
+                    myProfessors.get(("myProfessor" + i)).setLayoutX(30.0 + (i * 42.0));
+                    myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
                 }
             } catch (InvalidIndexException e) {
                 //System.out.println(e.getMessage());
@@ -958,7 +956,7 @@ public class BoardController extends GuiController {
     }
 
     public void showAssistant(MouseEvent event) {
-        int idAssistant = Integer.parseInt(((Button) event.getSource()).getId().substring(9,10));
+        int idAssistant = Integer.parseInt(((Button) event.getSource()).getId().substring(9));
         idAssistant--;
         String imagePath = "/images/Assistant/assistant" + idAssistant + ".png";
         Image imageAssistant = new Image(imagePath);
@@ -975,7 +973,7 @@ public class BoardController extends GuiController {
         });
     }
 
-    private void displayAssistants() {
+    public void displayAssistants() {
         List<Integer> assistantNotPlayed = new ArrayList<>();
         for (Assistant as : board.getAssistants()) assistantNotPlayed.add(as.getCardValue());
         for (int i = 1; i <= 10; i++) {
