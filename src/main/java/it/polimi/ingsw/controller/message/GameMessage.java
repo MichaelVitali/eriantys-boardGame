@@ -48,6 +48,10 @@ public class GameMessage extends Message implements Serializable {
 
     }
 
+    public String[] getPlayersNicknames() {
+        return playersNicknames;
+    }
+
     public void renderWhatNeeded(BoardController controller) { }
 
     public Round.PlayedAssistant[] getPlayedAssistants() {
