@@ -14,7 +14,7 @@
          <Label fx:id="matchModeMessage" alignment="CENTER" layoutY="245.0" prefHeight="43.0" prefWidth="600.0" text="Choose the mode" />
          <Button fx:id="normalButton" layoutX="135.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#normalMode" prefHeight="50.0" prefWidth="90.0" text="Normal" />
          <Button fx:id="expertButton" layoutX="390.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#expertMode" prefHeight="50.0" prefWidth="90.0" text="Expert" />
-         <ImageView fitHeight="283.0" fitWidth="446.0" layoutX="95.0">
+         <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="43.0" layoutY="-20.0" preserveRatio="true">
             <image>
                <Image url="@../images/scrittaEriantys.png" />
             </image>

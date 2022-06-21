@@ -737,7 +737,6 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        //System.out.println(board.getPlayerMessageCli());
         displayEnemySchoolboard(playerOffset);
         displayEnemyTowers(playerOffset);
         displayMySchoolboard();

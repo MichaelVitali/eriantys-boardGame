@@ -15,7 +15,7 @@
                <TextField fx:id="nicknameBucket" alignment="CENTER" layoutX="110.0" layoutY="280.0" prefHeight="43.0" prefWidth="380.0" promptText="Nickname" />
                <Button layoutX="260.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="50.0" prefWidth="90.0" text="Confirm" textAlignment="CENTER" />
                <Label id="nicknameMessage" fx:id="nicknameMessage" alignment="CENTER" layoutY="245.0" prefHeight="30.0" prefWidth="600.0" text="Insert your name to start playing" />
-               <ImageView fitHeight="283.0" fitWidth="446.0" layoutX="95.0">
+               <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="43.0" layoutY="-20.0" preserveRatio="true">
                   <image>
                      <Image url="@../images/scrittaEriantys.png" />
                   </image>
