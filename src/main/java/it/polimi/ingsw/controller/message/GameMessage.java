@@ -390,15 +390,15 @@ public class GameMessage extends Message implements Serializable {
     public String returnCircleUnicodeForColor (PawnColor color) {
         switch (color.getIndex()) {
             case 0:
-                return "\uD83D\uDFE1";
-            case 1:
-                return "\uD83D\uDD35";
-            case 2:
                 return "\uD83D\uDFE2";
-            case 3:
+            case 1:
                 return "\uD83D\uDD34";
-            case 4:
+            case 2:
+                return "\uD83D\uDD35";
+            case 3:
                 return "\uD83D\uDFE3";
+            case 4:
+                return "\uD83D\uDD35";
         }
         return "";
     }
