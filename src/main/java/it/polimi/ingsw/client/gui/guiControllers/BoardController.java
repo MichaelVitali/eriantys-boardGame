@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-//import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -330,7 +329,7 @@ public class BoardController extends GuiController {
         displayBoard(1);
         toInitialize = false;
         //System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
-        motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
+        motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 35, 35,  true, false));
         String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
         islandPanes.get(pane).getChildren().add(motherNature);
         motherNature.setX(50);
@@ -1316,8 +1315,8 @@ public class BoardController extends GuiController {
         return "";
     }
 
-
     public void showGameMessage(){
+
         String playerMessage = board.getPlayerMessageGui();
         Platform.runLater(() -> {
                     labelGameMessage.setVisible(true);
@@ -1325,7 +1324,6 @@ public class BoardController extends GuiController {
         });
 
         Timer timer = new Timer();
-
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -1333,7 +1331,7 @@ public class BoardController extends GuiController {
                     labelGameMessage.setVisible(false);
                 });
             }
-        }, 50 * 1000);
+        }, 30 * 1000);
 
     }
 

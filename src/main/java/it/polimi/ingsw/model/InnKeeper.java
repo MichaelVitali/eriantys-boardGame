@@ -35,5 +35,4 @@ public class InnKeeper extends Character{
             }
         }
     }
-    //override addOnTable
 }

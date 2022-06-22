@@ -131,9 +131,9 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(0);
-        this.characters[1] = c.get(1);
-        this.characters[2] = c.get(2);
+        this.characters[0] = c.get(10);
+        this.characters[1] = c.get(4);
+        this.characters[2] = c.get(5);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
@@ -179,9 +179,8 @@ public class ExpertGame extends Game {
             setRound(characters[indexCard].activateEffect(playerId, getRound()));
             removeCoinsFromAPlayer(playerId, cost);
             addCoinsToTheTable(cost);
-            sendGame();
         } catch (InvalidIndexException e) {
-            e.printStackTrace(); // Non esiste quell'indice
+            e.printStackTrace();
         }
     }
 
