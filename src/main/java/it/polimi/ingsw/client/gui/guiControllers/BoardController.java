@@ -736,7 +736,6 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
-        //System.out.println(board.getPlayerMessageCli());
         displayEnemySchoolboard(playerOffset);
         displayEnemyTowers(playerOffset);
         displayMySchoolboard();
@@ -1327,14 +1326,14 @@ public class BoardController extends GuiController {
 
         Timer timer = new Timer();
 
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> {
-                        labelGameMessage.setVisible(false);
-                    });
-                }
-            }, 50 * 1000);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    labelGameMessage.setVisible(false);
+                });
+            }
+        }, 50 * 1000);
 
     }
 

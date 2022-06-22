@@ -15,7 +15,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-                <ImageView fitHeight="283.0" fitWidth="446.0" layoutX="95.0">
+                <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="43.0" layoutY="-20.0" preserveRatio="true">
                     <image>
                         <Image url="@../images/scrittaEriantys.png" />
                     </image>

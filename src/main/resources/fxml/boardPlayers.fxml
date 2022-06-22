@@ -614,8 +614,8 @@
 
                   <Label fx:id="labelGameMessage" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="800.0" styleClass="text" text="The magical world of Eriantys" />
 
-                  <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="70.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
-                  <AnchorPane layoutX="70.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
+                  <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="140.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
+                  <AnchorPane layoutX="140.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="student5Character1" layoutX="35.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="25.0" styleClass="characterStudentButton" visible="false" />
                         <Button fx:id="student2Character1" layoutX="65.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="25.0" styleClass="characterStudentButton" visible="false" />
@@ -625,8 +625,8 @@
                         <Button fx:id="student3Character1" layoutX="0.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="25.0" styleClass="characterStudentButton" visible="false" />
                      </children>
                   </AnchorPane>
-                  <ImageView fx:id="character2Image" fitHeight="125.0" fitWidth="100.0" layoutX="280.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
-                  <AnchorPane layoutX="280.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
+                  <ImageView fx:id="character2Image" fitHeight="125.0" fitWidth="100.0" layoutX="350.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
+                  <AnchorPane layoutX="350.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="student5Character2" layoutX="35.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                         <Button fx:id="student2Character2" layoutX="65.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
@@ -636,13 +636,13 @@
                         <Button fx:id="student3Character2" layoutX="0.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                      </children>
                   </AnchorPane>
-                  <ImageView fx:id="character3Image" fitHeight="125.0" fitWidth="100.0" layoutX="490.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
-                  <AnchorPane layoutX="490.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
+                  <ImageView fx:id="character3Image" fitHeight="125.0" fitWidth="100.0" layoutX="560.0" layoutY="550.0" onMouseClicked="#playCharacter" styleClass="characterImage" visible="false" />
+                  <AnchorPane layoutX="560.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="student3Character3" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                         <Button fx:id="student5Character3" layoutX="35.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                         <Button fx:id="student2Character3" layoutX="65.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
-                        <Button fx:id="student1Character3" layoutX="0.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
+                        <Button fx:id="student1Character3" layoutX="0.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                         <Button fx:id="student4Character3" layoutX="65.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                         <Button fx:id="student6Character3" layoutX="35.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                      </children>
