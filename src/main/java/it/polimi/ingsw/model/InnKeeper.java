@@ -15,8 +15,6 @@ public class InnKeeper extends Character{
     }
 
     @Override
-
-
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         super.activateEffect(playerID, round);
         changeProfessorEffect(playerID);
@@ -35,5 +33,4 @@ public class InnKeeper extends Character{
             }
         }
     }
-    //override addOnTable
 }
