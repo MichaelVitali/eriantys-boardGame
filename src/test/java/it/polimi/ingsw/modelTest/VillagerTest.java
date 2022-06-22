@@ -22,6 +22,7 @@ public class VillagerTest {
         nicknames.add("mike");
         nicknames.add("enri");
         round = new Round(new ExpertGame(2, nicknames));
+        character.setRound(round);
     }
 
     @Test
@@ -38,7 +39,7 @@ public class VillagerTest {
         assertEquals(4, character.getRoundState());
 
         character.doYourJob(0, 2);
-        assertEquals(null, character.getGame().getPlayer(0).getPlayerMessage());
+        assertEquals(null, character.getGame().getPlayer(0).getPlayerMessageCli());
         assertEquals(PawnColor.YELLOW, character.getStudentColor());
     }
 

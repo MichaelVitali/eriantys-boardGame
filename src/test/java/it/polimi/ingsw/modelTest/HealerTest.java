@@ -35,7 +35,7 @@ public class HealerTest {
         character.doYourJob(0, 1);
         assertEquals(3, character.getNumberOfProibitionCard());
         assertEquals(oldState, character.getRoundState());
-        assertEquals(character.getStateMessage(), character.getGame().getPlayer(0).getPlayerMessage());
+        assertEquals(character.getStateMessageCli(), character.getGame().getPlayer(0).getPlayerMessageCli());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class HealerTest {
     @Test
     public void testTestActivateEffect() throws EffectCannotBeActivatedException {
         character.activateEffect(0, round);
-        assertEquals("Select an island where you want to put the prohibition card", round.getGame().getPlayer(0).getPlayerMessage());
+        assertEquals("Select an island where you want to put the prohibition card", round.getGame().getPlayer(0).getPlayerMessageCli());
         assertEquals(4, character.getRoundState());
     }
 

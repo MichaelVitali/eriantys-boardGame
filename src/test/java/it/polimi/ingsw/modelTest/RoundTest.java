@@ -347,10 +347,10 @@ public class RoundTest {
 
     @Test
     public void testPlayAssistant() throws InvalidIndexException {
-        int[] playerOrder={0,1};
+        int[] playerOrder = {0, 1};
         game2p.startRound(playerOrder);
-        int playerId=0;
-        int idAssistant=1;
+        int playerId = 0;
+        int idAssistant = 1;
         Assistant played = game2p.getPlayer(playerId).getAssistant(idAssistant);
 
         game2p.getRound().playAssistant(playerId, idAssistant);
@@ -359,14 +359,14 @@ public class RoundTest {
         game2p.getRound().playAssistant(playerId, idAssistant);
         assertEquals(played, game2p.getRound().getPlayedAssistants()[playerId].getAssistant());
 
-        playerId=game2p.getRound().getPlayerOrder()[1];
+        playerId = game2p.getRound().getPlayerOrder()[1];
         game2p.getRound().setRoundState(1);
         game2p.getRound().playAssistant(playerId, idAssistant);
-        assertEquals("You cannot play any assistant now", game2p.getPlayer(playerId).getPlayerMessageCli());
+        assertEquals("You cannot play any assistant now\n" +
+                "Make your move:\n" +
+                "1 : Move a student from entrance to table\n" +
+                "2 : Move a student from entrance to an island", game2p.getPlayer(playerId).getPlayerMessageCli());
 
-        game2p.getRound().setRoundState(0);
-        game2p.getRound().playAssistant(1, 11);
-        assertEquals("The assistant doesn't exist!\nSelect an assistant", game2p.getPlayer(playerId).getPlayerMessageCli());
     }
 
     @Test
@@ -521,13 +521,9 @@ public class RoundTest {
         playerId=1;
         game2p.getRound().setRoundState(2);
         game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You cannot get students from cloud now", game2p.getPlayer(playerId).getPlayerMessageCli());
-/*
-        cloudIndex=4;
-        game2p.getRound().setRoundState(3);
-        game2p.getRound().getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("The chosen cloud doesn't exist", game2p.getPlayer(playerId).getPlayerMessage());
-*/
+        assertEquals("You cannot get students from cloud now\n" +
+                "Mother nature position: " + game2p.getGameTable().getMotherNaturePosition() + "\n" +
+                "Select an island where mother nature has to move: ", game2p.getPlayer(playerId).getPlayerMessageCli());
     }
 
     @Test
