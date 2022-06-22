@@ -658,11 +658,15 @@ public class BoardController extends GuiController {
                     if (islandPanes.get(pane).getChildren().contains(motherNature))
                         islandPanes.get(pane).getChildren().remove(motherNature);
                 }
+                for (int i = board.getGametable().getIslands().size(); i < 12; i++) {
+                    String pane = "islandPane" + i;
+                    islandPanes.get(pane).setVisible(false);
+                }
                 islandPanes.get("islandPane" + board.getGametable().getMotherNaturePosition()).getChildren().add(motherNature);
                 motherNature.setX(50);
                 motherNature.setY(40);
 
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
                     List<Student> students = board.getGametable().getIslands().get(i).getStudents();
                     List<PawnColor> colors = new ArrayList<>();
                     for (Student student : students)
@@ -678,9 +682,6 @@ public class BoardController extends GuiController {
                 }
 
                 for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
-                    /*if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
-                        System.out.println("Isola " + i + " vuota");
-                    else*/
                     if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
                         setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
                 }
@@ -702,7 +703,7 @@ public class BoardController extends GuiController {
                 }
 
             } else {
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
                     islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
                 }
             }
@@ -869,11 +870,11 @@ public class BoardController extends GuiController {
     }
 
     public void showStuffOnIslands(MouseEvent event) {
-        int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
-        if(islandIndex < 12 && islandIndex > -1) {
-            Island island = board.getGametable().getIslands().get(islandIndex);
-            if (island != null) {
-                Platform.runLater(() -> {
+        Platform.runLater(() -> {
+            int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
+            if(islandIndex < 12 && islandIndex > -1) {
+                Island island = board.getGametable().getIslands().get(islandIndex);
+                if (island != null) {
                     for (int i = 0; i < 5; i++) {
                         imageStudentsCounts.get("imageStudentsCount" + i).setVisible(true);
                         studentsCounts.get("studentsCount" + i).setVisible(true);
@@ -883,17 +884,16 @@ public class BoardController extends GuiController {
                             // It is never thrown
                         }
                     }
-                });
-                Platform.runLater(() -> {
                     imageTowersCount.setVisible(true);
+                    setTower(imageTowersCount, board.getGametable().getIslands().get(islandIndex).getTowers().size() == 0 ? null : board.getGametable().getIslands().get(islandIndex).getTowers().get(0).getColor());
                     towersCount.setVisible(true);
                     towersCount.setText("x" + String.valueOf(island.getTowers().size()));
                     assistantImage.setImage(new Image("images/Board/Islands/parchment.jpg", 80,130, false, false));
                     assistantImage.setVisible(true);
                     assistantImage.setTranslateY(-25.0);
-                });
+                }
             }
-        }
+        });
     }
 
     public void hideStuffOnIslands(MouseEvent event) {
