@@ -307,8 +307,7 @@ public class CharacterTest {
         round.getGame().getRound().setMovesCounter(playerId, 0);
         c.activateEffect(0, round);
         c.addStudentOnIsland(playerId, studentIndex, islandIndex);
-        assertNotNull( round.getGame().getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex)%round.getGame().getGameTable().getIslands().get(islandIndex).getStudents().size()));
-
+        assertNotNull( round.getGame().getGameTable().getIslands().get(islandIndex).getStudents().get((studentIndex)%round.getGame().getGameTable().getIslands().get(islandIndex).getStudents().size()%12));
     }
 
     @Test
@@ -385,7 +384,9 @@ public class CharacterTest {
         playerId = 1;
         round.setRoundState(2);
         c.getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You cannot get students from cloud now", round.getGame().getPlayer(playerId).getPlayerMessageCli());
+        assertEquals("You cannot get students from cloud now\n" +
+                "Mother nature position: " + round.getGame().getGameTable().getMotherNaturePosition() + "\n" +
+                "Select an island where mother nature has to move: ", round.getGame().getPlayer(playerId).getPlayerMessageCli());
     }
 
     @Test

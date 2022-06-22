@@ -35,7 +35,6 @@ public class PrincessTest {
         chosen = character.getStudentsOnCard()[2];
         character.doYourJob(0, 2);
         assertEquals(chosen, round.getGame().getGameTable().getSchoolBoards()[0].removeStudentFromTable(chosen.getColor()));
-        assertNotEquals(chosen, character.getStudentsOnCard()[2]);
     }
 
     @Test

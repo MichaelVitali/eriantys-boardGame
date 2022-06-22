@@ -31,6 +31,10 @@ public class Villager extends Character {
         }
     }
 
+    public PawnColor getStudentColor(){
+        return studentColor;
+    }
+
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         setPlayerMessageCli(playerID,"Select a student color { 0:GREEN - 1:RED - 2:YELLOW - 3:PINK - 4:BLUE}");
         setPlayerMessageGui(playerID,"Select a student color");
