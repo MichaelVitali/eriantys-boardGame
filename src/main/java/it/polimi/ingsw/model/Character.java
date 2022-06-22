@@ -128,13 +128,19 @@ public class Character extends Round implements Serializable {
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException { round.checkNumberOfMoves(playerId); }
 
     @Override
-    public void setPlayerMessage(int playerId, String message) { round.setPlayerMessage(playerId, message); }
+    public void setPlayerMessageCli(int playerId, String message) { round.setPlayerMessageCli(playerId, message); }
 
     @Override
-    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) { round.setMessageToAPlayerAndWaitingMessageForOthers(playerId, message); }
+    public void setPlayerMessageGui(int playerId, String message) { round.setPlayerMessageCli(playerId, message); }
 
     @Override
-    public String getStateMessage() { return round.getStateMessage(); }
+    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String messageCli, String messageGui) { round.setMessageToAPlayerAndWaitingMessageForOthers(playerId, messageCli, messageGui); }
+
+    @Override
+    public String getStateMessageCli() { return round.getStateMessageCli(); }
+
+    @Override
+    public String getStateMessageGui() { return round.getStateMessageGui(); }
 
     @Override
     public boolean isPianificationPhaseEnded() { return round.isPianificationPhaseEnded(); }
@@ -222,7 +228,8 @@ public class Character extends Round implements Serializable {
     public void deactivateEffect(boolean resetState) {
         if(resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
-        round.setPlayerMessage(getPlayerOnTurn(), getStateMessage());
+        round.setPlayerMessageCli(getPlayerOnTurn(), getStateMessageCli());
+        round.setPlayerMessageGui(getPlayerOnTurn(), getStateMessageGui());
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Herald extends Character{
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
             try {
-                if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist!\nChoose another one: ");
+                if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist!\nChoose another one");
                 int islandIndex = parameter;
                 int oldPosition = getRound().getGame().getGameTable().getMotherNaturePosition();
                 if (getRound().getGame().isAValidPositionForMotherNature(islandIndex)) {
@@ -47,7 +47,8 @@ public class Herald extends Character{
                 getRound().getGame().getGameTable().changeMotherNaturePosition(oldPosition);
                 deactivateEffect(true);
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageGui(playerId, e.getMessage());
                 getGame().sendGame();
             }
         }
@@ -55,7 +56,8 @@ public class Herald extends Character{
 
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
-        round.getGame().getPlayer(playerID).setPlayerMessage("Select Island");
+        round.getGame().getPlayer(playerID).setPlayerMessageCli("Select Island");
+        round.getGame().getPlayer(playerID).setPlayerMessageGui("Select Island");
         Round r = super.activateEffect(playerID, round);
         setRoundState(4);
         return r;

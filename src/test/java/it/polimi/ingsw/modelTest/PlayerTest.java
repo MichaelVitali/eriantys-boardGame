@@ -106,14 +106,14 @@ public class PlayerTest {
 
     @Test
     public void testGetPlayerMessage(){
-        player.setPlayerMessage("Error!");
-        assertEquals(player.getPlayerMessage(), "Error!");
+        player.setPlayerMessageCli("Error!");
+        assertEquals(player.getPlayerMessageCli(), "Error!");
     }
 
     @Test
     public void testSetPlayerMessage(){
-        player.setPlayerMessage("Error!");
-        assertEquals(player.getPlayerMessage(), "Error!");
+        player.setPlayerMessageCli("Error!");
+        assertEquals(player.getPlayerMessageCli(), "Error!");
     }
 
     @Test

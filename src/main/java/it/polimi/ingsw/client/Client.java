@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.ClientApp;
 import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.Message;
+import it.polimi.ingsw.controller.message.PostChangeMotherNaturePosition;
 import it.polimi.ingsw.controller.message.SetupMessage;
 import it.polimi.ingsw.observer.Observable;
 
@@ -67,7 +68,7 @@ public class Client extends Observable<Message> implements Runnable {
                             if(inputObject  != null) {
                                 Client.this.notify((SetupMessage) inputObject); //////Vedere se va bene
                             }
-                        } else if (inputObject instanceof GameMessage){
+                        } else if (inputObject instanceof GameMessage) {
 
                             if(inputObject  != null) {
                                 //System.out.println("board arrivata client");
@@ -77,6 +78,9 @@ public class Client extends Observable<Message> implements Runnable {
                                 //System.out.println("messaggio dal server nullo");
                             }
                         } else {
+                            System.out.println(inputObject.getClass());
+                            if(inputObject instanceof String)
+                                System.out.println((String) inputObject);
                             throw new IllegalArgumentException();
                         }
                     }

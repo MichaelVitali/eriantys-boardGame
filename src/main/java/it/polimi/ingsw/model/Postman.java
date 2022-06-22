@@ -57,16 +57,20 @@ public class Postman extends Character {
                 calculateNextPlayer();
                 deactivateEffect(false);
             } catch (TooFarIslandException e) {
-                String message = "You cannot put mother nature in the chosen island\n" + getStateMessage();
-                setPlayerMessage(playerId, message);
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island\n" + getStateMessageCli());
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island\n" + getStateMessageGui());
                 getGame().sendGame();
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island, it does not exist");
+                getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move mother nature now");
+            setPlayerMessageCli(playerId, "You cannot move mother nature now");
+            setPlayerMessageGui(playerId, "You cannot move mother nature now");
+            getGame().sendGame();
         }
     }
 

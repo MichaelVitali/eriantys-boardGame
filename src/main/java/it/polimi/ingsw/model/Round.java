@@ -9,6 +9,7 @@ public class Round implements Serializable {
 
     private Game game;
     protected int roundState;
+    private int previousState;
     private int[] movesCounter;                     // In indice playerId si trovano gli spostamenti di studenti fatti dal giocatore con tale id
     private int indexOfPlayerOnTurn;               // Indice in playerOrder del giocatore che sta giocando
     private int[] playerOrder;                      // Da 0 al numero di player identifica l'ordine di essi in quella fase di gioco
@@ -25,6 +26,7 @@ public class Round implements Serializable {
         playerOrder[0] = calculateFirstPlayer(game.getNumberOfPlayers());
         for (int i = 1; i < game.getNumberOfPlayers(); i++) playerOrder[i] = (playerOrder[i - 1] + 1) % game.getNumberOfPlayers();
         roundState = 0;
+        previousState = 0;
         movesCounter = new int[game.getNumberOfPlayers()];
         for (int i = 0; i < game.getNumberOfPlayers(); i++)
             movesCounter[i] = 0;
@@ -38,7 +40,7 @@ public class Round implements Serializable {
         playedAssistantsPF = new ArrayList<>();
 
 
-        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant");
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant", "Select an assistant");
     }
 
     public int getPlayerOnTurn() { return playerOrder[indexOfPlayerOnTurn]; }
@@ -47,7 +49,7 @@ public class Round implements Serializable {
         this(game);
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
             this.playerOrder[i] = playerOrder[i];
-        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant");
+        setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant", "Select an assistant");
     }
 
     /**
@@ -93,7 +95,7 @@ public class Round implements Serializable {
     public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
         System.out.println("messaggio da " + playerId);
         if(playerOrder[indexOfPlayerOnTurn] != playerId) {
-            setPlayerMessage(playerId, "You are not the current player");
+            setPlayerMessageCli(playerId, "You are not the current player");
             game.sendGame();
             throw new PlayerNotOnTurnException();
         }
@@ -105,6 +107,14 @@ public class Round implements Serializable {
 
     public int getRoundState(){
         return roundState;
+    }
+
+    public int getPreviousState() {
+        return previousState;
+    }
+
+    public void setPreviousState(int previousState) {
+        this.previousState = previousState;
     }
 
     public int[] getMovesCounter(){
@@ -143,22 +153,39 @@ public class Round implements Serializable {
         if(movesCounter[playerId] > 3) throw new TooManyMovesException();
     }
 
-    public void setPlayerMessage(int playerId, String message) {
-        game.getPlayer(playerId).setPlayerMessage(message);
+    public void setPlayerMessageCli(int playerId, String message) {
+        game.getPlayer(playerId).setPlayerMessageCli(message);
     }
 
-    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String message) {
-        setPlayerMessage(playerId, message);
+    public void setPlayerMessageGui(int playerId, String message) {
+        game.getPlayer(playerId).setPlayerMessageGui(message);
+    }
+
+    public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String messageCli, String messageGui) {
+        setPlayerMessageCli(playerId, messageCli);
+        setPlayerMessageGui(playerId, messageGui);
         for (int i = 0; i < game.getNumberOfPlayers(); i++) {
-            if (i != playerId) setPlayerMessage(i, "The player on turn is " + game.getPlayer(playerId).getNickname());
+            if (i != playerId) {
+                setPlayerMessageCli(i, "The player on turn is " + game.getPlayer(playerId).getNickname());
+                setPlayerMessageGui(i, "The player on turn is " + game.getPlayer(playerId).getNickname());
+            }
         }
     }
 
-    public String getStateMessage() {
+    public String getStateMessageCli() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
         else if (roundState == 1) message = "Make your move:\n1 : Move a student from entrance to table\n2 : Move a student from entrance to an island";
         else if (roundState == 2) message = "Mother nature position: " + game.getGameTable().getMotherNaturePosition() + "\nSelect an island where mother nature has to move: ";
+        else if (roundState == 3) message = "Select a cloud";
+        return message;
+    }
+
+    public String getStateMessageGui() {
+        String message = null;
+        if (roundState == 0) message = "Select an assistant";
+        else if (roundState == 1) message = "Move a student from entrance to table or from entrance to an island";
+        else if (roundState == 2) message = "Select an island where mother nature has to move";
         else if (roundState == 3) message = "Select a cloud";
         return message;
     }
@@ -243,6 +270,7 @@ public class Round implements Serializable {
 
     public void switchToActionPhase() {
         setActionPhaseOrder();
+        previousState = 0;
         roundState = 1;
         indexOfPlayerOnTurn = 0;
     }
@@ -254,7 +282,7 @@ public class Round implements Serializable {
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isTimeToChooseTheNextStudent()) {
-
+            previousState = 1;
         } else if (isActionPhaseEnded()) {
             switchToPianificationPhase();
             roundEnded = true;
@@ -263,10 +291,13 @@ public class Round implements Serializable {
                 game.endTheMatch();
             }
         } else if (isTimeToMoveMotherNature()) {
+            previousState = 1;
             roundState = 2;
         } else if (isTimeToChooseACloud()) {
+            previousState = 2;
             roundState = 3;
         } else if (cloudHasBeenChosen()) {
+            previousState = 3;
             roundState = 1;
             indexOfPlayerOnTurn++;
             alreadyPlayedCharacter = false;
@@ -276,7 +307,7 @@ public class Round implements Serializable {
             }
         }
         if (!roundEnded) {
-            setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessage());
+            setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessageCli(), getStateMessageGui());
             game.sendGame();
         }
     }
@@ -297,7 +328,8 @@ public class Round implements Serializable {
                 }
             }
         }
-        game.getPlayer(playerId).setPlayerMessage("Assistant played");
+        game.getPlayer(playerId).setPlayerMessageCli("Assistant played");
+        game.getPlayer(playerId).setPlayerMessageGui("Assistant played");
         assistantToPlay = game.getPlayer(playerId).removeAssistant(assistantPosition);
         playedAssistants[playerId] = new PlayedAssistant(playerId, assistantToPlay);
         alreadyPlayedAssistants[playerId] = true;
@@ -313,13 +345,16 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot play any assistant now\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You cannot play any assistant now\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You cannot play any assistant now\n" + getStateMessageGui());
             game.sendGame();
         } catch (IndexOutOfBoundsException e) {
-            setPlayerMessage(playerId,"You can't choose that assistant\n" + getStateMessage());
+            setPlayerMessageCli(playerId,"You can't choose that assistant\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId,"You can't choose that assistant\n" + getStateMessageGui());
             game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
+            setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
             game.sendGame();
         }
     }
@@ -335,13 +370,16 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move students now\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You cannot move students now\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You cannot move students now\n" + getStateMessageGui());
             game.sendGame();
         } catch (TooManyMovesException e) {
-            setPlayerMessage(playerId, "You can move no more students\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You can move no more students\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You can move no more students\n" + getStateMessageGui());
             game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage() + getStateMessage());
+            setPlayerMessageCli(playerId, e.getMessage() + getStateMessageCli());
+            setPlayerMessageGui(playerId, e.getMessage() + getStateMessageGui());
             game.sendGame();
         }
     }
@@ -351,7 +389,6 @@ public class Round implements Serializable {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(1);
             checkNumberOfMoves(playerId);
-            System.out.println("Player: " + playerId + " number of  moves: " + movesCounter[playerId]);
             if (getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex] == null) throw new InvalidIndexException("There isn't a student in this position");
             PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
@@ -367,19 +404,24 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move students now\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You cannot move students now\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You cannot move students now\n" + getStateMessageGui());
             game.sendGame();
         } catch (TooManyMovesException e) {
-            setPlayerMessage(playerId, "You can move no more students\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You can move no more students\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You can move no more students\n" + getStateMessageGui());
             game.sendGame();
         } catch (FullTableException e) {
-            setPlayerMessage(playerId, "You can't move that student, his table has no more free seats\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You can't move that student, his table has no more free seats\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You can't move that student, his table has no more free seats\n" + getStateMessageGui());
             game.sendGame();
         } catch (NotEnoughCoins e) {
-            setPlayerMessage(playerId, "You can't take a coin from a table\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You can't take a coin from a table\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You can't take a coin from a table\n" + getStateMessageGui());
             game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
+            setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
             game.sendGame();
         }
     }
@@ -453,17 +495,19 @@ public class Round implements Serializable {
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
-                String message = "You cannot put mother nature in the chosen island\n" + getStateMessage();
-                setPlayerMessage(playerId, message);
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island\n" + getStateMessageCli());
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island\n" + getStateMessageGui());
                 game.sendGame();
             } catch (InvalidIndexException e) {
-                setPlayerMessage(playerId, "You cannot put mother nature in the chosen island, it does not exist\n" + getStateMessage());
+                setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island, it does not exist\n" + getStateMessageCli());
+                setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island, it does not exist\n" + getStateMessageGui());
                 game.sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot move mother nature now");
+            setPlayerMessageCli(playerId, "You cannot move mother nature now");
+            setPlayerMessageGui(playerId, "You cannot move mother nature now");
             game.sendGame();
         }
     }
@@ -477,13 +521,16 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You cannot get students from cloud now\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You cannot get students from cloud now\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You cannot get students from cloud now\n" + getStateMessageGui());
             game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessage(playerId, e.getMessage() + getStateMessage());
+            setPlayerMessageCli(playerId, e.getMessage() + getStateMessageCli());
+            setPlayerMessageGui(playerId, e.getMessage() + getStateMessageGui());
             game.sendGame();
         } catch (EmptyCloudException e)  {
-            setPlayerMessage(playerId, "The chosen cloud is empty. Chose another one!");
+            setPlayerMessageCli(playerId, "The chosen cloud is empty. Chose another one!");
+            setPlayerMessageGui(playerId, "The chosen cloud is empty. Chose another one!");
             game.sendGame();
         }
     }
@@ -498,16 +545,20 @@ public class Round implements Serializable {
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
         } catch (AlreadyPlayedCharcaterException e) {
-            setPlayerMessage(playerId, "You already played a character\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You already played a character\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You already played a character\n" + getStateMessageGui());
             game.sendGame();
         } catch (InvalidMethodException e) {
-            setPlayerMessage(playerId, "You can't play a character during the pianification phase\n" + getStateMessage());
+            setPlayerMessageCli(playerId, "You can't play a character during the pianification phase\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "You can't play a character during the pianification phase\n" + getStateMessageGui());
             game.sendGame();
         } catch (EffectCannotBeActivatedException e) {
-            setPlayerMessage(playerId, e.getMessage() + "\n" + getStateMessage());
+            setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
             game.sendGame();
         }   catch (NotEnoughCoins e) {
-            setPlayerMessage(playerId,"Not enough coins to play this character\n" + getStateMessage());
+            setPlayerMessageCli(playerId,"Not enough coins to play this character\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId,"Not enough coins to play this character\n" + getStateMessageGui());
             game.sendGame();
         }
     }

@@ -13,7 +13,9 @@ public class Player implements Serializable {
     private final String nickName;
     private final int playerId;
     private List<Assistant> assistants;
-    private String message;
+    private String messageCli;
+    private String messageGui;
+    private boolean error;
     private Wizard wizard;
 
     public Player(String nickName, int playerId, List<Assistant> assistants) {
@@ -21,7 +23,16 @@ public class Player implements Serializable {
         this.playerId = playerId;
         this.assistants = new ArrayList<>();
         this.assistants.addAll(assistants);
-        this.wizard = null;
+        error = false;
+        wizard = null;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 
     public void setWizard(Wizard wizard){
@@ -96,12 +107,20 @@ public class Player implements Serializable {
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
-    public String getPlayerMessage() {
-        return message;
+    public String getPlayerMessageCli() {
+        return messageCli;
     }
 
-    public void setPlayerMessage(String message) {
-        this.message = message;
+    public String getPlayerMessageGui() {
+        return messageGui;
+    }
+
+    public void setPlayerMessageCli(String message) {
+        messageCli = message;
+    }
+
+    public void setPlayerMessageGui(String message) {
+        messageGui = message;
     }
 
     public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException, InvalidIndexException {

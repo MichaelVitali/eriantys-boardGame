@@ -97,8 +97,8 @@ public class CharacterTest {
     @Test
     public void checkSetMessageToAPlayerAndWaitingMessageForOthers() throws EffectCannotBeActivatedException {
         c.activateEffect(1, round);
-        c.setMessageToAPlayerAndWaitingMessageForOthers(0, "ciao");
-        assertEquals(round.getGame().getPlayer(0).getPlayerMessage(), "ciao");
+        c.setMessageToAPlayerAndWaitingMessageForOthers(0, "ciao", "ciao");
+        assertEquals(round.getGame().getPlayer(0).getPlayerMessageCli(), "ciao");
     }
 
     @Test
@@ -288,7 +288,7 @@ public class CharacterTest {
 
         c.removeAssistant(0, 1);
         assertEquals(round.getPlayedAssistants()[0].getAssistant(), new Assistant(1, 1));
-        assertEquals("Assistant played", c.getGame().getPlayer(0).getPlayerMessage());
+        assertEquals("Assistant played", c.getGame().getPlayer(0).getPlayerMessageCli());
     }
 
     @Test
@@ -380,8 +380,12 @@ public class CharacterTest {
 
         round.setRoundState(3);
         c.getStudentsFromCloud(playerId, cloudIndex);
-        assertEquals("You are not the current player", round.getGame().getPlayer(playerId).getPlayerMessage());
+        assertEquals("You are not the current player", round.getGame().getPlayer(playerId).getPlayerMessageCli());
 
+        playerId = 1;
+        round.setRoundState(2);
+        c.getStudentsFromCloud(playerId, cloudIndex);
+        assertEquals("You cannot get students from cloud now", round.getGame().getPlayer(playerId).getPlayerMessageCli());
     }
 
     @Test

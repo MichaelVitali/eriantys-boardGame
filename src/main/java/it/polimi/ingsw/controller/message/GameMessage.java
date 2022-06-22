@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.message;
 
+import it.polimi.ingsw.client.gui.guiControllers.BoardController;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Character;
 
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMessage extends Message implements Serializable {
-    private static final long serialVersionUID = 100L;
     private int state;
     private int playerId;
-    private String playerMessage;
+    private String playerMessageCli;
+    private String playerMessageGui;
     private GameTable gametable;
     private List<Assistant> assistants;
     private int playerOnTurn;
@@ -28,7 +29,8 @@ public class GameMessage extends Message implements Serializable {
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
-        playerMessage = model.getPlayer(playerId).getPlayerMessage();
+        playerMessageCli = model.getPlayer(playerId).getPlayerMessageCli();
+        playerMessageGui = model.getPlayer(playerId).getPlayerMessageGui();
         gametable = model.getGameTable();
         assistants = model.getPlayerAssistant(playerId);
         playerOnTurn = model.getRound().getPlayerOnTurn();
@@ -45,6 +47,12 @@ public class GameMessage extends Message implements Serializable {
         playedAssistants = model.getRound().getPlayedAssistants();
 
     }
+
+    public String[] getPlayersNicknames() {
+        return playersNicknames;
+    }
+
+    public void renderWhatNeeded(BoardController controller) { }
 
     public Round.PlayedAssistant[] getPlayedAssistants() {
         return playedAssistants;
@@ -73,12 +81,20 @@ public class GameMessage extends Message implements Serializable {
         return playerId;
     }
 
-    public String getPlayerMessage() {
-        return playerMessage;
+    public String getPlayerMessageCli() {
+        return playerMessageCli;
+    }
+
+    public String getPlayerMessageGui() {
+        return playerMessageGui;
     }
 
     public Cloud[] getClouds() {
         return gametable.getClouds();
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     public void printDefaultOnCli() {
@@ -89,7 +105,7 @@ public class GameMessage extends Message implements Serializable {
         printAllSchoolboards();
         if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
-        if (playerId == playerOnTurn) System.out.println(playerMessage);
+        if (playerId == playerOnTurn) System.out.println(playerMessageCli);
         else System.out.println("You're not the player on turn... Wait for other player!");
     }
 
@@ -374,15 +390,15 @@ public class GameMessage extends Message implements Serializable {
     public String returnCircleUnicodeForColor (PawnColor color) {
         switch (color.getIndex()) {
             case 0:
-                return "\uD83D\uDFE1";
-            case 1:
-                return "\uD83D\uDD35";
-            case 2:
                 return "\uD83D\uDFE2";
-            case 3:
+            case 1:
                 return "\uD83D\uDD34";
-            case 4:
+            case 2:
+                return "\uD83D\uDD35";
+            case 3:
                 return "\uD83D\uDFE3";
+            case 4:
+                return "\uD83D\uDD35";
         }
         return "";
     }
