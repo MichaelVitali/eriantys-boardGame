@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
@@ -25,16 +26,22 @@ public class LoginController extends GuiController {
     private Label nicknameMessage;
     @FXML
     private TextField nicknameBucket;
-    private Font labelFont;
+    @FXML
+    private Button confirmButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            setClient(new Client(ClientApp.ip, ClientApp.port));
+            Client client = new Client(ClientApp.ip, ClientApp.port);
+            setClient(client);
             new Thread(getClient()).start();
             getClient().addObserver(this);
         } catch (Exception e) {
-            System.out.println("Unable to connect to the server");
+            nicknameBucket.setVisible(false);
+            confirmButton.setVisible(false);
+            nicknameMessage.setTranslateY(50);
+            nicknameMessage.setText("Unable to connect to the server");
+            //System.out.println("Unable to connect to the server");
         }
     }
 

@@ -49,7 +49,7 @@ public class RemoteView extends View {
         else if (model.getRound().getRoundState() >= 4)
             message = new GameMessage(model, super.getPlayerId());
         else
-            System.out.println("Problema penso, non esiste alcun messaggio adatto all'invio (RemoteView)");
+            System.out.println("State : " + model.getRound().getRoundState() + " round class : " + model.getRound().getClass() + " (RemoteView)");
             message = new GameMessage(model, super.getPlayerId());
         if (message != null)
             clientConnection.asyncSend(message);
