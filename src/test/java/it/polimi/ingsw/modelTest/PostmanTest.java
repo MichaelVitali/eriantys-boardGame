@@ -40,7 +40,7 @@ public class PostmanTest {
         game.getRound().addStudentOnTable(currentPlayer, 2);
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         game.getRound().changeMotherNaturePosition(currentPlayer, motherNaturePosition + 1);
-        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition + 1);
+        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition);
     }
 
     @Test
