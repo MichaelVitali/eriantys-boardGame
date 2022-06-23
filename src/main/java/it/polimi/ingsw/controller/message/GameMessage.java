@@ -25,6 +25,7 @@ public class GameMessage extends Message implements Serializable {
     private int tableCoins;
     private String[] playersNicknames;
     private Round.PlayedAssistant[] playedAssistants;
+    private boolean postmanActive;
 
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
@@ -45,14 +46,16 @@ public class GameMessage extends Message implements Serializable {
         } else characters = null;
         playersNicknames = model.getPlayersNicknames();
         playedAssistants = model.getRound().getPlayedAssistants();
-
+        postmanActive = (model.getRound() instanceof Postman) ? true : false;
     }
 
     public String[] getPlayersNicknames() {
         return playersNicknames;
     }
 
-    public void renderWhatNeeded(BoardController controller) { }
+    public void renderWhatNeeded(BoardController controller) {
+        controller.displayBoard();
+    }
 
     public Round.PlayedAssistant[] getPlayedAssistants() {
         return playedAssistants;
@@ -95,6 +98,10 @@ public class GameMessage extends Message implements Serializable {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+    }
+
+    public boolean isPostmanActive() {
+        return postmanActive;
     }
 
     public void printDefaultOnCli() {

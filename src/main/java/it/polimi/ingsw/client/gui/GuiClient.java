@@ -9,12 +9,15 @@ import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.Message;
 import it.polimi.ingsw.controller.message.SetupMessage;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,7 +29,13 @@ public class GuiClient extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/loginScene.fxml"));
         Parent root = loader.load();
         stage.setTitle("Eriantys");
