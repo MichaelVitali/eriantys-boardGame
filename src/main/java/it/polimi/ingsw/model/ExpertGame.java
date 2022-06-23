@@ -125,15 +125,15 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-        /*Random rnd = new Random();
+        Random rnd = new Random();
         int numberOfCharacter = 8;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }*/
-        this.characters[0] = c.get(10);
+        }
+        /*this.characters[0] = c.get(10);
         this.characters[1] = c.get(4);
-        this.characters[2] = c.get(5);
+        this.characters[2] = c.get(5);*/
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

@@ -217,6 +217,7 @@ public class BoardController extends GuiController {
 
         indexLastCharacterPlayed = 0;
         enemyBoardDisplayed = 1;
+        studentMoved = -1;
     }
 
     /**
@@ -820,11 +821,12 @@ public class BoardController extends GuiController {
      */
     public void myEntranceClick(ActionEvent event) {
         int indexStudent = Integer.parseInt(((Button) event.getSource()).getId().substring(10));
-        state = 1;
         if (indexStudent == studentMoved) {
             myEntrance.get("myEntrance" + indexStudent).setEffect(null);
+            studentMoved = -1;
+            state = 0;
         } else {
-            myEntrance.get("myEntrance" + studentMoved).setEffect(null);
+            if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
             myEntrance.get("myEntrance" + indexStudent).setEffect(new Glow(0.8));
             studentMoved = indexStudent;
             if (board.getGameMode() == GameMode.EXPERT) {
@@ -834,6 +836,7 @@ public class BoardController extends GuiController {
                     getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexStudent));
                 }
             }
+            state = 1;
         }
     }
 
