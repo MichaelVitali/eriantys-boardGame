@@ -424,9 +424,12 @@ public class Round implements Serializable {
 
     public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) {
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
-        int numberOfIsland = game.getGameTable().getNumberOfIslands();
+        int numberOfIslands = game.getGameTable().getNumberOfIslands();
+        System.out.println("numberOfIslands : " + numberOfIslands + " assistant moves " + assistant.getMotherNatureMoves());
+        if(islandIndex == motherNaturePosition && numberOfIslands > assistant.getMotherNatureMoves())
+            return false;
         if (islandIndex < motherNaturePosition) {
-            if ((numberOfIsland - motherNaturePosition + islandIndex) <= assistant.getMotherNatureMoves())
+            if ((numberOfIslands - motherNaturePosition + islandIndex) <= assistant.getMotherNatureMoves())
                 return true;
             else
                 return false;

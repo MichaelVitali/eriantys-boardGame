@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 import java.util.Timer;
@@ -40,11 +41,6 @@ public class BoardController extends GuiController {
     @FXML ImageView enemyTower0; @FXML ImageView enemyTower1; @FXML ImageView enemyTower2; @FXML ImageView enemyTower3; @FXML ImageView enemyTower4; @FXML ImageView enemyTower5; @FXML ImageView enemyTower6; @FXML ImageView enemyTower7;
 
     @FXML Button myEntrance0; @FXML Button myEntrance1; @FXML Button myEntrance2; @FXML Button myEntrance3; @FXML Button myEntrance4; @FXML Button myEntrance5; @FXML Button myEntrance6; @FXML Button myEntrance7; @FXML Button myEntrance8;
-    /*@FXML Button student00; @FXML Button student01; @FXML Button student02; @FXML Button student03; @FXML Button student04; @FXML Button student05; @FXML Button student06; @FXML Button student07; @FXML Button student08; @FXML Button student09;
-    @FXML Button student10; @FXML Button student11; @FXML Button student12; @FXML Button student13; @FXML Button student14; @FXML Button student15; @FXML Button student16; @FXML Button student17; @FXML Button student18; @FXML Button student19;
-    @FXML Button student20; @FXML Button student21; @FXML Button student22; @FXML Button student23; @FXML Button student24; @FXML Button student25; @FXML Button student26; @FXML Button student27; @FXML Button student28; @FXML Button student29;
-    @FXML Button student30; @FXML Button student31; @FXML Button student32; @FXML Button student33; @FXML Button student34; @FXML Button student35; @FXML Button student36; @FXML Button student37; @FXML Button student38; @FXML Button student39;
-    @FXML Button student40; @FXML Button student41; @FXML Button student42; @FXML Button student43; @FXML Button student44; @FXML Button student45; @FXML Button student46; @FXML Button student47; @FXML Button student48; @FXML Button student49;*/
     @FXML ImageView myProfessor0; @FXML ImageView myProfessor1; @FXML ImageView myProfessor2; @FXML ImageView myProfessor3; @FXML ImageView myProfessor4;
     @FXML ImageView myEntranceImage0; @FXML ImageView myEntranceImage1; @FXML ImageView myEntranceImage2; @FXML ImageView myEntranceImage3; @FXML ImageView myEntranceImage4; @FXML ImageView myEntranceImage5; @FXML ImageView myEntranceImage6; @FXML ImageView myEntranceImage7; @FXML ImageView myEntranceImage8;
     @FXML ImageView studentImage00; @FXML ImageView studentImage01; @FXML ImageView studentImage02; @FXML ImageView studentImage03; @FXML ImageView studentImage04; @FXML ImageView studentImage05; @FXML ImageView studentImage06; @FXML ImageView studentImage07; @FXML ImageView studentImage08; @FXML ImageView studentImage09;
@@ -86,7 +82,6 @@ public class BoardController extends GuiController {
     @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
 
     @FXML Label labelGameMessage;
-    //@FXML Label nickAssistantPlayed;
     @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     @FXML Label coinNumber; @FXML ImageView coinImage;
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
@@ -95,7 +90,6 @@ public class BoardController extends GuiController {
 
     @FXML Label myName; @FXML Label enemyName;
 
-    //private Map<String, Button> myTables;
     private Map<String, Button> myEntrance;
     private Map<String, Button> studentsCards;
     private Map<String, ImageView> myEntranceImages;
@@ -128,6 +122,7 @@ public class BoardController extends GuiController {
     private ImageView motherNature;
     private int indexLastCharacterPlayed;
     private boolean toInitialize = true;
+    List<String> visibleIslands = new ArrayList<>();
 
     /**
      * Returns the board sent by the server
@@ -161,7 +156,6 @@ public class BoardController extends GuiController {
         //System.out.println("Initialize");
         myEntrance = new HashMap<>();
         myProfessors = new HashMap<>();
-        //myTables = new HashMap<>();
         myEntranceImages = new HashMap<>();
         myTablesImages = new HashMap<>();
         myTowers = new HashMap<>();
@@ -197,12 +191,6 @@ public class BoardController extends GuiController {
         myEntrance.put("myEntrance0", myEntrance0); myEntrance.put("myEntrance1", myEntrance1); myEntrance.put("myEntrance2", myEntrance2); myEntrance.put("myEntrance3", myEntrance3); myEntrance.put("myEntrance4", myEntrance4); myEntrance.put("myEntrance5", myEntrance5); myEntrance.put("myEntrance6", myEntrance6); myEntrance.put("myEntrance7", myEntrance7); myEntrance.put("myEntrance8", myEntrance8);
         myEntranceImages.put("myEntranceImage0", myEntranceImage0); myEntranceImages.put("myEntranceImage1", myEntranceImage1); myEntranceImages.put("myEntranceImage2", myEntranceImage2); myEntranceImages.put("myEntranceImage3", myEntranceImage3); myEntranceImages.put("myEntranceImage4", myEntranceImage4); myEntranceImages.put("myEntranceImage5", myEntranceImage5); myEntranceImages.put("myEntranceImage6", myEntranceImage6); myEntranceImages.put("myEntranceImage7", myEntranceImage7); myEntranceImages.put("myEntranceImage8", myEntranceImage8);
 
-        /*myTables.put("student00", student00); myTables.put("student01", student01); myTables.put("student02", student02); myTables.put("student03", student03); myTables.put("student04", student04); myTables.put("student05", student05); myTables.put("student06", student06); myTables.put("student07", student07); myTables.put("student08", student08); myTables.put("student09", student09);
-        myTables.put("student10", student10); myTables.put("student11", student11); myTables.put("student12", student12); myTables.put("student13", student13); myTables.put("student14", student14); myTables.put("student15", student15); myTables.put("student16", student16); myTables.put("student17", student17); myTables.put("student18", student18); myTables.put("student19", student19);
-        myTables.put("student20", student20); myTables.put("student21", student21); myTables.put("student22", student22); myTables.put("student23", student23); myTables.put("student24", student24); myTables.put("student25", student25); myTables.put("student26", student26); myTables.put("student27", student27); myTables.put("student28", student28); myTables.put("student29", student29);
-        myTables.put("student30", student30); myTables.put("student31", student31); myTables.put("student32", student32); myTables.put("student33", student33); myTables.put("student34", student34); myTables.put("student35", student35); myTables.put("student36", student36); myTables.put("student37", student37); myTables.put("student38", student38); myTables.put("student39", student39);
-        myTables.put("student40", student40); myTables.put("student41", student41); myTables.put("student42", student42); myTables.put("student43", student43); myTables.put("student44", student44); myTables.put("student45", student45); myTables.put("student46", student46); myTables.put("student47", student47); myTables.put("student48", student48); myTables.put("student49", student49);*/
-
         myTablesImages.put("studentImage00", studentImage00); myTablesImages.put("studentImage01", studentImage01); myTablesImages.put("studentImage02", studentImage02); myTablesImages.put("studentImage03", studentImage03); myTablesImages.put("studentImage04", studentImage04); myTablesImages.put("studentImage05", studentImage05); myTablesImages.put("studentImage06", studentImage06); myTablesImages.put("studentImage07", studentImage07); myTablesImages.put("studentImage08", studentImage08); myTablesImages.put("studentImage09", studentImage09);
         myTablesImages.put("studentImage10", studentImage10); myTablesImages.put("studentImage11", studentImage11); myTablesImages.put("studentImage12", studentImage12); myTablesImages.put("studentImage13", studentImage13); myTablesImages.put("studentImage14", studentImage14); myTablesImages.put("studentImage15", studentImage15); myTablesImages.put("studentImage16", studentImage16); myTablesImages.put("studentImage17", studentImage17); myTablesImages.put("studentImage18", studentImage18); myTablesImages.put("studentImage19", studentImage19);
         myTablesImages.put("studentImage20", studentImage20); myTablesImages.put("studentImage21", studentImage21); myTablesImages.put("studentImage22", studentImage22); myTablesImages.put("studentImage23", studentImage23); myTablesImages.put("studentImage24", studentImage24); myTablesImages.put("studentImage25", studentImage25); myTablesImages.put("studentImage26", studentImage26); myTablesImages.put("studentImage27", studentImage27); myTablesImages.put("studentImage28", studentImage28); myTablesImages.put("studentImage29", studentImage29);
@@ -229,7 +217,8 @@ public class BoardController extends GuiController {
         clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
         studentsClouds.put("cloud0Student0", cloud0Student0); studentsClouds.put("cloud0Student1", cloud0Student1); studentsClouds.put("cloud0Student2", cloud0Student2); studentsClouds.put("cloud0Student3", cloud0Student3); studentsClouds.put("cloud1Student0", cloud1Student0); studentsClouds.put("cloud1Student1", cloud1Student1); studentsClouds.put("cloud1Student2", cloud1Student2); studentsClouds.put("cloud1Student3", cloud1Student3);
         studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2);
-
+        for(int i = 0; i < 12; i++)
+            visibleIslands.add(String.valueOf(i));
         indexLastCharacterPlayed = 0;
         enemyBoardDisplayed = 1;
     }
@@ -327,14 +316,13 @@ public class BoardController extends GuiController {
                 }
                 myName.setText(board.getPlayersNicknames()[myPlayerId]);
         });
-        displayBoard(1);
-        toInitialize = false;
-        //System.out.println("Partita adattata per " + board.getNumberOfPLayers() + " giocatori");
         motherNature = new ImageView(new Image("images/Board/Islands/motherNature.png", 25, 25,  true, false));
-        String pane = "islandPane" + board.getGametable().getMotherNaturePosition();
+        displayBoard(1);
+        String pane = "islandPane" + getIndexForIsland(board.getGametable().getIslands().get(board.getGametable().getMotherNaturePosition()));
         islandPanes.get(pane).getChildren().add(motherNature);
         motherNature.setX(50);
         motherNature.setY(40);
+        toInitialize = false;
     }
 
     /**
@@ -565,7 +553,7 @@ public class BoardController extends GuiController {
             displayMyProfessors();
             //System.out.println("My" + schoolBoard.getTowers().size());
             displayMyTowers();
-            if (board.getGameMode() == GameMode.EXPERT) coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
+            if (board.getGameMode() == GameMode.EXPERT) Platform.runLater(() -> coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId))));;
             //displayMyAssistant();
         }
     }
@@ -645,25 +633,91 @@ public class BoardController extends GuiController {
     }
 
     /**
+     *
+     * @param island
+     * @return
+     */
+    public int getIndexForIsland(Island island) {
+        int index = -1;
+        List<Integer> indexes = island.getIndex();
+        OptionalInt minorIndex = indexes.stream().mapToInt(a -> a).min();
+        if(minorIndex.isPresent()) {
+            index = minorIndex.getAsInt();
+        }
+        return index;
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     */
+    public Island getIslandForIndex(int index) {
+        Island island = null;
+        List<Island> islands = board.getGametable() == null ? null : board.getGametable().getIslands();
+        if(islands!= null) {
+            for (int i = 0; i < islands.size(); i++) {
+                if(islands.get(i).getIndex().contains(index)) {
+                   island = islands.get(i);
+                   break;
+                }
+            }
+        }
+        return island;
+    }
+
+    /**
+     * Removes from visibleIslands the indexes of the islands that must not be displayed
+     */
+    public void adjustVisibleIslands() {
+        List<Island> islands = board.getGametable().getIslands();
+        if(islands!= null) {
+            for (int i = 0; i < islands.size(); i++) {
+                List<Integer> indexes = islands.get(i).getIndex();
+                OptionalInt minorIndex = indexes.stream().mapToInt(a -> a).min();
+                List<String> indexesAsStrings = new ArrayList<>();
+                for(int j = 0; j < indexes.size(); j++)
+                    indexesAsStrings.add(indexes.get(j).toString());
+                if(minorIndex.isPresent()) {
+                    System.out.println(String.valueOf(minorIndex.getAsInt()));
+                    indexesAsStrings.remove(String.valueOf(minorIndex.getAsInt()));
+                    visibleIslands.removeAll(indexesAsStrings);
+                }
+            }
+        }
+    }
+
+    /**
      * Displays the islands, rendering students, towers and mother nature
      */
     public void displayIslands() {
         //System.out.println("displayIslands");
         // problema con il postman
-        if(board != null && board.getGametable() != null && board.getGametable().getIslands() != null) {
-            displayIslandEffect();
-            Platform.runLater(() -> {
-                for (int i = 0; i < 12; i++) {
-                    String pane = "islandPane" + i;
-                    if (islandPanes.get(pane).getChildren().contains(motherNature))
-                        islandPanes.get(pane).getChildren().remove(motherNature);
-                }
-                islandPanes.get("islandPane" + board.getGametable().getMotherNaturePosition()).getChildren().add(motherNature);
+        Platform.runLater(() -> {
+            GameTable gameTable = board.getGametable();
+            List<Island> islands = gameTable == null ? null : board.getGametable().getIslands();
+            if(islands != null) {
+                for (int i = 0; i < visibleIslands.size(); i++)
+                    if (islandPanes.get("islandPane" + i).getChildren().contains(motherNature))
+                        islandPanes.get("islandPane" + i).getChildren().remove(motherNature);
+                adjustVisibleIslands();
+                for (int i = 0; i < 12; i++)
+                    if (!visibleIslands.contains(String.valueOf(i)))
+                        islandPanes.get("islandPane" + i).setVisible(false);
+                islandPanes.get("islandPane" + getIndexForIsland(islands.get(gameTable.getMotherNaturePosition()))).getChildren().add(motherNature);
+                System.out.println("Mother nature islandPane : " + getIndexForIsland(islands.get(gameTable.getMotherNaturePosition())));
+                System.out.println("Mother nature index on model" + gameTable.getMotherNaturePosition());
                 motherNature.setX(50);
                 motherNature.setY(40);
 
-                for (int i = 0; i < 12; i++) {
-                    List<Student> students = board.getGametable().getIslands().get(i).getStudents();
+                for (int i = 0; i < islands.size(); i++) {
+                    System.out.print("Island indexes of island index " + i + " on model ");
+                    for(Integer index : islands.get(i).getIndex()) {
+                        System.out.print(index + " ");
+                    }
+                    System.out.println();
+                    System.out.println("Island index on gui " + getIndexForIsland(islands.get(i)));
+                    List<Student> students = islands.get(i).getStudents();
                     List<PawnColor> colors = new ArrayList<>();
                     for (Student student : students)
                         if (student != null)
@@ -671,39 +725,52 @@ public class BoardController extends GuiController {
                     int j = 0;
                     for (PawnColor color : PawnColor.values()) {
                         if (colors.contains(color)) {
-                            setStudent(studentsOnIslands.get("student" + j + "OnIsland" + i), new Student(color));
+                            setStudent(studentsOnIslands.get("student" + j + "OnIsland" + getIndexForIsland(islands.get(i))), new Student(color));
+                            //System.out.println("student" + j + "OnIsland" + getIndexForIsland(islands.get(i)));
                             j++;
                         }
                     }
                 }
 
                 for (int i = 0; i < board.getGametable().getIslands().size(); i++) {
-                    /*if(board.getGametable().getIslands().get(i).getTowers().size() <= 0)
-                        System.out.println("Isola " + i + " vuota");
-                    else*/
                     if(board.getGametable().getIslands().get(i).getTowers().size() > 0)
-                        setTower(towersOnIslands.get("towerOnIsland" + i), board.getGametable().getIslands().get(i).getTowers().get(0).getColor());
+                        setTower(towersOnIslands.get("towerOnIsland" + getIndexForIsland(islands.get(i))), islands.get(i).getTowers().get(0).getColor());
                 }
-                //System.out.println("Uscito");
-            });
-        }
+            }
+        });
+        //displayIslandEffect();
     }
 
     public void displayIslandEffect() {
         Platform.runLater(() -> {
             if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
                 for (int i = 0; i < board.getNumberOfPLayers(); i++) {
-                    if (board.getPlayedAssistants()[i].getPlayerIndex() == 1) {
+                    if (board.getPlayedAssistants()[i].getPlayerIndex() == myPlayerId) {
                         Assistant playedAssistant = board.getPlayedAssistants()[i].getAssistant();
-                        for (int j = 0; j < playedAssistant.getMotherNatureMoves(); j++) {
-                            islands.get("island" + ((board.getGametable().getMotherNaturePosition() + 1 + j) % 12)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        int motherNatureMoves = (board.getGameMode() == GameMode.EXPERT && board.isPostmanActive()) ? playedAssistant.getMotherNatureMoves() + 2 : playedAssistant.getMotherNatureMoves();
+                        if (visibleIslands.size() <= motherNatureMoves) {
+                            for(String islandIndex : visibleIslands)
+                                islands.get("island" + islandIndex).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                        } else {
+                            int motherNatureRenderIsland = getIndexForIsland(board.getGametable().getIslands().get(board.getGametable().getMotherNaturePosition()));
+                            while (motherNatureMoves > 0) {
+                                int count = 0;
+                                do {
+                                    motherNatureRenderIsland = (motherNatureRenderIsland++) % 12;
+                                    if (visibleIslands.contains(String.valueOf(motherNatureRenderIsland))) {
+                                        islands.get("island" + motherNatureRenderIsland).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.GOLD, 30, 0.5, 0, 0));
+                                        break;
+                                    }
+                                    count++;
+                                } while (count < 12);
+                                motherNatureMoves--;
+                            }
                         }
                     }
                 }
-
             } else {
-                for (int i = 0; i < 12; i++) {
-                    islands.get("island" + i).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
+                for (int i = 0; i < visibleIslands.size(); i++) {
+                    islands.get("island" + visibleIslands.get(i)).setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.CORNFLOWERBLUE, 30, 0.5, 0, 0));
                 }
             }
         });
@@ -728,6 +795,10 @@ public class BoardController extends GuiController {
             }
         }
 
+    }
+
+    public void displayBoard() {
+        displayBoard(enemyBoardDisplayed);
     }
 
     /**
@@ -801,13 +872,10 @@ public class BoardController extends GuiController {
                                   }
                 );
             } else {
-                if (toInitialize) {
-                    displayBoard(enemyBoardDisplayed);
-                    toInitialize = false;
-                } else {
-                    board.renderWhatNeeded(this);
-                    //System.out.println(board.getClass());
-                }
+                board.renderWhatNeeded(this);
+                System.out.println(board.getClass());
+                if (board instanceof PostAddStudentOnTableMessage)
+                    System.out.println("messaggio tavolo");
             }
             //System.out.println(((GameMessage) message).getPlayerMessageCli());
         }
@@ -819,7 +887,7 @@ public class BoardController extends GuiController {
      */
     @FXML
     public void assistantClick(MouseEvent event) {
-        int indexCard = Integer.parseInt(((Button) event.getSource()).getId().substring(9,10));
+        int indexCard = Integer.parseInt(((Button) event.getSource()).getId().substring(9));
 
         getClient().asyncWriteToSocket(new PlayAssistantMessage(myPlayerId, indexCard));
         //System.out.println("inviato messaggio PlayAssistantMessage");
@@ -868,11 +936,17 @@ public class BoardController extends GuiController {
     }
 
     public void showStuffOnIslands(MouseEvent event) {
-        int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
-        if(islandIndex < 12 && islandIndex > -1) {
-            Island island = board.getGametable().getIslands().get(islandIndex);
-            if (island != null) {
-                Platform.runLater(() -> {
+        Platform.runLater(() -> {
+            int islandIndex = -1;
+            if (((ImageView) event.getSource()).getId().substring(0, 1).equals("s"))
+                islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(16));
+            else if (((ImageView) event.getSource()).getId().substring(0, 1).equals("i"))
+                islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
+            else if (((ImageView) event.getSource()).getId().substring(0, 1).equals("t"))
+                islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(13));
+            if(islandIndex < 12 && islandIndex > -1) {
+                Island island = getIslandForIndex(islandIndex);
+                if (island != null) {
                     for (int i = 0; i < 5; i++) {
                         imageStudentsCounts.get("imageStudentsCount" + i).setVisible(true);
                         studentsCounts.get("studentsCount" + i).setVisible(true);
@@ -882,23 +956,31 @@ public class BoardController extends GuiController {
                             // It is never thrown
                         }
                     }
-                });
-                Platform.runLater(() -> {
-                    imageTowersCount.setVisible(true);
-                    towersCount.setVisible(true);
-                    towersCount.setText("x" + String.valueOf(island.getTowers().size()));
+                    if (island.getTowers().size() > 0) {
+                        imageTowersCount.setVisible(true);
+                        setTower(imageTowersCount, island.getTowers().size() == 0 ? null : island.getTowers().get(0).getColor());
+                        imageTowersCount.setFitHeight(20);
+                        towersCount.setVisible(true);
+                        towersCount.setText("x" + String.valueOf(island.getTowers().size()));
+                    }
                     assistantImage.setImage(new Image("images/Board/Islands/parchment.jpg", 80,130, false, false));
                     assistantImage.setVisible(true);
                     assistantImage.setTranslateY(-25.0);
-                });
+                }
             }
-        }
+        });
     }
 
     public void hideStuffOnIslands(MouseEvent event) {
-        int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
+        int islandIndex = -1;
+        if (((ImageView) event.getSource()).getId().substring(0, 1).equals("s"))
+            islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(16));
+        else if (((ImageView) event.getSource()).getId().substring(0, 1).equals("i"))
+            islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
+        else if (((ImageView) event.getSource()).getId().substring(0, 1).equals("t"))
+            islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(13));
         if(islandIndex < 12 && islandIndex > -1) {
-            Island island = board.getGametable().getIslands().get(islandIndex);
+            Island island = getIslandForIndex(islandIndex);
             if (island != null) {
                 Platform.runLater(() -> {
                     for (int i = 0; i < 5; i++) {
@@ -920,8 +1002,11 @@ public class BoardController extends GuiController {
      * @param event
      */
     public void islandClick(MouseEvent event) {
+        int indexClick = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
         int islandIndex = Integer.valueOf(((ImageView) event.getSource()).getId().substring(6));
-        if(islandIndex < 12 && islandIndex > -1) {
+        System.out.println("Island clicked : " + indexClick);
+        List<Island> islands = board.getGametable() == null ? null : board.getGametable().getIslands();
+        if(islands != null && indexClick < 12 && indexClick > -1) {
             if (state == 1) {
                 getClient().asyncWriteToSocket(new AddStudentOnIslandMessage(myPlayerId, studentMoved, islandIndex));
                 state = 0;
@@ -931,6 +1016,14 @@ public class BoardController extends GuiController {
             } else if (board.getState() == 4) {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             } else if (board.getState() == 2) {
+                islandIndex = -1;
+                for (int i = 0; i < islands.size(); i++) {
+                    if (islands.get(i).getIndex().contains(indexClick)) {
+                        System.out.println("Index of the sent island" + i);
+                        islandIndex = i;
+                        break;
+                    }
+                }
                 getClient().asyncWriteToSocket(new ChangeMotherNaturePositionMessage(myPlayerId, islandIndex));
             } else if (board.getState() == 4 && board.getCharacters()[indexLastCharacterPlayed].getID() == 5) {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
