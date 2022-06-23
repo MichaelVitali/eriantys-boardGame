@@ -26,6 +26,17 @@ public class PlayerTest {
     }
 
     @Test
+    public void testIsError(){
+        assertFalse(player.isError());
+    }
+
+    @Test
+    public void testSetError(){
+        player.setError(true);
+        assertTrue(player.isError());
+    }
+
+    @Test
     public void testGetNickName(){
         assertEquals("Mike", player.getNickname());
     }
