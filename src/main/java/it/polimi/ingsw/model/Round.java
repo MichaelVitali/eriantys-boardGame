@@ -113,10 +113,6 @@ public class Round implements Serializable {
         return previousState;
     }
 
-    public void setPreviousState(int previousState) {
-        this.previousState = previousState;
-    }
-
     public int[] getMovesCounter(){
         return movesCounter;
     }
