@@ -50,7 +50,7 @@ public class RemoteView extends View {
             message = new GameMessage(model, super.getPlayerId());
         else
             System.out.println("Problema penso, non esiste alcun messaggio adatto all'invio (RemoteView)");
-            //message = new GameMessage(model, super.getPlayerId());
+            message = new GameMessage(model, super.getPlayerId());
         if (message != null)
             clientConnection.asyncSend(message);
     }

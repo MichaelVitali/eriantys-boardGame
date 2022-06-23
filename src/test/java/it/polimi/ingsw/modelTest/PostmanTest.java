@@ -1,8 +1,8 @@
 package it.polimi.ingsw.modelTest;
 
-import it.polimi.ingsw.model.Centaur;
 import it.polimi.ingsw.model.ExpertGame;
 import it.polimi.ingsw.model.Postman;
+import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class PostmanTest {
 
@@ -57,7 +57,7 @@ public class PostmanTest {
         game.getRound().addStudentOnTable(currentPlayer, 2);
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         game.getRound().changeMotherNaturePosition(currentPlayer, motherNaturePosition + 2);
-        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition);
+        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition + 2);
     }
 
     @Test
@@ -74,6 +74,25 @@ public class PostmanTest {
         game.getRound().addStudentOnTable(currentPlayer, 2);
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         game.getRound().changeMotherNaturePosition(currentPlayer, motherNaturePosition + 3);
-        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition);
+        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition + 3);
+    }
+
+    @Test
+    public void testChangeMotherNaturePosition() throws EffectCannotBeActivatedException, InvalidIndexException {
+        character.activateEffect(0, game.getRound());
+        character.doYourJob(0, 2);
+        int playerId=0;
+        int islandIndex=(character.getGame().getGameTable().getMotherNaturePosition())%character.getGame().getGameTable().getNumberOfIslands();;
+        int expectedPosition=islandIndex;
+
+        character.getGame().getPlayer(playerId).addGameTable(character.getGame().getGameTable());
+        character.getGame().getPlayer(playerId+1).addGameTable(character.getGame().getGameTable());
+
+        character.removeAssistant(playerId,7);
+        character.removeAssistant(playerId+1,9);
+
+        character.setRoundState(2);
+        character.changeMotherNaturePosition(playerId, islandIndex);
+        assertEquals(expectedPosition, character.getGame().getGameTable().getMotherNaturePosition());
     }
 }
