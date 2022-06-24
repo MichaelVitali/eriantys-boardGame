@@ -311,6 +311,19 @@ public class CharacterTest {
     }
 
     @Test
+    public void testGetGame(){
+        c.setRound(round);
+        assertEquals(round.getGame(), c.getGame());
+    }
+
+    @Test
+    public void testGetRoundState(){
+        round.setRoundState(2);
+        c.setRound(round);
+        assertEquals(2, c.getRoundState());
+    }
+
+    @Test
     public void testCheckEndGameAndSetWinner() throws EffectCannotBeActivatedException, InvalidIndexException, NoMoreTowersException {
         c.activateEffect(1, round);
         round.getGame().getGameTable().getSchoolBoards()[0].removeTowers(7);

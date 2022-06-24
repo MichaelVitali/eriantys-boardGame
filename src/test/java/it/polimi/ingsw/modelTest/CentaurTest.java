@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.FullTableException;
+import it.polimi.ingsw.model.exception.InvalidIndexException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,22 +29,23 @@ public class CentaurTest {
     }
 
     @Test
-    public void testChangeMotherNaturePosition() throws FullTableException, EffectCannotBeActivatedException {
-        try {
-            character.activateEffect(0, round);
-            assertEquals(0, character.getRoundState());
-        } catch (EffectCannotBeActivatedException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testChangeMotherNaturePosition() throws FullTableException, EffectCannotBeActivatedException, InvalidIndexException {
+        int[] playerOrder={0,1};
+        int playerId=0;
+        int islandIndex=(round.getGame().getGameTable().getMotherNaturePosition())%round.getGame().getGameTable().getNumberOfIslands();;
+        int expectedPosition=islandIndex;
 
-        int playerId = 0;
+        round.getGame().getPlayer(playerId).addGameTable(round.getGame().getGameTable());
+        round.getGame().getPlayer(playerId+1).addGameTable(round.getGame().getGameTable());
 
-        round.getGame().getGameTable().getSchoolBoards()[0].addStudentOnTable(new Student(PawnColor.YELLOW));
-        round.getGame().getGameTable().getSchoolBoards()[1].addStudentOnTable(new Student(PawnColor.YELLOW));
-        round.getGame().getGameTable().getSchoolBoards()[1].setProfessor(PawnColor.YELLOW, true);
-        character.activateEffect(playerId, round);
-        assertTrue(round.getGame().getGameTable().getSchoolBoards()[1].getProfessors().contains(PawnColor.YELLOW));
-        assertFalse(round.getGame().getGameTable().getSchoolBoards()[0].getProfessors().contains(PawnColor.YELLOW));
+        round.getGame().startRound(playerOrder);
+        round.removeAssistant(playerId,7);
+        round.removeAssistant(playerId+1,9);
+
+        round.setRoundState(2);
+        character.setRound(round);
+        character.changeMotherNaturePosition(playerId, islandIndex);
+        assertEquals(expectedPosition, round.getGame().getGameTable().getMotherNaturePosition());
     }
 
 }
