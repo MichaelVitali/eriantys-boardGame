@@ -83,4 +83,11 @@ public class HealerTest {
         int oldState = round.getRoundState();
         assertEquals(oldState, character.getOldState());
     }
+
+    @Test
+    public void testChangeMotherNaturePosition() throws EffectCannotBeActivatedException {
+        character.activateEffect(0, round);
+        character.doYourJob(0, 0);
+        character.changeMotherNaturePosition(0,0);
+    }
 }

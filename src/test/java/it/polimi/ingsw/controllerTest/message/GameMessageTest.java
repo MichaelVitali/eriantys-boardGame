@@ -38,12 +38,20 @@ public class GameMessageTest extends TestCase {
         assertEquals(0, message.getPlayerId());
     }
 
-    public void testGetPlayerMessage() {
+    public void testGetPlayerMessageGui() {
+        message.getPlayerMessageGui();
+    }
+
+    public void testGetPlayerMessageCli() {
         message.getPlayerMessageCli();
     }
 
     public void testPrintDefaultOnCli() {
         message.printDefaultOnCli();
+    }
+
+    public void testGetListPlayedAssistants() {
+        message.getListPlayedAssistants();
     }
 
     public void testGetPlayerOnTurn() {
@@ -66,6 +74,10 @@ public class GameMessageTest extends TestCase {
         message.printCloud(message.getGametable().getClouds());
     }
 
+    public void testGetClouds() {
+        message.getClouds();
+    }
+
     public void testPrintAllSchoolboards() {
         message.printAllSchoolboards();
     }
@@ -75,8 +87,41 @@ public class GameMessageTest extends TestCase {
     }
 
     public void testPrintCharacter() {
+        message.printCharacter(game.getCharacters());
     }
 
+    public void testGetPlayedAssistants() {
+        message.getPlayedAssistants();
+    }
+
+    public void testGetChatacters() {
+        message.getCharacters();
+    }
+
+    public void testGetNumberOfPLayes() {
+        message.getNumberOfPLayers();
+    }
+
+    public void testIsPostmanActive() {
+        assertFalse(message.isPostmanActive());
+    }
+
+    public void testSetPlayerId() {
+        message.setPlayerId(0);
+    }
+
+    public void testGetPlayesCoins() {
+        assertEquals(message.getPlayesCoins(0),1);
+    }
+
+    public void testGetTableCoins() {
+        assertEquals(18, message.getTableCoins());
+    }
+
+    public void testGetPlayersNicknames() {
+        assertEquals("mike", message.getPlayersNicknames()[0]);
+        assertEquals("enri", message.getPlayersNicknames()[1]);
+    }
     public void testReturnCircleUnicodeForColor() {
         message.returnCircleUnicodeFromColor(TowerColor.WHITE);
     }
