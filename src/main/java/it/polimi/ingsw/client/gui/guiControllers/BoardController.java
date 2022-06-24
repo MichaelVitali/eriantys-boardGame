@@ -79,14 +79,11 @@ public class BoardController extends GuiController {
     @FXML ImageView cloud0Student0; @FXML ImageView cloud0Student1; @FXML ImageView cloud0Student2; @FXML ImageView cloud0Student3; @FXML ImageView cloud1Student0; @FXML ImageView cloud1Student1; @FXML ImageView cloud1Student2; @FXML ImageView cloud1Student3;
     @FXML ImageView cloud2Student0; @FXML ImageView cloud2Student1; @FXML ImageView cloud2Student2; @FXML ImageView cloud2Student3; @FXML ImageView cloud3Student0; @FXML ImageView cloud3Student1; @FXML ImageView cloud3Student2; @FXML ImageView cloud3Student3;
 
-    @FXML Label labelGameMessage;
+    @FXML Label labelGameMessage; @FXML Label characterEffect; @FXML Label myName; @FXML Label enemyName;
     @FXML Button pawnColor0; @FXML Button pawnColor1; @FXML Button pawnColor2; @FXML Button pawnColor3; @FXML Button pawnColor4;
     @FXML Label coinNumber; @FXML ImageView coinImage;
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
-
     @FXML ImageView coinTableImage; @FXML Label coinTableNumber;
-
-    @FXML Label myName; @FXML Label enemyName;
 
     private Map<String, Button> myEntrance;
     private Map<String, Button> studentsCards;
@@ -1424,5 +1421,48 @@ public class BoardController extends GuiController {
         }
         getClient().asyncWriteToSocket(new ActivateEffectMessage(myPlayerId, indexCard));
         indexLastCharacterPlayed = indexCard;
+    }
+
+
+    private String returnEffectCharacter(int indexCharacter) {
+        switch (indexCharacter) {
+            case 1:
+                return "Take 1 student from this card and place\nit on an Island of your choice";
+            case 2:
+                return "During this turn, you take control of any\nnumber of Professors even if you have\nthe same number of Students\nas the player who currently controls them";
+            case 3:
+                return "Choose an Island and resolve the Island\nas if Mother Nature had ended her movement\nthere.Mother Nature will still move and Island\nwhe she ends her movement will also be resolved";
+            case 4:
+                return "You may move Mother Nature up to\n2 additional Island than is indicated by\nthe Assistant card you've played";
+            case 5:
+                return "Place a No Entry tile on an Island\nof your choice. The first time Mother Nature\nends her movement there,put the No Entry tile\nback onto this card do not calculate\ninfluence on that Island";
+            case 6:
+                return "When resolving a Conquering on an Island,\nTower do not count towards influence";
+            case 7:
+                return "You may take uo 3 Students from this card\nand replace them with the number of\nStudents from you Entrance";
+            case 8:
+                return "During the influence calculation this turn,\nyou count as having 2 more influence";
+            case 9:
+                return "Choose a color of Student;\nduring the influence calculation this turn,\nthat color adds no influence";
+            case 10:
+                return "You may exchange up to 2 Students\nbetween your Entrance and your Dining Room";
+            case 11:
+                return "Take 1 Student from this card\nand place it in your Dining Room";
+            case 12:
+                return "Choose a type of Student; every player must\nreturn 3 Students of that type from their\nDining Room to the bag. If any player\nhas fewer than 3 Students of that type,\nreturn as many Students as they have";
+        }
+        return "";
+    }
+
+    public void showCharacterEffect(MouseEvent event) {
+        int indexCard = Integer.parseInt(((ImageView) event.getSource()).getId().substring(9,10));
+        String text = returnEffectCharacter(board.getCharacters()[indexCard-1].getID());
+
+        characterEffect.setVisible(true);
+        characterEffect.setText(text);
+    }
+
+    public void removeCharacterEffect(MouseEvent event) {
+        characterEffect.setVisible(false);
     }
 }
