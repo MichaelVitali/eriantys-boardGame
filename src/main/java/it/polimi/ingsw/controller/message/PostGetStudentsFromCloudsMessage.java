@@ -14,6 +14,7 @@ public class PostGetStudentsFromCloudsMessage extends GameMessage {
         controller.displayMyEntrance();
         controller.displayEnemyEntrance();
         controller.displayClouds();
+        controller.displayAssistants();
         controller.showGameMessage();
     }
 }

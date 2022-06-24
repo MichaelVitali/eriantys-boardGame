@@ -12,8 +12,8 @@ public class PostPlayAssistantMessage extends GameMessage {
     @Override
     public void renderWhatNeeded(BoardController controller) {
         controller.displayAssistants();
-        controller.displayMyAssistant();
         controller.displayEnemyAssistant();
+        //controller.displayMyAssistant();
         controller.displayMyEntrance();
         controller.displayEnemyEntrance();
         controller.displayClouds();
