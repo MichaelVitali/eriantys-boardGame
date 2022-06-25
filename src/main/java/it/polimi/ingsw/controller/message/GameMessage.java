@@ -112,7 +112,7 @@ public class GameMessage extends Message implements Serializable {
         printAllSchoolboards();
         if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
-        if (playerId == playerOnTurn) System.out.println(playerMessageCli);
+        if (playerId == playerOnTurn) System.out.println(getPlayerMessageCli());
         else System.out.println("You're not the player on turn... Wait for other player!");
     }
 

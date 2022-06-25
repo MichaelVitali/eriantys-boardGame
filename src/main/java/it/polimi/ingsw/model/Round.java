@@ -540,6 +540,7 @@ public class Round implements Serializable {
             if (roundState <= 0 || roundState >= 4) throw new InvalidMethodException();
             if (alreadyPlayedCharacter) throw new AlreadyPlayedCharcaterException();
             game.activateEffect(playerId, indexCard);
+            //if (((ExpertGame) game).getCharacter(indexCard) instanceof InnKeeper) ((ExpertGame) game).getCharacter(indexCard).deactivateEffect(true);
             alreadyPlayedCharacter = true;
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
@@ -555,9 +556,9 @@ public class Round implements Serializable {
             setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
             game.sendGame();
-        }   catch (NotEnoughCoins e) {
-            setPlayerMessageCli(playerId,"Not enough coins to play this character\n" + getStateMessageCli());
-            setPlayerMessageGui(playerId,"Not enough coins to play this character\n" + getStateMessageGui());
+        } catch (NotEnoughCoins e) {
+            setPlayerMessageCli(playerId, "Not enougth coin to play the character\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "Not enougth coin to play the character\n" + getStateMessageGui());
             game.sendGame();
         }
     }

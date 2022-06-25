@@ -17,5 +17,6 @@ public class ActivateEffectMessage extends PlayerMessage implements Serializable
     @Override
     public void performMove(Game game) {
         game.getRound().activateEffect(getPlayerId(), indexCard);
+        game.sendGame();
     }
 }

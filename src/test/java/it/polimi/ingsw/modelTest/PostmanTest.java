@@ -26,22 +26,6 @@ public class PostmanTest {
         game.setASingleCharacter(character, 0);
     }
 
-    @Test
-    public void postmanTest1() throws InvalidIndexException {
-        game.getGameTable().changeMotherNaturePosition(0);
-        int currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
-        game.getRound().playAssistant(currentPlayer, 1);
-        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
-        game.getRound().playAssistant(currentPlayer, 2);
-        currentPlayer = game.getRound().getPlayerOrder()[game.getRound().getIndexOfPlayerOnTurn()];
-        game.getRound().activateEffect(currentPlayer, 0);
-        game.getRound().addStudentOnTable(currentPlayer, 0);
-        game.getRound().addStudentOnTable(currentPlayer, 1);
-        game.getRound().addStudentOnTable(currentPlayer, 2);
-        int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
-        game.getRound().changeMotherNaturePosition(currentPlayer, motherNaturePosition + 1);
-        assertEquals(game.getGameTable().getMotherNaturePosition(), motherNaturePosition);
-    }
 
     @Test
     public void postmanTest2() throws InvalidIndexException {
