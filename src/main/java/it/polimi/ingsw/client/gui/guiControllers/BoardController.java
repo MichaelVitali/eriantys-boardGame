@@ -1387,23 +1387,9 @@ public class BoardController extends GuiController {
     }
 
     public void showGameMessage(){
-
         String playerMessage = board.getPlayerMessageGui();
-        Platform.runLater(() -> {
-                    labelGameMessage.setVisible(true);
-                    labelGameMessage.setText(playerMessage);
-        });
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    labelGameMessage.setVisible(false);
-                });
-            }
-        }, 30 * 1000);
-
+        labelGameMessage.setVisible(true);
+        labelGameMessage.setText(playerMessage);
     }
 
     public void playCharacter(MouseEvent event) {
