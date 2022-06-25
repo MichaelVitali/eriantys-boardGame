@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.model.exception.EffectCannotBeActivatedException;
 import it.polimi.ingsw.model.exception.EmptyBagException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
@@ -196,12 +195,6 @@ public class Game extends Observable<Game> implements Serializable {
         return false;
     }
 
-    /**
-     * Does the operations related to the end of the game
-     */
-    public void endTheMatch() {
-
-    }
 
     public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException, NotEnoughCoins {
     }

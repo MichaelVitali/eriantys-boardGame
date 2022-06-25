@@ -527,6 +527,13 @@ public class RoundTest {
     }
 
     @Test
+    public void testGetPreviousState(){
+        int previousState = game2p.getRound().getRoundState();
+        game2p.getRound().setRoundState(1);
+        assertEquals(previousState, game2p.getRound().getPreviousState());
+    }
+
+    @Test
     public void testCheckEndGameAndSetWinner() throws InvalidIndexException, NoMoreTowersException {
 
         game2p.getGameTable().getSchoolBoards()[0].removeTowers(7);

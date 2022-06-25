@@ -150,7 +150,10 @@ public class GameMessage extends Message implements Serializable {
         printIslands(gametable.getIslands());
         printPlayedAssistants(getListPlayedAssistants());
         if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
-        if (gameMode == GameMode.EXPERT) printCharacter(characters);
+        if (gameMode == GameMode.EXPERT) {
+            printTableCoins();
+            printCharacter(characters);
+        }
         printAllSchoolboards();
         if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
         if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
@@ -186,6 +189,7 @@ public class GameMessage extends Message implements Serializable {
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
             if (gametable.getMotherNaturePosition() == i) System.out.print(" / " + "\uD83D\uDCA9" + (islands.get(i).getTowers().size() != 0 ? (" " + islands.get(i).getTowers().size() + returnCircleUnicodeFromColor(islands.get(i).getTowers().get(0).getColor())) : "    ") +" \\   ");
+            else if (gametable.getIslands().get(i).isForbidden()) System.out.print(" / " + "\u274C" + (islands.get(i).getTowers().size() != 0 ? (" " + islands.get(i).getTowers().size() + returnCircleUnicodeFromColor(islands.get(i).getTowers().get(0).getColor())) : "    ") +" \\   ");
             else System.out.print(" /    " + (islands.get(i).getTowers().size() != 0 ? (islands.get(i).getTowers().size() + returnCircleUnicodeFromColor(islands.get(i).getTowers().get(0).getColor())) : "  ") +"  \\   ");
         }
         System.out.println("");
@@ -402,7 +406,7 @@ public class GameMessage extends Message implements Serializable {
     }
 
     public void printCharacter(Character[] characters) {
-        System.out.println("\n\nCharacters:");
+        System.out.println("Characters:");
         System.out.println("    0               1                2");
         for (Character c : characters) {
             System.out.print("\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581\u2581     ");
@@ -418,16 +422,19 @@ public class GameMessage extends Message implements Serializable {
         for (Character c : characters) {
             System.out.print("\u258FCost:" + c.getCost() +   "   \u2595     ");
         }
+
         System.out.println("");
         for (Character c : characters) {
             if (c instanceof Monk || c instanceof Princess) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[0] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[0].getColor()) : "  ") + "    " + ((((CharacterWithStudent) c).getStudentsOnCard()[1] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[1].getColor()) : "  ") +" \u2595     ");
             else if (c instanceof Jester) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[0] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[0].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[1] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[1].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[2] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[2].getColor()) : "  ") +" \u2595     ");
+            else if (c instanceof Healer) System.out.print("\u258F" + ((((Healer) c).getNumberOfProibitionCard() >= 1) ? "\u274C" : "  ") + "    " + ((((Healer) c).getNumberOfProibitionCard() >= 2) ? "\u274C" : "  ") +"  \u2595     ");
             else System.out.print("\u258F         \u2595     ");
         }
         System.out.println("");
         for (Character c : characters) {
             if (c instanceof Monk || c instanceof Princess) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[2] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[2].getColor()) : "  ") + "    " + ((((CharacterWithStudent) c).getStudentsOnCard()[3] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[3].getColor()) : "  ") +" \u2595     ");
             else if (c instanceof Jester) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[3] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[3].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[4] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[4].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[5] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[5].getColor()) : "  ") +" \u2595     ");
+            else if (c instanceof Healer) System.out.print("\u258F" + ((((Healer) c).getNumberOfProibitionCard() >= 3) ? "\u274C" : "  ") + "    " + ((((Healer) c).getNumberOfProibitionCard() >= 4) ? "\u274C" : "  ") +"  \u2595     ");
             else System.out.print("\u258F         \u2595     ");
         }
         System.out.println("");
@@ -462,6 +469,10 @@ public class GameMessage extends Message implements Serializable {
                 return "\u25EF";
         }
         return "";
+    }
+
+    public void printTableCoins() {
+        System.out.println("\n\nTable coins: " + getTableCoins() + "\uD83E\uDE99");
     }
 
 }

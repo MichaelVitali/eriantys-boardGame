@@ -46,6 +46,8 @@ public class RemoteView extends View {
             message = new PostAddStudentOnIslandMessage(model, super.getPlayerId());
         else if (model.getRound().getRoundState() == 3)
             message = new PostChangeMotherNaturePosition(model, super.getPlayerId());
+        else if (model.getRound().getRoundState() >= 4)
+            message = new GameMessage(model, super.getPlayerId());
         else
             System.out.println("State : " + model.getRound().getRoundState() + " round class : " + model.getRound().getClass() + " (RemoteView)");
             message = new GameMessage(model, super.getPlayerId());
