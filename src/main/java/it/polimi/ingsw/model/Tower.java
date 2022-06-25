@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Tower implements Serializable {
     private final TowerColor color;
@@ -19,5 +20,13 @@ public class Tower implements Serializable {
      */
     public TowerColor getColor() {
         return color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tower tower = (Tower) o;
+        return color == tower.color;
     }
 }

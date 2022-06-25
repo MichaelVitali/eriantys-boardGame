@@ -26,6 +26,9 @@ public class GameMessage extends Message implements Serializable {
     private String[] playersNicknames;
     private Round.PlayedAssistant[] playedAssistants;
     private boolean postmanActive;
+    private boolean victory;
+    private boolean draw;
+    private TowerColor winner;
 
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
@@ -46,7 +49,46 @@ public class GameMessage extends Message implements Serializable {
         } else characters = null;
         playersNicknames = model.getPlayersNicknames();
         playedAssistants = model.getRound().getPlayedAssistants();
-        postmanActive = model.getRound() instanceof Postman;
+        postmanActive = (model.getRound() instanceof Postman) ? true : false;
+        victory = model.isVictory();
+        draw = model.isDraw();
+        winner = model.getWinner();
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public boolean isDraw() {
+        return draw;
+    }
+
+    public TowerColor getWinner() {
+        return winner;
+    }
+
+    public List<Integer> getWinnersIndexes() {
+        List<Integer> winnersIndexes = new ArrayList<>();
+        if(state == 100 && victory) {
+            for(int i = 0; i < numberOfPLayers; i++) {
+                if (winner.equals(gametable.getSchoolBoards()[i].getTowersColor())) {
+                    winnersIndexes.add(i);
+                }
+            }
+        }
+        return winnersIndexes;
+    }
+
+    public List<String> getWinnersNicknames() {
+        List<String> winnersNicknames = new ArrayList<>();
+        if(state == 100 && victory) {
+            for(int i = 0; i < numberOfPLayers; i++) {
+                if (winner.equals(gametable.getSchoolBoards()[i].getTowersColor())) {
+                    winnersNicknames.add(playersNicknames[i]);
+                }
+            }
+        }
+        return winnersNicknames;
     }
 
     public String[] getPlayersNicknames() {

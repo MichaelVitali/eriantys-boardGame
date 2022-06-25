@@ -218,6 +218,10 @@ public class BoardController extends GuiController {
         studentMoved = -1;
     }
 
+    public int getMyPlayerId() {
+        return myPlayerId;
+    }
+
     /**
      *
      */
@@ -799,6 +803,7 @@ public class BoardController extends GuiController {
             displayCharacter();
             displayCoin();
         }
+        System.out.println("My Pl : " + myPlayerId);
     }
 
     /**
@@ -834,11 +839,12 @@ public class BoardController extends GuiController {
                                           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/endgameScene.fxml"));
                                           try {
                                               Parent root = loader.load();
-                                              GuiController endgameController = loader.getController();
+                                              EndgameController endgameController = loader.getController();
                                               getClient().removeObserver(BoardController.this);
                                               endgameController.setStage(getStage());
                                               endgameController.setScene(new Scene(root));
                                               endgameController.setRoot(root);
+                                              endgameController.setBoard(board);
                                               getClient().addObserver(endgameController);
                                               endgameController.setClient(getClient());
                                               endgameController.getStage().setScene(endgameController.getScene());
