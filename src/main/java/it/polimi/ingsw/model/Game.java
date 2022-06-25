@@ -195,7 +195,6 @@ public class Game extends Observable<Game> implements Serializable {
         return false;
     }
 
-
     public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException, NotEnoughCoins {
     }
 

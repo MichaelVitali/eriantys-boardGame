@@ -147,18 +147,22 @@ public class GameMessage extends Message implements Serializable {
     }
 
     public void printDefaultOnCli() {
-        printIslands(gametable.getIslands());
-        printPlayedAssistants(getListPlayedAssistants());
-        if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
-        if (gameMode == GameMode.EXPERT) {
-            printTableCoins();
-            printCharacter(characters);
+        if (getState() == 100) {
+            printWinners();
+        } else {
+            printIslands(gametable.getIslands());
+            printPlayedAssistants(getListPlayedAssistants());
+            if (playerId == playerOnTurn && state == 0) printAssistants(assistants);
+            if (gameMode == GameMode.EXPERT) {
+                printTableCoins();
+                printCharacter(characters);
+            }
+            printAllSchoolboards();
+            if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
+            if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
+            if (playerId == playerOnTurn) System.out.println(playerMessageCli);
+            else System.out.println("You're not the player on turn... Wait for other player!");
         }
-        printAllSchoolboards();
-        if (playerId == playerOnTurn && state != 0) printCloud(gametable.getClouds());
-        if (gameMode == GameMode.EXPERT && playerOnTurn == playerId && state != 0 && !alreadyPlayedCharacter) System.out.println("Use command 'character' to play a character");
-        if (playerId == playerOnTurn) System.out.println(playerMessageCli);
-        else System.out.println("You're not the player on turn... Wait for other player!");
     }
 
     public List<Assistant> getListPlayedAssistants() {
@@ -476,7 +480,11 @@ public class GameMessage extends Message implements Serializable {
     }
 
     public void printWinners() {
-
+        if (getWinnersIndexes().contains(playerId)) System.out.println("You WIN!!");
+        else {
+            System.out.println("Winners: ");
+            for (String s : getWinnersNicknames()) System.out.print(s + "\t");
+        }
     }
 
 }

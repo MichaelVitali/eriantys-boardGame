@@ -284,7 +284,7 @@ public class Round implements Serializable {
             roundEnded = true;
             if (game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
                 roundState = 100;
-                game.endTheMatch();
+                //game.endTheMatch();
             }
         } else if (isTimeToMoveMotherNature()) {
             previousState = 1;
@@ -304,7 +304,7 @@ public class Round implements Serializable {
         }
         if (!roundEnded) {
             setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessageCli(), getStateMessageGui());
-            game.sendGame();
+            //game.sendGame();
         }
     }
 
@@ -490,7 +490,7 @@ public class Round implements Serializable {
                 }
                 if(game.isGameEnded()) {
                     roundState = 100;
-                    game.endTheMatch();
+                    //game.endTheMatch();
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {

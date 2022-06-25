@@ -233,7 +233,7 @@
 
             </AnchorPane>
             <Label fx:id="coinNumber" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
-            <ImageView fx:id="coinImage" fitHeight="55.0" fitWidth="55.0" layoutX="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="coinImage" fitHeight="25.0" fitWidth="25.0" layoutX="40.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <Image url="@../images/coin.png" />
             </ImageView>
             <Label fx:id="myName" layoutY="0.0" prefHeight="35.0" prefWidth="258.0" styleClass="text" />
@@ -653,7 +653,7 @@
                   <Button fx:id="pawnColor3" layoutX="261.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="PINK" visible="false" />
                   <Button fx:id="pawnColor4" layoutX="357.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="BLUE" visible="false" />
                   <Label fx:id="coinTableNumber" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
-                  <ImageView fx:id="coinTableImage" fitHeight="55.0" fitWidth="55.0" layoutX="25.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="coinTableImage" fitHeight="25.0" fitWidth="25.0" layoutX="40.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="characterEffect" layoutX="240.0" layoutY="270.0" styleClass="text" visible="false" />
                </children>
             </AnchorPane>
