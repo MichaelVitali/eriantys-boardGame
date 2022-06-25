@@ -433,4 +433,8 @@ public class GameMessage extends Message implements Serializable {
         System.out.println("\n\nTable coins: " + getTableCoins() + "\uD83E\uDE99");
     }
 
+    public void printWinners() {
+
+    }
+
 }
