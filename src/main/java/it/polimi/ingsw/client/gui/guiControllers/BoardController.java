@@ -294,10 +294,10 @@ public class BoardController extends GuiController {
                     cloudPane1.setTranslateX(100);
                 } else if (board.getNumberOfPLayers() == 3) {
                     player2.setText(board.getPlayersNicknames()[(myPlayerId + 1) % 3]);
-                    player2.setPrefWidth(129);
+                    player2.setPrefWidth(125);
                     player3.setText(board.getPlayersNicknames()[(myPlayerId + 2) % 3]);
-                    player3.setPrefWidth(129);
-                    player3.setTranslateX(43);
+                    player3.setPrefWidth(125);
+                    player3.setTranslateX(45);
                     player4.setVisible(false);
                     cloud3.setVisible(false);
                     cloudPane3.setVisible(false);
