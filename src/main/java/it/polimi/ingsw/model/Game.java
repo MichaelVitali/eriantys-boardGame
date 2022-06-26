@@ -194,8 +194,12 @@ public class Game extends Observable<Game> implements Serializable {
         if (isVictory() || isDraw()) return true;
         return false;
     }
+    /**
+     * Does the operations related to the end of the game
+     */
+    public void endTheMatch() {
 
-
+    }
     public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException, NotEnoughCoins {
     }
 
