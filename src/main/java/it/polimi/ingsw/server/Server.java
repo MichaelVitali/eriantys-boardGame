@@ -205,4 +205,12 @@ public class Server {
         }
         return playerId;
     }
+
+    public List<Match> getAllMatchesOnServer() {
+        List<Match> matches = new ArrayList<>();
+        matches.addAll(pendingMatches);
+        matches.addAll(runningMatches);
+
+        return matches;
+    }
 }

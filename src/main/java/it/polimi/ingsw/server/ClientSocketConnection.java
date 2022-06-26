@@ -123,15 +123,23 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
 
             send(new SetupMessage(ConnectionState.LOGIN, "Choose your nickname"));
             String playerNickname = "";
+            boolean flag = true;
             do {
                 try {
                     buffer = in.readObject();
+                    flag = true;
                     if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.LOGIN && !((SetupMessage) buffer).getMessage().equals(""))
                         playerNickname = ((SetupMessage) buffer).getMessage();
+                    for(Match m : server.getAllMatchesOnServer()) {
+                        for(String s : m.getPlayerNicknames()) {
+                            if (s.equals(playerNickname)) flag = false;
+                            send(new SetupMessage(ConnectionState.LOGIN, "The nickname is already chosen!\nChoose your nickname"));
+                        }
+                    }
                 } catch (Exception e) {
                     send(new SetupMessage(ConnectionState.LOGIN, "Error : you are not sending the correct information\nChoose a nickname"));
                 }
-            } while (playerNickname.equals(""));
+            } while (playerNickname.equals("") || !flag);
             System.out.println("The player choose is " + playerNickname);
 
             send(new SetupMessage(ConnectionState.MATCHMODE, "Welcome " + playerNickname + "\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
