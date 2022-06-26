@@ -52,7 +52,7 @@ public class Postman extends Character {
                 }
                 if(getGame().isGameEnded()) {
                     roundState = 100;
-                    getGame().endTheMatch();
+                    //getGame().endTheMatch();
                 }
                 calculateNextPlayer();
                 deactivateEffect(false);

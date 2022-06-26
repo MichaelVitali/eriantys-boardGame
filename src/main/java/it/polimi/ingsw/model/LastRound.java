@@ -28,7 +28,7 @@ public class LastRound extends Round {
     public void calculateNextPlayer() {
         if (isActionPhaseEnded()) {
             setRoundState(100);
-            getGame().endTheMatch();
+            //getGame().endTheMatch();
         } else if (isTimeToChooseACloud() && studentsEnded) {
             roundState = 1;
             setIndexOfPlayerOnTurn(getIndexOfPlayerOnTurn() + 1);

@@ -109,7 +109,7 @@ public class Healer extends Character {
                     }
                     if (getGame().isGameEnded()) {
                         roundState = 100;
-                        getGame().endTheMatch();
+                        //getGame().endTheMatch();
                     }
                 } else {
                     getGame().getGameTable().getIslandByIndex(getGame().getGameTable().getMotherNaturePosition()).resetProhibition();
