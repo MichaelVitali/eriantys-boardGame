@@ -129,4 +129,20 @@ public class GameMessageTest extends TestCase {
     public void testReturnCircleUnicodeFromColor() {
         message.returnCircleUnicodeForColor(PawnColor.YELLOW);
     }
+
+    public void testGetWinnersIndexes() {
+        message.getWinnersIndexes();
+    }
+
+    public void testGetWinnersNicknames() {
+        message.getWinnersNicknames();
+    }
+
+    public void testPrintWinners() {
+        message.printWinners();
+    }
+
+    public void testPrintTableCoins() {
+        message.printTableCoins();
+    }
 }
