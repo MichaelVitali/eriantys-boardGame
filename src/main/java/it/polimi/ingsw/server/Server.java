@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT = 50006;
+    private static final int PORT = 50002;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private int nextMatchId;
@@ -51,42 +51,7 @@ public class Server {
             }
         }
     }
-/*
-    private void startGame(Match match){
 
-        View[] playerView = new RemoteView[match.getNumberOfPlayers()];
-        for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-            playerView[i] = new RemoteView(i, match.getPlayerNicknames().get(i), match.getSockets().get(i));
-        }
-        for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-            System.out.println("Player : " + i + " " + match.getPlayerNicknames().get(i) + " " + match.getSockets().get(i).toString());
-        }
-        System.out.println(match.getGameMode());
-        Game model;
-        if (match.getGameMode() == GameMode.NORMAL)
-            model = new Game(match.getNumberOfPlayers(), match.getPlayerNicknames());
-        else
-            model = new ExpertGame(match.getNumberOfPlayers(), match.getPlayerNicknames());
-
-        Controller controller = new Controller(model);
-
-        match.setModel(model);
-
-        for (int i = 0; i < match.getNumberOfPlayers(); i++) {
-            model.addObserver(playerView[i]);
-            playerView[i].addObserver(controller);
-
-            GameMessage displayedBoard = new GameMessage(model, i);
-            match.getSockets().get(i).send(displayedBoard);
-        }
-
-        System.out.println("The match " + match.getMatchId() + " starts");
-        System.out.println("The starting order of match " + match.getMatchId() + " is " + model.getRound().getPlayerOrder().toString());
-
-        runningMatches.add(match);
-        pendingMatches.remove(match);
-    }
-*/
     /**
      *
      * @param clientConnection
@@ -220,4 +185,12 @@ public class Server {
         runningMatches.remove(myMatch);
     }
 
+
+    public List<Match> getAllMatchesOnServer() {
+        List<Match> matches = new ArrayList<>();
+        matches.addAll(pendingMatches);
+        matches.addAll(runningMatches);
+
+        return matches;
+    }
 }

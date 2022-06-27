@@ -264,10 +264,10 @@
                   <ImageView fx:id="enemyEntrance7" layoutX="200.0" layoutY="40.0" />
                </children>
             </AnchorPane>
-            <Label fx:id="enemyName" layoutY="0.0" prefHeight="35.0" prefWidth="258.0" styleClass="text" textAlignment="CENTER" visible="false" />
-            <Button fx:id="player2" layoutX="0.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="86.0" styleClass="text" text="Player 2" />
-            <Button fx:id="player3" layoutX="86.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="86.0" styleClass="text" text="Player 3" />
-            <Button fx:id="player4" layoutX="172.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="86.0" styleClass="text" text="Player 4" />
+            <Label fx:id="enemyName" layoutY="15.0" prefHeight="35.0" prefWidth="258.0" styleClass="lableName" textAlignment="CENTER" visible="false" />
+            <Button fx:id="player2" layoutX="0.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 2"  />
+            <Button fx:id="player3" layoutX="88.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 3" />
+            <Button fx:id="player4" layoutX="175.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 4" />
             <AnchorPane layoutY="253.0" prefHeight="300.0" prefWidth="258.0">
                <children>
                   <ImageView fx:id="enemyStudent00" fitHeight="30" fitWidth="30" layoutX="30.0" layoutY="264.0" preserveRatio="true" styleClass="studentsImage">
@@ -653,7 +653,7 @@
                   <Button fx:id="pawnColor3" layoutX="261.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="PINK" visible="false" />
                   <Button fx:id="pawnColor4" layoutX="357.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="BLUE" visible="false" />
                   <Label fx:id="coinTableNumber" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
-                  <ImageView fx:id="coinTableImage" fitHeight="25.0" fitWidth="25.0" layoutX="40.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="coinTableImage" fitHeight="30.0" fitWidth="30.0" layoutX="40.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="characterEffect" layoutX="240.0" layoutY="270.0" styleClass="text" visible="false" />
                </children>
             </AnchorPane>
