@@ -803,7 +803,7 @@ public class BoardController extends GuiController {
             displayCharacter();
             displayCoin();
         }
-        System.out.println("My Pl : " + myPlayerId);
+        //System.out.println("My Pl : " + myPlayerId);
     }
 
     /**
@@ -830,7 +830,6 @@ public class BoardController extends GuiController {
      */
     @Override
     public void update(Message message) {
-        System.out.println(message.getClass());
         if (message instanceof TerminatorMessage) {
             terminate();
         } else if(message instanceof GameMessage && message != null) {

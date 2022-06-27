@@ -30,14 +30,11 @@ public class GuiClient extends Application {
     public void start(Stage stage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/loginScene.fxml"));
-
         Parent root = loader.load();
-        System.out.println("Arrivo qui");
         stage.setTitle("Eriantys");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(true);
-
         Image logo = new Image("/images/BLLoghi.png", 100, 300, true, false);
         stage.getIcons().add(logo);
         GuiController loginController = loader.getController();
@@ -49,7 +46,8 @@ public class GuiClient extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
-                getClient().asyncWriteToSocket(new TerminatorMessage("I wanna leave"));
+                /*if (getClient() != null)
+                    getClient().asyncWriteToSocket(new TerminatorMessage("I wanna leave"));*/
                 Platform.exit();
                 System.exit(0);
             }
