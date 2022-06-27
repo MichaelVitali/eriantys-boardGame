@@ -4,10 +4,7 @@ import it.polimi.ingsw.ClientApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.gui.guiControllers.GuiController;
 import it.polimi.ingsw.client.gui.guiControllers.LoginController;
-import it.polimi.ingsw.controller.message.ConnectionState;
-import it.polimi.ingsw.controller.message.GameMessage;
-import it.polimi.ingsw.controller.message.Message;
-import it.polimi.ingsw.controller.message.SetupMessage;
+import it.polimi.ingsw.controller.message.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -27,27 +24,40 @@ import java.util.NoSuchElementException;
 
 public class GuiClient extends Application {
 
+    private Client client;
+
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                Platform.exit();
-                System.exit(0);
-            }
-        });
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/loginScene.fxml"));
+
         Parent root = loader.load();
+        System.out.println("Arrivo qui");
         stage.setTitle("Eriantys");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(true);
+
         Image logo = new Image("/images/BLLoghi.png", 100, 300, true, false);
         stage.getIcons().add(logo);
         GuiController loginController = loader.getController();
         loginController.setStage(stage);
         loginController.setScene(scene);
         loginController.setRoot(root);
+
+        client = loginController.getClient();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                getClient().asyncWriteToSocket(new TerminatorMessage("I wanna leave"));
+                Platform.exit();
+                System.exit(0);
+            }
+        });
         stage.show();
+    }
+
+    public Client getClient() {
+        return client;
     }
 }

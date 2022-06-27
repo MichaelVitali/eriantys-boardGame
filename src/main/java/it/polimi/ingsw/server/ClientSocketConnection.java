@@ -1,13 +1,16 @@
 package it.polimi.ingsw.server;
 
+import com.sun.jdi.connect.spi.ClosedConnectionException;
 import it.polimi.ingsw.controller.message.ConnectionState;
 import it.polimi.ingsw.controller.message.SetupMessage;
+import it.polimi.ingsw.controller.message.TerminatorMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMode;
 import it.polimi.ingsw.controller.message.PlayerMessage;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.model.exception.AlreadyChosenWizardException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
+import it.polimi.ingsw.model.exception.SocketInactiveException;
 import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.observer.Observable;
 
@@ -62,21 +65,34 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
         return buffer;
     }
 
-    @Override
-    public synchronized void closeConnection() {
-        send("Connection closed!");
+    public synchronized void closeConnectionNotifier() {
         try {
             socket.close();
         } catch (IOException e) {
             System.err.println("Error when closing socket!");
         }
         active = false;
+        System.out.println("Connection " + this.toString() + " closed");
     }
 
-    private void close() {
-        closeConnection();
+    private void closeAndNotify() {
+        closeConnectionNotifier();
         /////// eventuale controllo delle disconnessioni
-        System.out.println("Done!");
+        server.exitingPlayer(this);
+        System.out.println("Connection " + this.toString() + " closed");
+
+    }
+
+    @Override
+    public synchronized void closeConnection() {
+        send(new TerminatorMessage("The game is over"));
+        try {
+            socket.close();
+        } catch (IOException e) {
+            System.err.println("Error when closing socket!");
+        }
+        active = false;
+        System.out.println("Connection " + this.toString() + " closed");
     }
 
     public void chooseWizards(Match match){
@@ -115,7 +131,7 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
 
     @Override
     public void run() {
-        try{
+        try {
             Object buffer = null;
 
             in = new ObjectInputStream(socket.getInputStream());
@@ -124,8 +140,10 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             send(new SetupMessage(ConnectionState.LOGIN, "Choose your nickname"));
             String playerNickname = "";
             do {
+                //if (!isActive()) throw new SocketInactiveException();
                 try {
                     buffer = in.readObject();
+                    if(buffer instanceof TerminatorMessage) throw new SocketInactiveException();
                     if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.LOGIN && !((SetupMessage) buffer).getMessage().equals(""))
                         playerNickname = ((SetupMessage) buffer).getMessage();
                 } catch (Exception e) {
@@ -134,14 +152,17 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             } while (playerNickname.equals(""));
             System.out.println("The player choose is " + playerNickname);
 
+            if (!isActive()) throw new SocketInactiveException();
             send(new SetupMessage(ConnectionState.MATCHMODE, "Welcome " + playerNickname + "\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
             int gameMode = -1;
             do {
+                if (!isActive()) throw new SocketInactiveException();
                 try {
                     buffer = in.readObject();
-                    if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.MATCHMODE && ((SetupMessage) buffer).getMessage() != null)
+                    if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.MATCHMODE && ((SetupMessage) buffer).getMessage() != null)
                         gameMode = Integer.parseInt((String) ((SetupMessage) buffer).getMessage());
-                    else send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
+                    else
+                        send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
                 } catch (Exception e) {
                     send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
                 }
@@ -151,11 +172,13 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Choose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :"));
             int numberOfPlayers = 0;
             do {
+                if (!isActive()) throw new SocketInactiveException();
                 try {
                     buffer = in.readObject();
-                    if(buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.NUMBEROFPLAYERS)
+                    if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.NUMBEROFPLAYERS)
                         numberOfPlayers = Integer.parseInt((String) ((SetupMessage) buffer).getMessage());
-                    else send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Error : you are not sending the correct information\nChoose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :"));
+                    else
+                        send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Error : you are not sending the correct information\nChoose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :"));
                 } catch (Exception e) {
                     send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Error : you are not sending the correct information"));
                 }
@@ -194,8 +217,9 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             e.printStackTrace();
         } catch (TooManyMovesException e) {
             e.printStackTrace();
+        } catch (SocketInactiveException e) {
         } finally {
-            close();
+            closeAndNotify();
         }
     }
 }

@@ -830,7 +830,10 @@ public class BoardController extends GuiController {
      */
     @Override
     public void update(Message message) {
-        if(message instanceof GameMessage && message != null) {
+        System.out.println(message.getClass());
+        if (message instanceof TerminatorMessage) {
+            terminate();
+        } else if(message instanceof GameMessage && message != null) {
             board = (GameMessage) message;
             if (board.getState() == 100) {
                 Platform.runLater(new Runnable() {

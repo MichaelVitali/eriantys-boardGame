@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT = 50002;
+    private static final int PORT = 50006;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private int nextMatchId;
@@ -205,4 +205,19 @@ public class Server {
         }
         return playerId;
     }
+
+    public void exitingPlayer(ClientConnection clientSocketConnection) {
+        Match myMatch = getMyMatch(clientSocketConnection);
+
+        if (myMatch != null) {
+            for (ClientConnection clientConnection : myMatch.getSockets()) {
+                if (clientConnection != null && clientConnection != clientSocketConnection)
+                    clientConnection.closeConnection();
+            }
+        }
+
+        pendingMatches.remove(myMatch);
+        runningMatches.remove(myMatch);
+    }
+
 }

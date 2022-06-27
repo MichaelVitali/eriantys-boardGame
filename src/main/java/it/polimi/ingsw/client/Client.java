@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.ClientApp;
-import it.polimi.ingsw.controller.message.GameMessage;
-import it.polimi.ingsw.controller.message.Message;
-import it.polimi.ingsw.controller.message.PostChangeMotherNaturePosition;
-import it.polimi.ingsw.controller.message.SetupMessage;
+import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
@@ -63,7 +60,9 @@ public class Client extends Observable<Message> implements Runnable {
                 try {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof SetupMessage) {
+                        if (inputObject instanceof TerminatorMessage) {
+                            Client.this.notify((TerminatorMessage) inputObject);
+                        } else if(inputObject instanceof SetupMessage) {
                             //System.out.println("setup message arrivato al client");
                             if(inputObject  != null) {
                                 Client.this.notify((SetupMessage) inputObject); //////Vedere se va bene
@@ -85,7 +84,7 @@ public class Client extends Observable<Message> implements Runnable {
                         }
                     }
                 } catch (Exception e){
-                    e.printStackTrace();
+                    closeAll();
                     setActive(false);
                 }
             }
@@ -105,11 +104,21 @@ public class Client extends Observable<Message> implements Runnable {
                         outputStream.reset();
                     }
                 } catch(Exception e) {
+                    closeAll();
                     setActive(false);
                 }
             }
         });
         thread.start();
         return thread;
+    }
+
+    public void closeAll() {
+        try {
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+
+        }
     }
 }

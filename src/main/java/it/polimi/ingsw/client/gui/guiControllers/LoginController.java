@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.gui.GuiClient;
 import it.polimi.ingsw.controller.message.ConnectionState;
 import it.polimi.ingsw.controller.message.Message;
 import it.polimi.ingsw.controller.message.SetupMessage;
+import it.polimi.ingsw.controller.message.TerminatorMessage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
