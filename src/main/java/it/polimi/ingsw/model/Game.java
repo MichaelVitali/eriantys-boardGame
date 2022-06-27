@@ -92,11 +92,11 @@ public class Game extends Observable<Game> implements Serializable {
     }
 
     public void setVictory(){
-        victory=true;
+        victory = true;
     }
 
     public void setDraw(){
-        draw=true;
+        draw = true;
     }
 
     public TowerColor getWinner() {

@@ -224,6 +224,7 @@ public class GameTable implements Serializable {
                 indexMaxInfluence = i;
             }
         }
+        System.out.println("ISOLE : " + islands.size());
         if (indexMaxInfluence < 0 || maxInfluence < 0) {}
         else {
             try {
@@ -246,8 +247,15 @@ public class GameTable implements Serializable {
                     islands.get(motherNaturePosition).setTowers(schoolBoards[indexMaxInfluence].removeTowers(numberOfRequiredTowers));
                     if (islands.get(motherNaturePosition).getTowers().isEmpty())
                         throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
-                    if (islands.size() <= 3) throw new ThreeOrLessIslandException();
+                    if (islands.size() <= 3) {
+                        System.out.println("Tre o meno island");
+                        throw new ThreeOrLessIslandException();
+                    }
                     mergeIslandsIfNecessary();
+                }
+                if (islands.size() <= 3) {
+                    System.out.println("Tre o meno island");
+                    throw new ThreeOrLessIslandException();
                 }
             } catch (InvalidIndexException e) {
                 e.printStackTrace();

@@ -274,6 +274,7 @@ public class Round implements Serializable {
     public void calculateNextPlayer() {
         boolean roundEnded = false;
         if (isTheGameEnded()) {
+            game.sendGame();
             //nothing
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
@@ -304,7 +305,7 @@ public class Round implements Serializable {
         }
         if (!roundEnded) {
             setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[indexOfPlayerOnTurn], getStateMessageCli(), getStateMessageGui());
-            //game.sendGame();
+            game.sendGame();
         }
     }
 
@@ -485,10 +486,13 @@ public class Round implements Serializable {
                 } catch (NoMoreTowersException e) {
                     game.setVictory();
                     game.setWinner(e.getEmptySchoolboardColor());
+                    roundState = 100;
                 } catch (ThreeOrLessIslandException e) {
+                    System.out.println("Three or less island exception");
                     checkEndgameAndSetTheWinner();
                 }
                 if(game.isGameEnded()) {
+                    System.out.println("Endgame");
                     roundState = 100;
                     //game.endTheMatch();
                 }

@@ -1393,9 +1393,11 @@ public class BoardController extends GuiController {
     }
 
     public void showGameMessage(){
-        String playerMessage = board.getPlayerMessageGui();
-        labelGameMessage.setVisible(true);
-        labelGameMessage.setText(playerMessage);
+        Platform.runLater( () -> {
+            String playerMessage = board.getPlayerMessageGui();
+            labelGameMessage.setVisible(true);
+            labelGameMessage.setText(playerMessage);
+        });
     }
 
     public void playCharacter(MouseEvent event) {
