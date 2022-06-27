@@ -225,8 +225,8 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             e.printStackTrace();
         } catch (TooManyMovesException e) {
             e.printStackTrace();
-        } catch (SocketInactiveException e) {
-        } finally {
+        } /*catch (SocketInactiveException e) {
+        }*/ finally {
             closeAndNotify();
         }
     }
