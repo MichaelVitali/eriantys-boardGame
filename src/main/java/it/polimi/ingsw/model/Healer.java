@@ -55,8 +55,8 @@ public class Healer extends Character {
             setPlayerMessageGui(playerId, e.getMessage() + "\n" + getRound().getStateMessageGui() );
             getGame().sendGame();
         } catch (NotEnoughCoins e) {
-            setPlayerMessageCli(playerId,"Not enough coins to play this character" + getRound().getStateMessageCli());
-            setPlayerMessageGui(playerId,"Not enough coins to play this character" + getRound().getStateMessageGui());
+            setPlayerMessageCli(playerId, "Not enougth coin to play the character\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "Not enougth coin to play the character\n" + getStateMessageGui());
             getGame().sendGame();
         }
     }
@@ -109,7 +109,7 @@ public class Healer extends Character {
                     }
                     if (getGame().isGameEnded()) {
                         roundState = 100;
-                        getGame().endTheMatch();
+                        //getGame().endTheMatch();
                     }
                 } else {
                     getGame().getGameTable().getIslandByIndex(getGame().getGameTable().getMotherNaturePosition()).resetProhibition();

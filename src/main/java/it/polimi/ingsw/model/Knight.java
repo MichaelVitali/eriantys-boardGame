@@ -56,7 +56,7 @@ public class Knight extends Character {
                 if(getRound().getGame().isGameEnded()) {
                     getRound().setRoundState(100);
                     roundState = 100;
-                    getRound().getGame().endTheMatch();
+                    //getRound().getGame().endTheMatch();
                 }
                 calculateNextPlayer();
                 deactivateEffect(false);

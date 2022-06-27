@@ -42,7 +42,8 @@ public class GuiClient extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(true);
-        stage.getIcons().add(new Image("/images/BLLoghi.png"));
+        Image logo = new Image("/images/BLLoghi.png", 100, 300, true, false);
+        stage.getIcons().add(logo);
         GuiController loginController = loader.getController();
         loginController.setStage(stage);
         loginController.setScene(scene);

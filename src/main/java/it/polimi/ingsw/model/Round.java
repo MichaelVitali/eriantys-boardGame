@@ -113,10 +113,6 @@ public class Round implements Serializable {
         return previousState;
     }
 
-    public void setPreviousState(int previousState) {
-        this.previousState = previousState;
-    }
-
     public int[] getMovesCounter(){
         return movesCounter;
     }
@@ -278,6 +274,7 @@ public class Round implements Serializable {
     public void calculateNextPlayer() {
         boolean roundEnded = false;
         if (isTheGameEnded()) {
+            game.sendGame();
             //nothing
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
@@ -288,7 +285,7 @@ public class Round implements Serializable {
             roundEnded = true;
             if (game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
                 roundState = 100;
-                game.endTheMatch();
+                //game.endTheMatch();
             }
         } else if (isTimeToMoveMotherNature()) {
             previousState = 1;
@@ -489,12 +486,15 @@ public class Round implements Serializable {
                 } catch (NoMoreTowersException e) {
                     game.setVictory();
                     game.setWinner(e.getEmptySchoolboardColor());
+                    roundState = 100;
                 } catch (ThreeOrLessIslandException e) {
+                    System.out.println("Three or less island exception");
                     checkEndgameAndSetTheWinner();
                 }
                 if(game.isGameEnded()) {
+                    System.out.println("Endgame");
                     roundState = 100;
-                    game.endTheMatch();
+                    //game.endTheMatch();
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
@@ -544,6 +544,7 @@ public class Round implements Serializable {
             if (roundState <= 0 || roundState >= 4) throw new InvalidMethodException();
             if (alreadyPlayedCharacter) throw new AlreadyPlayedCharcaterException();
             game.activateEffect(playerId, indexCard);
+            //if (((ExpertGame) game).getCharacter(indexCard) instanceof InnKeeper) ((ExpertGame) game).getCharacter(indexCard).deactivateEffect(true);
             alreadyPlayedCharacter = true;
         } catch (PlayerNotOnTurnException e) {
             // The player is not the current player so the round tate doesn't change
@@ -559,9 +560,9 @@ public class Round implements Serializable {
             setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
             game.sendGame();
-        }   catch (NotEnoughCoins e) {
-            setPlayerMessageCli(playerId,"Not enough coins to play this character\n" + getStateMessageCli());
-            setPlayerMessageGui(playerId,"Not enough coins to play this character\n" + getStateMessageGui());
+        } catch (NotEnoughCoins e) {
+            setPlayerMessageCli(playerId, "Not enougth coin to play the character\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, "Not enougth coin to play the character\n" + getStateMessageGui());
             game.sendGame();
         }
     }
