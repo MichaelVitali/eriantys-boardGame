@@ -236,7 +236,7 @@
             <ImageView fx:id="coinImage" fitHeight="25.0" fitWidth="25.0" layoutX="40.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <Image url="@../images/coin.png" />
             </ImageView>
-            <Label fx:id="myName" layoutY="0.0" prefHeight="35.0" prefWidth="258.0" styleClass="text" />
+            <Label fx:id="myName" layoutY="10.0" prefHeight="35.0" prefWidth="258.0" styleClass="lableName" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -264,10 +264,10 @@
                   <ImageView fx:id="enemyEntrance7" layoutX="200.0" layoutY="40.0" />
                </children>
             </AnchorPane>
-            <Label fx:id="enemyName" layoutY="15.0" prefHeight="35.0" prefWidth="258.0" styleClass="lableName" textAlignment="CENTER" visible="false" />
-            <Button fx:id="player2" layoutX="0.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 2"  />
-            <Button fx:id="player3" layoutX="88.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 3" />
-            <Button fx:id="player4" layoutX="175.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 4" />
+            <Label fx:id="enemyName" layoutY="10.0" prefHeight="35.0" prefWidth="258.0" styleClass="lableName" textAlignment="CENTER" visible="false" />
+            <Button fx:id="player2" layoutX="0.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 2"  />
+            <Button fx:id="player3" layoutX="88.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 3" />
+            <Button fx:id="player4" layoutX="175.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 4" />
             <AnchorPane layoutY="253.0" prefHeight="300.0" prefWidth="258.0">
                <children>
                   <ImageView fx:id="enemyStudent00" fitHeight="30" fitWidth="30" layoutX="30.0" layoutY="264.0" preserveRatio="true" styleClass="studentsImage">

@@ -289,11 +289,11 @@ public class Round implements Serializable {
         } else if (isTimeToChooseTheNextStudent()) {
             previousState = 1;
         } else if (isActionPhaseEnded()) {
-            switchToPianificationPhase();
             roundEnded = true;
+            switchToPianificationPhase();
             if (game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
                 roundState = 100;
-                //game.endTheMatch();
+                checkEndgameAndSetTheWinner();
                 game.sendGame();
             }
         } else if (isTimeToMoveMotherNature()) {
