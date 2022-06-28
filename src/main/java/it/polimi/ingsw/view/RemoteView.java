@@ -9,7 +9,7 @@ public class RemoteView extends View {
     private String playerNickname;
     private ClientConnection clientConnection;
     private PlayerMessage playerMessage;
-    private boolean onIslandMessage;
+
     private class MessageReceiver implements Observer<PlayerMessage> {
         @Override
         public void update(PlayerMessage message) {
@@ -36,18 +36,18 @@ public class RemoteView extends View {
             model.getPlayer(super.getPlayerId()).setError(false);
         } else if  (model.getRound().getRoundState() == 0) {
             message = new PostPlayAssistantMessage(model, super.getPlayerId());
-            System.out.println("PostASSISTANT");
+            System.out.println("PostAssistant");
         } else if (model.getRound().getRoundState() == 1 && model.getRound().getPreviousState() == 0) {
             message = new PostPlayAssistantMessage(model, super.getPlayerId());
-            System.out.println("PostASSISTANT");
+            System.out.println("PostAssistant");
         } else if (model.getRound().getRoundState() == 1 && model.getRound().getPreviousState() == 3)
         {
             System.out.println("PostCloudMessage");
             message = new PostGetStudentsFromCloudsMessage(model, super.getPlayerId());
-        } else if ((model.getRound().getRoundState() == 1 || model.getRound().getRoundState() == 2) && !onIslandMessage && model.getRound().getPreviousState() == 1) {
+        } else if ((model.getRound().getRoundState() == 1 || model.getRound().getRoundState() == 2) && !model.getRound().isIslandMessage() && model.getRound().getPreviousState() == 1) {
             message = new PostAddStudentOnTableMessage(model, super.getPlayerId());
             System.out.println("PostAddStudentOnTable");
-        } else if ((model.getRound().getRoundState() == 1 || model.getRound().getRoundState() == 2) && onIslandMessage && model.getRound().getPreviousState() == 1) {
+        } else if ((model.getRound().getRoundState() == 1 || model.getRound().getRoundState() == 2) && !model.getRound().isIslandMessage() && model.getRound().getPreviousState() == 1) {
             message = new PostAddStudentOnIslandMessage(model, super.getPlayerId());
             System.out.println("PostAddStudentsOnIsland");
         } else if (model.getRound().getRoundState() == 3)  {
@@ -56,7 +56,7 @@ public class RemoteView extends View {
         }
         else if (model.getRound().getRoundState() >= 4) {
             message = new GameMessage(model, super.getPlayerId());
-            System.out.println("PostCharacter");
+            System.out.println("PostCharacter o altro, ad esempio Endgame");
         }
         else
             System.out.println("State : " + model.getRound().getRoundState() + " round class : " + model.getRound().getClass() + " (RemoteView)");
@@ -68,10 +68,6 @@ public class RemoteView extends View {
     void handleMove(PlayerMessage message) {
         playerMessage = message;
         message.setPlayerId(super.getPlayerId());
-        if (message instanceof AddStudentOnIslandMessage)
-            onIslandMessage = true;
-        else if (message instanceof AddStudentOnTableMessage)
-            onIslandMessage = false;
         notify(message);
     }
 }

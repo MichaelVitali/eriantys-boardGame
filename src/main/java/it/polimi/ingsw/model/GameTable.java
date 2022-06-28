@@ -131,8 +131,16 @@ public class GameTable implements Serializable {
      * @throws EmptyBagException if there are no more students on the bag
      */
     public void addStudentsOnClouds() throws EmptyBagException {
-            for (int i = 0; i < numberOfPlayers; i++)
+        int index = 0;
+        try {
+            for (int i = 0; i < numberOfPlayers; i++) {
+                index = i;
                 clouds[i].addStudents(bag.drawStudents(clouds[i].getNumberOfStudents()));
+            }
+        } catch (EmptyBagException e) {
+            clouds[index].addStudents(e.getDrawnStudents());
+            throw e;
+        }
     }
 
     /**
@@ -185,11 +193,11 @@ public class GameTable implements Serializable {
             if(index == -1) throw new OutOfBoundException("Errore in addStudents of GameTable");
             this.islands.get(index).addStudents(student, islandIndex);
         } catch (OutOfBoundException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
+            //e.printStackTrace();
+            //System.out.println(e.getMessage());
         } catch (InvalidIndexException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
+            //e.printStackTrace();
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -224,7 +232,6 @@ public class GameTable implements Serializable {
                 indexMaxInfluence = i;
             }
         }
-        System.out.println("ISOLE : " + islands.size());
         if (indexMaxInfluence < 0 || maxInfluence < 0) {}
         else {
             try {
@@ -248,13 +255,13 @@ public class GameTable implements Serializable {
                     if (islands.get(motherNaturePosition).getTowers().isEmpty())
                         throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
                     if (islands.size() <= 3) {
-                        System.out.println("Tre o meno island");
+                        //System.out.println("Tre o meno island");
                         throw new ThreeOrLessIslandException();
                     }
                     mergeIslandsIfNecessary();
                 }
                 if (islands.size() <= 3) {
-                    System.out.println("Tre o meno island");
+                    //System.out.println("Tre o meno island");
                     throw new ThreeOrLessIslandException();
                 }
             } catch (InvalidIndexException e) {

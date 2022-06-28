@@ -15,7 +15,7 @@ public class Bag implements Serializable { //magari la bag potrebbe non essere s
      */
     public Bag() {
         students = new ArrayList<>();
-        for (int i = 0; i < 26 ; i++) {
+        for (int i = 0; i < 26; i++) {
             students.add(new Student(PawnColor.YELLOW));
             students.add(new Student(PawnColor.BLUE));
             students.add(new Student(PawnColor.GREEN));

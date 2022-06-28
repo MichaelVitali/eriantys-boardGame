@@ -176,12 +176,17 @@ public class Game extends Observable<Game> implements Serializable {
     }
 
     public Round startRound(int[] playerOrder) {
-        round = new Round(this, playerOrder);
+        Round round = null;
+        if (getPlayer(0).getAssistants().size() == 1)
+            round = new LastRound(this, playerOrder, false);
+        else
+            round = new Round(this, playerOrder);
         try {
             gameTable.addStudentsOnClouds();
         } catch (EmptyBagException e) {
             round = new LastRound(this, playerOrder, true);
         }
+        this.round = round;
         sendGame();
         return round;
     }

@@ -26,15 +26,42 @@ public class LastRound extends Round {
     }
     @Override
     public void calculateNextPlayer() {
-        if (isActionPhaseEnded()) {
+        System.out.println(roundState);
+        boolean roundEnded = false;
+        if (isTheGameEnded()) {
+            getGame().sendGame();
+            //nothing
+        } else if (isPianificationPhaseEnded()) {
+            switchToActionPhase();
+        } else if (isTimeToChooseTheNextStudent()) {
+            setPreviousState(1);
+        } else if (isActionPhaseEnded()) {
             setRoundState(100);
-            //getGame().endTheMatch();
+            checkEndgameAndSetTheWinner();
+            getGame().sendGame();
+        } else if (isTimeToMoveMotherNature()) {
+            setPreviousState(1);
+            roundState = 2;
         } else if (isTimeToChooseACloud() && studentsEnded) {
+            setRoundState(1);
+            setIndexOfPlayerOnTurn(getIndexOfPlayerOnTurn() + 1);
+            setAlreadyPlayedCharacter(false);
+        } else if (isTimeToChooseACloud() && !studentsEnded) {
+            setPreviousState(2);
+            roundState = 3;
+        } else if (cloudHasBeenChosen()) {
+            setPreviousState(3);
             roundState = 1;
             setIndexOfPlayerOnTurn(getIndexOfPlayerOnTurn() + 1);
             setAlreadyPlayedCharacter(false);
         } else {
-            super.calculateNextPlayer();
+            if (getIndexOfPlayerOnTurn() + 1 < getGame().getNumberOfPlayers()){
+                setIndexOfPlayerOnTurn(getIndexOfPlayerOnTurn() + 1);
+            }
+        }
+        if (!roundEnded) {
+            setMessageToAPlayerAndWaitingMessageForOthers(getPlayerOrder()[getIndexOfPlayerOnTurn()], getStateMessageCli(), getStateMessageGui());
+            getGame().sendGame();
         }
     }
 }

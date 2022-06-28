@@ -17,6 +17,7 @@ public class Round implements Serializable {
     private boolean[] alreadyPlayedAssistants;
     private List<Assistant> playedAssistantsPF; ///// cosa è
     private boolean alreadyPlayedCharacter;
+    private boolean islandMessage = false;
 
     public Round() { }
 
@@ -41,6 +42,10 @@ public class Round implements Serializable {
 
 
         setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant", "Select an assistant");
+    }
+
+    public boolean isIslandMessage() {
+        return islandMessage;
     }
 
     public int getPlayerOnTurn() { return playerOrder[indexOfPlayerOnTurn]; }
@@ -93,7 +98,6 @@ public class Round implements Serializable {
     }
 
     public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
-        System.out.println("messaggio da " + playerId);
         if(playerOrder[indexOfPlayerOnTurn] != playerId) {
             setPlayerMessageCli(playerId, "You are not the current player");
             game.sendGame();
@@ -111,6 +115,10 @@ public class Round implements Serializable {
 
     public int getPreviousState() {
         return previousState;
+    }
+
+    public void setPreviousState(int previousState) {
+        this.previousState = previousState;
     }
 
     public int[] getMovesCounter(){
@@ -141,7 +149,6 @@ public class Round implements Serializable {
     }
 
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {
-        System.out.println("metodo chiamato indice " + methodId);
         if (methodId != roundState) throw new InvalidMethodException();
     }
 
@@ -259,7 +266,7 @@ public class Round implements Serializable {
     }
 
     public void switchToPianificationPhase() {
-        System.out.println("Abbiamo eseguito la switch to pianification phase");
+        //System.out.println("Abbiamo eseguito la switch to pianification phase");
         setPianificationPhaseOrder();
         game.startRound(playerOrder);
     }
@@ -286,6 +293,7 @@ public class Round implements Serializable {
             if (game.getPlayer(playerOrder[indexOfPlayerOnTurn]).getAssistants().size() == 0) {
                 roundState = 100;
                 //game.endTheMatch();
+                game.sendGame();
             }
         } else if (isTimeToMoveMotherNature()) {
             previousState = 1;
@@ -357,6 +365,7 @@ public class Round implements Serializable {
     }
 
     public void addStudentOnIsland(int playerId, int studentIndex, int islandIndex) {
+        islandMessage = true;
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(1);
@@ -382,6 +391,7 @@ public class Round implements Serializable {
     }
 
     public void addStudentOnTable(int playerId, int studentIndex) {
+        islandMessage = false;
         try {
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(1);
@@ -426,7 +436,6 @@ public class Round implements Serializable {
     public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) {
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         int numberOfIslands = game.getGameTable().getNumberOfIslands();
-        System.out.println("numberOfIslands : " + numberOfIslands + " assistant moves " + assistant.getMotherNatureMoves());
         if(islandIndex == motherNaturePosition && numberOfIslands > assistant.getMotherNatureMoves())
             return false;
         if (islandIndex < motherNaturePosition) {
@@ -488,11 +497,11 @@ public class Round implements Serializable {
                     game.setWinner(e.getEmptySchoolboardColor());
                     roundState = 100;
                 } catch (ThreeOrLessIslandException e) {
-                    System.out.println("Three or less island exception");
+                    //System.out.println("Three or less island exception");
                     checkEndgameAndSetTheWinner();
                 }
                 if(game.isGameEnded()) {
-                    System.out.println("Endgame");
+                    //System.out.println("Endgame");
                     roundState = 100;
                     //game.endTheMatch();
                 }
