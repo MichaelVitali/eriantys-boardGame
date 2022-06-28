@@ -16,7 +16,7 @@ public class Game extends Observable<Game> implements Serializable {
     private GameMode gameMode;
     private GameTable gameTable;
     private List<Assistant>[] assistants;
-    private List<Wizard> alreadyChosenWizards; /////////////////////////////////////////////
+    private List<Wizard> alreadyChosenWizards;
     private Player[] players;
     private Round round;
     private boolean victory;
@@ -29,7 +29,7 @@ public class Game extends Observable<Game> implements Serializable {
         gameMode = GameMode.NORMAL;
         gameTable = createGameTable(numberOfPlayers);
 
-        alreadyChosenWizards = new ArrayList<>(); //////////////////////////////////////////////////
+        alreadyChosenWizards = new ArrayList<>();
 
         assistants = new ArrayList[numberOfPlayers];
         List<Assistant> assistantsList = createAssistants();
@@ -159,7 +159,6 @@ public class Game extends Observable<Game> implements Serializable {
         return l;
     }
 
-    ///////potrebbe essere in più
     public boolean isAValidPositionForMotherNature(int position) {
         if (0 <= position && position < gameTable.getIslands().size()) return true;
         return false;

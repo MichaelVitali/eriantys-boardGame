@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 
 import java.io.Serializable;
+import java.rmi.StubNotFoundException;
 import java.util.*;
 
 public class Round implements Serializable {
@@ -392,13 +393,14 @@ public class Round implements Serializable {
 
     public void addStudentOnTable(int playerId, int studentIndex) {
         islandMessage = false;
+        Student[] entrance;
         try {
+            entrance = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance();
             checkPlayerOnTurn(playerId);
             checkStatusAndMethod(1);
             checkNumberOfMoves(playerId);
-            if (getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex] == null) throw new InvalidIndexException("There isn't a student in this position");
-            PawnColor color = getGame().getGameTable().getSchoolBoards()[playerId].getStudentsFromEntrance()[studentIndex].getColor();
             game.getPlayer(playerId).moveStudentOnTable(studentIndex);
+            PawnColor color = entrance[studentIndex].getColor();
             if (game instanceof ExpertGame){
                 if (game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) % 3 == 0 && game.getGameTable().getSchoolBoards()[playerId].getNumberOfStudentsOnTable(color) != 0) {
                     ((ExpertGame)game).addCoinToAPlayer(playerId);
@@ -537,8 +539,8 @@ public class Round implements Serializable {
             setPlayerMessageGui(playerId, "You cannot get students from cloud now\n" + getStateMessageGui());
             game.sendGame();
         } catch (InvalidIndexException e) {
-            setPlayerMessageCli(playerId, e.getMessage() + getStateMessageCli());
-            setPlayerMessageGui(playerId, e.getMessage() + getStateMessageGui());
+            setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
+            setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
             game.sendGame();
         } catch (EmptyCloudException e)  {
             setPlayerMessageCli(playerId, "The chosen cloud is empty. Chose another one!");
