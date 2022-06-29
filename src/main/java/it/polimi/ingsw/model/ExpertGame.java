@@ -26,7 +26,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
         try {
             characters = new Character[3];
             createCharacters();
@@ -77,60 +77,63 @@ public class ExpertGame extends Game {
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
                     break;
-                case 2:
+                case 2: //OK
                     InnKeeper c2 = new InnKeeper(ID, cost);
                     c.add(c2);
                     break;
-                case 3:
+                case 3: //OK
                     Herald c3 = new Herald(ID, cost);
                     c.add(c3);
                     break;
-                case 4:
+                case 4: //OK
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 5:
+                case 5: //Messaggio
                     Healer c5 = new Healer(ID, cost);
                     c.add(c5);
                     break;
-                case 6:
+                case 6: //OK
                     Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
-                case 7:
+                case 7: //messaggio
                     Jester c7 = new Jester(ID, cost, 6);
                     c7.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(c7);
                     break;
-                case 8:
+                case 8: //NO
                     Knight c8 = new Knight(ID, cost);
                     c.add(c8);
                     break;
-                case 9:
+                case 9: //CRUSH
                     Villager c9 = new Villager(ID, cost);
                     c.add(c9);
                     break;
-                case 10:
+                case 10:    //NO
                     Minstrel c10 = new Minstrel(ID, cost);
                     c.add(c10);
                     break;
-                case 11:
+                case 11:    //OK
                     Princess c11 = new Princess(ID, cost, 4);
                     c11.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c11);
                     break;
-                case 12:
+                case 12:    //OK
                     Thief c12 = new Thief(ID, cost);
                     c.add(c12);
                     break;
             }
         }
-        Random rnd = new Random();
+        /*Random rnd = new Random();
         int numberOfCharacter = 12;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }
+        }*/
+        this.characters[0] = c.get(8);
+        this.characters[1] = c.get(10);
+        this.characters[2] = c.get(11);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
