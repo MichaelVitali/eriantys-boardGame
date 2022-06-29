@@ -43,7 +43,7 @@ public class SchoolBoard implements Serializable {
      * @throws FullTableException if the table of the student's color has no empty seats
      */
     public void addStudentOnTable(int index) throws FullTableException, InvalidIndexException {
-        if(index < 0 && index >= numberOfStudentsOnEntrance) throw new InvalidIndexException("The student doesn't exist");
+        if(index < 0 || index >= numberOfStudentsOnEntrance) throw new InvalidIndexException("The student doesn't exist");
         if (entrance[index] == null) throw new InvalidIndexException("You already moved the student");
         tables[entrance[index].getColor().getIndex()].addStudent(entrance[index]);
         entrance[index] = null;
