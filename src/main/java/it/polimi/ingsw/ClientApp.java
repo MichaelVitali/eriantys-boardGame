@@ -9,12 +9,13 @@ import java.util.Scanner;
 
 public class ClientApp {
 
-    public final static String ip = "127.0.0.1";
+    public static String ip = "127.0.0.1";
     public static int port = 50000;
 
     public static void main(String[] args){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+        ip = args[1];
         if (args.length >= 1) {
             if (args[0].equals("cli")) {
                 ClientCli client = new ClientCli(ip, port);
