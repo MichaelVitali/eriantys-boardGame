@@ -2,8 +2,6 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMode;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,6 @@ public class Match {
     private int numberOfPlayers;
     private final List<String> playerNicknames = new ArrayList<>();
     private final List<ClientConnection> sockets = new ArrayList<>();
-    private final List<Wizard> alreadyChosenWizards = new ArrayList<>();
     private Game model;
 
     /**
@@ -33,21 +30,6 @@ public class Match {
         playerNicknames.add(playerNickname);
         sockets.add(socket);
         model = null;
-    }
-
-    public boolean assertValidWizard(Wizard wizard){
-        boolean result = true;
-        for (Wizard w : alreadyChosenWizards)
-            if (w.getIndex() == wizard.getIndex()) {
-                result = false;
-                break;
-            }
-
-        return result;
-    }
-
-    public List<Wizard> getAlreadyChosenWizards() {
-        return alreadyChosenWizards;
     }
 
     public void setModel(Game model){
@@ -91,18 +73,6 @@ public class Match {
      */
     public List<String> getPlayerNicknames() {
         return new ArrayList<>(playerNicknames);
-    }
-
-    /**
-     * @return list containing the players' chosen wizards
-     */
-
-    public void setAlreadyChosenWizards(Wizard w){
-        alreadyChosenWizards.add(w);
-    }
-
-    public List<Wizard> getChosenWizards() {
-        return new ArrayList<>(alreadyChosenWizards);
     }
 
     /**
