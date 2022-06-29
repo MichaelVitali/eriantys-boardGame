@@ -789,6 +789,7 @@ public class BoardController extends GuiController {
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
+        showGameMessage();
         displayEnemySchoolboard(playerOffset);
         displayEnemyTowers(playerOffset);
         displayMySchoolboard();
@@ -796,7 +797,6 @@ public class BoardController extends GuiController {
         displayIslands();
         displayClouds();
         displayAssistants();
-        showGameMessage();
         if (board.getGameMode() == GameMode.EXPERT) {
             showButtonCenter();
             displayCharacter();
