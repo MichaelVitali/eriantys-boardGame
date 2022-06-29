@@ -131,7 +131,7 @@ public class Character extends Round implements Serializable {
     public void setPlayerMessageCli(int playerId, String message) { round.setPlayerMessageCli(playerId, message); }
 
     @Override
-    public void setPlayerMessageGui(int playerId, String message) { round.setPlayerMessageCli(playerId, message); }
+    public void setPlayerMessageGui(int playerId, String message) { round.setPlayerMessageGui(playerId, message); }
 
     @Override
     public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String messageCli, String messageGui) { round.setMessageToAPlayerAndWaitingMessageForOthers(playerId, messageCli, messageGui); }

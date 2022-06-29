@@ -72,7 +72,7 @@ public class ExpertGame extends Game {
             int ID = Integer.parseInt(character[0]);
             int cost = Integer.parseInt(character[1]);
             switch (ID) {
-                case 1:
+                case 1: //OK
                     Monk c1 = new Monk(ID, cost, 4);
                     c1.addStudents(game.getGameTable().getBag().drawStudents(4));
                     c.add(c1);
@@ -89,7 +89,7 @@ public class ExpertGame extends Game {
                     Postman c4 = new Postman(ID, cost);
                     c.add(c4);
                     break;
-                case 5: //Messaggio
+                case 5: //OK
                     Healer c5 = new Healer(ID, cost);
                     c.add(c5);
                     break;
@@ -97,7 +97,7 @@ public class ExpertGame extends Game {
                     Centaur c6 = new Centaur(ID, cost);
                     c.add(c6);
                     break;
-                case 7: //messaggio
+                case 7: //OK
                     Jester c7 = new Jester(ID, cost, 6);
                     c7.addStudents(game.getGameTable().getBag().drawStudents(6));
                     c.add(c7);
@@ -131,9 +131,9 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(8);
-        this.characters[1] = c.get(10);
-        this.characters[2] = c.get(11);
+        this.characters[0] = c.get(0);
+        this.characters[1] = c.get(4);
+        this.characters[2] = c.get(6);
     }
 
     public int getIdCharacter(int indexCard) throws InvalidIndexException {

@@ -993,7 +993,7 @@ public class BoardController extends GuiController {
             } else if (state == 2) {
                     getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
                     state = 0;
-            } else if (board.getState() == 4) {
+            } else if (board.getState() == 5) {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             } else if (board.getState() == 2) {
                 islandIndex = -1;
@@ -1240,10 +1240,11 @@ public class BoardController extends GuiController {
                                     }
                                 }
                                 character1Image.setImage(image);
-                                /*if (board.getCharacters()[0].getFirstUse()) {
+                                if (board.getCharacters()[0].getFirstUse()) {
                                     coinCharacter1.setVisible(true);
+                                    coinCharacter1.setMouseTransparent(true);
                                     coinCharacter1.setImage(new Image("/images/coin.png"));
-                                }*/
+                                }
                                 break;
                             case 1:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
@@ -1272,10 +1273,11 @@ public class BoardController extends GuiController {
                                     }
                                 }
                                 character2Image.setImage(image);
-                                /*if (board.getCharacters()[1].getFirstUse()) {
+                                if (board.getCharacters()[1].getFirstUse()) {
                                     coinCharacter2.setVisible(true);
+                                    coinCharacter2.setMouseTransparent(true);
                                     coinCharacter2.setImage(new Image("/images/coin.png"));
-                                }*/
+                                }
                                 break;
                             case 2:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
@@ -1304,10 +1306,11 @@ public class BoardController extends GuiController {
                                     }
                                 }
                                 character3Image.setImage(image);
-                                /*if (board.getCharacters()[2].getFirstUse()) {
+                                if (board.getCharacters()[2].getFirstUse()) {
                                     coinCharacter3.setVisible(true);
+                                    coinCharacter3.setMouseTransparent(true);
                                     coinCharacter3.setImage(new Image("/images/coin.png"));
-                                }*/
+                                }
                                 break;
                         }
                     }
