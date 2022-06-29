@@ -83,6 +83,7 @@ public class BoardController extends GuiController {
     @FXML Label coinNumber; @FXML ImageView coinImage;
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
     @FXML ImageView coinTableImage; @FXML Label coinTableNumber;
+    @FXML ImageView coinCharacter1; @FXML ImageView coinCharacter2; @FXML ImageView coinCharacter3;
 
     private Map<String, Button> myEntrance;
     private Map<String, Button> studentsCards;
@@ -1239,6 +1240,10 @@ public class BoardController extends GuiController {
                                     }
                                 }
                                 character1Image.setImage(image);
+                                /*if (board.getCharacters()[0].getFirstUse()) {
+                                    coinCharacter1.setVisible(true);
+                                    coinCharacter1.setImage(new Image("/images/coin.png"));
+                                }*/
                                 break;
                             case 1:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
@@ -1267,6 +1272,10 @@ public class BoardController extends GuiController {
                                     }
                                 }
                                 character2Image.setImage(image);
+                                /*if (board.getCharacters()[1].getFirstUse()) {
+                                    coinCharacter2.setVisible(true);
+                                    coinCharacter2.setImage(new Image("/images/coin.png"));
+                                }*/
                                 break;
                             case 2:
                                 if (board.getCharacters()[i] instanceof Monk || board.getCharacters()[i] instanceof Princess) {
@@ -1295,6 +1304,10 @@ public class BoardController extends GuiController {
                                     }
                                 }
                                 character3Image.setImage(image);
+                                /*if (board.getCharacters()[2].getFirstUse()) {
+                                    coinCharacter3.setVisible(true);
+                                    coinCharacter3.setImage(new Image("/images/coin.png"));
+                                }*/
                                 break;
                         }
                     }
@@ -1343,7 +1356,7 @@ public class BoardController extends GuiController {
 
 
     private void showButtonCenter() {
-        if (board.getState() == 4) {
+        if (board.getState() == 4 && board.getPlayerOnTurn() == myPlayerId) {
             if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9)) {
                 Platform.runLater( () -> {
                     pawnColor0.setText("GREEN");
