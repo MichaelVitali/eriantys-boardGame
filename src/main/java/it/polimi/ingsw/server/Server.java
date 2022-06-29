@@ -17,13 +17,12 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT = 50002;
+    private static final int PORT = 50000;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private int nextMatchId;
     private List<Match> pendingMatches = new ArrayList<>();
     private List<Match> runningMatches = new ArrayList<>();
-    private boolean wizardsHasBeenChosen = false;
 
     /**
      * Creates a server instance with a server socket accepting connection on port 40000
@@ -58,7 +57,7 @@ public class Server {
      * @param numberOfPlayers
      * @param gameMode
      */
-    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) throws TooManyMovesException {
+    public synchronized void lobby(GameMode gameMode, int numberOfPlayers, String playerNickname, ClientConnection clientConnection) {
         Match match = searchForMatch(gameMode, numberOfPlayers);
         if (match == null) {
             System.out.println("Just create a match with the id : " + nextMatchId);
@@ -67,12 +66,6 @@ public class Server {
         } else {
             match.addPlayer(clientConnection, playerNickname);
             if (match.getNumberOfPlayers() == match.getSockets().size()) {
-               /* String availableWizards = "Choose your Wizard: \n";
-                for (Wizard w : Wizard.values()) {
-                    if (!match.getAlreadyChosenWizards().contains(w))
-                        availableWizards += "- " + w.toString() + "\n";
-                }
-                match.getSockets().get(0).send(new SetupMessage(ConnectionState.WIZARDS, availableWizards));*/
 
                 View[] playerView = new RemoteView[match.getNumberOfPlayers()];
                 for (int i = 0; i < match.getNumberOfPlayers(); i++) {
@@ -110,33 +103,8 @@ public class Server {
                 clientConnection.send(new SetupMessage(ConnectionState.SUCCESS, "The configuration is done. Get ready to play..."));
             }
         }
-    }/*
-
-    public synchronized void chooseWizard(SetupMessage message, ClientConnection clientConnection){
-        Match match = getMyMatch(clientConnection);
-        System.out.println("Sono in chooseWizard");
-        if (match.getAlreadyChosenWizards().size() == match.getNumberOfPlayers())
-            startGame(match);
-        else {
-            String availableWizards = "Choose your Wizard: \n";
-            if (match.assertValidWizard(Wizard.getWizardFromString(message.getMessage()))) {
-                    match.getAlreadyChosenWizards().add(Wizard.getWizardFromString(message.getMessage()));
-                for (Wizard w : Wizard.values()) {
-                    if (!match.getAlreadyChosenWizards().contains(w))
-                        availableWizards += "- " + w.toString() + "\n";
-                }
-
-                match.getSockets().get(match.getAlreadyChosenWizards().size()).send(new SetupMessage(ConnectionState.WIZARDS, availableWizards));
-            } else {
-                for (Wizard w : Wizard.values()) {
-                    if (!match.getAlreadyChosenWizards().contains(w))
-                        availableWizards += "- " + w.toString() + "\n";
-                }
-                match.getSockets().get(match.getAlreadyChosenWizards().size()).send(new SetupMessage(ConnectionState.WIZARDS, "Error : you are not sending the correct information. " + availableWizards));
-            }
-        }
     }
-*/
+
     /**
      * Searches
      * @param gameMode
@@ -152,7 +120,11 @@ public class Server {
         return null;
     }
 
-
+    /**
+     *
+     * @param clientSocketConnection
+     * @return
+     */
     public Match getMyMatch(ClientConnection clientSocketConnection){
         Match myMatch = null;
         for (Match m : runningMatches)
@@ -161,6 +133,11 @@ public class Server {
         return myMatch;
     }
 
+    /**
+     *
+     * @param clientSocketConnection
+     * @return
+     */
     public int getMyId(ClientConnection clientSocketConnection) {
         int playerId = -1;
         for (Match match : runningMatches) {
@@ -171,6 +148,10 @@ public class Server {
         return playerId;
     }
 
+    /**
+     *
+     * @param clientSocketConnection
+     */
     public void exitingPlayer(ClientConnection clientSocketConnection) {
         Match myMatch = getMyMatch(clientSocketConnection);
 
@@ -185,7 +166,10 @@ public class Server {
         runningMatches.remove(myMatch);
     }
 
-
+    /**
+     *
+     * @return
+     */
     public List<Match> getAllMatchesOnServer() {
         List<Match> matches = new ArrayList<>();
         matches.addAll(pendingMatches);
