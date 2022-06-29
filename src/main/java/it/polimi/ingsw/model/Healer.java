@@ -19,8 +19,10 @@ public class Healer extends Character {
                 prohibition--;
                 setRoundState(getOldState());
                 setPlayerMessageCli(playerId, getStateMessageCli());
+                setPlayerMessageGui(playerId, getStateMessageGui());
             } catch (InvalidIndexException | IslandAlreadyForbiddenException e) {
-                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
+                setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
                 getGame().sendGame();
             }
         }
@@ -109,7 +111,6 @@ public class Healer extends Character {
                     }
                     if (getGame().isGameEnded()) {
                         roundState = 100;
-                        //getGame().endTheMatch();
                     }
                 } else {
                     getGame().getGameTable().getIslandByIndex(getGame().getGameTable().getMotherNaturePosition()).resetProhibition();

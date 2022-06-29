@@ -615,7 +615,7 @@
                   <Label fx:id="labelGameMessage" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="800.0" styleClass="text" text="The magical world of Eriantys" />
 
                   <ImageView fx:id="character1Image" fitHeight="125.0" fitWidth="100.0" layoutX="140.0" layoutY="550.0" onMouseClicked="#playCharacter" onMouseEntered="#showCharacterEffect" onMouseExited="#removeCharacterEffect" styleClass="characterImage" visible="false" />
-                  <ImageView fx:id="coinCharacter1" fitHeight="15.0" fitWidth="15.0" layoutX="160.0" layoutY="570.0" visible="false" />
+                  <ImageView fx:id="coinCharacter1" fitHeight="15.0" fitWidth="15.0" layoutX="160.0" layoutY="555.0" visible="false" />
                   <AnchorPane layoutX="140.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="student5Character1" layoutX="35.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="25.0" styleClass="characterStudentButton" visible="false" />
@@ -627,7 +627,7 @@
                      </children>
                   </AnchorPane>
                   <ImageView fx:id="character2Image" fitHeight="125.0" fitWidth="100.0" layoutX="350.0" layoutY="550.0" onMouseClicked="#playCharacter" onMouseEntered="#showCharacterEffect" onMouseExited="#removeCharacterEffect" styleClass="characterImage" visible="false" />
-                  <ImageView fx:id="coinCharacter2" fitHeight="15.0" fitWidth="15.0" layoutX="370.0" layoutY="570.0" visible="false" />
+                  <ImageView fx:id="coinCharacter2" fitHeight="15.0" fitWidth="15.0" layoutX="370.0" layoutY="555.0" visible="false" />
                   <AnchorPane layoutX="350.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="student5Character2" layoutX="35.0" layoutY="0.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
@@ -639,7 +639,7 @@
                      </children>
                   </AnchorPane>
                   <ImageView fx:id="character3Image" fitHeight="125.0" fitWidth="100.0" layoutX="560.0" layoutY="550.0" onMouseClicked="#playCharacter" onMouseEntered="#showCharacterEffect" onMouseExited="#removeCharacterEffect" styleClass="characterImage" visible="false" />
-                  <ImageView fx:id="coinCharacter3" fitHeight="15.0" fitWidth="15.0" layoutX="580.0" layoutY="570.0" visible="false" />
+                  <ImageView fx:id="coinCharacter3" fitHeight="15.0" fitWidth="15.0" layoutX="580.0" layoutY="555.0" visible="false" />
                   <AnchorPane layoutX="560.0" layoutY="613.0" prefHeight="63.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="student3Character3" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
