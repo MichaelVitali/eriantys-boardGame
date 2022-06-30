@@ -1,31 +1,27 @@
 package it.polimi.ingsw.client.gui;
 
-import it.polimi.ingsw.ClientApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.gui.guiControllers.GuiController;
-import it.polimi.ingsw.client.gui.guiControllers.LoginController;
-import it.polimi.ingsw.controller.message.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.NoSuchElementException;
 
 public class GuiClient extends Application {
 
     private Client client;
 
+    /**
+     * starts the match setting all the starting elements in the initial scene
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -46,8 +42,6 @@ public class GuiClient extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
-                /*if (getClient() != null)
-                    getClient().asyncWriteToSocket(new TerminatorMessage("I wanna leave"));*/
                 Platform.exit();
                 System.exit(0);
             }
@@ -55,6 +49,10 @@ public class GuiClient extends Application {
         stage.show();
     }
 
+    /**
+     * returns the client parameter
+     * @return
+     */
     public Client getClient() {
         return client;
     }

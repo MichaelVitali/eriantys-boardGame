@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
-import it.polimi.ingsw.server.ClientConnection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -193,11 +192,9 @@ public class GameTable implements Serializable {
             if(index == -1) throw new OutOfBoundException("Errore in addStudents of GameTable");
             this.islands.get(index).addStudents(student, islandIndex);
         } catch (OutOfBoundException e) {
-            //e.printStackTrace();
-            //System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (InvalidIndexException e) {
-            //e.printStackTrace();
-            //System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -255,13 +252,11 @@ public class GameTable implements Serializable {
                     if (islands.get(motherNaturePosition).getTowers().isEmpty())
                         throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
                     if (islands.size() <= 3) {
-                        //System.out.println("Tre o meno island");
                         throw new ThreeOrLessIslandException();
                     }
                     mergeIslandsIfNecessary();
                 }
                 if (islands.size() <= 3) {
-                    //System.out.println("Tre o meno island");
                     throw new ThreeOrLessIslandException();
                 }
             } catch (InvalidIndexException e) {
@@ -366,6 +361,10 @@ public class GameTable implements Serializable {
         return studentsOnTheCloud;
     }
 
+    /**
+     * returns a list of towersColor that identifies the teams, or the team, with fewer towers on their schoolboards
+     * @return
+     */
     public List<TowerColor> teamWithLessTowersOnSchoolboards() {
         List<TowerColor> teamColor = new ArrayList<>();
         int minimumNumberOfTowerOnSchoolboards = 9;
@@ -382,6 +381,11 @@ public class GameTable implements Serializable {
         return teamColor;
     }
 
+    /**
+     * returns a list of towersColor that identifies the teams, or the team, with more professor
+     * @param teamWithLessTowersOnSchoolboards
+     * @return
+     */
     public List<TowerColor> teamWithMoreProfessors(List<TowerColor> teamWithLessTowersOnSchoolboards) {
         List<TowerColor> teamColor = new ArrayList<>();
         int maximumNumberOfProfessors = -1;

@@ -15,7 +15,6 @@ public class Monk extends CharacterWithStudent {
 
     /**
      * Creates a character that can contain a certain amount of students
-     *
      * @param id              integer that identifies the character card
      * @param cost            amount of money needed to activate the card effect
      * @param numberOfStudent maximum number of students the card can contain
@@ -24,7 +23,12 @@ public class Monk extends CharacterWithStudent {
         super(id, cost, numberOfStudent, "Monk");
     }
 
-
+    /**
+     * Override of the Round DoYourJob that after received the selected island and the selected student,
+     * add the chosen student to the chosen Island
+     * @param playerId
+     * @param parameter
+     */
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
@@ -59,11 +63,18 @@ public class Monk extends CharacterWithStudent {
                 setPlayerMessageGui(playerId, e.getMessage());
                 getGame().sendGame();
             } catch (EmptyBagException e) {
-                //Non aggiunge nessuno studente sulla carta
+
             }
         }
     }
 
+    /**
+     * Creates a new Monk and return it as new Round. It sets the new message for the player
+     * @param playerID
+     * @param round
+     * @return the new Monk as new Round
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessageCli("Select Student on card");

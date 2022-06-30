@@ -123,6 +123,11 @@ public class Island implements Serializable {
     }
 
 
+    /**
+     * returns the number of students of the color passed as a parameter
+     * @param color
+     * @return
+     */
     public int getNumberOfStudentsForColor(PawnColor color) {
         int count = 0;
         for (Student s : students) {

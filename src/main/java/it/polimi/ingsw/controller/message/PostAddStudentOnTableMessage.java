@@ -5,10 +5,19 @@ import it.polimi.ingsw.model.Game;
 
 public class PostAddStudentOnTableMessage extends GameMessage {
 
+    /**
+     * message which permits changing the displayed situation after adding student on tables
+     * @param model
+     * @param playerId
+     */
     public PostAddStudentOnTableMessage(Game model, int playerId) {
         super(model, playerId);
     }
 
+    /**
+     * displays the updated entrances ,islands, professor and shows the next game message
+     * @param controller
+     */
     @Override
     public void renderWhatNeeded(BoardController controller) {
         if (getPlayerOnTurn() == getPlayerId()) {

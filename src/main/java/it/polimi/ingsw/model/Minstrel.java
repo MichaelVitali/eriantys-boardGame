@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +9,11 @@ public class Minstrel extends Character  {
 
     private int countEntrance;
     private int countTable;
-    private int wantToGoOn;
     private List<Integer> entranceIndexes;
     private List<Integer> tableIndexes;
 
     /**
      * Creates a character card with the given two values
-     *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
@@ -28,6 +25,12 @@ public class Minstrel extends Character  {
         tableIndexes = new ArrayList<>();
     }
 
+    /**
+     * After received the selected Students on entrance and the selected Table, it removes the students from the selected table and
+     * adds the selected students on them table
+     * @param playerId
+     * @param parameter
+     */
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
@@ -103,6 +106,12 @@ public class Minstrel extends Character  {
         }
     }
 
+    /**
+     * Creates a new Minstrell as new Round and returns it
+     * @param playerID
+     * @param round
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessageCli("How many Students do you want to change");

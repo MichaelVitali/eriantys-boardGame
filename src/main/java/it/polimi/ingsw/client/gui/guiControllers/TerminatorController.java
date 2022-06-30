@@ -8,10 +8,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TerminatorController extends GuiController {
+
+    /**
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    /**
+     * terminates the game
+     * @param message
+     */
     @Override
     public void update(Message message) {
         try {
@@ -24,6 +34,9 @@ public class TerminatorController extends GuiController {
         }
     }
 
+    /**
+     * terminates the game
+     */
     public void finishAll() {
         try {
             Thread.sleep(50000);

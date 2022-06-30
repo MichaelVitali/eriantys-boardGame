@@ -10,6 +10,11 @@ public class SetupMessage extends Message implements Serializable {
     private ConnectionState connectionState;
     private String playerMessage;
 
+    /**
+     *
+     * @param connectionState
+     * @param playerMessage
+     */
     public SetupMessage(ConnectionState connectionState, String playerMessage) {
         this.connectionState = connectionState;
         this.playerMessage = playerMessage;

@@ -9,10 +9,21 @@ public class Princess extends CharacterWithStudent  {
 
     private int studentIndex;
 
+    /**
+     * Creates a new Princess as Round
+     * @param id
+     * @param cost
+     * @param numberOfStudent
+     */
     public Princess(int id, int cost, int numberOfStudent){
         super(id, cost, numberOfStudent, "Princess");
     }
 
+    /**
+     * Performe the Princess effect when it receives the correct input
+     * @param playerId
+     * @param parameter
+     */
     @Override
     public void doYourJob(int playerId, int parameter){
 
@@ -47,6 +58,13 @@ public class Princess extends CharacterWithStudent  {
         }
     }
 
+    /**
+     * Creates a new Princess and return it has new Round
+     * @param playerID
+     * @param round
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessageCli("Select student");

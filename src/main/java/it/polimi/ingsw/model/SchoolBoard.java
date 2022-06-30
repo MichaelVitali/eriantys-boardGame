@@ -49,6 +49,9 @@ public class SchoolBoard implements Serializable {
         entrance[index] = null;
     }
 
+    /**
+     * @return the total number of students of all tables
+     */
     public int getTotalNumberOfStudentsOnTables() {
         int sum = 0;
         for (PawnColor color : PawnColor.values()) {
@@ -141,7 +144,7 @@ public class SchoolBoard implements Serializable {
      */
     public List<Tower> removeTowers(int numberOfTowers) throws InvalidIndexException, NoMoreTowersException {
         if(numberOfTowers < 0) throw new InvalidIndexException("Numero non valido");
-        if(numberOfTowers >= towers.size()) throw new NoMoreTowersException(towersColor);// Vedremo se mandare le torri tramite exception
+        if(numberOfTowers >= towers.size()) throw new NoMoreTowersException(towersColor);
         List<Tower> removedTowers = new ArrayList<>();
         for(int i = 0; i < numberOfTowers; i++)
             removedTowers.add(towers.remove(0));
@@ -180,6 +183,10 @@ public class SchoolBoard implements Serializable {
         return tables[tableColor.getIndex()].getNumberOfStudents();
     }
 
+    /**
+     * @param index of table
+     * @return total number of students on a specific table
+     */
     public int getNumberOfStudentsOnTable(int index) {
         return tables[index].getNumberOfStudents();
     }

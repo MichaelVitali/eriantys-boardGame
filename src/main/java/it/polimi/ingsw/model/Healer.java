@@ -10,6 +10,11 @@ public class Healer extends Character {
         this.prohibition = 4;
     }
 
+    /**
+     * Does not calculate the influence of the island signed with the prohibition mark
+     * @param playerId
+     * @param parameter
+     */
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
@@ -28,11 +33,21 @@ public class Healer extends Character {
         }
     }
 
+    /**
+     * calls the setAlreadyPlayedCharacter round method with the passed parameter
+     * @param alreadyPlayedCharacter
+     */
     @Override
     public void setAlreadyPlayedCharacter(boolean alreadyPlayedCharacter) {
         getRound().setAlreadyPlayedCharacter(alreadyPlayedCharacter);
     }
 
+    /**
+     * activates the effect of this card setting the proper messages and setting the round state at 4.
+     * It catches and handles PlayerNotOnTurnException, InvalidMethodException, EffectCannotBeActivatedException, NotEnoughCoins
+     * @param playerId
+     * @param indexCard
+     */
     @Override
     public void activateEffect(int playerId, int indexCard) {
         try {
@@ -63,6 +78,13 @@ public class Healer extends Character {
         }
     }
 
+    /**
+     * activates the effect of this card setting the proper messages and setting the round state at 4
+     * @param playerID
+     * @param round
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         if (prohibition <= 0) throw new EffectCannotBeActivatedException("The healer cannot be activated: there are no prohibition cards");
@@ -72,6 +94,9 @@ public class Healer extends Character {
         return this;
     }
 
+    /**
+     * switches to PianificationPhase after setting its order of playing and adding the students on clouds
+     */
     @Override
     public void switchToPianificationPhase() {
         setPianificationPhaseOrder();
@@ -84,6 +109,11 @@ public class Healer extends Character {
         getGame().setRound(this);
     }
 
+    /**
+     * changes the position of mother nature not calculating the island with prohibition
+     * @param playerId
+     * @param islandIndex
+     */
     @Override
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
@@ -126,7 +156,7 @@ public class Healer extends Character {
                 getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move mother nature now");
             setPlayerMessageGui(playerId, "You cannot move mother nature now");
@@ -134,6 +164,10 @@ public class Healer extends Character {
         }
     }
 
+    /**
+     * returns the prohibition attribute
+     * @return
+     */
     public int getNumberOfProibitionCard() {
         return prohibition;
     }

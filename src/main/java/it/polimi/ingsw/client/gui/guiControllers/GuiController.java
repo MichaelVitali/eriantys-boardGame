@@ -21,38 +21,73 @@ public abstract class GuiController implements Initializable, Observer<Message> 
     private Scene scene;
     private Parent root;
 
+    /**
+     * return the client attribute
+     * @return
+     */
     public Client getClient() {
         return client;
     }
 
+    /**
+     *  sets the client passed by parameter
+     * @param client
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     * returns the stage attribute
+     * @return
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * sets the stage passed by parameter
+     * @param stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * returns the current scene
+     * @return
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * sets the scene passed by parameter
+     * @param scene
+     */
     public void setScene(Scene scene) {
         this.scene = scene;
     }
 
+    /**
+     * returns the root attribute
+     * @return
+     */
     public Parent getRoot() {
         return root;
     }
 
+    /**
+     * sets the root passed by parameter
+     * @param root
+     */
     public void setRoot(Parent root) {
         this.root = root;
     }
 
+    /**
+     * runs the terminatorScene
+     */
     public void terminate() {
         Platform.runLater(new Runnable() {
             @Override

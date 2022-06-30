@@ -265,7 +265,7 @@
                </children>
             </AnchorPane>
             <Label fx:id="enemyName" layoutY="10.0" prefHeight="35.0" prefWidth="258.0" styleClass="lableName" textAlignment="CENTER" visible="false" />
-            <Button fx:id="player2" layoutX="0.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 2"  />
+            <Button fx:id="player2" layoutX="0.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 2" />
             <Button fx:id="player3" layoutX="88.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 3" />
             <Button fx:id="player4" layoutX="175.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeBoard" prefHeight="35.0" prefWidth="82.0" styleClass="buttonEnemy" text="Player 4" />
             <AnchorPane layoutY="253.0" prefHeight="300.0" prefWidth="258.0">
@@ -650,11 +650,11 @@
                         <Button fx:id="student6Character3" layoutX="35.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#playStudentCard" prefHeight="25.0" prefWidth="28.0" styleClass="characterStudentButton" visible="false" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="pawnColor0" layoutX="211.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="GREEN" visible="false" />
-                  <Button fx:id="pawnColor1" layoutX="306.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="RED" visible="false" />
-                  <Button fx:id="pawnColor2" layoutX="397.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="YELLOW" visible="false" />
-                  <Button fx:id="pawnColor3" layoutX="261.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="PINK" visible="false" />
-                  <Button fx:id="pawnColor4" layoutX="357.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="BLUE" visible="false" />
+                  <Button fx:id="pawnColor0" layoutX="260.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="GREEN" visible="false" />
+                  <Button fx:id="pawnColor1" layoutX="355.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="RED" visible="false" />
+                  <Button fx:id="pawnColor2" layoutX="450.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="YELLOW" visible="false" />
+                  <Button fx:id="pawnColor3" layoutX="305.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="PINK" visible="false" />
+                  <Button fx:id="pawnColor4" layoutX="400.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#sendButtonValue" prefHeight="30.0" prefWidth="90.0" styleClass="colorButton" text="BLUE" visible="false" />
                   <Label fx:id="coinTableNumber" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="55.0" styleClass="coinLable" visible="false" />
                   <ImageView fx:id="coinTableImage" fitHeight="30.0" fitWidth="30.0" layoutX="40.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="characterEffect" layoutX="240.0" layoutY="270.0" styleClass="text" visible="false" />

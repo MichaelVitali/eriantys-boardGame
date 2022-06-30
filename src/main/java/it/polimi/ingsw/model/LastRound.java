@@ -19,18 +19,24 @@ public class LastRound extends Round {
         this.studentsEnded = studentsEnded;
     }
 
+    /**
+     * @return true if the action phase is finished, false otherwise
+     */
     @Override
     public boolean isActionPhaseEnded() {
         if(getRoundState() == 2 && (getIndexOfPlayerOnTurn() == getGame().getNumberOfPlayers() - 1)) return true;
         return false;
     }
+
+    /**
+     * Calculates who is the next player. If the player turn is over it changes the next player on turn and set the round state to the first possible action,
+     * otherwise change the round state to the next permitted action
+     */
     @Override
     public void calculateNextPlayer() {
-        System.out.println(roundState);
         boolean roundEnded = false;
         if (isTheGameEnded()) {
             getGame().sendGame();
-            //nothing
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isTimeToChooseTheNextStudent()) {

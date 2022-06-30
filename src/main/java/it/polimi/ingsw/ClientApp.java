@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ClientApp {
 
-    public static String ip = "0";
+    public static String ip = "127.0.0.1";
     public static int port = 50000;
 
     public static void main(String[] args){

@@ -30,6 +30,11 @@ public class LoginController extends GuiController {
     @FXML
     private Button confirmButton;
 
+    /**
+     * sets the client if there is a connection
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -46,6 +51,10 @@ public class LoginController extends GuiController {
         }
     }
 
+    /**
+     * changes the scene if necessary based on the message passed by parameter
+     * @param message
+     */
     @Override
     public void update(Message message) {
         if(message instanceof SetupMessage) {
@@ -75,20 +84,23 @@ public class LoginController extends GuiController {
                             modeController.getStage().setScene(modeController.getScene());
                             modeController.getStage().show();
                         } catch(IOException e) {
-                            //Errore, spero non capiti
+                            //Error
                         }
                     }
                 }
                 );
 
             } else {
-                //Errore server
+                //Server error
             }
         } else {
             //Errore
         }
     }
 
+    /**
+     * Gets the nickname chosen by the user
+     */
     public void login() {
         String nickname = nicknameBucket.getText();
         getClient().asyncWriteToSocket(new SetupMessage(ConnectionState.LOGIN, nickname));

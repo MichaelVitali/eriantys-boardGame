@@ -30,6 +30,11 @@ public class GameMessage extends Message implements Serializable {
     private boolean draw;
     private TowerColor winner;
 
+    /**
+     * updates all the attributes whenever a new gameMessage is created with the model information
+     * @param model
+     * @param playerId
+     */
     public GameMessage(Game model, int playerId) {
         state = model.getRound().getRoundState();
         this.playerId = playerId;
@@ -55,18 +60,34 @@ public class GameMessage extends Message implements Serializable {
         winner = model.getWinner();
     }
 
+    /**
+     * returns the victory attribute
+     * @return
+     */
     public boolean isVictory() {
         return victory;
     }
 
+    /**
+     * returns the draw attribute
+     * @return
+     */
     public boolean isDraw() {
         return draw;
     }
 
+    /**
+     * returns the winner attribute
+     * @return
+     */
     public TowerColor getWinner() {
         return winner;
     }
 
+    /**
+     * returns the indexes of the players who win
+     * @return
+     */
     public List<Integer> getWinnersIndexes() {
         List<Integer> winnersIndexes = new ArrayList<>();
         if(state == 100 && victory) {
@@ -79,6 +100,10 @@ public class GameMessage extends Message implements Serializable {
         return winnersIndexes;
     }
 
+    /**
+     * returns the nicknames of the players who win
+     * @return
+     */
     public List<String> getWinnersNicknames() {
         List<String> winnersNicknames = new ArrayList<>();
         if(state == 100 && victory) {
@@ -91,61 +116,122 @@ public class GameMessage extends Message implements Serializable {
         return winnersNicknames;
     }
 
+    /**
+     * returns the playerNicknames attribute
+     * @return
+     */
     public String[] getPlayersNicknames() {
         return playersNicknames;
     }
 
+    /**
+     * displays the board of the controller passed by parameter
+     * @param controller
+     */
     public void renderWhatNeeded(BoardController controller) {
         controller.displayBoard();
     }
 
+    /**
+     * returns the playedAssistants attribute
+     * @return
+     */
     public Round.PlayedAssistant[] getPlayedAssistants() {
         return playedAssistants;
     }
+
+    /**
+     * returns the characters attribute
+     * @return
+     */
     public Character[] getCharacters() {
         return characters;
     }
 
+    /**
+     * returns the numberOfPlayers attribute
+     * @return
+     */
     public int getNumberOfPLayers() {
         return numberOfPLayers;
     }
 
+    /**
+     * returns the gameTable attribute
+     * @return
+     */
     public GameTable getGametable() {
         return gametable;
     }
 
+    /**
+     * returns the assistants attribute
+     * @return
+     */
     public List<Assistant> getAssistants() {
         return assistants;
     }
 
+    /**
+     * returns the state attribute
+     * @return
+     */
     public int getState() {
         return state;
     }
 
+    /**
+     * returns the playerId attribute
+     * @return
+     */
     public int getPlayerId() {
         return playerId;
     }
 
+    /**
+     * returns the playerMessageCli attribute
+     * @return
+     */
     public String getPlayerMessageCli() {
         return playerMessageCli;
     }
 
+    /**
+     * returns the playerMessageGui attribute
+     * @return
+     */
     public String getPlayerMessageGui() {
         return playerMessageGui;
     }
 
+    /**
+     * calls the gameTable.getClouds() method
+     * @return
+     */
     public Cloud[] getClouds() {
         return gametable.getClouds();
     }
 
+    /**
+     * sets the playerId attribute with the value passed by parameter
+     * @param playerId
+     */
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
     }
 
+    /**
+     * returns the postamActive attribute
+     * @return
+     */
     public boolean isPostmanActive() {
         return postmanActive;
     }
 
+    /**
+     * prints on cli all the default parts of the game such as islands, played assistants,
+     * assistants, coins on the table (in expert game mode), charachters (in expert game mode), schoolboards
+     */
     public void printDefaultOnCli() {
         if (getState() == 100) {
             printWinners();
@@ -165,6 +251,10 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * returns the assistants that has already been played
+     * @return
+     */
     public List<Assistant> getListPlayedAssistants() {
         List<Assistant> assistants = new ArrayList<>();
         for (int i = 0; i < numberOfPLayers; i++) {
@@ -173,14 +263,31 @@ public class GameMessage extends Message implements Serializable {
         return assistants;
     }
 
+    /**
+     * returns the playerOnTurn attribute
+     * @return
+     */
     public int getPlayerOnTurn() { return playerOnTurn; }
 
+    /**
+     * returns the gameMode attribute
+     * @return
+     */
     public GameMode getGameMode() { return gameMode; }
 
+    /**
+     * returns the playersCoin[playerId] attribute with playerId passed as parameter
+     * @param playerId
+     * @return
+     */
     public int getPlayesCoins(int playerId) {
         return playersCoins[playerId];
     }
 
+    /**
+     * prints the islands
+     * @param islands
+     */
     public void printIslands(List<Island> islands) {
         System.out.println("");
         for (int i = 0; i < islands.size(); i++) {
@@ -237,6 +344,10 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * prints the assistants
+     * @param assistants
+     */
     public void printAssistants(List<Assistant> assistants) {
         if (assistants.size() != 0) {
             System.out.println("\n\nAssistants:");
@@ -263,10 +374,18 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * returns the tableCoins attribute
+     * @return
+     */
     public int getTableCoins() {
         return tableCoins;
     }
 
+    /**
+     * prints the already played islands
+     * @param assistants
+     */
     public void printPlayedAssistants(List<Assistant> assistants) {
         if (assistants.size() != 0) {
             System.out.println("\n\nPlayed Assistants:");
@@ -301,6 +420,10 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * prints the clouds
+     * @param clouds
+     */
     public void printCloud(Cloud[] clouds) {
         System.out.println("");
         for (int i = 0; i < clouds.length; i++) {
@@ -352,6 +475,9 @@ public class GameMessage extends Message implements Serializable {
         System.out.println("");
     }
 
+    /**
+     * prints all the schoolboards
+     */
     public void printAllSchoolboards () {
         System.out.print("\n");
         if (schoolBoards.length == 2) {
@@ -369,6 +495,10 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * prints the schoolboard of the player passed by parameter
+     * @param playerId
+     */
     public void printSchoolboard (int playerId) {
         SchoolBoard s = schoolBoards[playerId];
         Student[] entrance = schoolBoards[playerId].getStudentsFromEntrance();
@@ -409,6 +539,10 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * prints the characters passed by parameter
+     * @param characters
+     */
     public void printCharacter(Character[] characters) {
         System.out.println("Characters:");
         System.out.println("    0               1                2");
@@ -447,6 +581,11 @@ public class GameMessage extends Message implements Serializable {
         }
     }
 
+    /**
+     * returns the unicode for the color passed by parameter for pawns
+     * @param color
+     * @return
+     */
     public String returnCircleUnicodeForColor (PawnColor color) {
         switch (color.getIndex()) {
             case 0:
@@ -463,6 +602,11 @@ public class GameMessage extends Message implements Serializable {
         return "";
     }
 
+    /**
+     * returns the unicode for the color passed by parameter for towers
+     * @param color
+     * @return
+     */
     public String returnCircleUnicodeFromColor (TowerColor color) {
         switch (color.getIndex()) {
             case 0:
@@ -475,10 +619,16 @@ public class GameMessage extends Message implements Serializable {
         return "";
     }
 
+    /**
+     * prints the table coins
+     */
     public void printTableCoins() {
         System.out.println("\n\nTable coins: " + getTableCoins() + "\uD83E\uDE99");
     }
 
+    /**
+     * prints the winner's nicknames
+     */
     public void printWinners() {
         if (getWinnersIndexes().contains(playerId)) System.out.println("You WIN!!");
         else {

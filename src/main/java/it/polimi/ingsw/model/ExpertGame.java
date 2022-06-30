@@ -41,12 +41,24 @@ public class ExpertGame extends Game {
         }
     }
 
+    /**
+     * returns the characters attribute
+     * @return
+     */
     public Character[] getCharacters(){
         return characters;
     }
 
+    /**
+     * returns the gameMOde attribute
+     * @return
+     */
     public GameMode getGameMode() {return gameMode;}
 
+    /**
+     * sets the attribute characters with the value passed by parameter
+     * @param characters
+     */
     public void setCharacters(Character[] characters){
         this.characters = characters;
     }
@@ -136,16 +148,35 @@ public class ExpertGame extends Game {
         this.characters[2] = c.get(9);
     }
 
+    /**
+     * returns the id of the card identified by indexCard, passed by parameter
+     * @param indexCard
+     * @return
+     * @throws InvalidIndexException
+     */
     public int getIdCharacter(int indexCard) throws InvalidIndexException {
         if (indexCard < 0 || indexCard > 3) throw new InvalidIndexException("Error character index gameTable");
         else return this.characters[indexCard].getID();
     }
 
+    /**
+     * returns the cost of the card identified by indexCard, passed by parameter
+     * @param indexCard
+     * @return
+     * @throws InvalidIndexException
+     */
     public int getCostCharacter(int indexCard) throws InvalidIndexException {
         if (indexCard < 0 || indexCard > 3) throw new InvalidIndexException("Error character index gameTable");
         else return this.characters[indexCard].getCost();
     }
 
+    /**
+     * returns the students on the card specified by indexCard, passed by parameter,
+     * in the positions studentsPositions, passed by parameter
+     * @param indexCard
+     * @param studentsPositions
+     * @return
+     */
     public List<Student> getStudentFromCard(int indexCard, List<Integer> studentsPositions) {
         List<Student> returnStudents = new ArrayList<>();
         try {
@@ -161,15 +192,32 @@ public class ExpertGame extends Game {
         return returnStudents;
     }
 
+    /**
+     * adds new students on the card
+     * @param cardIndex
+     * @param newStudents
+     */
     public void addStudentsOnCard(int cardIndex, List<Student> newStudents) {
         if(characters[cardIndex] instanceof CharacterWithStudent)
             ((CharacterWithStudent)this.characters[cardIndex]).addStudents(newStudents);
     }
 
+    /**
+     * returns the attribute character[indexCard] with indexCard passed by parameter
+     * @param indexCard
+     * @return
+     */
     public Character getCharacter(int indexCard) {
         return this.characters[indexCard];
     }
 
+    /**
+     * activate the effect of the character identified by its card index, passed by parameter
+     * @param playerId
+     * @param indexCard
+     * @throws EffectCannotBeActivatedException
+     * @throws NotEnoughCoins
+     */
     @Override
     public void activateEffect(int playerId, int indexCard) throws EffectCannotBeActivatedException, NotEnoughCoins {
         try {
@@ -184,28 +232,55 @@ public class ExpertGame extends Game {
         }
     }
 
+    /**
+     * returns the attribute coinsOfTheTable
+     * @return
+     */
     public int getCoinsOfTheTable() {
         return coinsOfTheTable;
     }
 
+    /**
+     * returns the attribute playersCoins
+     * @return
+     */
     public int[] getPlayersCoins() {
         return playersCoins;
     }
 
+    /**
+     * adds a coin to the player passed  by parameter
+     * @param playerIndex
+     * @throws NotEnoughCoins
+     */
     public void addCoinToAPlayer(int playerIndex) throws NotEnoughCoins {
         if (getCoinsOfTheTable() <= 0) throw new NotEnoughCoins();
         playersCoins[playerIndex]++;
     }
 
+    /**
+     * removes a number of coins passed by parameter from the player passed by parameter
+     * @param playerIndex
+     * @param numberOfCoinsToRemove
+     * @throws NotEnoughCoins
+     */
     public void removeCoinsFromAPlayer(int playerIndex, int numberOfCoinsToRemove) throws NotEnoughCoins {
         if(playersCoins[playerIndex] < numberOfCoinsToRemove) throw new NotEnoughCoins();
         playersCoins[playerIndex] -= numberOfCoinsToRemove;
     }
 
+    /**
+     * adds a coin to the table
+     * @param numberOfCoinsToAdd
+     */
     public void addCoinsToTheTable(int numberOfCoinsToAdd) {
         coinsOfTheTable += numberOfCoinsToAdd;
     }
 
+    /**
+     * removes a coin from the table
+     * @throws NotEnoughCoins
+     */
     public void removeCoinFromTheTable() throws NotEnoughCoins {
         if(coinsOfTheTable < 1) throw new NotEnoughCoins();
         coinsOfTheTable -= 1;
