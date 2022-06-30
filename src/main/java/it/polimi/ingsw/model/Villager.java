@@ -6,7 +6,6 @@ public class Villager extends Character {
 
     /**
      * Creates a character card with the given two values
-     *
      * @param id   integer that identifies the character card
      * @param cost amount of money needed to activate the card effect
      */
@@ -15,6 +14,11 @@ public class Villager extends Character {
         studentColor = null;
     }
 
+    /**
+     * take and store the student color that will be used during the effect
+     * @param playerId
+     * @param parameter
+     */
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
@@ -31,10 +35,20 @@ public class Villager extends Character {
         }
     }
 
+    /**
+     * @return color chosen during activation effect
+     */
     public PawnColor getStudentColor(){
         return studentColor;
     }
 
+    /**
+     * Active Villager effect and return the new decorated round
+     * @param playerID
+     * @param round
+     * @return the new decorated round
+     * @throws EffectCannotBeActivatedException
+     */
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         setPlayerMessageCli(playerID,"Select a student color { 0:GREEN - 1:RED - 2:YELLOW - 3:PINK - 4:BLUE}");
         setPlayerMessageGui(playerID,"Select a student color");
@@ -43,6 +57,11 @@ public class Villager extends Character {
         return this;
     }
 
+    /**
+     *
+     * @param playerId
+     * @param islandIndex
+     */
     @Override
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
@@ -73,7 +92,6 @@ public class Villager extends Character {
                 }
                 if(getGame().isGameEnded()) {
                     roundState = 100;
-                    //getGame().endTheMatch();
                 }
                 calculateNextPlayer();
                 deactivateEffect(false);

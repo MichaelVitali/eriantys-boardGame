@@ -45,12 +45,23 @@ public class Round implements Serializable {
         setMessageToAPlayerAndWaitingMessageForOthers(playerOrder[0], "Select an assistant", "Select an assistant");
     }
 
+    /**
+     * @return if the last move was about the island
+     */
     public boolean isIslandMessage() {
         return islandMessage;
     }
 
+    /**
+     * @return the player on turn on this moment
+     */
     public int getPlayerOnTurn() { return playerOrder[indexOfPlayerOnTurn]; }
 
+    /**
+     * Creates a new Round
+     * @param game
+     * @param playerOrder player order calculated by played Assistant
+     */
     public Round(Game game, int[] playerOrder) {
         this(game);
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
@@ -76,28 +87,50 @@ public class Round implements Serializable {
         private int playerIndex;
         private Assistant assistant;
 
+        /**
+         * Creates a new played assistant
+         * @param playerIndex
+         * @param assistant
+         */
         public PlayedAssistant(int playerIndex, Assistant assistant) {
             this.playerIndex = playerIndex;
             this.assistant = assistant;
         }
 
+        /**
+         * @return player that had played the assistant
+         */
         public int getPlayerIndex() {
             return playerIndex;
         }
 
+        /**
+         * @return assistant played
+         */
         public Assistant getAssistant() {
             return assistant;
         }
     }
 
+    /**
+     * @return all the Assistant played until this moment
+     */
     public PlayedAssistant[] getPlayedAssistants(){
         return  playedAssistants;
     }
 
+    /**
+     * @return player order on this turn
+     */
     public int[] getPlayerOrder(){
         return this.playerOrder.clone();
     }
 
+    /**
+     * Controls if the player that want to make the move is the player on turn
+     * @param playerId of player that want to make the move
+     * @throws PlayerNotOnTurnException
+     */
     public void checkPlayerOnTurn(int playerId) throws PlayerNotOnTurnException {
         if(playerOrder[indexOfPlayerOnTurn] != playerId) {
             setPlayerMessageCli(playerId, "You are not the current player");
@@ -106,64 +139,124 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Set the new round state
+     * @param state
+     */
     public void setRoundState(int state){
         this.roundState = state;
     }
 
+    /**
+     * @return the current round state
+     */
     public int getRoundState(){
         return roundState;
     }
 
+    /**
+     * @return the previous round state
+     */
     public int getPreviousState() {
         return previousState;
     }
 
+    /**
+     * Sets the new previous round state
+     * @param previousState
+     */
     public void setPreviousState(int previousState) {
         this.previousState = previousState;
     }
 
+    /**
+     * Returns the number of move made until this specific moment
+     * @return
+     */
     public int[] getMovesCounter(){
         return movesCounter;
     }
 
+    /**
+     * Sets the number of moves made by a specific player
+     * @param playerId
+     * @param moves
+     */
     public void setMovesCounter(int playerId, int moves){
         movesCounter[playerId] = moves;
     }
 
+    /**
+     * @return player on turn
+     */
     public int getIndexOfPlayerOnTurn(){
         return indexOfPlayerOnTurn;
     }
 
+    /**
+     * Sets the player on turn
+     * @param index
+     */
     public void setIndexOfPlayerOnTurn(int index){
         if(index>=0 && index<game.getNumberOfPlayers())
             indexOfPlayerOnTurn=index;
     }
 
+    /**
+     * Sets if the current player have already played a character
+     * @param alreadyPlayedCharacter
+     */
     public void setAlreadyPlayedCharacter(boolean alreadyPlayedCharacter) {
         this.alreadyPlayedCharacter = alreadyPlayedCharacter;
     }
 
+    /**
+     * Calculates random the index of the first player for the first round
+     * @param numberOfPlayers
+     * @return
+     */
     public int calculateFirstPlayer(int numberOfPlayers){
         Random generator = new Random();
         int firstPlayer = generator.nextInt(numberOfPlayers);
         return firstPlayer;
     }
 
+    /**
+     * Controls if is it possible the specific move in this specific round state
+     * @param methodId
+     * @throws InvalidMethodException
+     */
     public void checkStatusAndMethod(int methodId) throws InvalidMethodException {
         if (methodId != roundState) throw new InvalidMethodException();
     }
 
+    /**
+     * Controls if the player has already made all the possible moves
+     * @param playerId
+     * @throws TooManyMovesException
+     */
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException {
         if(movesCounter[playerId] > 3) throw new TooManyMovesException();
     }
 
+    /**
+     * Sets the new player message for CLI
+     * @param playerId
+     * @param message
+     */
     public void setPlayerMessageCli(int playerId, String message) {
         game.getPlayer(playerId).setPlayerMessageCli(message);
     }
 
+    /**
+     * Sets the new player message for GUI
+     * @param playerId
+     * @param message
+     */
     public void setPlayerMessageGui(int playerId, String message) {
         game.getPlayer(playerId).setPlayerMessageGui(message);
     }
+
 
     public void setMessageToAPlayerAndWaitingMessageForOthers(int playerId, String messageCli, String messageGui) {
         setPlayerMessageCli(playerId, messageCli);
@@ -176,6 +269,9 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * @return the CLI message for the current round state
+     */
     public String getStateMessageCli() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
@@ -185,6 +281,9 @@ public class Round implements Serializable {
         return message;
     }
 
+    /**
+     * @return the GUI message for the current round state
+     */
     public String getStateMessageGui() {
         String message = null;
         if (roundState == 0) message = "Select an assistant";
@@ -194,6 +293,9 @@ public class Round implements Serializable {
         return message;
     }
 
+    /**
+     * @return if the pianification phase is ended
+     */
     public boolean isPianificationPhaseEnded() {
         if (roundState == 0) {
             if (indexOfPlayerOnTurn == game.getNumberOfPlayers() - 1) return true;
@@ -201,17 +303,26 @@ public class Round implements Serializable {
         return false;
     }
 
+    /**
+     * @return true if the action phase is ended, false otherwise
+     */
     public boolean isActionPhaseEnded() {
         if (roundState == 3 && (indexOfPlayerOnTurn == game.getNumberOfPlayers() - 1)) return true;
         return false;
     }
 
+    /**
+     * @return true if you can move another student from entrance, false otherwise
+     */
     public boolean isTimeToChooseTheNextStudent() {
         if(roundState == 1 && movesCounter[playerOrder[indexOfPlayerOnTurn]] < 3 )
             return true;
         return false;
     }
 
+    /**
+     * @return true if you have to move mother nature, false otherwise
+     */
     public boolean isTimeToMoveMotherNature() {
         if (roundState == 1 && 3 <= movesCounter[playerOrder[indexOfPlayerOnTurn]])
             return true;
@@ -219,21 +330,33 @@ public class Round implements Serializable {
         return false;
     }
 
+    /**
+     * @return true if you can choose a cloud, false otherwise
+     */
     public boolean isTimeToChooseACloud() {
         if (roundState == 2) return true;
         return false;
     }
 
+    /**
+     * @return true if a cloud has been chosen, false otherwise
+     */
     public boolean cloudHasBeenChosen() {
         if (roundState == 3) return true;
         return false;
     }
 
+    /**
+     * @return if the game is ended
+     */
     public boolean isTheGameEnded() {
         if(roundState == 100) return true;
         return false;
     }
 
+    /**
+     * Calculates the new pianification phase order based on the last played assistants
+     */
     public void setPianificationPhaseOrder() {
         int minimumAssistantValue = 11;
         int nextTurnFirstPlayer = 0;
@@ -249,6 +372,9 @@ public class Round implements Serializable {
             playerOrder[i] = (playerOrder[i - 1] + 1) % playedAssistants.length;
     }
 
+    /**
+     * Calculates the action phase based on the new played assistants
+     */
     public void setActionPhaseOrder() {
         PlayedAssistant[] playedAssistantsOrdered = new PlayedAssistant[playedAssistants.length];
         for (int i = 0; i < playedAssistants.length; i++) {
@@ -266,12 +392,17 @@ public class Round implements Serializable {
             playerOrder[i] = playedAssistantsOrdered[i].getPlayerIndex();
     }
 
+    /**
+     * Sets a new Pianification phase and starts a new Round
+     */
     public void switchToPianificationPhase() {
-        //System.out.println("Abbiamo eseguito la switch to pianification phase");
         setPianificationPhaseOrder();
         game.startRound(playerOrder);
     }
 
+    /**
+     * Creates a new Action phase
+     */
     public void switchToActionPhase() {
         setActionPhaseOrder();
         previousState = 0;
@@ -279,6 +410,9 @@ public class Round implements Serializable {
         indexOfPlayerOnTurn = 0;
     }
 
+    /**
+     * Calculates who is the next player and change the round state after every action
+     */
     public void calculateNextPlayer() {
         boolean roundEnded = false;
         if (isTheGameEnded()) {
@@ -324,6 +458,12 @@ public class Round implements Serializable {
         return outer.containsAll(inner);
     }
 
+    /**
+     * Removes an assistant from a specific player
+     * @param playerId
+     * @param assistantPosition
+     * @throws InvalidIndexException
+     */
     public void removeAssistant(int playerId, int assistantPosition) throws InvalidIndexException {
         Assistant assistantToPlay = game.getPlayer(playerId).getAssistant(assistantPosition);
 
@@ -342,6 +482,11 @@ public class Round implements Serializable {
         playedAssistantsPF.add(assistantToPlay);
     }
 
+    /**
+     * PLays the selected assistant and control if is it possible. Otherwise, it returns an error message
+     * @param playerId
+     * @param idAssistant
+     */
     public void playAssistant(int playerId, int idAssistant) {
         try {
             checkPlayerOnTurn(playerId);
@@ -365,6 +510,12 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Makes the add student on island move for the specific player. Otherwise, it returns an error message if is not possible
+     * @param playerId
+     * @param studentIndex
+     * @param islandIndex
+     */
     public void addStudentOnIsland(int playerId, int studentIndex, int islandIndex) {
         islandMessage = true;
         try {
@@ -391,6 +542,11 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Does the add student on table move for the specific player. Otherwise, it returns an error message if is not possible
+     * @param playerId
+     * @param studentIndex
+     */
     public void addStudentOnTable(int playerId, int studentIndex) {
         islandMessage = false;
         Student[] entrance;
@@ -435,6 +591,12 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Controls if the new requested position for mother nature is possible made by last assistant played
+     * @param assistant
+     * @param islandIndex
+     * @return
+     */
     public boolean isANewAllowedPositionForMotherNature(Assistant assistant, int islandIndex) {
         int motherNaturePosition = game.getGameTable().getMotherNaturePosition();
         int numberOfIslands = game.getGameTable().getNumberOfIslands();
