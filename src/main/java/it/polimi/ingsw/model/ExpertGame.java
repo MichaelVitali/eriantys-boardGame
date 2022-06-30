@@ -143,8 +143,8 @@ public class ExpertGame extends Game {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
         }*/
-        this.characters[0] = c.get(7);
-        this.characters[1] = c.get(8);
+        this.characters[0] = c.get(5);
+        this.characters[1] = c.get(7);
         this.characters[2] = c.get(9);
     }
 

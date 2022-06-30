@@ -62,14 +62,14 @@ public class Knight extends Character {
                     getRound().setRoundState(100);
                     roundState = 100;
                 }
+                deactivateEffect(false);
+                calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island");
                 setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island");
                 getGame().sendGame();
             } catch (InvalidIndexException e) {
             }
-            deactivateEffect(false);
-            calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
 
         } catch (InvalidMethodException e) {

@@ -44,8 +44,8 @@ public class Centaur extends Character {
                     getRound().setRoundState(100);
                     roundState = 100;
                 }
-                calculateNextPlayer();
                 deactivateEffect(false);
+                calculateNextPlayer();
             } catch (TooFarIslandException e) {
                 setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island");
                 setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island");
@@ -53,7 +53,6 @@ public class Centaur extends Character {
             } catch (InvalidIndexException e) {
                 e.printStackTrace();
             }
-            calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
             e.printStackTrace();
         } catch (InvalidMethodException e) {
