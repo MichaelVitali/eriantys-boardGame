@@ -58,7 +58,7 @@ public class Villager extends Character {
     }
 
     /**
-     *
+     * Calculates influence, after changed mother nature position, without consider the chosen Student color
      * @param playerId
      * @param islandIndex
      */
@@ -105,7 +105,7 @@ public class Villager extends Character {
                 getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round state doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move mother nature now");
             setPlayerMessageGui(playerId, "You cannot move mother nature now");

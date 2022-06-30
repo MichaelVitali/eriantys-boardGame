@@ -126,7 +126,7 @@ public class Healer extends Character {
                 getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move mother nature now");
             setPlayerMessageGui(playerId, "You cannot move mother nature now");

@@ -13,6 +13,10 @@ public class ChangeMotherNaturePositionMessage extends PlayerMessage implements 
         this.islandIndex = islandIndex;
     }
 
+    /**
+     * Calls the function on round to change mother nature position on the chosen Island
+     * @param game
+     */
     @Override
     public void performMove(Game game) { game.getRound().changeMotherNaturePosition(getPlayerId(), islandIndex); }
 

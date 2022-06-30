@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.EmptyCloudException;
 import it.polimi.ingsw.model.exception.FullTableException;
 import it.polimi.ingsw.model.exception.InvalidIndexException;
-import it.polimi.ingsw.model.exception.OutOfBoundException;
 
 import java.io.Serializable;
 import java.util.*;
@@ -18,6 +17,12 @@ public class Player implements Serializable {
     private boolean error;
     private Wizard wizard;
 
+    /**
+     * Creates a new PLayer and saves the received nickName, his playerID and his list of Assistants
+     * @param nickName
+     * @param playerId
+     * @param assistants
+     */
     public Player(String nickName, int playerId, List<Assistant> assistants) {
         this.nickName = nickName;
         this.playerId = playerId;
@@ -27,10 +32,17 @@ public class Player implements Serializable {
         wizard = null;
     }
 
+    /**
+     * @return true if there is an error, false otherwise
+     */
     public boolean isError() {
         return error;
     }
 
+    /**
+     * Sets the received error
+     * @param error
+     */
     public void setError(boolean error) {
         this.error = error;
     }
@@ -43,18 +55,35 @@ public class Player implements Serializable {
         return this.wizard;
     }
 
+    /**
+     * @return the player nickName
+     */
     public String getNickname(){
         return this.nickName;
     }
 
+    /**
+     * Saves the received gameTable as player gameTable
+     * @param gameTable
+     */
     public void addGameTable(GameTable gameTable){
         this.gameTable = gameTable;
     }
 
+    /**
+     * Saves the received schoolboard as player schoolboard
+     * @param s
+     */
     public void addSchoolBoard(SchoolBoard s){
         this.schoolBoard = s;
     }
 
+    /**
+     * Controls if the chosen Assistant exists and, in case, removes it
+     * @param pos
+     * @return the chosen Assistant
+     * @throws InvalidIndexException
+     */
     public Assistant playAssistant(int pos) throws InvalidIndexException {
         if(pos < 0 || pos >= assistants.size()) throw new InvalidIndexException("Assistant index out of bound");
         return this.assistants.remove(pos);
@@ -70,6 +99,12 @@ public class Player implements Serializable {
         return returnedAssistants;
     }
 
+    /**
+     * Return a copy of the chosen Assistant from his Assistants collection
+     * @param id of the chosen assistant
+     * @return the chosen Assistant
+     * @throws InvalidIndexException
+     */
     public Assistant getAssistant(int id) throws InvalidIndexException{
         boolean flag = false;
         int pos = -1;
@@ -84,6 +119,12 @@ public class Player implements Serializable {
         else throw new InvalidIndexException("The assistant doesn't exist!\n");
     }
 
+    /**
+     * Remove the chosen Assistant from his Assistants collection
+     * @param id of the chosen assistant
+     * @return the removed Assistant
+     * @throws InvalidIndexException
+     */
     public Assistant removeAssistant(int id) throws InvalidIndexException{
         boolean flag = false;
         int pos = -1;
@@ -98,41 +139,80 @@ public class Player implements Serializable {
         else throw new InvalidIndexException("The assistant doesn't exist!\n");
     }
 
+    /**
+     * Moves the chosen Student on entrance to his table
+     * @param pos of entrance student
+     * @throws FullTableException
+     * @throws InvalidIndexException
+     */
     public void moveStudentOnTable(int pos) throws FullTableException, InvalidIndexException {
         this.schoolBoard.addStudentOnTable(pos);
     }
 
+    /**
+     * Moves the chosen Student on entrance to the chosen Island
+     * @param posStudent
+     * @param posIsland
+     * @throws InvalidIndexException
+     */
     public void moveStudentOnIsland(int posStudent, int posIsland) throws InvalidIndexException {
         Student s = this.schoolBoard.removeStudentFromEntrance(posStudent);
         this.gameTable.addStudentOnIsland(s, posIsland);
     }
 
+    /**
+     * @return the message for CLI client
+     */
     public String getPlayerMessageCli() {
         return messageCli;
     }
 
+    /**
+     * @return the message for GUI client
+     */
     public String getPlayerMessageGui() {
         return messageGui;
     }
 
+    /**
+     * Sets the message received as message for CLI client
+     * @param message
+     */
     public void setPlayerMessageCli(String message) {
         messageCli = message;
     }
 
+    /**
+     * Sets the message received as message for GUI client
+     * @param message
+     */
     public void setPlayerMessageGui(String message) {
         messageGui = message;
     }
 
+    /**
+     * Takes student from the selected cloud and add them to his entrance
+     * @param indexCloud
+     * @throws EmptyCloudException
+     * @throws InvalidIndexException
+     */
     public void takeStudentsFromCloud(int indexCloud) throws EmptyCloudException, InvalidIndexException {
         List<Student> s = this.gameTable.getStudentsOnCloud(indexCloud);
         this.schoolBoard.addStudentsOnEntrance(s);
     }
 
+    /**
+     * Adds a List of received assistant to his assistants
+     * @param l
+     */
     public void addAssistants(List<Assistant> l) {
         if(this.assistants.size() == 0)
             this.assistants.addAll(l);
     }
 
+    /**
+     * @return all the students on entrance
+     */
     public Student[] getStudentsFormEntrance(){
         return this.schoolBoard.getStudentsFromEntrance();
     }

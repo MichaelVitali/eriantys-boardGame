@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exception.*;
-import it.polimi.ingsw.server.ClientConnection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -193,11 +192,9 @@ public class GameTable implements Serializable {
             if(index == -1) throw new OutOfBoundException("Errore in addStudents of GameTable");
             this.islands.get(index).addStudents(student, islandIndex);
         } catch (OutOfBoundException e) {
-            //e.printStackTrace();
-            //System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (InvalidIndexException e) {
-            //e.printStackTrace();
-            //System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -255,13 +252,11 @@ public class GameTable implements Serializable {
                     if (islands.get(motherNaturePosition).getTowers().isEmpty())
                         throw new NoMoreTowersException(islands.get(motherNaturePosition).getTowers().get(0).getColor());
                     if (islands.size() <= 3) {
-                        //System.out.println("Tre o meno island");
                         throw new ThreeOrLessIslandException();
                     }
                     mergeIslandsIfNecessary();
                 }
                 if (islands.size() <= 3) {
-                    //System.out.println("Tre o meno island");
                     throw new ThreeOrLessIslandException();
                 }
             } catch (InvalidIndexException e) {

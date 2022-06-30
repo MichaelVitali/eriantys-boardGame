@@ -26,6 +26,11 @@ public class Postman extends Character {
                 super.isANewAllowedPositionForMotherNature(assistant, (islandIndex + super.getGame().getGameTable().getNumberOfIslands() - 1) % super.getGame().getGameTable().getNumberOfIslands());
     }
 
+    /**
+     * Change mother nature position giving the possibility to move it two more island additional to the given number by Assistant played
+     * @param playerId
+     * @param islandIndex
+     */
     @Override
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
@@ -52,7 +57,6 @@ public class Postman extends Character {
                 }
                 if(getGame().isGameEnded()) {
                     roundState = 100;
-                    //getGame().endTheMatch();
                 }
                 calculateNextPlayer();
                 deactivateEffect(false);
@@ -66,7 +70,6 @@ public class Postman extends Character {
                 getGame().sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move mother nature now");
             setPlayerMessageGui(playerId, "You cannot move mother nature now");

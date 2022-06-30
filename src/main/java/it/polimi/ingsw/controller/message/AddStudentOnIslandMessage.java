@@ -15,6 +15,10 @@ public class AddStudentOnIslandMessage extends PlayerMessage implements Serializ
         this.islandIndex = islandIndex;
     }
 
+    /**
+     * Calls the function on round to move a student from player entrance to an Island
+     * @param game
+     */
     @Override
     public void performMove(Game game) {
         game.getRound().addStudentOnIsland(getPlayerId(), studentIndex, islandIndex);

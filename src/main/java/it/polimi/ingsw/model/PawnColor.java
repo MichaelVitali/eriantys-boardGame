@@ -20,6 +20,11 @@ public enum PawnColor implements Serializable {
      */
     public int getIndex() { return index; }
 
+    /**
+     * Return the associate Pawn Color for the received index
+     * @param index
+     * @throws InvalidIndexException
+     */
     public static PawnColor associateIndexToPawnColor(int index) throws InvalidIndexException {
 
         PawnColor pc = null;

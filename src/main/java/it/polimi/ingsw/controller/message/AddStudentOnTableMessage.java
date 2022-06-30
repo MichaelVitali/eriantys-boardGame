@@ -13,6 +13,10 @@ public class AddStudentOnTableMessage extends PlayerMessage implements Serializa
         this.studentIndex = studentIndex;
     }
 
+    /**
+     * Calls the function on round to add the chosen student to his table
+     * @param game
+     */
     @Override
     public void performMove(Game game) {
         game.getRound().addStudentOnTable(getPlayerId(), studentIndex);

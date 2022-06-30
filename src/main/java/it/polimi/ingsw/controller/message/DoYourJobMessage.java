@@ -11,6 +11,10 @@ public class DoYourJobMessage extends PlayerMessage{
         this.parameter = parameter;
     }
 
+    /**
+     * Calls the function on round to performe the character effect with the chosen parameter
+     * @param game
+     */
     @Override
     public void performMove(Game game) {
         try {

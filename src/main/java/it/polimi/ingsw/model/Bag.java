@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Bag implements Serializable { //magari la bag potrebbe non essere serializzabile
+public class Bag implements Serializable {
     private final List<Student> students;
 
     /**

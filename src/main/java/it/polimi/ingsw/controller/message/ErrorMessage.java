@@ -8,6 +8,7 @@ public class ErrorMessage extends GameMessage {
     public ErrorMessage(Game model, int playerId) {
         super(model, playerId);
     }
+
     @Override
     public void renderWhatNeeded(BoardController controller) {
         controller.showGameMessage();

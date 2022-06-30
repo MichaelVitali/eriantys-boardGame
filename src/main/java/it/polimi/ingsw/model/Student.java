@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Student implements Serializable {
     private final PawnColor color;

@@ -3,7 +3,6 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exception.*;
 
 import java.io.Serializable;
-import java.rmi.StubNotFoundException;
 import java.util.*;
 
 public class Round implements Serializable {
@@ -11,12 +10,12 @@ public class Round implements Serializable {
     private Game game;
     protected int roundState;
     private int previousState;
-    private int[] movesCounter;                     // In indice playerId si trovano gli spostamenti di studenti fatti dal giocatore con tale id
-    private int indexOfPlayerOnTurn;               // Indice in playerOrder del giocatore che sta giocando
-    private int[] playerOrder;                      // Da 0 al numero di player identifica l'ordine di essi in quella fase di gioco
+    private int[] movesCounter;
+    private int indexOfPlayerOnTurn;
+    private int[] playerOrder;
     private PlayedAssistant[] playedAssistants;
     private boolean[] alreadyPlayedAssistants;
-    private List<Assistant> playedAssistantsPF; ///// cosa è
+    private List<Assistant> playedAssistantsPF;
     private boolean alreadyPlayedCharacter;
     private boolean islandMessage = false;
 
@@ -411,13 +410,13 @@ public class Round implements Serializable {
     }
 
     /**
-     * Calculates who is the next player and change the round state after every action
+     * Calculates who is the next player. If the player turn is over it changes the next player on turn and set the round state to the first possible action,
+     * otherwise change the round state to the next permitted action
      */
     public void calculateNextPlayer() {
         boolean roundEnded = false;
         if (isTheGameEnded()) {
             game.sendGame();
-            //nothing
         } else if (isPianificationPhaseEnded()) {
             switchToActionPhase();
         } else if (isTimeToChooseTheNextStudent()) {
@@ -494,7 +493,7 @@ public class Round implements Serializable {
             removeAssistant(playerId, idAssistant);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot play any assistant now\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You cannot play any assistant now\n" + getStateMessageGui());
@@ -526,7 +525,7 @@ public class Round implements Serializable {
             movesCounter[playerId]++;
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move students now\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You cannot move students now\n" + getStateMessageGui());
@@ -567,7 +566,7 @@ public class Round implements Serializable {
             game.getGameTable().moveProfessorToTheRightPosition(color);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move students now\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You cannot move students now\n" + getStateMessageGui());
@@ -661,13 +660,10 @@ public class Round implements Serializable {
                     game.setWinner(e.getEmptySchoolboardColor());
                     roundState = 100;
                 } catch (ThreeOrLessIslandException e) {
-                    //System.out.println("Three or less island exception");
                     checkEndgameAndSetTheWinner();
                 }
                 if(game.isGameEnded()) {
-                    //System.out.println("Endgame");
                     roundState = 100;
-                    //game.endTheMatch();
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
@@ -680,7 +676,7 @@ public class Round implements Serializable {
                 game.sendGame();
             }
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move mother nature now");
             setPlayerMessageGui(playerId, "You cannot move mother nature now");
@@ -688,6 +684,11 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Takes students from chosen cloud and add these students to the player on his entrance
+     * @param playerId
+     * @param cloudIndex
+     */
     public void getStudentsFromCloud(int playerId, int cloudIndex) {
         try {
             checkPlayerOnTurn(playerId);
@@ -695,7 +696,7 @@ public class Round implements Serializable {
             game.getPlayer(playerId).takeStudentsFromCloud(cloudIndex);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot get students from cloud now\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You cannot get students from cloud now\n" + getStateMessageGui());
@@ -711,6 +712,11 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Activates the effect of the chosen card for the player that has requested it. It controls if this is possibile, otherwise it sends an error
+     * @param playerId
+     * @param indexCard
+     */
     public void activateEffect(int playerId, int indexCard) {
         try {
             checkPlayerOnTurn(playerId);
@@ -720,7 +726,7 @@ public class Round implements Serializable {
             //if (((ExpertGame) game).getCharacter(indexCard) instanceof InnKeeper) ((ExpertGame) game).getCharacter(indexCard).deactivateEffect(true);
             alreadyPlayedCharacter = true;
         } catch (PlayerNotOnTurnException e) {
-            // The player is not the current player so the round tate doesn't change
+
         } catch (AlreadyPlayedCharcaterException e) {
             setPlayerMessageCli(playerId, "You already played a character\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You already played a character\n" + getStateMessageGui());
@@ -740,8 +746,17 @@ public class Round implements Serializable {
         }
     }
 
+    /**
+     * Activates the effect for the character selected
+     * @param playerId
+     * @param parameter
+     * @throws InvalidIndexException
+     */
     public void doYourJob(int playerId, int parameter) throws InvalidIndexException { }
 
+    /**
+     * @return if the player has already played a character
+     */
     public boolean getAlreadyPLayedCharacter() {
         return alreadyPlayedCharacter;
     }

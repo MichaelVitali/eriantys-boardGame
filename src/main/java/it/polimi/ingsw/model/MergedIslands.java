@@ -132,6 +132,12 @@ public class MergedIslands extends Island {
         firstIsland.resetProhibition();
         secondIsland.resetProhibition();
     }
+
+    /**
+     * Return the number of students on the merged Island for the selected color
+     * @param color
+     * @return
+     */
     @Override
     public int getNumberOfStudentsForColor(PawnColor color) {
         return (firstIsland.getNumberOfStudentsForColor(color) + secondIsland.getNumberOfStudentsForColor(color));
