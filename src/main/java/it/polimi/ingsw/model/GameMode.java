@@ -7,10 +7,18 @@ public enum GameMode implements Serializable {
 
     private String mode;
 
+    /***
+     * sets the mode attribute
+     * @param mode
+     */
     private GameMode(String mode) {
         this.mode = mode;
     }
 
+    /**
+     * returns the mode attribute
+     * @return
+     */
     public String getMode() {
         return mode;
     }

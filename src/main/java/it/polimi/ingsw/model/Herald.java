@@ -54,6 +54,13 @@ public class Herald extends Character{
         }
     }
 
+    /**
+     * sets the correct messages to cli and gui, calls the activateEffect method of round and sets the round state at 4
+     * @param playerID
+     * @param round
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessageCli("Select Island");

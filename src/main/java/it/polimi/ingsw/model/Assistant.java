@@ -34,6 +34,11 @@ public class Assistant implements Serializable {
         return motherNatureMoves;
     }
 
+    /**
+     * returns true if the Object passed by parameter is an Assistant which has the same card value and mother nature moves as this
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,6 +47,10 @@ public class Assistant implements Serializable {
         return cardValue == assistant.cardValue && motherNatureMoves == assistant.motherNatureMoves;
     }
 
+    /**
+     * returns the result of the method hash of cardValue and motherNatureMoves
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(cardValue, motherNatureMoves);
