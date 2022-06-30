@@ -71,8 +71,7 @@ Il progetto sfrutta Maven per automatizzare il processo di compilazione.
 Grazie a tale strumento sono anche stati creati i jar. Per sviluppare il progetto e compilarlo è stata usata la versione 17 di Java.
 
 <h3>Jars</h3>
-I file jar generati sono due: uno per il client e uno per il server. Gli eseguibili si possono trovare a questi link:
-
+I file jar generati sono due: uno per il client e uno per il server. Gli eseguibili si possono trovare a questi link:<br>
 
 - [jars](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/tree/master/deliverables/jars)
 
@@ -81,20 +80,20 @@ I file jar generati sono due: uno per il client e uno per il server. Gli eseguib
 ---
 
 <h3>CLI</h3>
-Per avviare il client di Eriantys e giocare da CLI, il comando, da digitare sul terminale, è:
+Per avviare il client di Eriantys e giocare da CLI, il comando, da digitare sul terminale, è:<br>
 
 ```
 java -jar eriantys-client.jar cli server-ip-address [server-port-number]
 ```
 
 <h3>GUI</h3>
-Per avviare il client di Eriantys e giocare da GUI, il comando, da digitare sul terminale, è:
+Per avviare il client di Eriantys e giocare da GUI, il comando, da digitare sul terminale, è:<br>
 
 ```
 java -jar eriantys-client.jar gui server-ip-address [server-port-number]
 ```
 <h3>Server</h3>
-Per avviare il server di Eriantys, il comando, da digitare sul terminale, è:
+Per avviare il server di Eriantys, il comando, da digitare sul terminale, è:<br>
 
 ```
 java -jar eriantys-server.jar [server-port-number]
