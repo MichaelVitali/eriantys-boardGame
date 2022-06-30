@@ -21,15 +21,28 @@ public class EndgameController extends GuiController {
     private GameMessage board;
     private int myPlayerId;
 
+    /**
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    /**
+     * returns the board parameter
+     * @return
+     */
     public GameMessage getBoard() {
         return board;
     }
 
+    /**
+     * sets the board and eventually displays who is the winner
+     * @param board
+     */
     public void setBoard(GameMessage board) {
         this.board = board;
         myPlayerId = board.getPlayerId();
@@ -59,16 +72,20 @@ public class EndgameController extends GuiController {
                 winners.setText("You are the master of Eriantys world");
             } else {
                 message.setText("You lose!");
-                winners.setText("The winner is " + board.getWinnersNicknames().get(0) + "\nPlay again to improve your abilities and begin an Eriantys master");
+                winners.setText("The winner is " + board.getWinnersNicknames().get(0) + "\nPlay again to improve your abilities and become an Eriantys master");
             }
             if (board.getNumberOfPLayers() == 4)
                 winners.setText("The winners are " + board.getWinnersNicknames().get(0) + " and " + board.getWinnersNicknames().get(1));
         } else if (board.isDraw()) {
             message.setText("The match is draw");
-            winners.setText("You and your opponent are at the same level. Play again to improve your abilities and begin an Eriantys master");
+            winners.setText("You and your opponent are at the same level. Play again to improve your abilities and become an Eriantys master");
         }
     }
 
+    /**
+     *
+     * @param message
+     */
     @Override
     public void update(Message message) {
 

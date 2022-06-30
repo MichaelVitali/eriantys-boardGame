@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.ClientApp;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.observer.Observable;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,6 +19,12 @@ public class Client extends Observable<Message> implements Runnable {
     private ObjectInputStream inputStream;
     private GameMessage actualBoard;
 
+    /**
+     * client constructor, initialize socket, outputStream, inputStream attributes
+     * @param ip
+     * @param port
+     * @throws Exception
+     */
     public Client(String ip, int port) throws Exception {
         socket = new Socket(ip, port);
         outputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -28,6 +32,9 @@ public class Client extends Observable<Message> implements Runnable {
         System.out.println("Connection established");
     }
 
+    /**
+     * runs the inputThread calling the asyncReadFromSocket method
+     */
     @Override
     public void run() {
         try {
@@ -45,14 +52,27 @@ public class Client extends Observable<Message> implements Runnable {
         }
     }
 
+    /**
+     * returns the attribute active
+     * @return
+     */
     public synchronized boolean isActive(){
         return active;
     }
 
+    /**
+     * sets the attribute active
+     * @param active
+     */
     public synchronized void setActive(boolean active){
         this.active = active;
     }
 
+    /**
+     * runs the thread that will be used to read from socket
+     * @param socketIn
+     * @return
+     */
     public Thread asyncReadFromSocket(final ObjectInputStream socketIn){
         Thread t = new Thread(new Runnable() {
             @Override
@@ -63,18 +83,16 @@ public class Client extends Observable<Message> implements Runnable {
                         if (inputObject instanceof TerminatorMessage) {
                             Client.this.notify((TerminatorMessage) inputObject);
                         } else if(inputObject instanceof SetupMessage) {
-                            //System.out.println("setup message arrivato al client");
                             if(inputObject  != null) {
-                                Client.this.notify((SetupMessage) inputObject); //////Vedere se va bene
+                                Client.this.notify((SetupMessage) inputObject);
                             }
                         } else if (inputObject instanceof GameMessage) {
 
                             if(inputObject  != null) {
-                                //System.out.println("board arrivata client");
                                 actualBoard = ((GameMessage) inputObject);
                                 Client.this.notify(actualBoard);
                             } else {
-                                //System.out.println("messaggio dal server nullo");
+
                             }
                         } else {
                             System.out.println(inputObject.getClass());
@@ -93,6 +111,11 @@ public class Client extends Observable<Message> implements Runnable {
         return t;
     }
 
+    /**
+     * runs the thread that will be used to write to socket the messages passed by parameter
+     * @param playerMessage
+     * @return
+     */
     public Thread asyncWriteToSocket(Message playerMessage) {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -113,6 +136,9 @@ public class Client extends Observable<Message> implements Runnable {
         return thread;
     }
 
+    /**
+     * closes input and output streams
+     */
     public void closeAll() {
         try {
             outputStream.close();

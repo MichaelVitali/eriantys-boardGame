@@ -20,11 +20,20 @@ public class MatchModeController extends GuiController {
     @FXML
     Label matchModeMessage;
 
+    /**
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    /**
+     * changes the scene if necessary based on the message passed by parameter
+     * @param message
+     */
     public void update(Message message) {
         if(message instanceof SetupMessage) {
             SetupMessage setupMessage = (SetupMessage) message;
@@ -53,17 +62,17 @@ public class MatchModeController extends GuiController {
                             playersController.getStage().setScene(playersController.getScene());
                             playersController.getStage().show();
                         } catch(IOException e) {
-                        //Errore, spero non capiti
+                        //Error
                         }
                     }
                 }
                 );
 
             } else {
-                //Errore server
+                //Server Error
             }
         } else {
-            //Errore
+            //Error
         }
     }
 
