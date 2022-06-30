@@ -744,11 +744,6 @@ public class BoardController extends GuiController {
                 motherNature.setY(40);
 
                 for (int i = 0; i < islands.size(); i++) {
-                    //System.out.print("Island indexes of island index " + i + " on model ");
-                    /*for(Integer index : islands.get(i).getIndex()) {
-                        System.out.print(index + " ");
-                    }*/
-                    //System.out.println();
                     List<Student> students = islands.get(i).getStudents();
                     List<PawnColor> colors = new ArrayList<>();
                     for (Student student : students)
@@ -772,9 +767,9 @@ public class BoardController extends GuiController {
         //displayIslandEffect();
     }
 
-    /**
+    /*/** To be completed, we want to make it work before the presentation
      * renders all the islands and shows the ones in which mother nature could move to
-     */
+     *
     public void displayIslandEffect() {
         Platform.runLater(() -> {
             if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
@@ -808,7 +803,7 @@ public class BoardController extends GuiController {
                 }
             }
         });
-    }
+    }*/
 
     /**
      * displays the clouds and puts the students on them whether there are any
