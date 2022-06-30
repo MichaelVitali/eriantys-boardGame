@@ -13,7 +13,17 @@ public class ClientApp {
     public static int port = 50000;
 
     public static void main(String[] args){
-        if (args.length == 2) {
+        if (args.length == 3) {
+            try {
+                port = Integer.valueOf(args[2]);
+                System.out.println("The chosen port is the number " + port);
+            } catch (NumberFormatException e) {
+                System.out.println("You insert a wrong information. The default port is 50000");
+            }
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        }
+        if (args.length >= 2) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
 

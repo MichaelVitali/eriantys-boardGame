@@ -24,7 +24,7 @@ public class PostAddStudentOnIslandMessage extends GameMessage {
             controller.displayMyEntrance();
         else
             controller.displayEnemyEntrance();
-        controller.displayIslandEffect();
+        //controller.displayIslandEffect();
         controller.displayIslands();
         controller.showGameMessage();
     }
