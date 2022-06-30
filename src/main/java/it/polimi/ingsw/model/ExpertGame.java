@@ -137,10 +137,16 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-
-        this.characters[0] = c.get(8);
-        this.characters[1] = c.get(9);
-        this.characters[2] = c.get(10);
+        /*
+        Random rnd = new Random();
+        int numberOfCharacter = 12;
+        for (int i = 0; i < 3; i++) {
+            this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
+            numberOfCharacter--;
+        }*/
+        this.characters[0] = c.get(9);
+        this.characters[1] = c.get(10);
+        this.characters[2] = c.get(11);
     }
 
     /**
