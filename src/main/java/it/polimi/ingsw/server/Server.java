@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.message.SetupMessage;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.TooManyMovesException;
 import it.polimi.ingsw.view.*;
 
 import java.io.IOException;

@@ -65,15 +65,17 @@ public class Knight extends Character {
             } catch (TooFarIslandException e) {
                 setPlayerMessageCli(playerId, "You cannot put mother nature in the chosen island");
                 setPlayerMessageGui(playerId, "You cannot put mother nature in the chosen island");
+                getGame().sendGame();
             } catch (InvalidIndexException e) {
             }
-            deactivateEffect(true);
+            deactivateEffect(false);
             calculateNextPlayer();
         } catch (PlayerNotOnTurnException e) {
 
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You cannot move mother nature now");
             setPlayerMessageGui(playerId, "You cannot move mother nature now");
+            getGame().sendGame();
         }
     }
 }

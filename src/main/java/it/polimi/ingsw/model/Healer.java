@@ -19,15 +19,15 @@ public class Healer extends Character {
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
             try {
-                if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist");
+                if (parameter < 0 || parameter > 11) throw new InvalidIndexException("The island doesn't exist!\nChoose another one");
                 getGame().getGameTable().getIslandByIndex(parameter).setProhibition();
                 prohibition--;
                 setRoundState(getOldState());
                 setPlayerMessageCli(playerId, getStateMessageCli());
                 setPlayerMessageGui(playerId, getStateMessageGui());
             } catch (InvalidIndexException | IslandAlreadyForbiddenException e) {
-                setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
-                setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
+                setPlayerMessageCli(playerId, e.getMessage());
+                setPlayerMessageGui(playerId, e.getMessage());
                 getGame().sendGame();
             }
         }
@@ -144,6 +144,7 @@ public class Healer extends Character {
                     }
                 } else {
                     getGame().getGameTable().getIslandByIndex(getGame().getGameTable().getMotherNaturePosition()).resetProhibition();
+                    prohibition++;
                 }
                 calculateNextPlayer();
             } catch (TooFarIslandException e) {
