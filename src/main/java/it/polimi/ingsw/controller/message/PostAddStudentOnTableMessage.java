@@ -29,7 +29,7 @@ public class PostAddStudentOnTableMessage extends GameMessage {
         }
         controller.displayMyProfessors();
         controller.displayEnemyProfessors();
-        controller.displayIslandEffect();
+        //controller.displayIslandEffect();
         controller.showGameMessage();
     }
 }
