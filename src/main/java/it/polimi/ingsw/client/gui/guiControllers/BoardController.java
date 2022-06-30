@@ -218,12 +218,8 @@ public class BoardController extends GuiController {
         studentMoved = -1;
     }
 
-    public int getMyPlayerId() {
-        return myPlayerId;
-    }
-
     /**
-     *
+     * adapt the clouds to the screen size to make them correctly placed
      */
     private void adaptCloud() {
         cloud0Student0.setLayoutX(6.0);
@@ -249,7 +245,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * adapt the towers to the screen size to make them correctly placed
      */
     private void adaptTowers() {
         for (int i = 0; i < 6; i++) {
@@ -263,7 +259,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * adapt the scene to the screen size
      */
     public void adaptSceneToPlayers() {
         Platform.runLater(() -> {
@@ -406,7 +402,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * Sets the tower image on the node selecting the color passed as parameter
      * @param node
      * @param color
      */
@@ -442,7 +438,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * displays the schoolboards of the other players in the left part of the screen
      * @param playerOffset
      */
     public void displayEnemySchoolboard(int playerOffset) {
@@ -456,10 +452,17 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * calls the displayEnemyAssistant method, passing as parameter enemyBoardDisplayed
+     */
     public void displayEnemyAssistant() {
         displayEnemyAssistant(enemyBoardDisplayed);
     }
 
+    /**
+     * displays the assistants chosen by the other players
+     * @param playerOffset
+     */
     public void displayEnemyAssistant(int playerOffset) {
         if (board.getPlayedAssistants()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()] != null) {
             enemyAssistant.setVisible(true);
@@ -469,10 +472,17 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * calls the displayEnemyEntrance method, passing as parameter enemyBoardDisplayed
+     */
     public void displayEnemyEntrance() {
         displayEnemyEntrance(enemyBoardDisplayed);
     }
 
+    /**
+     * displays the other players' entrance
+     * @param playerOffset
+     */
     public void displayEnemyEntrance(int playerOffset) {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
         for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -480,10 +490,17 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * calls the displayEnemyTables method, passing as parameter enemyBoardDisplayed
+     */
     public void displayEnemyTables() {
         displayEnemyTables(enemyBoardDisplayed);
     }
 
+    /**
+     * displays the other players' tables placing on each one the students
+     * @param playerOffset
+     */
     public void displayEnemyTables(int playerOffset) {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
         for (int i = 0; i < PawnColor.values().length; i++) {
@@ -500,9 +517,17 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * calls the displayEnemyProfessors method, passing as a parameter enemyBoardDisplayed
+     */
     public void displayEnemyProfessors() {
         displayEnemyProfessors(enemyBoardDisplayed);
     }
+
+    /**
+     * displays the other players' professors
+     * @param playerOffset
+     */
     public void displayEnemyProfessors(int playerOffset) {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[(myPlayerId + (playerOffset)) % board.getNumberOfPLayers()];
         for (int i = 0; i < PawnColor.values().length; i++) {
@@ -520,6 +545,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * calls the displayEnemyTowers method, passing as a parameter enemyBoardDisplayed
+     */
     public void displayEnemyTowers() {
         displayEnemyTowers(enemyBoardDisplayed);
     }
@@ -547,6 +575,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * Displays the assistant played by the actual player
+     */
     public void displayMyAssistant() {
         if (board.getPlayedAssistants()[myPlayerId] != null) {
             myAssistant.setVisible(true);
@@ -556,6 +587,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * Displays the entrance of the actual player
+     */
     public void displayMyEntrance() {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
         for (int i = 0; i < schoolBoard.getStudentsFromEntrance().length; i++) {
@@ -563,6 +597,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * Displays the tables of the actual player
+     */
     public void displayMyTables() {
         //int dist = 22;
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
@@ -581,6 +618,10 @@ public class BoardController extends GuiController {
             //}
         }
     }
+
+    /**
+     * Displays the professors of the actual player
+     */
     public void displayMyProfessors() {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
         for (int i = 0; i < PawnColor.values().length; i++) {
@@ -599,6 +640,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * Displays the towers of the actual player
+     */
     public void displayMyTowers() {
         SchoolBoard schoolBoard = board.getGametable().getSchoolBoards()[myPlayerId];
         for (int i = 0; i < schoolBoard.getTowers().size(); i++) {
@@ -609,6 +653,9 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * Displays the coins of the actual player
+     */
     private void displayCoin() {
         Platform.runLater(() -> {
             coinImage.setVisible(true);
@@ -621,7 +668,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * returns the index of the Island passed as a parameter
      * @param island
      * @return
      */
@@ -636,7 +683,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * returns the Island correspondent to the index passed as a parameter
      * @param index
      * @return
      */
@@ -725,6 +772,9 @@ public class BoardController extends GuiController {
         //displayIslandEffect();
     }
 
+    /**
+     * renders all the islands and shows the ones in which mother nature could move to
+     */
     public void displayIslandEffect() {
         Platform.runLater(() -> {
             if (board.getState() == 2 && board.getPlayerOnTurn() == myPlayerId) {
@@ -759,8 +809,9 @@ public class BoardController extends GuiController {
             }
         });
     }
+
     /**
-     *
+     * displays the clouds and puts the students on them whether there are any
      */
     public void displayClouds() {
         if (board != null) {
@@ -781,12 +832,15 @@ public class BoardController extends GuiController {
 
     }
 
+    /**
+     * calls the displayBoard method passing as a parameter enemyBoardDisplayed
+     */
     public void displayBoard() {
         displayBoard(enemyBoardDisplayed);
     }
 
     /**
-     *
+     * displays all the elements of the board of the actual player and of the selected enemy player
      * @param playerOffset
      */
     public void displayBoard(int playerOffset) {
@@ -807,7 +861,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * changes the enemy player board to be displayed
      * @param event
      */
     public void changeBoard(ActionEvent event) {
@@ -825,7 +879,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * updates the scene based on the message passed by parameter
      * @param message
      */
     @Override
@@ -836,27 +890,26 @@ public class BoardController extends GuiController {
             board = (GameMessage) message;
             if (board.getState() == 100) {
                 Platform.runLater(new Runnable() {
-                                      @Override
-                                      public void run() {
-                                          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/endgameScene.fxml"));
-                                          try {
-                                              Parent root = loader.load();
-                                              EndgameController endgameController = loader.getController();
-                                              getClient().removeObserver(BoardController.this);
-                                              endgameController.setStage(getStage());
-                                              endgameController.setScene(new Scene(root));
-                                              endgameController.setRoot(root);
-                                              endgameController.setBoard(board);
-                                              getClient().addObserver(endgameController);
-                                              endgameController.setClient(getClient());
-                                              endgameController.getStage().setScene(endgameController.getScene());
-                                              endgameController.getStage().show();
-                                          } catch(IOException e) {
-                                              //Errore, spero non capiti
-                                          }
-                                      }
-                                  }
-                );
+                    @Override
+                    public void run() {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/endgameScene.fxml"));
+                        try {
+                            Parent root = loader.load();
+                            EndgameController endgameController = loader.getController();
+                            getClient().removeObserver(BoardController.this);
+                            endgameController.setStage(getStage());
+                            endgameController.setScene(new Scene(root));
+                            endgameController.setRoot(root);
+                            endgameController.setBoard(board);
+                            getClient().addObserver(endgameController);
+                            endgameController.setClient(getClient());
+                            endgameController.getStage().setScene(endgameController.getScene());
+                            endgameController.getStage().show();
+                        } catch(IOException e) {
+                            //Errore, spero non capiti
+                        }
+                    }
+                });
             } else {
                 board.renderWhatNeeded(this);
             }
@@ -864,7 +917,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * when the assistant is clicked and it can be played, it grays out
      * @param event
      */
     @FXML
@@ -875,7 +928,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * greys out the chosen student and sets the next state of the board
      * @param event
      */
     public void myEntranceClick(ActionEvent event) {
@@ -900,7 +953,7 @@ public class BoardController extends GuiController {
     }
 
     /**
-     *
+     * puts the selected student on the right table or greys out the one chosen from the table
      * @param event
      */
     public void myTablesClick(ActionEvent event) {
@@ -916,6 +969,10 @@ public class BoardController extends GuiController {
         if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
+    /**
+     * shows all the elements on the island
+     * @param event
+     */
     public void showStuffOnIslands(MouseEvent event) {
         Platform.runLater(() -> {
             int islandIndex = -1;
@@ -952,6 +1009,10 @@ public class BoardController extends GuiController {
         });
     }
 
+    /**
+     * hides all the elements on the islands
+     * @param event
+     */
     public void hideStuffOnIslands(MouseEvent event) {
         int islandIndex = -1;
         if (((ImageView) event.getSource()).getId().substring(0, 1).equals("s"))
@@ -978,8 +1039,9 @@ public class BoardController extends GuiController {
             }
         }
     }
+
     /**
-     *
+     * send the correct message based on the current state of the clicked island
      * @param event
      */
     public void islandClick(MouseEvent event) {
@@ -1011,6 +1073,10 @@ public class BoardController extends GuiController {
         if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
+    /**
+     * sends a DoYourJobMessage when one of the three student charachters are played
+     * @param event
+     */
     public void playStudentCard(MouseEvent event) {
         String button = ((Button) event.getSource()).getId();
         int indexStudent = Integer.parseInt(button.substring(7,8));
@@ -1026,6 +1092,10 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * displays the assistants at the center of the screen
+     * @param event
+     */
     public void showAssistant(MouseEvent event) {
         int idAssistant = Integer.parseInt(((Button) event.getSource()).getId().substring(9));
         idAssistant--;
@@ -1037,6 +1107,11 @@ public class BoardController extends GuiController {
                 assistantImage.setTranslateY(-8.0);
         });
     }
+
+    /**
+     * hides the previously showed assistant
+     * @param event
+     */
     public void removeShowAssistant(MouseEvent event) {
         Platform.runLater(() -> {
                 assistantImage.setVisible(false);
@@ -1044,6 +1119,9 @@ public class BoardController extends GuiController {
         });
     }
 
+    /**
+     * displays the assistant buttons at the bottom of the screen
+     */
     public void displayAssistants() {
         List<Integer> assistantNotPlayed = new ArrayList<>();
         for (Assistant as : board.getAssistants()) assistantNotPlayed.add(as.getCardValue());
@@ -1145,15 +1223,21 @@ public class BoardController extends GuiController {
         }
     }
 
-    /*public void selectStudentFromCard(MouseEvent event) {
-        String studentButton = ((Button) event.getSource()).getId();
-    }*/
+    /**
+     * sends a GetStudentsFromCloudMessage when a cloud is clicked
+     * @param event
+     */
     public void cloudClick(MouseEvent event) {
         int cloudIndex = Integer.parseInt(((ImageView) event.getSource()).getId().substring(((ImageView) event.getSource()).getId().length() - 1));
         getClient().asyncWriteToSocket(new GetStudentsFromCloudsMessage(myPlayerId, cloudIndex));
         if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }
 
+    /**
+     * puts a students of the color passed by parameter on the node passed by parameter of the Character
+     * @param node
+     * @param student
+     */
     public void setStudentCharacter(Button node, Student student) {
         Platform.runLater(() -> {
             if(node != null) {
@@ -1200,6 +1284,9 @@ public class BoardController extends GuiController {
         });
     }
 
+    /**
+     * displays the characters and their elements
+     */
     private void displayCharacter() {
         if (board.getGameMode() == GameMode.EXPERT) {
             Platform.runLater(new Runnable() {
@@ -1319,6 +1406,10 @@ public class BoardController extends GuiController {
         }
     }
 
+    /**
+     * sends a doYourJobMessage depending on which of the four students is selected in the last played character
+     * @param event
+     */
     public void sendButtonValue(MouseEvent event) {
         String button = ((Button) event.getSource()).getId();
         int index = -1;
@@ -1358,6 +1449,9 @@ public class BoardController extends GuiController {
     }
 
 
+    /**
+     * shows the selection of the students on character button at the center of the board
+     */
     private void showButtonCenter() {
         if (board.getState() == 4 && board.getPlayerOnTurn() == myPlayerId) {
             if ((board.getCharacters()[indexLastCharacterPlayed].getID() == 12 || board.getCharacters()[indexLastCharacterPlayed].getID() == 9)) {
@@ -1393,6 +1487,12 @@ public class BoardController extends GuiController {
         }
 
     }
+
+    /**
+     * returns the path of the image depending on the color passed by parameter
+     * @param color
+     * @return
+     */
     private String returnImagePathStudentFromColor(PawnColor color) {
         switch (color) {
             case BLUE:
@@ -1409,6 +1509,9 @@ public class BoardController extends GuiController {
         return "";
     }
 
+    /**
+     * shows the game message at the top of the board
+     */
     public void showGameMessage(){
         Platform.runLater( () -> {
             String playerMessage = board.getPlayerMessageGui();
@@ -1417,6 +1520,10 @@ public class BoardController extends GuiController {
         });
     }
 
+    /**
+     * send an ActivateEffectMessage depending on which charachter has been selected
+     * @param event
+     */
     public void playCharacter(MouseEvent event) {
         int indexCard = -1;
         switch(((ImageView) event.getSource()).getId()) {
@@ -1435,6 +1542,11 @@ public class BoardController extends GuiController {
     }
 
 
+    /**
+     * prints the effect of the selected character
+     * @param indexCharacter
+     * @return
+     */
     private String returnEffectCharacter(int indexCharacter) {
         switch (indexCharacter) {
             case 1:
@@ -1465,6 +1577,10 @@ public class BoardController extends GuiController {
         return "";
     }
 
+    /**
+     * sets visible the characterEffect and its text
+     * @param event
+     */
     public void showCharacterEffect(MouseEvent event) {
         int indexCard = Integer.parseInt(((ImageView) event.getSource()).getId().substring(9,10));
         String text = returnEffectCharacter(board.getCharacters()[indexCard-1].getID());
@@ -1473,6 +1589,10 @@ public class BoardController extends GuiController {
         characterEffect.setText(text);
     }
 
+    /**
+     * hides the charachterEffect
+     * @param event
+     */
     public void removeCharacterEffect(MouseEvent event) {
         characterEffect.setVisible(false);
     }
