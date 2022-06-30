@@ -27,6 +27,11 @@ public class Knight extends Character {
         return super.activateEffect(playerID, oldRound);
     }
 
+    /**
+     * adds two additional influence points at the player who played this card
+     * @param playerId
+     * @param islandIndex
+     */
     @Override
     public void changeMotherNaturePosition (int playerId, int islandIndex) {
         try {
