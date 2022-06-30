@@ -22,8 +22,18 @@ public class Game extends Observable<Game> implements Serializable {
     private boolean victory;
     private boolean draw;
     private TowerColor winner;
+
+    /**
+     *
+     * @param numberOfPlayers
+     */
     public Game(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
+    /**
+     *
+     * @param numberOfPlayers
+     * @param nicknames
+     */
     public Game(int numberOfPlayers, List<String> nicknames) {
         this.numberOfPlayers = numberOfPlayers;
         gameMode = GameMode.NORMAL;
@@ -52,20 +62,41 @@ public class Game extends Observable<Game> implements Serializable {
         winner = null;
     }
 
+    /**
+     * returns the gameMode attribute
+     * @return
+     */
     public GameMode getGameMode() { return gameMode; }
 
+    /**
+     * returns the numberOfplayers attribute
+     * @return
+     */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
+    /**
+     * returns the gameTable attribute
+     * @return
+     */
     public GameTable getGameTable() {
         return gameTable;
     }
 
+    /**
+     * sets the gametable attribute
+     * @param gameTable
+     */
     public void setGameTable(GameTable gameTable) {
         this.gameTable = gameTable;
     }
 
+    /**
+     * returns the players[playerId attribute] with playerId passed by parameter
+     * @param playerId
+     * @return
+     */
     public Player getPlayer(int playerId) {
         try {
             if (playerId < 0 || playerId >= numberOfPlayers) throw new InvalidIndexException("This player doesn't exit");
@@ -75,38 +106,73 @@ public class Game extends Observable<Game> implements Serializable {
         return this.players[playerId];
     }
 
+    /**
+     * returns the round attribute
+     * @return
+     */
     public Round getRound() {
         return round;
     }
 
+    /**
+     * sets the round attribute with the value passed as a parameter
+     * @param round
+     */
     public void setRound(Round round) {
         this.round = round;
     }
 
+    /**
+     * returns the victory attribute
+     * @return
+     */
     public boolean isVictory() {
         return victory;
     }
 
+    /**
+     * returns the draw attribute
+     * @return
+     */
     public boolean isDraw() {
         return draw;
     }
 
+    /**
+     * sets the victory attribute with the value passed as a parameter
+     */
     public void setVictory(){
         victory = true;
     }
 
+    /**
+     * sets the draw attribute with the value passed as a parameter
+     */
     public void setDraw(){
         draw = true;
     }
 
+    /**
+     * returns the winner attribute
+     * @return
+     */
     public TowerColor getWinner() {
         return winner;
     }
 
+    /**
+     * sets the winner attribute with the value passed as a parameter
+     * @param winner
+     */
     public void setWinner(TowerColor winner) {
         this.winner = winner;
     }
 
+    /**
+     * creates a certain number of school boards with different features based on the number of players in the game
+     * @param numberOfPlayers
+     * @return
+     */
     public GameTable createGameTable(int numberOfPlayers) {
         SchoolBoard[] schoolBoards = new SchoolBoard[numberOfPlayers];
 
@@ -141,10 +207,18 @@ public class Game extends Observable<Game> implements Serializable {
         return new GameTable(numberOfPlayers, schoolBoards, bag);
     }
 
+    /**
+     * returns a new bag
+     * @return
+     */
     public Bag createBag() {
         return new Bag();
     }
 
+    /**
+     * returns a List<Assistant> containing all the assistants
+     * @return
+     */
     public List<Assistant> createAssistants(){
         List<Assistant> l = new ArrayList<>();
 
@@ -159,11 +233,20 @@ public class Game extends Observable<Game> implements Serializable {
         return l;
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public boolean isAValidPositionForMotherNature(int position) {
         if (0 <= position && position < gameTable.getIslands().size()) return true;
         return false;
     }
 
+    /**
+     * starts the first round
+     * @return
+     */
     public Round startRound() {
         round = new Round(this);
         try {
@@ -174,6 +257,11 @@ public class Game extends Observable<Game> implements Serializable {
         return round;
     }
 
+    /**
+     * starts a new round with the playerOrder passed by parameter. If there is just one remaining assistant the next round will be the last round
+     * @param playerOrder
+     * @return
+     */
     public Round startRound(int[] playerOrder) {
         Round round = null;
         if (getPlayer(0).getAssistants().size() == 1)
@@ -204,13 +292,28 @@ public class Game extends Observable<Game> implements Serializable {
     public void endTheMatch() {
 
     }
+
+    /**
+     *
+     * @param playerIndex
+     * @param indexCard
+     * @throws EffectCannotBeActivatedException
+     * @throws NotEnoughCoins
+     */
     public void activateEffect(int playerIndex, int indexCard) throws EffectCannotBeActivatedException, NotEnoughCoins {
     }
 
+    /**
+     * calls the method notify passing as a parameter this game
+     */
     public void sendGame() {
         notify(this);
     }
 
+    /**
+     * returns the players nicknames
+     * @return
+     */
     public String[] getPlayersNicknames() {
         String[] nicknames = new String[numberOfPlayers];
 
@@ -218,6 +321,11 @@ public class Game extends Observable<Game> implements Serializable {
         return nicknames;
     }
 
+    /**
+     * returns the assistant played by the player identified by playerIndex, passed by parameter
+     * @param playerIndex
+     * @return
+     */
     public List<Assistant> getPlayerAssistant(int playerIndex) {
         return players[playerIndex].getAssistants();
     }

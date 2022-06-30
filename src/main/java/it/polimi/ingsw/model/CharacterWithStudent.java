@@ -31,6 +31,10 @@ public class CharacterWithStudent extends Character implements Serializable {
         }
     }
 
+    /**
+     * returns an array of the Students that are on the card
+     * @return
+     */
     public Student[] getStudentsOnCard(){
         Student[] returnEntrance = new Student[students.length];
         System.arraycopy(students, 0, returnEntrance, 0, students.length);

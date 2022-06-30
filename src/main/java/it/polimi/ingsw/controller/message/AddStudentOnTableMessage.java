@@ -8,13 +8,18 @@ public class AddStudentOnTableMessage extends PlayerMessage implements Serializa
     private static final long serialVersionUID = 3L;
     private int studentIndex;
 
+    /**
+     * message which permits adding students on tables
+     * @param playerId
+     * @param studentIndex
+     */
     public AddStudentOnTableMessage(int playerId, int studentIndex) {
         super(playerId);
         this.studentIndex = studentIndex;
     }
 
     /**
-     * Calls the function on round to add the chosen student to his table
+     * calls the model method to add the student on table
      * @param game
      */
     @Override

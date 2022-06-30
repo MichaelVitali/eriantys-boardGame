@@ -8,13 +8,18 @@ public class ChangeMotherNaturePositionMessage extends PlayerMessage implements 
     private static final long serialVersionUID = 4L;
     private int islandIndex;
 
+    /**
+     * message which permits changing mother nature position
+     * @param playerId
+     * @param islandIndex
+     */
     public ChangeMotherNaturePositionMessage(int playerId, int islandIndex) {
         super(playerId);
         this.islandIndex = islandIndex;
     }
 
     /**
-     * Calls the function on round to change mother nature position on the chosen Island
+     * calls the model method to change mother nature position
      * @param game
      */
     @Override

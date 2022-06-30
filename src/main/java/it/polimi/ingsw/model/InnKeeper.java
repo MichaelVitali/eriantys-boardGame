@@ -14,6 +14,13 @@ public class InnKeeper extends Character{
         super(id, cost, "Innkeeper");
     }
 
+    /**
+     * activates the effect of the InnKeeper calling changeProfessorEffect( playerID, round)
+     * @param playerID
+     * @param round
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
         super.activateEffect(playerID, round);
@@ -21,6 +28,11 @@ public class InnKeeper extends Character{
         return this;
     }
 
+    /**
+     * Wherever there are the same number of students on two game tables, the player who played the card
+     * achieves the correspondent professor if it's not already achieved
+     * @param playerId
+     */
     public void changeProfessorEffect( int playerId ){
         for (int i = 0; i < getGame().getNumberOfPlayers(); i++){
             if (i != playerId){

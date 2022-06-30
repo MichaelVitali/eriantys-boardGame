@@ -23,12 +23,20 @@ public class ClientCli {
     private int playerId = 0;
     private GameMessage actualBoard;
 
+    /**
+     * creates an instance of ClientCli
+     * @param ip
+     * @param port
+     */
     public ClientCli(String ip, int port) {
         this.ip = ip;
         this.port = port;
         printLogo();
     }
 
+    /**
+     * prints the Eriantys logo on cli
+     */
     public void printLogo() {
         int a = 3;
         int b = 6;
@@ -40,14 +48,26 @@ public class ClientCli {
         System.out.println("Welcome to the magical world of Eriantys\nTry to win the game and become the king of Eriantys\nPress Enter to continue...");
     }
 
+    /**
+     * @return whether the client is active
+     */
     public synchronized boolean isActive(){
         return active;
     }
 
+    /**
+     * @param active
+     * sets the active attribute
+     */
     public synchronized void setActive(boolean active){
         this.active = active;
     }
 
+    /**
+     * @param socketIn
+     * Thread which reads the object in input
+     * @return
+     */
     public Thread asyncReadFromSocket(final ObjectInputStream socketIn){
 
         Thread t = new Thread(new Runnable() {
@@ -85,6 +105,13 @@ public class ClientCli {
         return t;
     }
 
+    /**
+     *
+     * @param stdin
+     * @param socketOut
+     * Thread which prints in output what is the expected next action
+     * @return
+     */
     public Thread asyncWriteToSocket(final Scanner stdin, final ObjectOutputStream socketOut){
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -164,6 +191,10 @@ public class ClientCli {
         return thread;
     }
 
+    /**
+     * handles the threads excecution
+     * @throws IOException
+     */
     public void run() throws IOException {
         Socket socket = new Socket(ip, port);
         System.out.println("Connection established");
@@ -186,6 +217,12 @@ public class ClientCli {
         }
     }
 
+    /**
+     * @param inputStream
+     * Formats the parameters received in input so that they can be used correctly,
+     * otherwise notifies to the client that the information isn't correct
+     * @return
+     */
     private int readLineAndParseInteger(final Scanner inputStream) {
         boolean isParameterSet = false;
         int parameter = -1;

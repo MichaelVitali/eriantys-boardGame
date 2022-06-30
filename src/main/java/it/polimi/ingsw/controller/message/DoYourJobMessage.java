@@ -6,13 +6,18 @@ import it.polimi.ingsw.model.exception.InvalidIndexException;
 public class DoYourJobMessage extends PlayerMessage{
     private int parameter;
 
+    /**
+     * message which permits to do the character job
+     * @param playerId
+     * @param parameter
+     */
     public DoYourJobMessage(int playerId, int parameter) {
         super(playerId);
         this.parameter = parameter;
     }
 
     /**
-     * Calls the function on round to performe the character effect with the chosen parameter
+     * calls the model method to do the character job
      * @param game
      */
     @Override

@@ -9,6 +9,12 @@ public class AddStudentOnIslandMessage extends PlayerMessage implements Serializ
     private int studentIndex;
     private int islandIndex;
 
+    /**
+     * message which permits adding students on islands
+     * @param playerId
+     * @param studentIndex
+     * @param islandIndex
+     */
     public AddStudentOnIslandMessage(int playerId, int studentIndex, int islandIndex) {
         super(playerId);
         this.studentIndex = studentIndex;
@@ -16,7 +22,7 @@ public class AddStudentOnIslandMessage extends PlayerMessage implements Serializ
     }
 
     /**
-     * Calls the function on round to move a student from player entrance to an Island
+     * calls the model method to add the student on island
      * @param game
      */
     @Override

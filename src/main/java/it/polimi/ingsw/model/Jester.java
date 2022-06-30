@@ -13,12 +13,23 @@ public class Jester extends CharacterWithStudent{
     private int countCard;
     private int countEntrance;
 
+    /**
+     * initializes Jester
+     * @param id
+     * @param cost
+     * @param numberOfStudent
+     */
     public Jester(int id, int cost, int numberOfStudent) {
         super(id, cost, numberOfStudent, "Jester");
         studentsIndexOnCard = new ArrayList<>();
         studentsIndexOnEntrance = new ArrayList<>();
     }
 
+    /**
+     * Switches up to three students between the ones on the card and the ones on the entrance of the player who played this card
+     * @param playerId
+     * @param parameter
+     */
     @Override
     public void doYourJob(int playerId, int parameter) {
         if (getRoundState() == 4) {
@@ -83,6 +94,13 @@ public class Jester extends CharacterWithStudent{
         }
     }
 
+    /**
+     * activates the effect of Jester setting the appropriate messages
+     * @param playerID
+     * @param round
+     * @return
+     * @throws EffectCannotBeActivatedException
+     */
     @Override
     public Round activateEffect (int playerID, Round round) throws EffectCannotBeActivatedException {
         round.getGame().getPlayer(playerID).setPlayerMessageCli("How many Students do you want to change");

@@ -59,6 +59,11 @@ public class Cloud implements Serializable {
         students.addAll(newStudents);
     }
 
+    /**
+     * returns the number of students on the cloud which are of the color passed by parameter
+     * @param color
+     * @return
+     */
     public int getNumberOfStudentsForColor(PawnColor color) {
         int count = 0;
         for (Student s : students) {
