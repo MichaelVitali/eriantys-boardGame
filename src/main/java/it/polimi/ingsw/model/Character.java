@@ -408,7 +408,7 @@ public class Character extends Round implements Serializable {
      * @param resetState
      */
     public void deactivateEffect(boolean resetState) {
-        if(resetState) round.setRoundState(oldState);
+        if (resetState) round.setRoundState(oldState);
         round.getGame().setRound(round);
         round.setPlayerMessageCli(getPlayerOnTurn(), getStateMessageCli());
         round.setPlayerMessageGui(getPlayerOnTurn(), getStateMessageGui());
