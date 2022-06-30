@@ -1,8 +1,10 @@
 package it.polimi.ingsw.client.cli;
 
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.controller.message.GameMessage;
 import it.polimi.ingsw.controller.message.*;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.exception.ConnectionClosedFromServerExcecption;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -56,13 +58,16 @@ public class ClientCli {
                 try {
                     while (isActive()) {
                         Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof SetupMessage) {
+                        if (inputObject instanceof TerminatorMessage) {
+                            active = false;
+                            throw new ConnectionClosedFromServerExcecption(((TerminatorMessage) inputObject).getMessage());
+                        } else if (inputObject instanceof SetupMessage) {
                             clearAll();
-                            connectionState = ((SetupMessage)inputObject).getConnectionState();
-                            System.out.println(((SetupMessage)inputObject).getMessage());
-                        } else if (inputObject instanceof GameMessage){
+                            connectionState = ((SetupMessage) inputObject).getConnectionState();
+                            System.out.println(((SetupMessage) inputObject).getMessage());
+                        } else if (inputObject instanceof GameMessage) {
                             actualBoard = ((GameMessage) inputObject);
-                            if(!configurationDone) {
+                            if (!configurationDone) {
                                 configurationDone = true;
                                 playerId = actualBoard.getPlayerId();
                             }
@@ -75,8 +80,10 @@ public class ClientCli {
                             throw new IllegalArgumentException();
                         }
                     }
+                } catch (ConnectionClosedFromServerExcecption e) {
+                    System.out.println(e.getMessage());
                 } catch (Exception e){
-                    e.printStackTrace();
+                    System.out.println("Connection closed, by");
                     setActive(false);
                 }
             }

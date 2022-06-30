@@ -904,14 +904,14 @@ public class BoardController extends GuiController {
      * @param event
      */
     public void myTablesClick(ActionEvent event) {
-        if (state == 1) {
-            getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
-            if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
-            state = 0;
-        } else if (board.getGameMode() == GameMode.EXPERT && board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 6) {
+        if (board.getGameMode() == GameMode.EXPERT && board.getCharacters()[indexLastCharacterPlayed].getID() == 10 && board.getState() == 6) {
             String button = ((Button) event.getSource()).getId();
             int indexTable = Integer.parseInt(button.substring(5,6));
             getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, indexTable));
+        } else if (state == 1) {
+            getClient().asyncWriteToSocket(new AddStudentOnTableMessage(myPlayerId, studentMoved));
+            if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
+            state = 0;
         }
         if (studentMoved != -1) myEntrance.get("myEntrance" + studentMoved).setEffect(null);
     }

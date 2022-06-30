@@ -554,7 +554,7 @@ public class Round implements Serializable {
             checkPlayerOnTurn(playerId);
             if (roundState <= 0 || roundState >= 4) throw new InvalidMethodException();
             if (alreadyPlayedCharacter) throw new AlreadyPlayedCharcaterException();
-            game.activateEffect(playerId, indexCard);
+            getGame().activateEffect(playerId, indexCard);
             //if (((ExpertGame) game).getCharacter(indexCard) instanceof InnKeeper) ((ExpertGame) game).getCharacter(indexCard).deactivateEffect(true);
             alreadyPlayedCharacter = true;
         } catch (PlayerNotOnTurnException e) {
@@ -562,19 +562,19 @@ public class Round implements Serializable {
         } catch (AlreadyPlayedCharcaterException e) {
             setPlayerMessageCli(playerId, "You already played a character\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You already played a character\n" + getStateMessageGui());
-            game.sendGame();
+            getGame().sendGame();
         } catch (InvalidMethodException e) {
             setPlayerMessageCli(playerId, "You can't play a character during the pianification phase\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "You can't play a character during the pianification phase\n" + getStateMessageGui());
-            game.sendGame();
+            getGame().sendGame();
         } catch (EffectCannotBeActivatedException e) {
             setPlayerMessageCli(playerId, e.getMessage() + "\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, e.getMessage() + "\n" + getStateMessageGui());
-            game.sendGame();
+            getGame().sendGame();
         } catch (NotEnoughCoins e) {
             setPlayerMessageCli(playerId, "Not enougth coin to play the character\n" + getStateMessageCli());
             setPlayerMessageGui(playerId, "Not enougth coin to play the character\n" + getStateMessageGui());
-            game.sendGame();
+            getGame().sendGame();
         }
     }
 

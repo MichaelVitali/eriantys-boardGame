@@ -36,9 +36,9 @@ public class Villager extends Character {
     }
 
     public Round activateEffect(int playerID, Round round) throws EffectCannotBeActivatedException {
+        super.activateEffect(playerID, round);
         setPlayerMessageCli(playerID,"Select a student color { 0:GREEN - 1:RED - 2:YELLOW - 3:PINK - 4:BLUE}");
         setPlayerMessageGui(playerID,"Select a student color");
-        super.activateEffect(playerID, round);
         setRoundState(4);
         return this;
     }
