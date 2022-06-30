@@ -9,7 +9,7 @@ public class ChangeMotherNaturePositionMessage extends PlayerMessage implements 
     private int islandIndex;
 
     /**
-     * message which permits adding change mother nature position
+     * message which permits changing mother nature position
      * @param playerId
      * @param islandIndex
      */
