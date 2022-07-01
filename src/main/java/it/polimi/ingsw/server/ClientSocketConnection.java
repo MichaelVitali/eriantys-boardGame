@@ -117,8 +117,10 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
                     playerNickname = ((SetupMessage) buffer).getMessage();
                 for (Match m : server.getAllMatchesOnServer()) {
                     for (String s : m.getPlayerNicknames()) {
-                        if (s.equals(playerNickname)) flag = false;
-                        send(new SetupMessage(ConnectionState.LOGIN, "The nickname is already chosen!\nChoose your nickname"));
+                        if (s.equals(playerNickname)) {
+                            flag = false;
+                            send(new SetupMessage(ConnectionState.LOGIN, "The nickname is already chosen!\nChoose your nickname"));
+                        }
                     }
                 }
             } while (playerNickname.equals("") || !flag);
