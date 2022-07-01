@@ -41,7 +41,8 @@ Per maggiori dettagli inerenti la comunicazione di rete consultare il seguente l
 <h3>Test coverage</h3>
 Sono stati scritti i test necessari ad avere una buona copertura dei metodi implementati nelle classi di modello e controller.
 
-Da inserire il report<br><br><br><br><br>
+![alt text](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/blob/master/deliverables/test%20Coverage/report_coverage.jpg?raw=true)
+<br><br><br><br><br>
 
 <h3>JavaDoc</h3>
 La JavaDoc, redatta in parallelo allo sviluppo del gioco, fornisce una descrizione della maggior parte dei metodi implementati. Essa segue le tecniche di documentazione di Java.
@@ -106,6 +107,6 @@ I parametri tra parentesi quadre sono facoltativi e permettono di cambiare porta
 
 ---
 
-- Michael Vitali
+- Michael Vitali 10730463
 - Manuel Tacca
 - Simionato Enrico 10698193
