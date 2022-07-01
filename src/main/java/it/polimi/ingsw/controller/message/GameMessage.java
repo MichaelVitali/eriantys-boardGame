@@ -565,14 +565,14 @@ public class GameMessage extends Message implements Serializable {
         for (Character c : characters) {
             if (c instanceof Monk || c instanceof Princess) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[0] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[0].getColor()) : "  ") + "    " + ((((CharacterWithStudent) c).getStudentsOnCard()[1] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[1].getColor()) : "  ") +" \u2595     ");
             else if (c instanceof Jester) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[0] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[0].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[1] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[1].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[2] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[2].getColor()) : "  ") +" \u2595     ");
-            else if (c instanceof Healer) System.out.print("\u258F" + ((((Healer) c).getNumberOfProibitionCard() >= 1) ? "\u274C" : "  ") + "    " + ((((Healer) c).getNumberOfProibitionCard() >= 2) ? "\u274C" : "  ") +"  \u2595     ");
+            else if (c instanceof Healer) System.out.print("\u258F" + ((((Healer) c).getNumberOfProibitionCard() >= 1) ? "\u274C" : "  ") + "    " + ((((Healer) c).getNumberOfProibitionCard() >= 2) ? "\u274C" : "  ") + " \u2595     ");
             else System.out.print("\u258F         \u2595     ");
         }
         System.out.println("");
         for (Character c : characters) {
             if (c instanceof Monk || c instanceof Princess) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[2] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[2].getColor()) : "  ") + "    " + ((((CharacterWithStudent) c).getStudentsOnCard()[3] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[3].getColor()) : "  ") +" \u2595     ");
             else if (c instanceof Jester) System.out.print("\u258F" + ((((CharacterWithStudent) c).getStudentsOnCard()[3] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[3].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[4] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[4].getColor()) : "  ") + " " + ((((CharacterWithStudent) c).getStudentsOnCard()[5] != null) ? returnCircleUnicodeForColor(((CharacterWithStudent) c).getStudentsOnCard()[5].getColor()) : "  ") +" \u2595     ");
-            else if (c instanceof Healer) System.out.print("\u258F" + ((((Healer) c).getNumberOfProibitionCard() >= 3) ? "\u274C" : "  ") + "    " + ((((Healer) c).getNumberOfProibitionCard() >= 4) ? "\u274C" : "  ") +"  \u2595     ");
+            else if (c instanceof Healer) System.out.print("\u258F" + ((((Healer) c).getNumberOfProibitionCard() >= 3) ? "\u274C" : "  ") + "    " + ((((Healer) c).getNumberOfProibitionCard() >= 4) ? "\u274C" : "  ") + " \u2595     ");
             else System.out.print("\u258F         \u2595     ");
         }
         System.out.println("");
