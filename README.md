@@ -37,6 +37,8 @@ Per maggiori dettagli inerenti la comunicazione di rete consultare il seguente l
 
 - [protocollo di comunicazione](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/blob/master/deliverables/communication%20protocol)
 
+Il protocollo descritto nel file è stato leggermente modificato negli ultimi giorni in quanto si sono presentati dei problemi con il rendering relativo ai characters. Il codice definitivo non presenta la differenziazione tra i messaggi inviati dal server. Esso invia solo messaggi di tipo GameMessage, per questo la grafica è più lenta di quella che avremmo voluto implementare.
+
 <h3>Test coverage</h3>
 Sono stati scritti i test necessari ad avere una buona copertura dei metodi implementati nelle classi di modello e controller.
 
