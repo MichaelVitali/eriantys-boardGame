@@ -26,7 +26,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
         try {
             characters = new Character[3];
             createCharacters();
@@ -137,12 +137,15 @@ public class ExpertGame extends Game {
                     break;
             }
         }
-        Random rnd = new Random();
+        this.characters[0] = c.get(7);
+        this.characters[1] = c.get(10);
+        this.characters[2] = c.get(11);
+        /*Random rnd = new Random();
         int numberOfCharacter = 12;
         for (int i = 0; i < 3; i++) {
             this.characters[i] = c.remove(rnd.nextInt(numberOfCharacter));
             numberOfCharacter--;
-        }
+        }*/
     }
 
     /**

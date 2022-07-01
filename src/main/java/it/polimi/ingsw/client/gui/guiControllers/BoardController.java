@@ -519,7 +519,7 @@ public class BoardController extends GuiController {
                 }
             }
             for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
-                setStudent(enemyTables.get(("enemyStudent" + i + "" + schoolBoard.getNumberOfStudentsOnTable(i))), null);
+                setStudent(enemyTables.get(("enemyStudent" + i + "" + j)), null);
             }
         }
     }
@@ -615,14 +615,12 @@ public class BoardController extends GuiController {
                 try {
                     setStudent(myTablesImages.get(("studentImage" + i + "" + j)), new Student(PawnColor.associateIndexToPawnColor(i)));;
                 } catch (InvalidIndexException e) {
-                    //System.out.println(e.getMessage());
+
                 }
             }
-            //for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
-            //dist += 42;
-            //for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
-                setStudent(myTablesImages.get(("studentImage" + i + "" + schoolBoard.getNumberOfStudentsOnTable(i))), null);
-            //}
+            for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+                setStudent(myTablesImages.get(("studentImage" + i + "" + j)), null);
+            }
         }
     }
 
@@ -642,7 +640,6 @@ public class BoardController extends GuiController {
                     myProfessors.get(("myProfessor" + i)).setLayoutY(147.0);
                 }
             } catch (InvalidIndexException e) {
-                //System.out.println(e.getMessage());
             }
         }
     }
@@ -866,7 +863,6 @@ public class BoardController extends GuiController {
             displayCharacter();
             displayCoin();
         }
-        //System.out.println("My Pl : " + myPlayerId);
     }
 
     /**
@@ -1064,7 +1060,7 @@ public class BoardController extends GuiController {
             } else if (state == 2) {
                     getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
                     state = 0;
-            } else if (board.getState() == 5) {
+            } else if (board.getState() == 4 || board.getState() == 5) {
                 getClient().asyncWriteToSocket(new DoYourJobMessage(myPlayerId, islandIndex));
             } else if (board.getState() == 2) {
                 islandIndex = -1;

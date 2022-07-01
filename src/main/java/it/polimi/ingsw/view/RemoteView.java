@@ -31,7 +31,7 @@ public class RemoteView extends View {
     @Override
     public void update(Game model) {
         GameMessage message = null;
-        if (model.getPlayer(super.getPlayerId()).isError()) {
+        /*if (model.getPlayer(super.getPlayerId()).isError()) {
             message = new ErrorMessage(model, super.getPlayerId());
             model.getPlayer(super.getPlayerId()).setError(false);
         } else if  (model.getRound().getRoundState() == 0) {
@@ -56,10 +56,10 @@ public class RemoteView extends View {
         else if (model.getRound().getRoundState() >= 4) {
             message = new GameMessage(model, super.getPlayerId());
             //System.out.println("PostCharacter o altro, ad esempio Endgame");
-        } else {
+        } else {*/
             //System.out.println("State : " + model.getRound().getRoundState() + " round class : " + model.getRound().getClass() + " (RemoteView)");
             message = new GameMessage(model, super.getPlayerId());
-        }
+        //}
         if (message != null)
             clientConnection.asyncSend(message);
     }
