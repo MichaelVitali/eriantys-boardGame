@@ -620,9 +620,9 @@ public class BoardController extends GuiController {
             }
             //for (int j = 0; j < 10; j++) myTables.get("student" + i + "" + j).setLayoutX(dist);
             //dist += 42;
-            //for (int j = schoolBoard.getNumberOfStudentsOnTable(i); j < 10; j++) {
+            for (int j = schoolBoard.getNumberOfStudentsOnTable(i) - 1; j < 10; j++) {
                 setStudent(myTablesImages.get(("studentImage" + i + "" + schoolBoard.getNumberOfStudentsOnTable(i))), null);
-            //}
+            }
         }
     }
 
@@ -738,21 +738,27 @@ public class BoardController extends GuiController {
             List<Island> islands = gameTable == null ? null : board.getGametable().getIslands();
 
             if(islands != null) {
-                for (int i = 0; i < visibleIslands.size(); i++) {
-                    if (islandPanes.get("islandPane" + i).getChildren().contains(motherNature))
+                for (int i = 0; i < 12; i++) {
+                    if (islandPanes.get("islandPane" + i).getChildren().contains(motherNature)) {
                         islandPanes.get("islandPane" + i).getChildren().remove(motherNature);
-                    if (islands.get(i).isForbidden()) {
-                        prohibitionCard.get("prohibition" + i).setImage(new Image("/images/Character/prohibition.png"));
-                        prohibitionCard.get("prohibition" + i).setVisible(true);
-                    } else {
-                        prohibitionCard.get("prohibition" + i).setVisible(false);
+                        System.out.println("Entrato");
                     }
                 }
 
                 adjustVisibleIslands();
+
                 for (int i = 0; i < 12; i++)
                     if (!visibleIslands.contains(String.valueOf(i)))
                         islandPanes.get("islandPane" + i).setVisible(false);
+
+                for (int i = 0; i < visibleIslands.size(); i++) {
+                    if (islands.get(i).isForbidden()) {
+                        prohibitionCard.get("prohibition" + getIndexForIsland(islands.get(i))).setImage(new Image("/images/Character/prohibition.png"));
+                        prohibitionCard.get("prohibition" + getIndexForIsland(islands.get(i))).setVisible(true);
+                    } else {
+                        prohibitionCard.get("prohibition" + getIndexForIsland(islands.get(i))).setVisible(false);
+                    }
+                }
                 islandPanes.get("islandPane" + getIndexForIsland(islands.get(gameTable.getMotherNaturePosition()))).getChildren().add(motherNature);
                 motherNature.setX(50);
                 motherNature.setY(40);
