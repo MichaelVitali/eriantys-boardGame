@@ -42,7 +42,7 @@ public class GameTable implements Serializable {
             for (PawnColor color : PawnColor.values()) studentsForIsland.addAll(bag.drawStudentsByColor(2, color));
             for (int i = 0; i < 12; i++) {
                 if (i != motherNaturePosition && i != (motherNaturePosition + 6) % 12)
-                    addStudentOnIsland(studentsForIsland.get(random.nextInt(studentsForIsland.size())), i);
+                    addStudentOnIsland(studentsForIsland.remove(random.nextInt(studentsForIsland.size())), i);
             }
         }catch (InvalidIndexException e){}
     }

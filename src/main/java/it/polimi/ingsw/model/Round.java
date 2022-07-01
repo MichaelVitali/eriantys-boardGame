@@ -235,7 +235,7 @@ public class Round implements Serializable {
      * @throws TooManyMovesException
      */
     public void checkNumberOfMoves(int playerId) throws TooManyMovesException {
-        if(movesCounter[playerId] > 3) throw new TooManyMovesException();
+        if((movesCounter[playerId] > 3 && game.getNumberOfPlayers() != 3) || (movesCounter[playerId] > 4 && game.getNumberOfPlayers() == 3)) throw new TooManyMovesException();
     }
 
     /**
@@ -314,7 +314,7 @@ public class Round implements Serializable {
      * @return true if you can move another student from entrance, false otherwise
      */
     public boolean isTimeToChooseTheNextStudent() {
-        if(roundState == 1 && movesCounter[playerOrder[indexOfPlayerOnTurn]] < 3 )
+        if((roundState == 1 && movesCounter[playerOrder[indexOfPlayerOnTurn]] < 3 && game.getNumberOfPlayers() != 3) || (roundState == 1 && movesCounter[playerOrder[indexOfPlayerOnTurn]] < 4 && game.getNumberOfPlayers() == 3))
             return true;
         return false;
     }
@@ -323,7 +323,7 @@ public class Round implements Serializable {
      * @return true if you have to move mother nature, false otherwise
      */
     public boolean isTimeToMoveMotherNature() {
-        if (roundState == 1 && 3 <= movesCounter[playerOrder[indexOfPlayerOnTurn]])
+        if ((roundState == 1 && 3 <= movesCounter[playerOrder[indexOfPlayerOnTurn]] && game.getNumberOfPlayers() != 3) || (roundState == 1 && 4 <= movesCounter[playerOrder[indexOfPlayerOnTurn]] && game.getNumberOfPlayers() == 3))
             return true;
 
         return false;

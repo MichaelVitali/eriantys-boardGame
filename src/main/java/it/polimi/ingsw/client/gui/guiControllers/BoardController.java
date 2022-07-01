@@ -738,7 +738,6 @@ public class BoardController extends GuiController {
                 for (int i = 0; i < 12; i++) {
                     if (islandPanes.get("islandPane" + i).getChildren().contains(motherNature)) {
                         islandPanes.get("islandPane" + i).getChildren().remove(motherNature);
-                        System.out.println("Entrato");
                     }
                 }
 

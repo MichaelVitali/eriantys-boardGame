@@ -35,7 +35,7 @@ public class Bag implements Serializable {
         List<Student> returnStudents = new ArrayList<>();
         for (int i = 0; i < numberOfStudents; i++) {
             for (int j = 0; j < students.size(); j++) {
-                if (students.get(j).getColor()== color) {
+                if (students.get(j).getColor() == color) {
                     returnStudents.add(students.remove(j));
                     break;
                 }
