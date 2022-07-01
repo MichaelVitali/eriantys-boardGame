@@ -87,6 +87,8 @@ public class BoardController extends GuiController {
     @FXML ImageView prohibition0; @FXML ImageView prohibition1; @FXML ImageView prohibition2; @FXML ImageView prohibition3; @FXML ImageView prohibition4; @FXML ImageView prohibition5; @FXML ImageView prohibition6; @FXML ImageView prohibition7; @FXML ImageView prohibition8;
     @FXML ImageView prohibition9; @FXML ImageView prohibition10; @FXML ImageView prohibition11;
 
+    @FXML ImageView myTowerIcon;
+    @FXML ImageView enemyTowerIcon;
     private Map<String, Button> myEntrance;
     private Map<String, Button> studentsCards;
     private Map<String, ImageView> myEntranceImages;
@@ -455,6 +457,11 @@ public class BoardController extends GuiController {
                 displayEnemyTables(playerOffset);
                 displayEnemyProfessors(playerOffset);
                 displayEnemyAssistant(playerOffset);
+                setTower(enemyTowerIcon, board.getGametable().getSchoolBoards()[(myPlayerId + playerOffset) % board.getNumberOfPLayers()].getTowersColor());
+                Platform.runLater(() -> {
+                    myTowerIcon.setFitHeight(20.0);
+                    myTowerIcon.setFitWidth(30.0);
+                });
             }
         }
     }
@@ -578,6 +585,11 @@ public class BoardController extends GuiController {
             displayMyTables();
             displayMyProfessors();
             displayMyTowers();
+            setTower(myTowerIcon, board.getGametable().getSchoolBoards()[myPlayerId].getTowersColor());
+            Platform.runLater(() -> {
+                myTowerIcon.setFitHeight(20.0);
+                myTowerIcon.setFitWidth(30.0);
+            });
             if (board.getGameMode() == GameMode.EXPERT) Platform.runLater(() -> coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId))));
         }
     }
