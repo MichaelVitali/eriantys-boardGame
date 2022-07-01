@@ -1296,7 +1296,7 @@ public class BoardController extends GuiController {
     /**
      * displays the characters and their elements
      */
-    private void displayCharacter() {
+    public void displayCharacter() {
         if (board.getGameMode() == GameMode.EXPERT) {
             Platform.runLater(new Runnable() {
                 @Override

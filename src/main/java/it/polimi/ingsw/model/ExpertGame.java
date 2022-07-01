@@ -26,7 +26,7 @@ public class ExpertGame extends Game {
         game = new Game(numberOfPlayers, nicknames);
         coinsOfTheTable = 20 - numberOfPlayers;
         playersCoins = new int[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 1;
+        for (int i = 0; i < numberOfPlayers; i++) playersCoins[i] = 10;
         try {
             characters = new Character[3];
             createCharacters();

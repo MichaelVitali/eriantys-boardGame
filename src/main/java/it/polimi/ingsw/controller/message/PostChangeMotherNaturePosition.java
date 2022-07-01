@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.message;
 
 import it.polimi.ingsw.client.gui.guiControllers.BoardController;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameMode;
 
 public class PostChangeMotherNaturePosition extends GameMessage {
 
@@ -24,5 +25,6 @@ public class PostChangeMotherNaturePosition extends GameMessage {
         controller.displayEnemyTowers();
         controller.displayIslands(); /// da far modificare solo due islands
         controller.showGameMessage();
+        if (getGameMode() == GameMode.EXPERT) controller.displayCharacter();
     }
 }
