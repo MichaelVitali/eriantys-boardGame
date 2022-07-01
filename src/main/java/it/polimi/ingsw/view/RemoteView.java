@@ -16,7 +16,7 @@ public class RemoteView extends View {
             try{
                 handleMove(message);
             }catch(IllegalArgumentException | ArrayIndexOutOfBoundsException e){
-                clientConnection.asyncSend("Error!");
+
             }
         }
 
@@ -36,29 +36,28 @@ public class RemoteView extends View {
             model.getPlayer(super.getPlayerId()).setError(false);
         } else if  (model.getRound().getRoundState() == 0) {
             message = new PostPlayAssistantMessage(model, super.getPlayerId());
-            System.out.println("PostAssistant");
+            //System.out.println("PostAssistant");
         } else if (model.getRound().getRoundState() == 1 && model.getRound().getPreviousState() == 0) {
             message = new PostPlayAssistantMessage(model, super.getPlayerId());
-            System.out.println("PostAssistant");
-        } else if (model.getRound().getRoundState() == 1 && model.getRound().getPreviousState() == 3)
-        {
-            System.out.println("PostCloudMessage");
+            //System.out.println("PostAssistant");
+        } else if (model.getRound().getRoundState() == 1 && model.getRound().getPreviousState() == 3) {
+            //System.out.println("PostCloudMessage");
             message = new PostGetStudentsFromCloudsMessage(model, super.getPlayerId());
         } else if ((model.getRound().getRoundState() == 1 || model.getRound().getRoundState() == 2) && !model.getRound().isIslandMessage() && model.getRound().getPreviousState() == 1) {
             message = new PostAddStudentOnTableMessage(model, super.getPlayerId());
-            System.out.println("PostAddStudentOnTable");
+            //System.out.println("PostAddStudentOnTable");
         } else if ((model.getRound().getRoundState() == 1 || model.getRound().getRoundState() == 2) && !model.getRound().isIslandMessage() && model.getRound().getPreviousState() == 1) {
             message = new PostAddStudentOnIslandMessage(model, super.getPlayerId());
-            System.out.println("PostAddStudentsOnIsland");
+            //System.out.println("PostAddStudentsOnIsland");
         } else if (model.getRound().getRoundState() == 3)  {
             message = new PostChangeMotherNaturePosition(model, super.getPlayerId());
-            System.out.println("PostChangeMotherNaturePosition");
+            //System.out.println("PostChangeMotherNaturePosition");
         }
         else if (model.getRound().getRoundState() >= 4) {
             message = new GameMessage(model, super.getPlayerId());
-            System.out.println("PostCharacter o altro, ad esempio Endgame");
+            //System.out.println("PostCharacter o altro, ad esempio Endgame");
         } else {
-            System.out.println("State : " + model.getRound().getRoundState() + " round class : " + model.getRound().getClass() + " (RemoteView)");
+            //System.out.println("State : " + model.getRound().getRoundState() + " round class : " + model.getRound().getClass() + " (RemoteView)");
             message = new GameMessage(model, super.getPlayerId());
         }
         if (message != null)

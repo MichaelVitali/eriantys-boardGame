@@ -80,7 +80,7 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
 
     @Override
     public synchronized void closeConnection() {
-        send(new TerminatorMessage("The game is over"));
+        send(new TerminatorMessage("You have been disconnected. The match is over"));
         try {
             socket.close();
         } catch (IOException e) {
@@ -128,8 +128,13 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             int gameMode = -1;
             do {
                 buffer = in.readObject();
-                if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.MATCHMODE && ((SetupMessage) buffer).getMessage() != null)
-                    gameMode = Integer.parseInt(((SetupMessage) buffer).getMessage());
+                if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.MATCHMODE && ((SetupMessage) buffer).getMessage() != null) {
+                    try {
+                        gameMode = Integer.parseInt(((SetupMessage) buffer).getMessage());
+                    } catch (NumberFormatException e) {
+                        send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
+                    }
+                }
                 else
                     send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
             } while (gameMode != 0 && gameMode != 1);
@@ -139,9 +144,13 @@ public class ClientSocketConnection extends Observable<PlayerMessage> implements
             int numberOfPlayers = 0;
             do {
                 buffer = in.readObject();
-                if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.NUMBEROFPLAYERS)
-                    numberOfPlayers = Integer.parseInt(((SetupMessage) buffer).getMessage());
-                else
+                if (buffer instanceof SetupMessage && ((SetupMessage) buffer).getConnectionState() == ConnectionState.NUMBEROFPLAYERS) {
+                    try {
+                        numberOfPlayers = Integer.parseInt(((SetupMessage) buffer).getMessage());
+                    } catch (NumberFormatException e) {
+                        send(new SetupMessage(ConnectionState.MATCHMODE, "Error : you are not sending the correct information\nChoose game mode { 0 : normal mode - 1 : expert mode } :"));
+                    }
+                } else
                     send(new SetupMessage(ConnectionState.NUMBEROFPLAYERS, "Error : you are not sending the correct information\nChoose number of players { 2 : match with two players - 3 : match with three players - 4 : match with four players} :"));
             } while (numberOfPlayers < 2 || numberOfPlayers > 4);
             System.out.println("The player with socket " + this + " choose " + numberOfPlayers + " players mode");
