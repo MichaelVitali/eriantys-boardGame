@@ -75,7 +75,7 @@ Grazie a tale strumento sono anche stati creati i jar. Per sviluppare il progett
 <h3>Jars</h3>
 I file jar generati sono due: uno per il client e uno per il server. Gli eseguibili si possono trovare a questi link:<br>
 
-- [jars](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/tree/master/deliverables/jar)
+- [jars](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/tree/master/deliverables/jars)
 
 <h2>Esecuzione</h2>
 
