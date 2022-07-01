@@ -103,7 +103,7 @@ public class ClientCli {
                 } catch (ConnectionClosedFromServerExcecption e) {
                     System.out.println(e.getMessage());
                 } catch (Exception e){
-                    System.out.println("Connection closed, by");
+                    System.out.println("Connection closed, bye");
                     setActive(false);
                 }
             }
@@ -190,6 +190,7 @@ public class ClientCli {
                         socketOut.reset();
                     }
                 } catch(Exception e) {
+                    System.out.println("Connection closed, bye");
                     setActive(false);
                 }
             }

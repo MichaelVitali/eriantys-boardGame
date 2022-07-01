@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT = 50000;
+    private static int port = 50000;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private int nextMatchId;
@@ -28,8 +28,9 @@ public class Server {
      * Creates a server instance with a server socket accepting connection on port 40000
      * @throws IOException if there is an input/output error
      */
-    public Server() throws IOException {
-        this.serverSocket = new ServerSocket(PORT);
+    public Server(int port) throws IOException {
+        this.port = port;
+        this.serverSocket = new ServerSocket(port);
     }
 
     /**
