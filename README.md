@@ -23,7 +23,6 @@ Il gioco è stato implementato in modo che sia pienamente utilizzabile su sistem
 
 ---
 
-<h3>Documentazione</h3>
 All'interno della cartella "deliverables" si trova la documentazione necessaria per comprendere quale è stata la logica di progettazione del gioco.
 
 <h3>UML</h3>
