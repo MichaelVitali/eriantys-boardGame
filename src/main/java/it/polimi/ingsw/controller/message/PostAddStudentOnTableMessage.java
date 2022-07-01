@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.message;
 
 import it.polimi.ingsw.client.gui.guiControllers.BoardController;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameMode;
 
 public class PostAddStudentOnTableMessage extends GameMessage {
 
@@ -23,6 +24,7 @@ public class PostAddStudentOnTableMessage extends GameMessage {
         if (getPlayerOnTurn() == getPlayerId()) {
             controller.displayMyEntrance();
             controller.displayMyTables();
+            if (getGameMode() == GameMode.EXPERT) controller.displayCoin();
         } else {
             controller.displayEnemyEntrance();
             controller.displayEnemyTables();

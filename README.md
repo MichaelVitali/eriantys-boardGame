@@ -41,7 +41,8 @@ Per maggiori dettagli inerenti la comunicazione di rete consultare il seguente l
 <h3>Test coverage</h3>
 Sono stati scritti i test necessari ad avere una buona copertura dei metodi implementati nelle classi di modello e controller.
 
-Da inserire il report<br><br><br><br><br>
+![alt text](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/blob/master/deliverables/test%20Coverage/report_coverage.jpg?raw=true)
+<br><br><br><br><br>
 
 <h3>JavaDoc</h3>
 La JavaDoc, redatta in parallelo allo sviluppo del gioco, fornisce una descrizione della maggior parte dei metodi implementati. Essa segue le tecniche di documentazione di Java.
@@ -71,7 +72,7 @@ Il progetto sfrutta Maven per automatizzare il processo di compilazione.
 Grazie a tale strumento sono anche stati creati i jar. Per sviluppare il progetto e compilarlo è stata usata la versione 17 di Java.
 
 <h3>Jars</h3>
-I file jar generati sono due: uno per il client e uno per il server. Gli eseguibili si possono trovare a questi link:
+I file jar generati sono due: uno per il client e uno per il server. Gli eseguibili si possono trovare a questi link:<br>
 
 - [jars](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/tree/master/deliverables/jars)
 
@@ -80,18 +81,21 @@ I file jar generati sono due: uno per il client e uno per il server. Gli eseguib
 ---
 
 <h3>CLI</h3>
-Per avviare il client di Eriantys e giocare da CLI, il comando, da digitare sul terminale, è:
+Per avviare il client di Eriantys e giocare da CLI, il comando, da digitare sul terminale, è:<br>
+
 ```
 java -jar eriantys-client.jar cli server-ip-address [server-port-number]
 ```
 
 <h3>GUI</h3>
-Per avviare il client di Eriantys e giocare da GUI, il comando, da digitare sul terminale, è:
+Per avviare il client di Eriantys e giocare da GUI, il comando, da digitare sul terminale, è:<br>
+
 ```
 java -jar eriantys-client.jar gui server-ip-address [server-port-number]
 ```
 <h3>Server</h3>
-Per avviare il server di Eriantys, il comando, da digitare sul terminale, è:
+Per avviare il server di Eriantys, il comando, da digitare sul terminale, è:<br>
+
 ```
 java -jar eriantys-server.jar [server-port-number]
 ```
@@ -103,6 +107,6 @@ I parametri tra parentesi quadre sono facoltativi e permettono di cambiare porta
 
 ---
 
-- Michael Vitali
+- Michael Vitali 10730463
 - Manuel Tacca
 - Simionato Enrico 10698193
