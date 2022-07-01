@@ -137,6 +137,7 @@ public class ExpertGame extends Game {
                     break;
             }
         }
+
         Random rnd = new Random();
         int numberOfCharacter = 12;
         for (int i = 0; i < 3; i++) {

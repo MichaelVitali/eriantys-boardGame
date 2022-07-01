@@ -23,7 +23,7 @@ public class PostChangeMotherNaturePosition extends GameMessage {
     public void renderWhatNeeded(BoardController controller) {
         controller.displayMyTowers();
         controller.displayEnemyTowers();
-        controller.displayIslands(); /// da far modificare solo due islands
+        controller.displayIslands();
         controller.showGameMessage();
         if (getGameMode() == GameMode.EXPERT) controller.displayCharacter();
     }
