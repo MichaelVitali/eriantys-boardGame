@@ -459,8 +459,8 @@ public class BoardController extends GuiController {
                 displayEnemyAssistant(playerOffset);
                 setTower(enemyTowerIcon, board.getGametable().getSchoolBoards()[(myPlayerId + playerOffset) % board.getNumberOfPLayers()].getTowersColor());
                 Platform.runLater(() -> {
-                    myTowerIcon.setFitHeight(20.0);
-                    myTowerIcon.setFitWidth(30.0);
+                    enemyTowerIcon.setFitHeight(20.0);
+                    enemyTowerIcon.setFitWidth(30.0);
                 });
             }
         }
