@@ -571,7 +571,7 @@ public class BoardController extends GuiController {
             displayMyTables();
             displayMyProfessors();
             displayMyTowers();
-            if (board.getGameMode() == GameMode.EXPERT) Platform.runLater(() -> coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId))));;
+            if (board.getGameMode() == GameMode.EXPERT) Platform.runLater(() -> coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId))));
         }
     }
 
@@ -656,10 +656,11 @@ public class BoardController extends GuiController {
     /**
      * Displays the coins of the actual player
      */
-    private void displayCoin() {
+    public void displayCoin() {
         Platform.runLater(() -> {
             coinImage.setVisible(true);
             coinNumber.setVisible(true);
+            coinNumber.setText(String.valueOf(board.getPlayesCoins(myPlayerId)));
             coinTableImage.setVisible(true);
             coinTableImage.setImage(new Image("/images/coin.png"));
             coinTableNumber.setVisible(true);
