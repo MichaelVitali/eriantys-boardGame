@@ -108,5 +108,5 @@ I parametri tra parentesi quadre sono facoltativi e permettono di cambiare porta
 ---
 
 - Michael Vitali 10730463
-- Manuel Tacca
-- Simionato Enrico 10698193
+- Manuel Tacca 10707009
+- Enrico Simionato 10698193
