@@ -17,7 +17,7 @@ L'implementazione dell'intero progetto sfrutta il pattern MVC (Model-View-Contro
 Lo scambio di messaggi tramite la rete è stato gestito mediante socket.
 
 <h3>Note iniziali</h3>
-Il gioco è stato implementato in modo che sia pienamente utilizzabile su sistemi operativi Linux, questo a causa di alcune scelte implementative. Su sistemi operativi diversi non è garantita la perfetta fruibilità.
+Il gioco è stato implementato in modo che sia pienamente utilizzabile su sistemi operativi Linux, questo a causa di alcune scelte implementative. Su sistemi operativi diversi non è garantita la perfetta fruibilità. Su Windows la GUI è utilizzabile con uno schermo sufficientemente ampio, mentre alcuni caratteri della CLI non vengono riconosciuti.
 
 <h2>Documentazione</h2>
 
