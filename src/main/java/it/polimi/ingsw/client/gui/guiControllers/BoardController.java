@@ -84,6 +84,8 @@ public class BoardController extends GuiController {
     @FXML Button table0; @FXML Button table1; @FXML Button table2; @FXML Button table3; @FXML Button table4;
     @FXML ImageView coinTableImage; @FXML Label coinTableNumber;
     @FXML ImageView coinCharacter1; @FXML ImageView coinCharacter2; @FXML ImageView coinCharacter3;
+    @FXML ImageView prohibition0; @FXML ImageView prohibition1; @FXML ImageView prohibition2; @FXML ImageView prohibition3; @FXML ImageView prohibition4; @FXML ImageView prohibition5; @FXML ImageView prohibition6; @FXML ImageView prohibition7; @FXML ImageView prohibition8;
+    @FXML ImageView prohibition9; @FXML ImageView prohibition10; @FXML ImageView prohibition11;
 
     private Map<String, Button> myEntrance;
     private Map<String, Button> studentsCards;
@@ -91,6 +93,7 @@ public class BoardController extends GuiController {
     private Map<String, ImageView> myProfessors;
     private Map<String, ImageView> myTablesImages;
     private Map<String, ImageView> myTowers;
+    private Map<String, ImageView> prohibitionCard;
 
     private Map<String, ImageView> enemyEntrance;
     private Map<String, ImageView> enemyProfessors;
@@ -168,6 +171,7 @@ public class BoardController extends GuiController {
         towersOnIslands = new HashMap<>();
         imageStudentsCounts = new HashMap<>();
         studentsCounts = new HashMap<>();
+        prohibitionCard = new HashMap<>();
 
 
         enemyProfessors.put("enemyProfessor0", enemyProfessor0); enemyProfessors.put("enemyProfessor1", enemyProfessor1); enemyProfessors.put("enemyProfessor2", enemyProfessor2); enemyProfessors.put("enemyProfessor3", enemyProfessor3); enemyProfessors.put("enemyProfessor4", enemyProfessor4);
@@ -211,6 +215,9 @@ public class BoardController extends GuiController {
         clouds.put("cloud0", cloud0); clouds.put("cloud1", cloud1); clouds.put("cloud2", cloud2); clouds.put("cloud3", cloud3);
         studentsClouds.put("cloud0Student0", cloud0Student0); studentsClouds.put("cloud0Student1", cloud0Student1); studentsClouds.put("cloud0Student2", cloud0Student2); studentsClouds.put("cloud0Student3", cloud0Student3); studentsClouds.put("cloud1Student0", cloud1Student0); studentsClouds.put("cloud1Student1", cloud1Student1); studentsClouds.put("cloud1Student2", cloud1Student2); studentsClouds.put("cloud1Student3", cloud1Student3);
         studentsClouds.put("cloud2Student0", cloud2Student0); studentsClouds.put("cloud2Student1", cloud2Student1); studentsClouds.put("cloud2Student2", cloud2Student2); studentsClouds.put("cloud2Student3", cloud2Student3); studentsClouds.put("cloud3Student0", cloud3Student0); studentsClouds.put("cloud3Student1", cloud3Student1); studentsClouds.put("cloud3Student2", cloud3Student2);
+        prohibitionCard.put("prohibition0", prohibition0); prohibitionCard.put("prohibition1", prohibition1); prohibitionCard.put("prohibition2", prohibition2); prohibitionCard.put("prohibition3", prohibition3); prohibitionCard.put("prohibition4", prohibition4); prohibitionCard.put("prohibition5", prohibition5); prohibitionCard.put("prohibition6", prohibition6);
+        prohibitionCard.put("prohibition7", prohibition7); prohibitionCard.put("prohibition8", prohibition8); prohibitionCard.put("prohibition9", prohibition9); prohibitionCard.put("prohibition10", prohibition10); prohibitionCard.put("prohibition11", prohibition11);
+
         for(int i = 0; i < 12; i++)
             visibleIslands.add(String.valueOf(i));
         indexLastCharacterPlayed = 0;
@@ -715,7 +722,6 @@ public class BoardController extends GuiController {
                 for(int j = 0; j < indexes.size(); j++)
                     indexesAsStrings.add(indexes.get(j).toString());
                 if(minorIndex.isPresent()) {
-                    //System.out.println(String.valueOf(minorIndex.getAsInt()));
                     indexesAsStrings.remove(String.valueOf(minorIndex.getAsInt()));
                     visibleIslands.removeAll(indexesAsStrings);
                 }
@@ -730,17 +736,24 @@ public class BoardController extends GuiController {
         Platform.runLater(() -> {
             GameTable gameTable = board.getGametable();
             List<Island> islands = gameTable == null ? null : board.getGametable().getIslands();
+
             if(islands != null) {
-                for (int i = 0; i < visibleIslands.size(); i++)
+                for (int i = 0; i < visibleIslands.size(); i++) {
                     if (islandPanes.get("islandPane" + i).getChildren().contains(motherNature))
                         islandPanes.get("islandPane" + i).getChildren().remove(motherNature);
+                    if (islands.get(i).isForbidden()) {
+                        prohibitionCard.get("prohibition" + i).setImage(new Image("/images/Character/prohibition.png"));
+                        prohibitionCard.get("prohibition" + i).setVisible(true);
+                    } else {
+                        prohibitionCard.get("prohibition" + i).setVisible(false);
+                    }
+                }
+
                 adjustVisibleIslands();
                 for (int i = 0; i < 12; i++)
                     if (!visibleIslands.contains(String.valueOf(i)))
                         islandPanes.get("islandPane" + i).setVisible(false);
                 islandPanes.get("islandPane" + getIndexForIsland(islands.get(gameTable.getMotherNaturePosition()))).getChildren().add(motherNature);
-                //System.out.println("Mother nature islandPane : " + getIndexForIsland(islands.get(gameTable.getMotherNaturePosition())));
-                //System.out.println("Mother nature index on model" + gameTable.getMotherNaturePosition());
                 motherNature.setX(50);
                 motherNature.setY(40);
 
