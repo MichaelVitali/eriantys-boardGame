@@ -23,7 +23,6 @@ Il gioco è stato implementato in modo che sia pienamente utilizzabile su sistem
 
 ---
 
-<h3>Documentazione</h3>
 All'interno della cartella "deliverables" si trova la documentazione necessaria per comprendere quale è stata la logica di progettazione del gioco.
 
 <h3>UML</h3>
@@ -36,7 +35,7 @@ Le seguenti cartelle contengono rispettivamente i diagrammi delle classi nella l
 Per la comunicazione di rete sono stati usati i Socket di Java. I messaggi che vengono ricevuti lato client renderizzano (o stampano a video) le modifiche effettuate sul modello. I messaggi che vengono inviati dal client, e quindi ricevuti dal server, richiedono di effettuare una certa azione di setup, o di gioco.<br>
 Per maggiori dettagli inerenti la comunicazione di rete consultare il seguente link: 
 
-- [protocollo di comunicazione](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/blob/master/deliverables/communication%20protocol/connection_model.odt)
+- [protocollo di comunicazione](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/blob/master/deliverables/communication%20protocol)
 
 <h3>Test coverage</h3>
 Sono stati scritti i test necessari ad avere una buona copertura dei metodi implementati nelle classi di modello e controller.
