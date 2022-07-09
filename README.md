@@ -104,10 +104,3 @@ java -jar eriantys-server.jar [server-port-number]
 <h3>Parametri facoltativi</h3>
 I parametri tra parentesi quadre sono facoltativi e permettono di cambiare porta su cui mettere in ascolto il server. Di default la porta è 50000. Se viene modificata la porta su client, o sul server, deve essere avviato anche l'altro componente con la porta diversa.
 
-<h2>Componenti del gruppo</h2>
-
----
-
-- Michael Vitali 10730463
-- Manuel Tacca 10707009
-- Enrico Simionato 10698193
