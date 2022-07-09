@@ -17,7 +17,7 @@ L'implementazione dell'intero progetto sfrutta il pattern MVC (Model-View-Contro
 Lo scambio di messaggi tramite la rete è stato gestito mediante socket.
 
 <h3>Note iniziali</h3>
-Il gioco è stato implementato in modo che sia pienamente utilizzabile su sistemi operativi Linux, questo a causa di alcune scelte implementative. Su sistemi operativi diversi non è garantita la perfetta fruibilità.
+Il gioco è stato implementato in modo che sia pienamente utilizzabile su sistemi operativi Linux, questo a causa di alcune scelte implementative. Su sistemi operativi diversi non è garantita la perfetta fruibilità. Su Windows la GUI è utilizzabile con uno schermo sufficientemente ampio, mentre alcuni caratteri della CLI non vengono riconosciuti.
 
 <h2>Documentazione</h2>
 
@@ -75,7 +75,7 @@ Grazie a tale strumento sono anche stati creati i jar. Per sviluppare il progett
 <h3>Jars</h3>
 I file jar generati sono due: uno per il client e uno per il server. Gli eseguibili si possono trovare a questi link:<br>
 
-- [jars](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/tree/master/deliverables/jar)
+- [jars](https://github.com/MichaelVitali/ing-sw-2022-Vitali-Tacca-Simionato/tree/master/deliverables/jars)
 
 <h2>Esecuzione</h2>
 
