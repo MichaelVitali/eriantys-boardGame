@@ -1,7 +1,4 @@
-# ing-sw-2022-Vitali-Tacca-Simionato
-
-<h2>Prova Finale di Ingegneria del Software
-2021 - 2022</h2>
+# Prova Finale di Ingegneria del Software 2021 - 2022
 
 ---
 
